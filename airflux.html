@@ -1,0 +1,3207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>airflux — Nefeli Lemessiou</title>
+<style id="inlined-styles">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+
+
+/* ============================================================
+   NEFELI LEMESSIOU — "SKETCHBOOK" DESIGN SYSTEM
+   Reusable styles + exact SVG marks used across the portfolio.
+   Drop this into any page's <style> (or styles.css) and apply
+   the classes/markup as described in the GUIDE at the bottom.
+
+   Depends on two things the site already defines:
+     --hand    handwriting font  ('Nefs', 'Instrument Serif', cursive)
+     #7C5BD6   the purple site accent
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. PAPER GRAIN  — body + fixed nav
+   Very low-alpha SVG noise. Should register as warmth, not as
+   a visible paper image. Apply to BOTH body and nav so the
+   texture is continuous as the fixed nav sits over the page.
+   On project pages, scope the body rule to that page's body
+   class, e.g.  body.case-onaka { ... }
+   ------------------------------------------------------------ */
+body {
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+}
+.nav {
+  /* warm the existing translucent tint to match the paper, keep the blur */
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   2. ACTIVE-NAV OVAL  (purple — shared site furniture)
+   Replaces the active link's pill/underline with a hand-drawn
+   loop. Requires the inline <svg class="scribble-oval"> inside
+   the active <a> (see GUIDE).
+   ------------------------------------------------------------ */
+.nav-links a { position: relative; }
+.nav-links a.active {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #7C5BD6 !important;
+}
+.nav-links a .scribble-oval {
+  position: absolute; inset: -4px -6px;
+  pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.nav-links a.active .scribble-oval { opacity: 1; }
+
+
+/* ------------------------------------------------------------
+   3. HAND-DRAWN ARROW
+   Used in CTAs ("View all work", "See more about me") and in
+   project-card hover-reveal corners, replacing any "→" glyph.
+   Wrap in a span; the inline <svg> uses stroke="currentColor"
+   so it inherits the surrounding text colour.
+   ------------------------------------------------------------ */
+.arr-hand {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px !important; height: 28px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #7C5BD6 !important;        /* or currentColor on dark overlays */
+}
+.arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+/* optional nudge on hover when used in a link */
+a:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+
+/* ------------------------------------------------------------
+   4. HAND-DRAWN UNDERLINE  (.ink)
+   A wobbly SVG as a background-image so it hugs the baseline
+   and wraps correctly across lines, even inside headings.
+   Apply to ONE key emphasis phrase per major section.
+   ------------------------------------------------------------ */
+.ink {
+  color: #7C5BD6;
+  font-style: normal;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 9' preserveAspectRatio='none'><path d='M 2,5 C 14,2 28,7 42,4 C 58,2 74,8 90,5 C 106,2 122,7 138,4 C 154,2 170,8 186,4 C 194,5 196,4 198,5' fill='none' stroke='%237C5BD6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.02em);
+  background-size: 100% 0.16em;
+  padding-bottom: 0.06em;
+}
+em.ink, .ink em { font-style: normal; }
+
+
+/* ------------------------------------------------------------
+   5. MARGINALIA  — small handwritten notes in the gutters
+   Position each instance with its own modifier class (examples
+   below). Keep to ~1–2 per page, lowercase, and hide on narrow
+   viewports so they never crop. Each note's parent must be
+   position: relative.
+   ------------------------------------------------------------ */
+.marginalia {
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 400;
+  font-size: 22px;
+  color: #7C5BD6;
+  line-height: 1.05;
+  letter-spacing: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: none;
+  z-index: 6;
+}
+.marginalia .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px; height: 12px;
+}
+.marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+/* --- example per-instance placements (tune the px to your layout) --- */
+.marg-hello     { top: calc(100% - 4px); left: 0; transform: rotate(-3deg); font-size: 24px; }   /* homepage greeting */
+.marg-available { top: -30px; right: 0;  transform: rotate(-2deg); font-size: 20px; }              /* "open to work" block */
+.marg-work      { top: -6px; left: calc(100% + 14px); transform: rotate(-3deg); font-size: 21px; }/* "selected work" label */
+.marg-count     { top: -34px; right: -10px; transform: rotate(-3deg); font-size: 22px; }           /* work-page project count */
+.marg-hint      { bottom: -34px; left: 0; transform: rotate(-2deg); font-size: 20px; }             /* work-page intro / hover hint */
+.marg-cta       { top: -34px; left: 0; transform: rotate(-3deg); font-size: 22px; }                /* about-page hire CTA */
+.marg-cando     { top: -8px; left: calc(100% + 16px); transform: rotate(-2deg); font-size: 20px; } /* about-page skills heading */
+@media (max-width: 900px) {
+  .marg-available, .marg-work, .marg-hint, .marg-cando { display: none; }
+}
+@media (max-width: 760px) { .marg-hello { display: none; } }
+
+
+/* ------------------------------------------------------------
+   6. TAPED PHOTO PRINTS  — project cards (work page + homepage)
+   Slight FIXED rotation per card, soft-grey paper-tape strip,
+   sharp corners, lifted shadow. Straighten-on-focus is wired
+   into the existing focus-gallery hover (see 6b).
+   Scope to your grid container (.focus-grid / .home-focus).
+   ------------------------------------------------------------ */
+.focus-grid .project-card,
+.home-focus .project-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease;
+}
+.focus-grid .project-thumb,
+.home-focus .project-thumb {
+  border-radius: 2px;              /* sharp print edge, not rounded card */
+  box-shadow: 0 12px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* the tape strip */
+.focus-grid .project-card::before,
+.home-focus .project-card::before {
+  content: '';
+  position: absolute;
+  width: 96px; height: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  z-index: 4; pointer-events: none;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+  transition: opacity .35s ease;
+}
+.project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+.project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+.project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+.project-card:hover::before { opacity: .55; }
+
+/* per-card FIXED rotations — never randomize */
+.c-onaka   { --rot: -1.2deg; }
+.c-period  { --rot:  1.6deg; }
+.c-numa    { --rot: -2.0deg; }
+.c-airflux { --rot:  1.2deg; }
+.c-milo    { --rot:  2.0deg; }
+.c-vatten  { --rot: -1.4deg; }
+.c-ilia    { --rot:  1.0deg; }
+
+/* 6b. straighten-on-focus, layered onto the existing focus gallery */
+.focus-grid:hover .project-card,
+.home-focus:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+.focus-grid:hover .project-card img,
+.home-focus:hover .project-card img { filter: saturate(.55); }
+.focus-grid:hover .project-card:hover,
+.home-focus:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+.focus-grid:hover .project-card:hover .project-thumb,
+.home-focus:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); }
+.focus-grid:hover .project-card:hover img,
+.home-focus:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+/* hover-revealed title in handwriting */
+.pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; }
+.pj-reveal .go { width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ------------------------------------------------------------
+   7. TAPED PORTRAIT  — about page
+   Same print treatment for the .portrait figure. Remove any
+   overflow:hidden so the tape can sit outside the edge.
+   ------------------------------------------------------------ */
+.portrait {
+  position: relative;
+  border-radius: 2px;
+  transform: rotate(1.5deg);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12), 0 3px 8px rgba(0,0,0,.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  /* NOTE: delete `overflow: hidden;` from the original .portrait rule */
+}
+.portrait:hover { transform: rotate(0deg); }
+.portrait img { border-radius: 2px; }
+.portrait::before {
+  content: '';
+  position: absolute;
+  width: 110px; height: 28px;
+  top: -12px; left: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.82) 0%, rgba(200,198,190,.74) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  transform: rotate(-7deg);
+  z-index: 4; pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   8. MARQUEE  — make the homepage ticker blend in
+   ------------------------------------------------------------ */
+.marquee {
+  background: transparent !important;
+  border-top: 1px solid var(--grey-line, #E5E2DD) !important;
+  border-bottom: 1px solid var(--grey-line, #E5E2DD) !important;
+  padding: 13px 0 !important;
+  font-size: clamp(15px, 1.6vw, 22px) !important;
+  color: var(--ink-soft, #6B6B6B) !important;
+}
+.marquee em { color: var(--ink-soft, #6B6B6B) !important; }
+.marquee-track .dot { width: 6px !important; height: 6px !important; background: #7C5BD6 !important; opacity: .6; }
+
+
+/* ------------------------------------------------------------
+   9. PROJECT-PAGE SECTION-NOTE ARROW  (project pages only)
+   Replaces the typographic "↓" above each handwritten margin
+   note with a hand-drawn down-arrow, rendered in THAT PROJECT'S
+   own deep accent colour (NOT purple). Set the colour per page
+   to its --{accent}-deep variable, e.g. var(--blue-deep) on
+   onaka, var(--copper-deep) on period, etc.
+   ------------------------------------------------------------ */
+.section-marker .note::before { display: none !important; }   /* drop the ↓ glyph */
+.section-marker .note { position: relative; padding-top: 1.6rem; }
+.section-marker .note .hand-arr {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 16px;
+  color: var(--blue-deep);          /* <-- change per project page */
+}
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ============================================================
+   GUIDE — markup snippets & where to apply
+   ============================================================
+
+   ACTIVE-NAV OVAL — put inside the active <a> (Home on homepage,
+   Work on work + project pages, About on about page):
+
+     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval"
+       viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20"
+         fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/>
+     </svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+
+   HAND-DRAWN ARROW — replace a "→" in a CTA or reveal corner.
+   On dark overlays set stroke="currentColor" and color:#fff on the span:
+
+     <span class="arr arr-hand"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>
+
+   UNDERLINE — wrap one key phrase per section:
+     ... where <span class="ink">calm, considered detail</span> still matters ...
+
+   MARGINALIA — parent must be position:relative; arrow optional,
+   rotate it to point at the thing it annotates:
+     <span class="marginalia marg-hello">
+       <span class="arrow" style="transform: rotate(-130deg); margin-right:4px;">
+         <svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+           <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+           <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+       </span>that's me</span>
+   Suggested notes: homepage "that's me" / "available!" / "favourites";
+   work "still growing" / "try hovering"; about "hi, hire me" / "the toolkit".
+
+   TAPED CARDS — add per-card + tape-position classes to each card:
+     <a class="project-card ... c-onaka tape-tl" href="onaka.html"> ... </a>
+   Tape positions distributed across the grid: tl / tc / tr.
+
+   PROJECT-PAGE SECTION NOTE — replace the old note with the arrow,
+   and set .hand-arr colour to the page's own --{accent}-deep:
+     <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>where it all began</span>
+   Per-page note colour: onaka var(--blue-deep), period var(--copper-deep),
+   numa var(--numa-deep), milo var(--mustard-deep), vattenkanna var(--sage-deep),
+   ilia var(--walnut-deep), airflux var(--teal-deep).
+   (Purple stays for shared furniture only; each project keeps its own colour.)
+
+   DELIVERY — these pages load styles.css + script.js externally and are
+   often opened as standalone files, so always ship a SELF-CONTAINED copy:
+   inline styles.css into a <style> (replacing the <link>) and script.js
+   into a <script> (replacing the external src), so each page renders
+   with no external dependencies.
+   ============================================================ */
+
+
+/* ============================================
+   Override: hide the legacy ↗ pill from .project-card::after
+   so the new .pj-reveal overlay (Nefs name + hand-drawn arrow) wins
+   ============================================ */
+.focus-grid .project-card::after,
+.home-focus .project-card::after {
+  content: '' !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* The .pj-reveal overlay on project cards: hovered reveals Nefs title + arrow */
+.pj-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 18px 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 5;
+  border-radius: 2px;
+}
+.focus-grid .project-card:hover .pj-reveal,
+.home-focus .project-card:hover .pj-reveal { opacity: 1; }
+.pj-reveal .nm { color: #fff; }
+
+/* Anchors / parents of marginalia must be relative — applied via inline style in HTML */
+
+
+/* ============================================
+   Project-page: section-marker hand-arr inherits the note's own
+   per-project deep accent colour (instead of hardcoded blue)
+   ============================================ */
+.section-marker .note .hand-arr { color: inherit !important; }
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirFlux · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('assets/nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* AirFlux uses cool teal, clean engineering register, distinct from onaka's
+       brighter blue-purple. Sits in the "industrial calm" side of the palette set. */
+    --teal: #4F7079;
+    --teal-deep: #33525A;
+    --teal-soft: #E4ECEE;
+    --teal-bright: #6E8E97;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --bg-warm: #F4F6F7;
+    --rule: #E3E6E8;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--teal-deep); font-weight: inherit; }
+
+  /* NAV */
+  .upload-nav-disabled-airflux {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID: section structure, identical to the other case studies */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--teal-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--teal-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: none;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--teal-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--teal-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--teal);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* §01 BAKELITE COMPARISON: side by side image strip */
+  .bakelite-compare {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  .bc-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .bc-img {
+    overflow: hidden;
+    background: transparent;
+  }
+  .bc-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .bc-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .bc-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .bc-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .bc-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 0.85rem;
+  }
+  .bc-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .bc-cell strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+  .bc-note {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    margin-top: 0.2rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .bakelite-compare { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+
+
+<style id="sketchbook-extras">
+  /* Sketchbook reconciliation — added */
+
+    /* Paper grain on body + nav — matches the rest of the site */
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    background-repeat: repeat !important;
+    background-attachment: scroll !important;
+  }
+  nav.nav {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    background-image: none !important;
+  }
+
+  /* Purple oval around active nav link (Work on project pages) */
+  nav.nav .nav-links a.active {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: #7C5BD6 !important;
+  }
+
+  /* Taped-print treatment for hero image (subtle — no big rotation since it's a banner) */
+  figure.hero-image {
+    position: relative;
+    border-radius: 2px !important;
+    overflow: visible !important;
+    box-shadow: 0 8px 22px rgba(40, 28, 0, 0.10), 0 2px 6px rgba(40, 28, 0, 0.06);
+  }
+  figure.hero-image::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    margin-left: -48px;
+    width: 96px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 3;
+    transform: rotate(-3deg);
+    pointer-events: none;
+  }
+
+  /* Hide the legacy ::before arrow — the inline <span class="hand-arr"> in each note is the canonical arrow */
+  .section-marker .note::before { display: none !important; content: '' !important; }
+</style>
+<style id="nav-dropdown-css">
+.nav-item-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  border: 1px solid var(--grey-line, #D6D6D6);
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(40, 28, 0, 0.10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+/* invisible bridge so hover survives the gap between Work link and the dropdown */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.nav-dropdown a:hover {
+  color: var(--purple);
+}
+.nav-dropdown a .nu {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute, #8E8E8E);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover .nu {
+  color: var(--purple);
+}
+@media (max-width: 720px) {
+  .nav-dropdown { display: none !important; }
+}
+/* "All work" — hidden in the desktop hover menu, shown only in the mobile menu */
+.nav-dd-all { display: none !important; }
+@media (max-width: 720px) {
+  .nav-item-dropdown.open .nav-dropdown a.nav-dd-all { display: flex !important; }
+}
+</style>
+
+<style id="mobile-nav-css">
+  .nav-burger { display: none; }
+  @media (max-width: 720px) {
+    nav.nav { position: fixed; }
+    .nav-burger { display:inline-flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:40px; padding:9px; background:none; border:none; cursor:pointer; z-index:130; margin-left:auto; }
+    .nav-burger span { display:block; width:22px; height:2px; border-radius:2px; background:#0E0E0C; transition: transform .25s ease, opacity .2s ease; }
+    nav.nav.menu-open .nav-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    nav.nav.menu-open .nav-burger span:nth-child(2){ opacity:0; }
+    nav.nav.menu-open .nav-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    html nav.nav .nav-links,
+    html body[class*="case-"] nav.nav .nav-links {
+      display:none !important; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column !important; align-items:stretch !important; gap:0 !important;
+      background:#FFFFFF !important; border-bottom:1px solid var(--rule,#D6D6D6);
+      padding:6px 0 10px !important; box-shadow:0 14px 30px rgba(0,0,0,.10);
+    }
+    html nav.nav.menu-open .nav-links,
+    html body[class*="case-"] nav.nav.menu-open .nav-links { display:flex !important; }
+
+    nav.nav .nav-links > a,
+    nav.nav .nav-item-dropdown > a {
+      display:block !important; width:100% !important;
+      padding:13px var(--gutter,24px) !important; border:none !important; border-radius:0 !important; font-size:15px !important;
+    }
+    nav.nav .nav-links a .scribble-oval { display:none !important; }
+    .nav-item-dropdown { position:static !important; display:block !important; width:100%; }
+    .nav-item-dropdown > a::after { content:' +'; color: var(--purple, #7C5BD6); font-family: var(--mono, monospace); }
+    .nav-item-dropdown.open > a::after { content:' \2013'; }
+    .nav-dropdown, body[class*="case-"] .nav-dropdown {
+      display:none !important; position:static !important; transform:none !important;
+      opacity:1 !important; pointer-events:auto !important; box-shadow:none !important; border:none !important;
+      min-width:0 !important; width:100% !important; padding:0 0 4px 0 !important; background:transparent !important;
+    }
+    .nav-item-dropdown.open .nav-dropdown { display:flex !important; flex-direction:column; }
+    .nav-dropdown::before { display:none !important; }
+    .nav-dropdown a { justify-content:flex-start !important; text-align:left !important; padding:9px var(--gutter,24px) 9px calc(var(--gutter,24px) + 16px) !important; font-size:13px !important; opacity:.85; }
+    .nav-time { display:none !important; }
+  }
+</style>
+<style id="airflux-extra-tape">
+  /* Taped treatment for §01, §02, §04 (part 1) and §05 (first) images */
+  .bc-img, .teardown-image, .fix-cell:first-child .fix-img, .materials-image {
+    position: relative; overflow: visible !important;
+  }
+  .bc-img img, .teardown-image > img, .fix-cell:first-child .fix-img img, .materials-image > img {
+    border-radius: 2px;
+    box-shadow: 0 8px 22px rgba(40,28,0,0.12), 0 2px 6px rgba(40,28,0,0.08);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+  }
+  .bakelite-compare .bc-cell:nth-of-type(1) .bc-img img { transform: rotate(-1.4deg); }
+  .bakelite-compare .bc-cell:nth-of-type(2) .bc-img img { transform: rotate(1.2deg); }
+  .teardown-image > img { transform: rotate(-1deg); }
+  .fix-cell:first-child .fix-img img { transform: rotate(1.3deg); }
+  .materials-image > img { transform: rotate(-1deg); }
+  .teardown-image:hover > img,
+  .fix-cell:first-child:hover .fix-img img,
+  .materials-image:hover > img,
+  .bakelite-compare .bc-cell:hover .bc-img img { transform: rotate(0deg); }
+  .bc-img::before, .teardown-image::before, .fix-cell:first-child .fix-img::before, .materials-image::before {
+    content: ''; position: absolute; top: -10px; left: 50%; margin-left: -45px;
+    width: 90px; height: 22px; z-index: 4; pointer-events: none;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    transform: rotate(-3deg);
+  }
+  .bakelite-compare .bc-cell:nth-of-type(2) .bc-img::before { transform: rotate(3deg); }
+  .fix-cell:first-child .fix-img::before { transform: rotate(2deg); }
+</style>
+<style id="airflux-hover-caps">
+  /* Hover-reveal for standalone image captions + flush separator line */
+  .redesign-image figcaption,
+  .materials-image figcaption,
+  .teardown-image figcaption {
+    opacity: 0; max-height: 0; overflow: hidden;
+    margin-top: 0 !important; padding-top: 0 !important; border-top: none !important;
+    transition: opacity .3s ease, max-height .3s ease, margin-top .3s ease, padding-top .3s ease;
+  }
+  .redesign-image:hover figcaption,
+  .materials-image:hover figcaption,
+  .teardown-image:hover figcaption {
+    opacity: 1; max-height: 10rem;
+    padding-top: 0.6rem !important;
+    border-top: 1px solid var(--rule) !important;
+  }
+  /* §01 compare images, a touch smaller */
+  .bakelite-compare .bc-img { max-width: 84%; margin-left: 0; margin-right: auto; }
+  /* marginalia notes, teal */
+  .ax-note {
+    position: absolute; z-index: 6; font-family: var(--hand); font-weight: 400;
+    font-size: 17px; line-height: 1.05; color: var(--teal-deep); letter-spacing: -0.01em;
+    pointer-events: none; white-space: nowrap; text-transform: none;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .ax-note .m-arr { width: 26px; height: 16px; flex-shrink: 0; color: var(--teal-deep); }
+  .ax-note .m-arr svg { width: 100%; height: 100%; overflow: visible; }
+  @media (max-width: 900px) { .ax-note { display: none; } }
+</style>
+
+<style id="proj-footer-line-fix">
+  /* one black divider above the project nav; no line under it */
+  body[class*="case-"] .footer { border-top: none !important; padding-top: 28px !important; }
+  body[class*="case-"] .onaka-pagenav { border-top: 1px solid var(--rule) !important; }
+  body[class*="case-"] .section:last-of-type { border-bottom: none !important; }
+</style>
+</head>
+<body class="case-airflux" style="background-color: rgb(255, 255, 255)">
+
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav" style="background-color: rgba(255, 255, 255, 0.88)">
+  <a href="index.html" class="nav-logo" style="font-weight: 400; letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download>CV ↓</a>
+  </div>
+  <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<style>
+  body.case-airflux nav.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 22px var(--gutter) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid #D6D6D6 !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important;
+    z-index: 100 !important;
+  }
+  body.case-airflux nav.nav .nav-logo {
+    font-family: 'Nefs', 'Instrument Serif', cursive !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    color: #0E0E0C !important;
+    transform: translateY(4px) !important;
+    transition: color 0.2s !important;
+    padding-right: 4px !important;
+    text-decoration: none !important;
+    letter-spacing: -3px !important;
+  }
+  body.case-airflux nav.nav .nav-links {
+    display: flex !important;
+    gap: 8px !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    list-style: none !important;
+  }
+  body.case-airflux nav.nav .nav-links a {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    padding: 7px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #0E0E0C !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    text-transform: none !important;
+  }
+  body.case-airflux nav.nav .nav-links a:hover { color: #7C5BD6 !important; }
+  body.case-airflux nav.nav .nav-links a.active { color: #7C5BD6 !important; }
+  body.case-airflux nav.nav .nav-logo:hover { color: #7C5BD6 !important; }
+  body.case-airflux nav.nav .nav-time {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    color: #8E8E8E !important;
+  }
+  body.case-airflux section.hero { padding-top: 9rem !important; }
+  body.case-airflux .hero-meta, body.case-airflux .hero-table { text-transform: none !important; }
+</style>
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">07 — AirFlux</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2021 — Dec 2021</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · teardown, redesign, CAD</span>
+    </div>
+  </div>
+  <h1 class="display a d2" style="font-size: 49px">A hair dryer with <em style="color: rgb(51, 82, 90)">no handle</em>.</h1>
+  <p class="hero-sub a d3">A redesign of the Remington dryer that removes the bulky handle, lets the user grip the air tube directly, and reopens for <em>repair</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Redesign</span>
+    <span class="tag">Object Teardown</span>
+    <span class="tag">Circularity</span>
+    <span class="tag">Design for Manufacture</span>
+    <span class="tag">Design for Repair</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="assets/airflux/hero.png" data-placeholder-for="airflux-hero.jpg" alt="AirFlux, a compact handle-free hair dryer in matte grey polypropylene with a black silicone grip sleeve around the air outlet tube" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>eighty years, no change</span>
+    </div>
+    <div>
+      <h2 class="wide">The hair dryer has barely changed in <em>eighty years</em>. It has also barely gotten better.</h2>
+      <p class="lede">A 1939 Bakelite Princess dryer and a 2021 Remington sit on the same arc. Same handle, same heater, same form, same shortcomings. A teardown of the modern one made it clear how much of that form was inherited rather than designed.</p>
+
+      <!-- Bakelite 1939 vs Remington 2021 -->
+      <div class="bakelite-compare">
+        <figure class="bc-cell">
+          <div class="bc-img">
+            <img src="assets/airflux/bakelite-1939.png" data-placeholder-for="airflux-bakelite-1939.jpg" alt="Princess hand-held Bakelite hair dryer made in England c. 1939, mottled brown moulded bakelite" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <div class="bc-caption">
+            <span class="bc-year">1939 · Princess, Bakelite</span>
+            <strong>Mottled brown moulded plastic. England.</strong>
+            <p class="bc-note">Held in the National Museums Scotland collection.</p>
+          </div>
+        </figure>
+        <figure class="bc-cell">
+          <div class="bc-img">
+            <img src="assets/airflux/remington-2021.png" data-placeholder-for="airflux-remington-2021.jpg" alt="A modern Remington hair dryer, white plastic, with a bulky handle and rounded body, photographed for the teardown project" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <div class="bc-caption">
+            <span class="bc-year">2021 · Remington, Polypropylene</span>
+            <strong>Same handle, same form. Bigger and glued shut.</strong>
+            <p class="bc-note">The teardown subject for this project.</p>
+          </div>
+        </figure>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num" style="font-size: 49px">62<em>%</em></div><div class="lbl">of surveyed users wished their hair dryer was lighter and smaller</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">30<em>%</em></div><div class="lbl">wished they could change the way it's held</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">69<em>%</em></div><div class="lbl">said the dryer was difficult to open and fix when broken</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TEARDOWN: autopsy method + 5 findings + insight folded at the end -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Teardown</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>what's actually inside</span>
+    </div>
+    <div>
+      <h2>Opening it up to see what was being <em>defended</em>.</h2>
+      <p class="lede">Object Autopsy as a method: take the object apart, label every component, identify every material and process, and let the findings drive the redesign brief.</p>
+
+      <!-- Teardown image + 5 findings side-by-side, Onaka-components pattern -->
+      <div class="teardown-twin">
+        <figure class="teardown-image">
+          <span class="ax-note" style="top:-30px; right:3%; transform:rotate(-3deg);">took it all apart <span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          <img src="assets/airflux/teardown.png" data-placeholder-for="airflux-teardown.jpg" alt="A photograph of the Remington hair dryer fully disassembled, with each component laid out: motor, fan, heating coil, plastic case halves, wiring, screws and grills" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>
+            <span>Every component pulled, photographed, and identified by material and process.</span>
+            <a href="https://media.ed.ac.uk/media/Object+Autopsy+2A+Hair+Dryer/1_urchdrjh" target="_blank" rel="noopener" class="td-link">Watch the teardown ↗</a>
+          </figcaption>
+        </figure>
+
+        <ol class="findings-list">
+          <li class="finding-item">
+            <span class="fi-num">01</span>
+            <div>
+              <h4>Glued shut.</h4>
+              <p>The case is held together with adhesive, not screws. Once it breaks, you replace it.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">02</span>
+            <div>
+              <h4>A handle bigger than its job.</h4>
+              <p>The handle dominates the form and accounts for most of the bulk and weight.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">03</span>
+            <div>
+              <h4>Heavier than it needs to be.</h4>
+              <p>Walls thicker than function demands. The total weight tires the wrist in minutes.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">04</span>
+            <div>
+              <h4>Complex inside, basic outside.</h4>
+              <p>Motor, fan, heater, wiring, insulation, grills, all packed into a casing that hides them.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">05</span>
+            <div>
+              <h4>Inherited, not designed.</h4>
+              <p>The silhouette is unchanged since 1939. Nobody asked whether it still earns its place.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- The argument: two moves, full-width -->
+      <div class="insight-fold">
+        <span class="if-tag">The argument</span>
+        <h3 class="if-title">Two moves come out of the teardown. <em>Cut the handle.</em> Open the case.</h3>
+        <p class="if-body">The handle is what makes the dryer heavy, bulky, and locked into a single grip. Cut it, and four findings collapse into one move. The fifth finding sits on its own. The case is glued shut, so even when something does break, the user can't reach it. Swap the glue for screws, and the dryer becomes repairable again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Teardown: image left + 5 findings right (Onaka components pattern), then full-width argument */
+
+  .teardown-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .teardown-image {
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+    position: sticky;
+    top: 6rem;
+  }
+  .teardown-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .teardown-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .teardown-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .teardown-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .teardown-image figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: baseline;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.6rem 0 0;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .td-link {
+    color: var(--teal-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--teal);
+    padding-bottom: 1px;
+    transition: color 0.15s;
+    font-weight: 500;
+  }
+  .td-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* Findings list: 5 numbered items stacked, with rules between */
+  .findings-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .finding-item {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .finding-item:first-child { padding-top: 0; }
+  .finding-item:last-child { border-bottom: none; }
+  .fi-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+  .finding-item h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .finding-item p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* The argument: full-width teal-soft panel, punchier title */
+  .insight-fold {
+    margin-top: 4rem;
+    padding: 2.25rem 2.5rem;
+    background: var(--teal-soft);
+    border: 1px solid var(--teal);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .if-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .if-title {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  .if-title em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .if-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+  }
+
+  @media (max-width: 900px) {
+    .teardown-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .teardown-image { position: relative; top: auto; }
+    .teardown-image figcaption { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+    .insight-fold { padding: 1.75rem 1.5rem; }
+  }
+</style>
+
+<!-- 3. THE HANDLE-FREE REDESIGN: sketches + form, brief and image-led -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Redesign</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>grip the tube</span>
+    </div>
+    <div>
+      <h2>The hair dryer, <em>handle</em> removed.</h2>
+      <p class="lede">Three concept directions went to user testing through semantic differentials. The handle-free version won decisively, judged the most comfortable and the most inviting to use. The form that came out of that round is what AirFlux is.</p>
+
+      <div class="redesign-twin">
+        <figure class="redesign-image">
+          <img src="assets/airflux/sketches.png" data-placeholder-for="airflux-sketches.jpg" alt="A page of design sketches exploring different hair dryer forms, with the handle-free concept circled as the chosen direction" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Form exploration, the handle-free concept circled as the chosen direction.</figcaption>
+          </figure>
+
+        <div class="redesign-moves">
+          <div class="rm-cell">
+            <span class="rm-tag">Move 01</span>
+            <h3>No <em>handle</em>.</h3>
+            <p>Everything below the air outlet tube has been removed. The motor, fan, and heater sit directly in line, no detour through a grip.</p>
+          </div>
+          <div class="rm-cell">
+            <span class="rm-tag">Move 02</span>
+            <h3>Grip the <em>tube</em>.</h3>
+            <p>The user holds the dryer by the air outlet itself. Smaller footprint, lighter in the hand, and the grip rotates freely around the head.</p>
+          </div>
+          <div class="rm-cell">
+            <span class="rm-tag">User testing</span>
+            <h3>Picked from <em>three</em>.</h3>
+            <p>Ten users compared three concepts on semantic differentials. The handle-free version scored highest on comfort, on intuitiveness, and on whether they would actually use it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SLEEVE + REPAIRABILITY: two design decisions side-by-side -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Two fixes</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>heat and access</span>
+    </div>
+    <div>
+      <h2>Removing the handle created <em>two</em> new problems. Both got solved.</h2>
+      <p class="lede">The air outlet tube is the part that gets hot, so you can't just grip it bare. And once the form changed, the casing had to change with it. That was the chance to fix what the original got wrong: a casing the user could actually open.</p>
+
+      <div class="fixes-grid">
+        <!-- Fix 01: Thermal sleeve -->
+        <figure class="fix-cell">
+          <div class="fix-img">
+            <img src="assets/airflux/sleeve-clay.png" data-placeholder-for="airflux-sleeve.jpg" alt="Multiple silicone sleeve prototypes tested for ergonomic grip on the air outlet tube, with different shapes and grip patterns" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <figcaption>
+            <span class="fix-tag">Fix 01 · Thermal sleeve</span>
+            <h3>A silicone <em>sleeve</em> over the hot part.</h3>
+            <p>Thermal-insulating silicone wraps the part the user grips. Multiple prototypes were tested to find a profile that's safe, comfortable, and rests naturally in the hand.</p>
+          </figcaption>
+        </figure>
+
+        <!-- Fix 02: Repairability -->
+        <figure class="fix-cell">
+          <div class="fix-img">
+            <img src="assets/airflux/materials-map.png" data-placeholder-for="airflux-case-details.jpg" alt="Exploded diagram of the AirFlux casing with circular callouts showing the silicone sleeve, the screws joining the two case halves, the air outlet, and the mesh detail of the sleeve" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <figcaption>
+            <span class="fix-tag">Fix 02 · Repairability</span>
+            <h3>Screws, not <em>glue</em>.</h3>
+            <p>The AirFlux case holds together with standard screws, so the user can open it, replace a heater or a fan, and close it back up. Repair becomes part of the product's life, not the end of it.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Redesign: image left, 3 short moves right */
+  .redesign-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .redesign-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: transparent;
+  }
+  .redesign-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    padding-top: 0.6rem;
+    margin-top: 0.6rem;
+    border-top: 1px solid var(--rule);
+  }
+  .redesign-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+  }
+  .redesign-placeholder {
+    aspect-ratio: 4 / 5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .redesign-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .redesign-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .redesign-moves {
+    display: flex;
+    flex-direction: column;
+  }
+  .rm-cell {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .rm-cell:first-child { padding-top: 0; }
+  .rm-cell:last-child { border-bottom: none; }
+  .rm-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .rm-cell h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 0.45rem;
+  }
+  .rm-cell h3 em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .rm-cell p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §04 Two fixes: side by side, each with image + caption */
+  .fixes-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .fix-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .fix-img {
+    overflow: hidden;
+    background: transparent;
+    position: relative;
+  }
+  .fix-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .fix-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .fix-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .fix-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .fix-cell figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .fix-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+  }
+  .fix-cell h3 {
+    font-size: 1.3rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    max-width: 22ch;
+  }
+  .fix-cell h3 em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .fix-cell p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .redesign-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .redesign-image { position: static; }
+    .fixes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 5. MATERIALS + MANUFACTURING: annotated render + 6-component grid -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Materials</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>six parts, six choices</span>
+    </div>
+    <div>
+      <h2>Six materials, two case halves, one existing <em>mechanism</em>.</h2>
+      <p class="lede">AirFlux is designed for mass production. The materials follow function, the case is built for injection moulding in two halves, and the Remington's working mechanism slots in unchanged.</p>
+
+      <!-- Annotated render -->
+      <figure class="materials-image">
+        <span class="ax-note" style="top:-30px; right:3%; transform:rotate(3deg);">every part earns its place <span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+        <img src="assets/airflux/materials-callouts.png" data-placeholder-for="airflux-materials.jpg" alt="A render of the AirFlux hair dryer with annotation lines pointing to each component and labelling its material: polypropylene case, silicone sleeve, aluminium mesh inlet, polycarbonate buttons, stainless steel grill cover, silicone cord rubber" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <figcaption>Six labelled components, each chosen for the job it has to do.</figcaption>
+      </figure>
+
+      <!-- Manufacturing diagrams: moulded case details + mechanism fit -->
+      <div class="mfg-strip">
+        <figure class="mfg-cell">
+          <div class="mfg-img">
+            <img src="assets/airflux/case-mould.png" data-placeholder-for="airflux-case-mould.jpg" alt="Technical drawing of the AirFlux case in two moulded halves, showing the joining seams and surface details required for injection moulding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <figcaption>
+            <span class="mfg-tag">Moulded case details</span>
+            <p>The case is designed in two halves to suit injection moulding, the standard process for hair-dryer housings.</p>
+          </figcaption>
+        </figure>
+        <figure class="mfg-cell">
+          <div class="mfg-img">
+            <img src="assets/airflux/mechanism-fit.png" data-placeholder-for="airflux-mechanism-fit.jpg" alt="Cross-section diagram of the AirFlux casing showing the Remington motor, fan, heating coil, and wiring fitted inside the redesigned housing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <figcaption>
+            <span class="mfg-tag">Mechanism fit</span>
+            <p>The existing Remington motor, fan, heater, and wiring tuck into the new housing with no modification. The redesign sits on top of a working mechanism, not in place of one.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Materials: annotated render + 2-image manufacturing strip */
+  .materials-image {
+    margin: 3rem 0 3rem;
+    overflow: hidden;
+    background: transparent;
+  }
+  .materials-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .materials-placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .materials-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .materials-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .materials-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.6rem 0 0;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  /* Manufacturing diagrams: 2-cell strip */
+  .mfg-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .mfg-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .mfg-img {
+    overflow: hidden;
+    background: transparent;
+  }
+  .mfg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 1rem;
+    background: var(--bg);
+  }
+  .mfg-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .mfg-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .mfg-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .mfg-cell figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .mfg-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .mfg-cell p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §06 Final outcome: hero + 3-up + honest note */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: transparent;
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+
+  @media (max-width: 900px) {
+    .mfg-strip { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- FOOTER: minimal prev/next + thin contact strip -->
+
+
+<style>
+  /* FOOTER: minimal closing strip, teal soft background */
+  .site-footer {
+    background: var(--teal-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--teal-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--teal-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--teal-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+
+
+
+
+<nav class="onaka-pagenav">
+  <a href="ilia.html" class="prev">
+    <span class="step">Previous project · 06</span>
+    <span class="dir"><span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 41,8 C 30,5 14,10 4,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 11,3 C 8,6 6,7 4,8 C 6,9 8,11 11,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <em>Ilia</em></span>
+  </a>
+  <a href="work.html" class="next">
+    <span class="step">All projects</span>
+    <span class="dir">Index <span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 3,8 C 14,5 30,10 40,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 33,3 C 36,6 38,7 40,8 C 38,9 36,11 33,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+  </a>
+</nav>
+
+<style>
+  body.case-airflux .onaka-pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 2.5rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  body.case-airflux .onaka-pagenav a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: color 0.25s;
+  }
+  body.case-airflux .onaka-pagenav a.prev { align-items: flex-start; text-align: left; }
+  body.case-airflux .onaka-pagenav a.next { align-items: flex-end; text-align: right; }
+  body.case-airflux .onaka-pagenav .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+  }
+  body.case-airflux .onaka-pagenav .dir {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #0A0A0A;
+  }
+  body.case-airflux .onaka-pagenav .dir em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  body.case-airflux .onaka-pagenav a:hover .dir em { opacity: 0.75; }
+  .onaka-pagenav .pn-arr { display: inline-flex; width: 34px; height: 14px; vertical-align: middle; }
+  .onaka-pagenav .pn-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .onaka-pagenav .pn-arr { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .onaka-pagenav a.prev:hover .pn-arr { transform: translateX(-7px); }
+  .onaka-pagenav a.next:hover .pn-arr { transform: translateX(7px); }
+  @media (max-width: 720px) {
+    body.case-airflux .onaka-pagenav { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 1.25rem; }
+  }
+</style>
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-col"><span class="caption">Email</span><a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a></div>
+    <div class="footer-col"><span class="caption">Phone</span><a href="tel:+447766964868">+44 (0)7766 964 868</a></div>
+    <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>London · <span id="footTime">—</span></span></div>
+</footer>
+
+<script id="inlined-script">
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+</script>
+
+
+<script id="mobile-nav-js">
+(function(){
+  var nav=document.querySelector('nav.nav');
+  var burger=nav&&nav.querySelector('.nav-burger');
+  if(!nav||!burger)return;
+  function closeMenu(){ nav.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); var open=nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded',String(open)); if(!open){ nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); } });
+  var mq=window.matchMedia('(max-width:720px)');
+  nav.querySelectorAll('.nav-item-dropdown > a').forEach(function(a){
+    a.addEventListener('click',function(e){ if(mq.matches){ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); } });
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(mq.matches && a.parentElement && a.parentElement.classList.contains('nav-item-dropdown')) return; closeMenu(); });
+  });
+  document.addEventListener('click',function(e){ if(nav.classList.contains('menu-open')&&!nav.contains(e.target)) closeMenu(); });
+})();
+</script>
+<style id="hero-mobile-fit">
+  @media (max-width: 700px) {
+    figure.hero-image { height: auto !important; min-height: 0 !important; width: auto !important; margin-left: 20px !important; margin-right: 20px !important; }
+    figure.hero-image img { width: 100% !important; height: auto !important; aspect-ratio: 4 / 3 !important; object-fit: cover !important; transform: none !important; object-position: center !important; }
+  }
+</style>
+</body>
+</html>

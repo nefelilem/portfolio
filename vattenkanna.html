@@ -1,0 +1,3632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vattenkanna — Nefeli Lemessiou</title>
+<style id="inlined-styles">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+
+
+/* ============================================================
+   NEFELI LEMESSIOU — "SKETCHBOOK" DESIGN SYSTEM
+   Reusable styles + exact SVG marks used across the portfolio.
+   Drop this into any page's <style> (or styles.css) and apply
+   the classes/markup as described in the GUIDE at the bottom.
+
+   Depends on two things the site already defines:
+     --hand    handwriting font  ('Nefs', 'Instrument Serif', cursive)
+     #7C5BD6   the purple site accent
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. PAPER GRAIN  — body + fixed nav
+   Very low-alpha SVG noise. Should register as warmth, not as
+   a visible paper image. Apply to BOTH body and nav so the
+   texture is continuous as the fixed nav sits over the page.
+   On project pages, scope the body rule to that page's body
+   class, e.g.  body.case-onaka { ... }
+   ------------------------------------------------------------ */
+body {
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+}
+.nav {
+  /* warm the existing translucent tint to match the paper, keep the blur */
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   2. ACTIVE-NAV OVAL  (purple — shared site furniture)
+   Replaces the active link's pill/underline with a hand-drawn
+   loop. Requires the inline <svg class="scribble-oval"> inside
+   the active <a> (see GUIDE).
+   ------------------------------------------------------------ */
+.nav-links a { position: relative; }
+.nav-links a.active {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #7C5BD6 !important;
+}
+.nav-links a .scribble-oval {
+  position: absolute; inset: -4px -6px;
+  pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.nav-links a.active .scribble-oval { opacity: 1; }
+
+
+/* ------------------------------------------------------------
+   3. HAND-DRAWN ARROW
+   Used in CTAs ("View all work", "See more about me") and in
+   project-card hover-reveal corners, replacing any "→" glyph.
+   Wrap in a span; the inline <svg> uses stroke="currentColor"
+   so it inherits the surrounding text colour.
+   ------------------------------------------------------------ */
+.arr-hand {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px !important; height: 28px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #7C5BD6 !important;        /* or currentColor on dark overlays */
+}
+.arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+/* optional nudge on hover when used in a link */
+a:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+
+/* ------------------------------------------------------------
+   4. HAND-DRAWN UNDERLINE  (.ink)
+   A wobbly SVG as a background-image so it hugs the baseline
+   and wraps correctly across lines, even inside headings.
+   Apply to ONE key emphasis phrase per major section.
+   ------------------------------------------------------------ */
+.ink {
+  color: #7C5BD6;
+  font-style: normal;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 9' preserveAspectRatio='none'><path d='M 2,5 C 14,2 28,7 42,4 C 58,2 74,8 90,5 C 106,2 122,7 138,4 C 154,2 170,8 186,4 C 194,5 196,4 198,5' fill='none' stroke='%237C5BD6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.02em);
+  background-size: 100% 0.16em;
+  padding-bottom: 0.06em;
+}
+em.ink, .ink em { font-style: normal; }
+
+
+/* ------------------------------------------------------------
+   5. MARGINALIA  — small handwritten notes in the gutters
+   Position each instance with its own modifier class (examples
+   below). Keep to ~1–2 per page, lowercase, and hide on narrow
+   viewports so they never crop. Each note's parent must be
+   position: relative.
+   ------------------------------------------------------------ */
+.marginalia {
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 400;
+  font-size: 22px;
+  color: #7C5BD6;
+  line-height: 1.05;
+  letter-spacing: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: none;
+  z-index: 6;
+}
+.marginalia .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px; height: 12px;
+}
+.marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+/* --- example per-instance placements (tune the px to your layout) --- */
+.marg-hello     { top: calc(100% - 4px); left: 0; transform: rotate(-3deg); font-size: 24px; }   /* homepage greeting */
+.marg-available { top: -30px; right: 0;  transform: rotate(-2deg); font-size: 20px; }              /* "open to work" block */
+.marg-work      { top: -6px; left: calc(100% + 14px); transform: rotate(-3deg); font-size: 21px; }/* "selected work" label */
+.marg-count     { top: -34px; right: -10px; transform: rotate(-3deg); font-size: 22px; }           /* work-page project count */
+.marg-hint      { bottom: -34px; left: 0; transform: rotate(-2deg); font-size: 20px; }             /* work-page intro / hover hint */
+.marg-cta       { top: -34px; left: 0; transform: rotate(-3deg); font-size: 22px; }                /* about-page hire CTA */
+.marg-cando     { top: -8px; left: calc(100% + 16px); transform: rotate(-2deg); font-size: 20px; } /* about-page skills heading */
+@media (max-width: 900px) {
+  .marg-available, .marg-work, .marg-hint, .marg-cando { display: none; }
+}
+@media (max-width: 760px) { .marg-hello { display: none; } }
+
+
+/* ------------------------------------------------------------
+   6. TAPED PHOTO PRINTS  — project cards (work page + homepage)
+   Slight FIXED rotation per card, soft-grey paper-tape strip,
+   sharp corners, lifted shadow. Straighten-on-focus is wired
+   into the existing focus-gallery hover (see 6b).
+   Scope to your grid container (.focus-grid / .home-focus).
+   ------------------------------------------------------------ */
+.focus-grid .project-card,
+.home-focus .project-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease;
+}
+.focus-grid .project-thumb,
+.home-focus .project-thumb {
+  border-radius: 2px;              /* sharp print edge, not rounded card */
+  box-shadow: 0 12px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* the tape strip */
+.focus-grid .project-card::before,
+.home-focus .project-card::before {
+  content: '';
+  position: absolute;
+  width: 96px; height: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  z-index: 4; pointer-events: none;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+  transition: opacity .35s ease;
+}
+.project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+.project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+.project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+.project-card:hover::before { opacity: .55; }
+
+/* per-card FIXED rotations — never randomize */
+.c-onaka   { --rot: -1.2deg; }
+.c-period  { --rot:  1.6deg; }
+.c-numa    { --rot: -2.0deg; }
+.c-airflux { --rot:  1.2deg; }
+.c-milo    { --rot:  2.0deg; }
+.c-vatten  { --rot: -1.4deg; }
+.c-ilia    { --rot:  1.0deg; }
+
+/* 6b. straighten-on-focus, layered onto the existing focus gallery */
+.focus-grid:hover .project-card,
+.home-focus:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+.focus-grid:hover .project-card img,
+.home-focus:hover .project-card img { filter: saturate(.55); }
+.focus-grid:hover .project-card:hover,
+.home-focus:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+.focus-grid:hover .project-card:hover .project-thumb,
+.home-focus:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); }
+.focus-grid:hover .project-card:hover img,
+.home-focus:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+/* hover-revealed title in handwriting */
+.pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; }
+.pj-reveal .go { width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ------------------------------------------------------------
+   7. TAPED PORTRAIT  — about page
+   Same print treatment for the .portrait figure. Remove any
+   overflow:hidden so the tape can sit outside the edge.
+   ------------------------------------------------------------ */
+.portrait {
+  position: relative;
+  border-radius: 2px;
+  transform: rotate(1.5deg);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12), 0 3px 8px rgba(0,0,0,.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  /* NOTE: delete `overflow: hidden;` from the original .portrait rule */
+}
+.portrait:hover { transform: rotate(0deg); }
+.portrait img { border-radius: 2px; }
+.portrait::before {
+  content: '';
+  position: absolute;
+  width: 110px; height: 28px;
+  top: -12px; left: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.82) 0%, rgba(200,198,190,.74) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  transform: rotate(-7deg);
+  z-index: 4; pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   8. MARQUEE  — make the homepage ticker blend in
+   ------------------------------------------------------------ */
+.marquee {
+  background: transparent !important;
+  border-top: 1px solid var(--grey-line, #E5E2DD) !important;
+  border-bottom: 1px solid var(--grey-line, #E5E2DD) !important;
+  padding: 13px 0 !important;
+  font-size: clamp(15px, 1.6vw, 22px) !important;
+  color: var(--ink-soft, #6B6B6B) !important;
+}
+.marquee em { color: var(--ink-soft, #6B6B6B) !important; }
+.marquee-track .dot { width: 6px !important; height: 6px !important; background: #7C5BD6 !important; opacity: .6; }
+
+
+/* ------------------------------------------------------------
+   9. PROJECT-PAGE SECTION-NOTE ARROW  (project pages only)
+   Replaces the typographic "↓" above each handwritten margin
+   note with a hand-drawn down-arrow, rendered in THAT PROJECT'S
+   own deep accent colour (NOT purple). Set the colour per page
+   to its --{accent}-deep variable, e.g. var(--blue-deep) on
+   onaka, var(--copper-deep) on period, etc.
+   ------------------------------------------------------------ */
+.section-marker .note::before { display: none !important; }   /* drop the ↓ glyph */
+.section-marker .note { position: relative; padding-top: 1.6rem; }
+.section-marker .note .hand-arr {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 16px;
+  color: var(--blue-deep);          /* <-- change per project page */
+}
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ============================================================
+   GUIDE — markup snippets & where to apply
+   ============================================================
+
+   ACTIVE-NAV OVAL — put inside the active <a> (Home on homepage,
+   Work on work + project pages, About on about page):
+
+     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval"
+       viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20"
+         fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/>
+     </svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+
+   HAND-DRAWN ARROW — replace a "→" in a CTA or reveal corner.
+   On dark overlays set stroke="currentColor" and color:#fff on the span:
+
+     <span class="arr arr-hand"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>
+
+   UNDERLINE — wrap one key phrase per section:
+     ... where <span class="ink">calm, considered detail</span> still matters ...
+
+   MARGINALIA — parent must be position:relative; arrow optional,
+   rotate it to point at the thing it annotates:
+     <span class="marginalia marg-hello">
+       <span class="arrow" style="transform: rotate(-130deg); margin-right:4px;">
+         <svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+           <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+           <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+       </span>that's me</span>
+   Suggested notes: homepage "that's me" / "available!" / "favourites";
+   work "still growing" / "try hovering"; about "hi, hire me" / "the toolkit".
+
+   TAPED CARDS — add per-card + tape-position classes to each card:
+     <a class="project-card ... c-onaka tape-tl" href="onaka.html"> ... </a>
+   Tape positions distributed across the grid: tl / tc / tr.
+
+   PROJECT-PAGE SECTION NOTE — replace the old note with the arrow,
+   and set .hand-arr colour to the page's own --{accent}-deep:
+     <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>where it all began</span>
+   Per-page note colour: onaka var(--blue-deep), period var(--copper-deep),
+   numa var(--numa-deep), milo var(--mustard-deep), vattenkanna var(--sage-deep),
+   ilia var(--walnut-deep), airflux var(--teal-deep).
+   (Purple stays for shared furniture only; each project keeps its own colour.)
+
+   DELIVERY — these pages load styles.css + script.js externally and are
+   often opened as standalone files, so always ship a SELF-CONTAINED copy:
+   inline styles.css into a <style> (replacing the <link>) and script.js
+   into a <script> (replacing the external src), so each page renders
+   with no external dependencies.
+   ============================================================ */
+
+
+/* ============================================
+   Override: hide the legacy ↗ pill from .project-card::after
+   so the new .pj-reveal overlay (Nefs name + hand-drawn arrow) wins
+   ============================================ */
+.focus-grid .project-card::after,
+.home-focus .project-card::after {
+  content: '' !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* The .pj-reveal overlay on project cards: hovered reveals Nefs title + arrow */
+.pj-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 18px 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 5;
+  border-radius: 2px;
+}
+.focus-grid .project-card:hover .pj-reveal,
+.home-focus .project-card:hover .pj-reveal { opacity: 1; }
+.pj-reveal .nm { color: #fff; }
+
+/* Anchors / parents of marginalia must be relative — applied via inline style in HTML */
+
+
+/* ============================================
+   Project-page: section-marker hand-arr inherits the note's own
+   per-project deep accent colour (instead of hardcoded blue)
+   ============================================ */
+.section-marker .note .hand-arr { color: inherit !important; }
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vattenkanna · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('assets/nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Vattenkanna uses a sage green accent ,
+       pulled from the IKEA product family colourway shown in the renders,
+       distinct from period copper, onaka blue, milo mustard. */
+    --sage: #7A9B6E;
+    --sage-deep: #5A7551;
+    --sage-soft: #E8EDE3;
+    --sage-bright: #9CB892;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --bg-warm: #F7F8F4;
+    --rule: #E2E5DE;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--sage-deep); font-weight: inherit; }
+
+  /* NAV */
+  .upload-nav-disabled-vattenkanna {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sage-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID : section structure (identical to period / onaka / milo) */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--sage-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--sage-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: none;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--sage-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--sage-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--sage);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* §01 FUNNEL : visual narrowing from Ian's brief to handwashing dishes */
+  .funnel {
+    margin-top: 3.5rem;
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .funnel-step {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .funnel-step:last-child { border-right: none; }
+  .funnel-step .fn-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 500;
+  }
+  .funnel-step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--ink-3);
+  }
+  .funnel-step.active h4 {
+    color: var(--ink);
+  }
+  .funnel-step.active .fn-num { color: var(--sage-deep); }
+  .funnel-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.55em;
+    top: 1.55rem;
+    font-size: 0.9rem;
+    color: var(--ink-4);
+    background: var(--bg);
+    padding: 0 0.2rem;
+    z-index: 1;
+  }
+  .funnel-step:last-child::after { display: none; }
+  .funnel-step .fn-note {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin-top: 0.15rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .funnel { grid-template-columns: 1fr 1fr; }
+    .funnel-step::after { display: none; }
+    .funnel-step { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .funnel-step:nth-child(2n) { border-right: none; }
+    .funnel-step:nth-child(n+3) { border-bottom: none; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .funnel { grid-template-columns: 1fr; }
+    .funnel-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .funnel-step:last-child { border-bottom: none; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+
+
+<style id="sketchbook-extras">
+  /* Sketchbook reconciliation — added */
+
+    /* Paper grain on body + nav — matches the rest of the site */
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    background-repeat: repeat !important;
+    background-attachment: scroll !important;
+  }
+  nav.nav {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    background-image: none !important;
+  }
+
+  /* Purple oval around active nav link (Work on project pages) */
+  nav.nav .nav-links a.active {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: #7C5BD6 !important;
+  }
+
+  /* Taped-print treatment for hero image (subtle — no big rotation since it's a banner) */
+  figure.hero-image {
+    position: relative;
+    border-radius: 2px !important;
+    overflow: visible !important;
+    box-shadow: 0 8px 22px rgba(40, 28, 0, 0.10), 0 2px 6px rgba(40, 28, 0, 0.06);
+  }
+  figure.hero-image::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    margin-left: -48px;
+    width: 96px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 3;
+    transform: rotate(-3deg);
+    pointer-events: none;
+  }
+
+  /* Hide the legacy ::before arrow — the inline <span class="hand-arr"> in each note is the canonical arrow */
+  .section-marker .note::before { display: none !important; content: '' !important; }
+</style>
+<style id="nav-dropdown-css">
+.nav-item-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  border: 1px solid var(--grey-line, #D6D6D6);
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(40, 28, 0, 0.10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+/* invisible bridge so hover survives the gap between Work link and the dropdown */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.nav-dropdown a:hover {
+  color: var(--purple);
+}
+.nav-dropdown a .nu {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute, #8E8E8E);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover .nu {
+  color: var(--purple);
+}
+@media (max-width: 720px) {
+  .nav-dropdown { display: none !important; }
+}
+/* "All work" — hidden in the desktop hover menu, shown only in the mobile menu */
+.nav-dd-all { display: none !important; }
+@media (max-width: 720px) {
+  .nav-item-dropdown.open .nav-dropdown a.nav-dd-all { display: flex !important; }
+}
+</style>
+<style id="vatten-sketchbook-figs">
+  .section figure { position: relative; }
+  .section figure > img {
+    border-radius: 2px; box-shadow: 0 8px 22px rgba(40,28,0,0.12), 0 2px 6px rgba(40,28,0,0.08);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1); display: block;
+  }
+  .section figure:nth-of-type(4n+1) > img { transform: rotate(-1.1deg); }
+  .section figure:nth-of-type(4n+2) > img { transform: rotate(0.9deg); }
+  .section figure:nth-of-type(4n+3) > img { transform: rotate(1.3deg); }
+  .section figure:nth-of-type(4n+4) > img { transform: rotate(-0.7deg); }
+  .section figure:hover > img { transform: rotate(0deg); }
+  .section figure::before {
+    content: ''; position: absolute; width: 90px; height: 22px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025); z-index: 4; pointer-events: none;
+  }
+  .section figure:nth-of-type(3n+1)::before { top: -10px; left: 16%; transform: rotate(-4deg); }
+  .section figure:nth-of-type(3n+2)::before { top: -11px; left: 50%; margin-left: -45px; transform: rotate(2deg); }
+  .section figure:nth-of-type(3n+3)::before { top: -10px; right: 16%; transform: rotate(4deg); }
+  /* exclude sketches + how-it-works illustrations */
+  .section figure.vsketch > img,
+  .section figure.loop-figure > img,
+  .section figure:has(img[src*="sketches"]) > img,
+  .section figure:has(img[src*="how-0"]) > img {
+    transform: none !important; box-shadow: none !important; background: transparent !important;
+  }
+  .section figure.vsketch::before,
+  .section figure.loop-figure::before,
+  .section figure:has(img[src*="sketches"])::before,
+  .section figure:has(img[src*="how-0"])::before { display: none !important; }
+  .section figure.vsketch figcaption, .section figure.sink-composite figcaption {
+    border-top: none !important; padding-top: 0 !important; margin-top: 0 !important;
+  }
+  .section figure figcaption {
+    font-family: var(--mono) !important; font-size: 0.7rem !important; color: var(--ink-3) !important;
+    letter-spacing: 0.02em !important; line-height: 1.5 !important;
+    padding: 0 !important; border: none !important; background: transparent !important; text-align: left !important;
+    opacity: 0 !important; max-height: 0 !important; overflow: hidden !important; margin-top: 0 !important;
+    transition: opacity .3s ease, max-height .3s ease, margin-top .3s ease, padding-top .3s ease !important;
+  }
+  .section figure:hover figcaption {
+    opacity: 1 !important; max-height: 8rem !important; margin-top: 0.6rem !important;
+  }
+  .section figure.vsketch:hover figcaption,
+  .section figure.sink-composite:hover figcaption,
+  .section figure.loop-figure:hover figcaption,
+  .section figure:has(img[src*="sketches"]):hover figcaption,
+  .section figure:has(img[src*="how-0"]):hover figcaption {
+    margin-top: 0 !important; padding-top: 0.6rem !important;
+    border-top: 1px solid var(--rule) !important;
+  }
+  .section figure.vsketch figcaption, .section figure.sink-composite figcaption { border-top: 1px solid var(--rule) !important; padding-top: 0.85rem !important; }
+  .sink-block:hover .sink-note {
+    opacity: 1;
+    max-height: 8rem;
+    padding-top: 0;
+  }
+  .section figure:has(.marginalia) { overflow: visible !important; }
+  .marginalia {
+    position: absolute; z-index: 6; font-family: var(--hand); font-weight: 400; text-transform: none;
+    font-size: 17px; line-height: 1.05; color: var(--sage-deep); letter-spacing: -0.01em;
+    pointer-events: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  }
+  .marginalia .m-arr { width: 28px; height: 18px; flex-shrink: 0; color: var(--sage-deep); }
+  .marginalia .m-arr svg { width: 100%; height: 100%; overflow: visible; }
+  @media (max-width: 900px) { .marginalia { display: none; } }
+</style>
+
+<style id="mobile-nav-css">
+  .nav-burger { display: none; }
+  @media (max-width: 720px) {
+    nav.nav { position: fixed; }
+    .nav-burger { display:inline-flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:40px; padding:9px; background:none; border:none; cursor:pointer; z-index:130; margin-left:auto; }
+    .nav-burger span { display:block; width:22px; height:2px; border-radius:2px; background:#0E0E0C; transition: transform .25s ease, opacity .2s ease; }
+    nav.nav.menu-open .nav-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    nav.nav.menu-open .nav-burger span:nth-child(2){ opacity:0; }
+    nav.nav.menu-open .nav-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    html nav.nav .nav-links,
+    html body[class*="case-"] nav.nav .nav-links {
+      display:none !important; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column !important; align-items:stretch !important; gap:0 !important;
+      background:#FFFFFF !important; border-bottom:1px solid var(--rule,#D6D6D6);
+      padding:6px 0 10px !important; box-shadow:0 14px 30px rgba(0,0,0,.10);
+    }
+    html nav.nav.menu-open .nav-links,
+    html body[class*="case-"] nav.nav.menu-open .nav-links { display:flex !important; }
+
+    nav.nav .nav-links > a,
+    nav.nav .nav-item-dropdown > a {
+      display:block !important; width:100% !important;
+      padding:13px var(--gutter,24px) !important; border:none !important; border-radius:0 !important; font-size:15px !important;
+    }
+    nav.nav .nav-links a .scribble-oval { display:none !important; }
+    .nav-item-dropdown { position:static !important; display:block !important; width:100%; }
+    .nav-item-dropdown > a::after { content:' +'; color: var(--purple, #7C5BD6); font-family: var(--mono, monospace); }
+    .nav-item-dropdown.open > a::after { content:' \2013'; }
+    .nav-dropdown, body[class*="case-"] .nav-dropdown {
+      display:none !important; position:static !important; transform:none !important;
+      opacity:1 !important; pointer-events:auto !important; box-shadow:none !important; border:none !important;
+      min-width:0 !important; width:100% !important; padding:0 0 4px 0 !important; background:transparent !important;
+    }
+    .nav-item-dropdown.open .nav-dropdown { display:flex !important; flex-direction:column; }
+    .nav-dropdown::before { display:none !important; }
+    .nav-dropdown a { justify-content:flex-start !important; text-align:left !important; padding:9px var(--gutter,24px) 9px calc(var(--gutter,24px) + 16px) !important; font-size:13px !important; opacity:.85; }
+    .nav-time { display:none !important; }
+  }
+</style>
+
+<style id="proj-footer-line-fix">
+  /* one black divider above the project nav; no line under it */
+  body[class*="case-"] .footer { border-top: none !important; padding-top: 28px !important; }
+  body[class*="case-"] .onaka-pagenav { border-top: 1px solid var(--rule) !important; }
+  body[class*="case-"] .section:last-of-type { border-bottom: none !important; }
+</style>
+</head>
+<body class="case-vattenkanna" style="background-color: rgb(255, 255, 255)">
+
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav" style="background-color: rgba(255, 255, 255, 0.88)">
+  <a href="index.html" class="nav-logo" style="font-weight: 400; letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download>CV ↓</a>
+  </div>
+  <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<!-- Brute-force match site nav exactly (upload styles otherwise leak) -->
+<style>
+  body.case-vattenkanna nav.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 22px var(--gutter) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid #D6D6D6 !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important;
+    z-index: 100 !important;
+  }
+  body.case-vattenkanna nav.nav .nav-logo {
+    font-family: 'Nefs', 'Instrument Serif', cursive !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    color: #0E0E0C !important;
+    transform: translateY(4px) !important;
+    transition: color 0.2s !important;
+    padding-right: 4px !important;
+    text-decoration: none !important;
+    letter-spacing: -3px !important;
+  }
+  body.case-vattenkanna nav.nav .nav-links {
+    display: flex !important;
+    gap: 8px !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    list-style: none !important;
+  }
+  body.case-vattenkanna nav.nav .nav-links a {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    padding: 7px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #0E0E0C !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    text-transform: none !important;
+  }
+  body.case-vattenkanna nav.nav .nav-links a:hover { color: #7C5BD6 !important; }
+  body.case-vattenkanna nav.nav .nav-links a.active { color: #7C5BD6 !important; }
+  body.case-vattenkanna nav.nav .nav-logo:hover { color: #7C5BD6 !important; }
+  body.case-vattenkanna nav.nav .nav-time {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    color: #8E8E8E !important;
+  }
+  /* Push hero below fixed nav so it isn't covered */
+  body.case-vattenkanna section.hero { padding-top: 9rem !important; }
+  /* Don't let .hero-meta force uppercase (site styles.css carries that rule) */
+  body.case-vattenkanna .hero-meta { text-transform: none !important; }
+</style>
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">05 — VATTENKANNA</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2022 — Dec 2022</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, CAD, CMF</span>
+    </div>
+  </div>
+  <h1 class="display a d2" style="font-size: 49px">A vessel that turns dishwater into <em style="color: rgb(90, 117, 81)">water for the plants</em>.</h1>
+  <p class="hero-sub a d3">Designed to a brief from IKEA, Vattenkanna sits in the sink, collects the water you'd otherwise pour away while handwashing, strains it, and pours it back out, as easily as a <em>watering can</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Sustainable Design</span>
+    <span class="tag">Circularity</span>
+    <span class="tag">IKEA Brief</span>
+    <span class="tag">Design for Manufacture</span>
+    <span class="tag">CAD</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="assets/vattenkanna/hero.png" data-placeholder-for="vattenkanna-hero.jpg" alt="The Vattenkanna vessel, a sage green and matte brown sink-fitting basin with a curved nozzle and integrated mesh strainer, rendered in a kitchen context" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>narrowing the brief</span>
+    </div>
+    <div>
+      <h2 class="wide">A broad brief on sustainability, narrowed down to the <em>kitchen sink</em>.</h2>
+      <p class="lede">The brief was open: design a product that helps with food waste or energy conservation. The funnel from there to the kitchen sink came from the data.</p>
+
+      <!-- Funnel: brief → water → kitchen → handwashing -->
+      <div class="funnel">
+        <div class="funnel-step">
+          <span class="fn-num">Brief 00</span>
+          <h4>Food waste or <em>energy</em>?</h4>
+          <p class="fn-note">Open prompt from Ian: pick a sustainability angle.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 01</span>
+          <h4>Water saving</h4>
+          <p class="fn-note">89% of UK water-related CO₂ comes from heating water, not pumping it.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 02</span>
+          <h4>The kitchen</h4>
+          <p class="fn-note">Kitchen and bathroom dominate household water use; kitchen is where it's most addressable.</p>
+        </div>
+        <div class="funnel-step active">
+          <span class="fn-num">Step 03</span>
+          <h4>Handwashing dishes</h4>
+          <p class="fn-note">51% of UK households never use a dishwasher; handwashing wastes the most water per session.</p>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num" style="font-size: 49px">6<em>%</em></div><div class="lbl">of UK CO₂ emissions come from water use, almost all of it from heating</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">5<em>%</em></div><div class="lbl">of domestic water use in the UK comes from washing dishes alone</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">30<em>L</em></div><div class="lbl">per handwash session with the tap running, vs 10L for a dishwasher in eco mode</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">51<em>%</em></div><div class="lbl">of UK households never use a dishwasher, handwashing is the default</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH : sink photos + interview cards + method comparison -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>how people actually wash</span>
+    </div>
+    <div>
+      <h2>Different sinks, different countries, the same <em>habit</em>.</h2>
+      <p class="lede">Photographs of sinks from different countries, interviews with dishwashers across ages and households, and observation of how people actually wash.</p>
+
+      <!-- Sinks composite image -->
+      <div class="sink-block">
+        <span class="research-tag">Sinks · Six countries</span>
+        <figure class="sink-composite">
+          <img src="assets/vattenkanna/sinks-composite.png" data-placeholder-for="vattenkanna-sinks.jpg" alt="A composite grid of twelve kitchen sink photographs taken by participants in different countries, showing the range of sink types, sizes, and dishwashing setups" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          </figure>
+        <p class="sink-note">Twelve sinks from six countries. Sizes and configurations varied, but most fit within a standard ~34 × 40 × 20 cm range — enough that one vessel could work in most of them.</p>
+      </div>
+
+      <!-- Interview cards: two, picked for the strongest contrast -->
+      <div class="research-block">
+        <span class="research-tag">Interviews · Different countries, same answer</span>
+        <div class="interviews-grid">
+          <div class="interview-card">
+            <div class="ic-head">
+              <span class="ic-name">Stefanos</span>
+              <span class="ic-meta">27 · Student · Amsterdam</span>
+            </div>
+            <p class="ic-quote">"I'd want an easier alternative for dishes, I hate doing them."</p>
+          </div>
+          <div class="interview-card">
+            <div class="ic-head">
+              <span class="ic-name">Andrea</span>
+              <span class="ic-meta">21 · Student · Sheffield, UK</span>
+            </div>
+            <p class="ic-quote">"We'd be willing to change habits, as long as it doesn't take more effort."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Methods comparison: stripped to headline + litres -->
+      <div class="methods-block">
+        <span class="research-tag">Observation · Two methods, twice the water gap</span>
+        <div class="methods-compare">
+          <div class="method-side method-1">
+            <div class="ms-tag">METHOD 01 · EUROPE · RUNNING TAP</div>
+            <h4>Wash <em>under</em> a flowing tap.</h4>
+            <div class="ms-litres"><strong>~30 L</strong> per session</div>
+          </div>
+          <div class="method-side method-2">
+            <div class="ms-tag">METHOD 02 · UK · FILLED BOWL</div>
+            <h4>Wash <em>in</em> a filled basin.</h4>
+            <div class="ms-litres"><strong>~8 L</strong> per session</div>
+          </div>
+        </div>
+        <div class="methods-note">
+          Either way, scraping and rinsing spend more water than they need to, and that water is the cleanest part of the session, the most worth catching.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Research : three threads: sinks (composite image), interviews, methods */
+
+  /* Shared research tag style */
+  .research-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  /* Sinks composite */
+  .sink-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .sink-composite {
+    margin: 0;
+    overflow: visible;
+  }
+  .sink-composite img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sink-composite-placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .sink-composite-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .sink-composite-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .sink-composite figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .sink-note {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: opacity .3s ease, max-height .3s ease, margin-top .3s ease, padding-top .3s ease;
+    border-top: none;
+    padding-top: 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin: 0.85rem 0 0;
+  }
+
+  /* Interview cards */
+  .research-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .interviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .interview-card {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .ic-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ic-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .ic-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .ic-quote {
+    font-family: var(--display);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Methods comparison */
+  .methods-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .methods-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .method-side {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .method-side:last-child {
+    border-right: none;
+    padding-left: 1.5rem;
+    padding-right: 0;
+    background: var(--sage-soft);
+  }
+  .ms-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .method-side h4 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+  .method-side h4 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .ms-litres {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  .ms-litres strong {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-right: 0.3rem;
+  }
+  .methods-note {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-warm);
+    border-left: 3px solid var(--sage);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: none;
+  }
+
+  @media (max-width: 900px) {
+    .interviews-grid { grid-template-columns: 1fr; }
+    .methods-compare { grid-template-columns: 1fr; }
+    .method-side { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .method-side:last-child { padding: 1.5rem; }
+  }
+</style>
+
+<!-- 3. INSIGHT : the design judgement moment -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Insight</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>a different question</span>
+    </div>
+    <div>
+      <h2 class="wide">Most water-saving products ask you to <em>use less</em>. This one accepts the waste, then catches it.</h2>
+      <p class="lede">Interviews kept landing on the same point: people are willing to change habits, but only if the change doesn't add effort. So the design moved from <em>reduce</em> to <em>reuse</em>.</p>
+
+      <div class="insight-flip">
+        <div class="flip-side flip-before">
+          <span class="flip-tag">The usual question</span>
+          <h3>How do we use <em>less</em> water?</h3>
+          <p>Asks the user to change a habit.</p>
+        </div>
+        <div class="flip-arrow">→</div>
+        <div class="flip-side flip-after">
+          <span class="flip-tag">The shift</span>
+          <h3>What if the wasted water didn't <em>have</em> to be wasted?</h3>
+          <p>Asks the product to do the work.</p>
+        </div>
+      </div>
+
+      <div class="pull">
+        <blockquote>"The water is going to be wasted anyway. The design move is to let it be wasted into something useful, not down a drain."</blockquote>
+        <cite>, Design journal · Mid-project reflection</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. HOW IT WORKS : 3-step circle loop with dashed connector arcs (Onaka pattern) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">How it works</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>three moves</span>
+    </div>
+    <div>
+      <h2>Three steps, no extra <em>effort</em>.</h2>
+      <p class="lede">Vattenkanna doesn't change how you wash. It sits in the sink, catches the water that would have gone down the drain, and lets you carry that water somewhere it's useful.</p>
+
+      <div class="loop-system">
+        <!-- Dashed connector arcs sitting over the three circles -->
+        <svg class="loop-connector" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 200 180 Q 333 240, 466 165" />
+          <path d="M 533 165 Q 666 80, 800 180" />
+        </svg>
+
+        <div class="loop-step loop-step-1">
+          <span class="loop-side-tag">Collect</span>
+          <div class="loop-label">In the sink, while you wash</div>
+          <figure class="loop-figure">
+            <img src="assets/vattenkanna/how-01-collect.png" data-placeholder-for="vattenkanna-how-01.png" alt="Illustration of a person handwashing dishes over the Vattenkanna vessel sitting in the sink" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </figure>
+          <p class="loop-copy">Greywater from rinsing and scraping falls into the vessel rather than down the drain.</p>
+        </div>
+
+        <div class="loop-step loop-step-2">
+          <span class="loop-side-tag">Strain</span>
+          <div class="loop-label">Lift the mesh, dump the debris</div>
+          <figure class="loop-figure">
+            <img src="assets/vattenkanna/how-02-lift.png" data-placeholder-for="vattenkanna-how-02.png" alt="Illustration of a hand lifting the mesh filter out of the vessel to dispose of food debris" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </figure>
+          <p class="loop-copy">Tip the food bits into the bin. The water left in the vessel is now clean enough to reuse.</p>
+        </div>
+
+        <div class="loop-step loop-step-3">
+          <span class="loop-side-tag">Pour</span>
+          <div class="loop-label">Carry like a watering can</div>
+          <figure class="loop-figure">
+            <img src="assets/vattenkanna/how-03-pour.png" data-placeholder-for="vattenkanna-how-03.png" alt="Illustration of a person carrying the Vattenkanna by its handle and pouring water onto a houseplant" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </figure>
+          <p class="loop-copy">Water plants, wash the car, or fill a bucket. Whatever the household needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Insight : before/after framing of the design judgement */
+  .insight-flip {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .flip-side {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border: 1px solid var(--rule);
+  }
+  .flip-before {
+    background: var(--bg-2);
+  }
+  .flip-after {
+    background: var(--sage-soft);
+    border-color: var(--sage);
+  }
+  .flip-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .flip-before .flip-tag { color: var(--ink-3); }
+  .flip-side h3 {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    max-width: 22ch;
+  }
+  .flip-side h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .flip-before h3 em { color: var(--ink); }
+  .flip-side p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .flip-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  @media (max-width: 900px) {
+    .insight-flip { grid-template-columns: 1fr; }
+    .flip-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+  }
+
+  /* §04 How it works : 3-step circle loop with dashed SVG arc connectors */
+  .loop-system {
+    margin-top: 4rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .loop-connector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+  .loop-connector path {
+    fill: none;
+    stroke: var(--sage);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Vertical stagger for visual rhythm, matching Onaka */
+  .loop-step-1 { padding-top: 3rem; }
+  .loop-step-2 { padding-top: 0; }
+  .loop-step-3 { padding-top: 3rem; }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+    margin-bottom: 0.85rem;
+    display: inline-block;
+  }
+  .loop-label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  .loop-figure {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--sage-soft);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--sage-deep);
+  }
+  .loop-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 24ch;
+  }
+
+  @media (max-width: 900px) {
+    .loop-system { grid-template-columns: 1fr; gap: 3rem; margin-top: 3rem; }
+    .loop-connector { display: none; }
+    .loop-step,
+    .loop-step-1, .loop-step-2, .loop-step-3 { padding-top: 0; }
+    .loop-figure { width: 200px; height: 200px; }
+  }
+</style>
+
+<!-- 5. THE VESSEL : sketches at the top, four tight decision callouts below -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">The vessel</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>four jobs at once</span>
+    </div>
+    <div>
+      <h2>The form had to do <em>four jobs</em> at once.</h2>
+      <p class="lede">Fit any standard sink, stay stable while filling, pour cleanly, and nest for flatpack shipping. Each constraint has its answer in the form.</p>
+
+      <!-- Sketches at the top -->
+      <div class="vessel-sketches">
+        <figure class="vsketch vsketch-wide">
+          <img src="assets/vattenkanna/sketches-sink-fit.png" data-placeholder-for="vattenkanna-sketches.jpg" alt="Four sketches exploring how the vessel sits across different sink configurations" />
+          <figcaption>Fit study: how the vessel sits across single, double, sit-on, and drop-in sinks.</figcaption>
+          </figure>
+        <figure class="vsketch">
+          <img src="assets/vattenkanna/sketches-form.png" data-placeholder-for="vattenkanna-render-overview.jpg" alt="Form-development sketches: vessel nozzle profiles, handle placement, mesh detail" />
+          <figcaption>Form development: nozzle profiles, handle placement, mesh detail.</figcaption>
+          </figure>
+      </div>
+
+      <!-- Four tight decision callouts -->
+      <div class="vessel-decisions">
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 01 · Nozzle</span>
+          <h3>Curved for <em>pouring</em>, flat for <em>fitting</em>.</h3>
+          <p>Curved enough to pour without spilling, flat enough to sit against the sink edge.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 02 · Rim</span>
+          <h3>Sits on the sink, doesn't <em>tip</em>.</h3>
+          <p>The rim extrudes past the body to hook over the sink edge and grip when wet.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 03 · Handle</span>
+          <h3>A handle that <em>nests</em>.</h3>
+          <p>A U-shaped cutout lets units nest inside each other for IKEA's flatpack shipping.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 04 · Strainer</span>
+          <h3>Catches the food, <em>keeps the water</em>.</h3>
+          <p>A removable mesh strainer traps debris during washing so the water stays reusable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MAKING FOR IKEA : materials, process, CMF, alignment with IKEA's commitments -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Making</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>for IKEA's shelf</span>
+    </div>
+    <div>
+      <h2>One recycled material, three colourways, one moulding <em>tool</em>.</h2>
+      <p class="lede">The brief came from IKEA, so the production logic had to match: a material their supply chain already runs, a process suited to mass output, and a CMF that fits the existing kitchenware family.</p>
+
+      <!-- Three columns: PET, injection moulding, CMF -->
+      <div class="making-cols">
+        <div class="making-col">
+          <span class="making-tag">Material</span>
+          <h3>Recycled <em>PET</em>.</h3>
+          <p>Waterproof, durable, and the most recycled plastic in the world. Fits IKEA's commitment to only renewable or recycled-based plastic by 2030.</p>
+        </div>
+        <div class="making-col">
+          <span class="making-tag">Process</span>
+          <h3>Injection <em>moulded</em>.</h3>
+          <p>One tool, one part per cycle. Consistent walls and smooth curves. The handle cutout that lets units nest also simplifies the mould.</p>
+        </div>
+        <div class="making-col">
+          <span class="making-tag">CMF · Three colourways</span>
+          <h3>IKEA's kitchen <em>palette</em>.</h3>
+          <div class="cmf-swatches-row">
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: #3D332E;"></div>
+              <span>Dark brown</span>
+            </div>
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: var(--sage);"></div>
+              <span>Sage green</span>
+            </div>
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: #BFC2BD;"></div>
+              <span>Light grey</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colourways image full-width below -->
+      <figure class="making-image" style="position:relative;">
+        <span class="marginalia" style="top:-26px; right:4%; transform:rotate(3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>three colourways</span>
+        <img src="assets/vattenkanna/colourways.png" data-placeholder-for="vattenkanna-colourways.jpg" alt="The three Vattenkanna colourways rendered side by side: dark brown, sage green, and light grey, all in matte recycled PET" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <figcaption>Three CMF options aligned to IKEA's kitchen palette: dark brown, sage green, light grey.</figcaption>
+        </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 The vessel : sketches strip on top + 4 text-only decision callouts */
+  .vessel-sketches {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .vsketch {
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  .vsketch img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent;
+  }
+  .vsketch-wide img {
+    height: auto;
+  }
+  .vsketch figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.6rem 0 0;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+  }
+  .vsketch-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .vsketch-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .vsketch-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .vessel-decisions {
+    padding-top: 2rem;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .vd-cell {
+    padding: 0 1.25rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .vd-cell:not(:first-child) { padding-left: 1.25rem; }
+  .vd-cell:last-child { border-right: none; padding-right: 0; }
+  .vd-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .vd-cell h3 {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    max-width: 22ch;
+  }
+  .vd-cell h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .vd-cell p {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §06 Making : 3 columns (material · process · cmf) + full-width image below */
+  .making-cols {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .making-col {
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .making-col:not(:first-child) { padding-left: 1.5rem; }
+  .making-col:last-child { border-right: none; padding-right: 0; }
+  .making-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .making-col h3 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .making-col h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .making-col p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Swatches as a small horizontal/stacked group inside the CMF column */
+  .cmf-swatches-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.35rem;
+  }
+  .cmf-swatch-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .cmf-chip {
+    width: 22px;
+    height: 22px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+  .cmf-swatch-row span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* Full-width colourways image below the three columns */
+  .making-image {
+    margin: 0;
+    overflow: hidden;
+  }
+  .making-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+  }
+  .making-image-placeholder {
+    aspect-ratio: 21 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .making-image-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .making-image-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .vessel-sketches { grid-template-columns: 1fr; }
+    .vessel-decisions { grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
+    .vd-cell:nth-child(2) { border-right: none; padding-right: 0; }
+    .vd-cell:nth-child(3) { padding-left: 0; border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .vd-cell:nth-child(4) { border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .making-cols { grid-template-columns: 1fr; gap: 1.5rem 0; }
+    .making-col { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); }
+    .making-col:last-child { border-bottom: none; padding-bottom: 0; }
+    .making-image img, .making-image-placeholder { aspect-ratio: 16 / 9; }
+  }
+  @media (max-width: 560px) {
+    .vessel-decisions { grid-template-columns: 1fr; }
+    .vd-cell { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); padding-top: 0 !important; border-top: none !important; }
+    .vd-cell:last-child { border-bottom: none; padding-bottom: 0; }
+  }
+</style>
+
+<!-- 7. VALUES CREATED : three stakeholder columns (User · IKEA · Planet) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Values</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>who this is for</span>
+    </div>
+    <div>
+      <h2>Three <em>stakeholders</em>, three sets of value.</h2>
+      <p class="lede">Designed not just for the person handwashing dishes, but also for the company that ships it and the planet that carries the cost.</p>
+
+      <div class="values-grid">
+        <div class="value-col">
+          <span class="value-tag">User</span>
+          <h3>An <em>easier</em> water habit.</h3>
+          <ul class="value-list">
+            <li><strong>Reused water</strong> · greywater goes to plants instead of the drain.</li>
+            <li><strong>Lower bills</strong> · less water heated, less water paid for.</li>
+            <li><strong>No new effort</strong> · sits in the sink the user already uses.</li>
+          </ul>
+        </div>
+        <div class="value-col">
+          <span class="value-tag">IKEA</span>
+          <h3>Fits the <em>line</em>, fits the truck.</h3>
+          <ul class="value-list">
+            <li><strong>Flatpack-ready</strong> · stacks for efficient shipping.</li>
+            <li><strong>Single-tool moulding</strong> · low production cost, high output.</li>
+            <li><strong>2030-aligned</strong> · already on the recycled-plastic path.</li>
+          </ul>
+        </div>
+        <div class="value-col">
+          <span class="value-tag">Planet</span>
+          <h3>Less water, less CO<sub>2</sub>.</h3>
+          <ul class="value-list">
+            <li><strong>Less hot water</strong> · directly reduces heating-related CO₂.</li>
+            <li><strong>Fewer shipments</strong> · stacking density means fewer trucks per pallet.</li>
+            <li><strong>Recycled feedstock</strong> · diverts PET from landfill back into product.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FINAL OUTCOME : renders in context + closing tagline + further developments -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Final outcome</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>water is precious</span>
+    </div>
+    <div>
+      <h2>Vattenkanna, <em>resolved</em>.</h2>
+
+      <!-- Hero render in-context -->
+      <figure class="outcome-hero" style="position:relative;">
+        <span class="marginalia" style="top:-30px; left:auto; right:4%; transform:rotate(3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>in the sink</span>
+        <img src="assets/vattenkanna/outcome-hero.png" data-placeholder-for="vattenkanna-final-hero.jpg" alt="The resolved Vattenkanna sitting in a kitchen sink, with the integrated strainer visible inside, in the dark brown colourway" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <figcaption>Final outcome, in context: the vessel sits in the sink and catches handwashing water.</figcaption>
+        </figure>
+
+      <!-- 3-up grid of additional context shots -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="assets/vattenkanna/outcome-01-vessel-mesh.png" data-placeholder-for="vattenkanna-final-01.jpg" alt="Vattenkanna in a single-basin sink with the strainer inside, in the sage green colourway" style="object-position: 20% 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Vessel and mesh strainer.</figcaption>
+          </figure>
+        <figure class="outcome-tile">
+          <img src="assets/vattenkanna/outcome-02-wireframe-stack.png" data-placeholder-for="vattenkanna-final-02.jpg" alt="Vattenkanna in a double-basin sink, in the light grey colourway, paired with a drying rack" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Wireframe view: four units nest for flatpack shipping.</figcaption>
+          </figure>
+        <figure class="outcome-tile">
+          <img src="assets/vattenkanna/outcome-03-nested.png" data-placeholder-for="vattenkanna-final-03.jpg" alt="Vattenkanna being carried by its handle, water tipped out to water houseplants" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Four units, nested.</figcaption>
+          </figure>
+      </div>
+
+      <!-- Further developments removed -->
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Values created : 3-column stakeholder grid */
+  .values-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+  }
+  .value-col {
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .value-col:not(:first-child) { padding-left: 1.5rem; }
+  .value-col:last-child { border-right: none; padding-right: 0; }
+  .value-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--sage);
+    border-radius: 100px;
+    background: var(--sage-soft);
+    align-self: start;
+    margin-bottom: 0.65rem;
+  }
+  .value-col h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    max-width: 22ch;
+  }
+  .value-col h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .value-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .value-list li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .value-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 4px;
+    height: 4px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+  .value-list li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* §08 Final outcome : hero + 3-up + tagline + further dev */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: visible;
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: visible;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+
+  .further-dev {
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .fd-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .fd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem 2rem;
+  }
+  .fd-list li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .fd-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 4px;
+    height: 4px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+  .fd-list li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .values-grid { grid-template-columns: 1fr; gap: 1.5rem 0; padding-top: 1.5rem; }
+    .value-col { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+    .value-col:last-child { border-bottom: none; padding-bottom: 0; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+    .fd-list { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+
+  .making-image figcaption,
+  .outcome-hero figcaption,
+  .outcome-tile figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.6rem 0 0;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+  }
+
+</style>
+
+<!-- FOOTER : minimal prev/next nav + thin contact strip -->
+
+
+<style>
+  /* FOOTER : minimal closing strip */
+  .site-footer {
+    background: var(--sage-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--sage-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--sage-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--sage-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+
+
+
+
+<nav class="onaka-pagenav">
+  <a href="milo.html" class="prev">
+    <span class="step">Previous project · 04</span>
+    <span class="dir"><span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 41,8 C 30,5 14,10 4,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 11,3 C 8,6 6,7 4,8 C 6,9 8,11 11,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <em>Milo</em></span>
+  </a>
+  <a href="ilia.html" class="next">
+    <span class="step">Next project · 06</span>
+    <span class="dir"><em>Ilia</em> <span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 3,8 C 14,5 30,10 40,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 33,3 C 36,6 38,7 40,8 C 38,9 36,11 33,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+  </a>
+</nav>
+
+<style>
+  body.case-vattenkanna .onaka-pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 2.5rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  body.case-vattenkanna .onaka-pagenav a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: color 0.25s;
+  }
+  body.case-vattenkanna .onaka-pagenav a.prev { align-items: flex-start; text-align: left; }
+  body.case-vattenkanna .onaka-pagenav a.next { align-items: flex-end; text-align: right; }
+  body.case-vattenkanna .onaka-pagenav .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+  }
+  body.case-vattenkanna .onaka-pagenav .dir {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #0A0A0A;
+  }
+  body.case-vattenkanna .onaka-pagenav .dir em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  body.case-vattenkanna .onaka-pagenav a:hover .dir em { opacity: 0.75; }
+  .onaka-pagenav .pn-arr { display: inline-flex; width: 34px; height: 14px; vertical-align: middle; }
+  .onaka-pagenav .pn-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .onaka-pagenav .pn-arr { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .onaka-pagenav a.prev:hover .pn-arr { transform: translateX(-7px); }
+  .onaka-pagenav a.next:hover .pn-arr { transform: translateX(7px); }
+  @media (max-width: 720px) {
+    body.case-vattenkanna .onaka-pagenav { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 1.25rem; }
+  }
+</style>
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-col"><span class="caption">Email</span><a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a></div>
+    <div class="footer-col"><span class="caption">Phone</span><a href="tel:+447766964868">+44 (0)7766 964 868</a></div>
+    <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>London · <span id="footTime">—</span></span></div>
+</footer>
+
+<script id="inlined-script">
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+</script>
+
+
+<script id="mobile-nav-js">
+(function(){
+  var nav=document.querySelector('nav.nav');
+  var burger=nav&&nav.querySelector('.nav-burger');
+  if(!nav||!burger)return;
+  function closeMenu(){ nav.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); var open=nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded',String(open)); if(!open){ nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); } });
+  var mq=window.matchMedia('(max-width:720px)');
+  nav.querySelectorAll('.nav-item-dropdown > a').forEach(function(a){
+    a.addEventListener('click',function(e){ if(mq.matches){ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); } });
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(mq.matches && a.parentElement && a.parentElement.classList.contains('nav-item-dropdown')) return; closeMenu(); });
+  });
+  document.addEventListener('click',function(e){ if(nav.classList.contains('menu-open')&&!nav.contains(e.target)) closeMenu(); });
+})();
+</script>
+<style id="hero-mobile-fit">
+  @media (max-width: 700px) {
+    figure.hero-image { height: auto !important; min-height: 0 !important; width: auto !important; margin-left: 20px !important; margin-right: 20px !important; }
+    figure.hero-image img { width: 100% !important; height: auto !important; aspect-ratio: 4 / 3 !important; object-fit: cover !important; transform: none !important; object-position: center !important; }
+  }
+</style>
+</body>
+</html>

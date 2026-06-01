@@ -1,0 +1,3730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMA · Nefeli Lemessiou</title>
+<style id="inlined-styles">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+
+
+/* ============================================================
+   NEFELI LEMESSIOU — "SKETCHBOOK" DESIGN SYSTEM
+   Reusable styles + exact SVG marks used across the portfolio.
+   Drop this into any page's <style> (or styles.css) and apply
+   the classes/markup as described in the GUIDE at the bottom.
+
+   Depends on two things the site already defines:
+     --hand    handwriting font  ('Nefs', 'Instrument Serif', cursive)
+     #7C5BD6   the purple site accent
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. PAPER GRAIN  — body + fixed nav
+   Very low-alpha SVG noise. Should register as warmth, not as
+   a visible paper image. Apply to BOTH body and nav so the
+   texture is continuous as the fixed nav sits over the page.
+   On project pages, scope the body rule to that page's body
+   class, e.g.  body.case-onaka { ... }
+   ------------------------------------------------------------ */
+body {
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+}
+.nav {
+  /* warm the existing translucent tint to match the paper, keep the blur */
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   2. ACTIVE-NAV OVAL  (purple — shared site furniture)
+   Replaces the active link's pill/underline with a hand-drawn
+   loop. Requires the inline <svg class="scribble-oval"> inside
+   the active <a> (see GUIDE).
+   ------------------------------------------------------------ */
+.nav-links a { position: relative; }
+.nav-links a.active {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #7C5BD6 !important;
+}
+.nav-links a .scribble-oval {
+  position: absolute; inset: -4px -6px;
+  pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.nav-links a.active .scribble-oval { opacity: 1; }
+
+
+/* ------------------------------------------------------------
+   3. HAND-DRAWN ARROW
+   Used in CTAs ("View all work", "See more about me") and in
+   project-card hover-reveal corners, replacing any "→" glyph.
+   Wrap in a span; the inline <svg> uses stroke="currentColor"
+   so it inherits the surrounding text colour.
+   ------------------------------------------------------------ */
+.arr-hand {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px !important; height: 28px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #7C5BD6 !important;        /* or currentColor on dark overlays */
+}
+.arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+/* optional nudge on hover when used in a link */
+a:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+
+/* ------------------------------------------------------------
+   4. HAND-DRAWN UNDERLINE  (.ink)
+   A wobbly SVG as a background-image so it hugs the baseline
+   and wraps correctly across lines, even inside headings.
+   Apply to ONE key emphasis phrase per major section.
+   ------------------------------------------------------------ */
+.ink {
+  color: #7C5BD6;
+  font-style: normal;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 9' preserveAspectRatio='none'><path d='M 2,5 C 14,2 28,7 42,4 C 58,2 74,8 90,5 C 106,2 122,7 138,4 C 154,2 170,8 186,4 C 194,5 196,4 198,5' fill='none' stroke='%237C5BD6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.02em);
+  background-size: 100% 0.16em;
+  padding-bottom: 0.06em;
+}
+em.ink, .ink em { font-style: normal; }
+
+
+/* ------------------------------------------------------------
+   5. MARGINALIA  — small handwritten notes in the gutters
+   Position each instance with its own modifier class (examples
+   below). Keep to ~1–2 per page, lowercase, and hide on narrow
+   viewports so they never crop. Each note's parent must be
+   position: relative.
+   ------------------------------------------------------------ */
+.marginalia {
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 400;
+  font-size: 22px;
+  color: #7C5BD6;
+  line-height: 1.05;
+  letter-spacing: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: none;
+  z-index: 6;
+}
+.marginalia .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px; height: 12px;
+}
+.marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+/* --- example per-instance placements (tune the px to your layout) --- */
+.marg-hello     { top: calc(100% - 4px); left: 0; transform: rotate(-3deg); font-size: 24px; }   /* homepage greeting */
+.marg-available { top: -30px; right: 0;  transform: rotate(-2deg); font-size: 20px; }              /* "open to work" block */
+.marg-work      { top: -6px; left: calc(100% + 14px); transform: rotate(-3deg); font-size: 21px; }/* "selected work" label */
+.marg-count     { top: -34px; right: -10px; transform: rotate(-3deg); font-size: 22px; }           /* work-page project count */
+.marg-hint      { bottom: -34px; left: 0; transform: rotate(-2deg); font-size: 20px; }             /* work-page intro / hover hint */
+.marg-cta       { top: -34px; left: 0; transform: rotate(-3deg); font-size: 22px; }                /* about-page hire CTA */
+.marg-cando     { top: -8px; left: calc(100% + 16px); transform: rotate(-2deg); font-size: 20px; } /* about-page skills heading */
+@media (max-width: 900px) {
+  .marg-available, .marg-work, .marg-hint, .marg-cando { display: none; }
+}
+@media (max-width: 760px) { .marg-hello { display: none; } }
+
+
+/* ------------------------------------------------------------
+   6. TAPED PHOTO PRINTS  — project cards (work page + homepage)
+   Slight FIXED rotation per card, soft-grey paper-tape strip,
+   sharp corners, lifted shadow. Straighten-on-focus is wired
+   into the existing focus-gallery hover (see 6b).
+   Scope to your grid container (.focus-grid / .home-focus).
+   ------------------------------------------------------------ */
+.focus-grid .project-card,
+.home-focus .project-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease;
+}
+.focus-grid .project-thumb,
+.home-focus .project-thumb {
+  border-radius: 2px;              /* sharp print edge, not rounded card */
+  box-shadow: 0 12px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* the tape strip */
+.focus-grid .project-card::before,
+.home-focus .project-card::before {
+  content: '';
+  position: absolute;
+  width: 96px; height: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  z-index: 4; pointer-events: none;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+  transition: opacity .35s ease;
+}
+.project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+.project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+.project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+.project-card:hover::before { opacity: .55; }
+
+/* per-card FIXED rotations — never randomize */
+.c-onaka   { --rot: -1.2deg; }
+.c-period  { --rot:  1.6deg; }
+.c-numa    { --rot: -2.0deg; }
+.c-airflux { --rot:  1.2deg; }
+.c-milo    { --rot:  2.0deg; }
+.c-vatten  { --rot: -1.4deg; }
+.c-ilia    { --rot:  1.0deg; }
+
+/* 6b. straighten-on-focus, layered onto the existing focus gallery */
+.focus-grid:hover .project-card,
+.home-focus:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+.focus-grid:hover .project-card img,
+.home-focus:hover .project-card img { filter: saturate(.55); }
+.focus-grid:hover .project-card:hover,
+.home-focus:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+.focus-grid:hover .project-card:hover .project-thumb,
+.home-focus:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); }
+.focus-grid:hover .project-card:hover img,
+.home-focus:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+/* hover-revealed title in handwriting */
+.pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; }
+.pj-reveal .go { width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ------------------------------------------------------------
+   7. TAPED PORTRAIT  — about page
+   Same print treatment for the .portrait figure. Remove any
+   overflow:hidden so the tape can sit outside the edge.
+   ------------------------------------------------------------ */
+.portrait {
+  position: relative;
+  border-radius: 2px;
+  transform: rotate(1.5deg);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12), 0 3px 8px rgba(0,0,0,.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  /* NOTE: delete `overflow: hidden;` from the original .portrait rule */
+}
+.portrait:hover { transform: rotate(0deg); }
+.portrait img { border-radius: 2px; }
+.portrait::before {
+  content: '';
+  position: absolute;
+  width: 110px; height: 28px;
+  top: -12px; left: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.82) 0%, rgba(200,198,190,.74) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  transform: rotate(-7deg);
+  z-index: 4; pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   8. MARQUEE  — make the homepage ticker blend in
+   ------------------------------------------------------------ */
+.marquee {
+  background: transparent !important;
+  border-top: 1px solid var(--grey-line, #E5E2DD) !important;
+  border-bottom: 1px solid var(--grey-line, #E5E2DD) !important;
+  padding: 13px 0 !important;
+  font-size: clamp(15px, 1.6vw, 22px) !important;
+  color: var(--ink-soft, #6B6B6B) !important;
+}
+.marquee em { color: var(--ink-soft, #6B6B6B) !important; }
+.marquee-track .dot { width: 6px !important; height: 6px !important; background: #7C5BD6 !important; opacity: .6; }
+
+
+/* ------------------------------------------------------------
+   9. PROJECT-PAGE SECTION-NOTE ARROW  (project pages only)
+   Replaces the typographic "↓" above each handwritten margin
+   note with a hand-drawn down-arrow, rendered in THAT PROJECT'S
+   own deep accent colour (NOT purple). Set the colour per page
+   to its --{accent}-deep variable, e.g. var(--blue-deep) on
+   onaka, var(--copper-deep) on period, etc.
+   ------------------------------------------------------------ */
+.section-marker .note::before { display: none !important; }   /* drop the ↓ glyph */
+.section-marker .note { position: relative; padding-top: 1.6rem; }
+.section-marker .note .hand-arr {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 16px;
+  color: var(--blue-deep);          /* <-- change per project page */
+}
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ============================================================
+   GUIDE — markup snippets & where to apply
+   ============================================================
+
+   ACTIVE-NAV OVAL — put inside the active <a> (Home on homepage,
+   Work on work + project pages, About on about page):
+
+     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval"
+       viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20"
+         fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/>
+     </svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+
+   HAND-DRAWN ARROW — replace a "→" in a CTA or reveal corner.
+   On dark overlays set stroke="currentColor" and color:#fff on the span:
+
+     <span class="arr arr-hand"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>
+
+   UNDERLINE — wrap one key phrase per section:
+     ... where <span class="ink">calm, considered detail</span> still matters ...
+
+   MARGINALIA — parent must be position:relative; arrow optional,
+   rotate it to point at the thing it annotates:
+     <span class="marginalia marg-hello">
+       <span class="arrow" style="transform: rotate(-130deg); margin-right:4px;">
+         <svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+           <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+           <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+       </span>that's me</span>
+   Suggested notes: homepage "that's me" / "available!" / "favourites";
+   work "still growing" / "try hovering"; about "hi, hire me" / "the toolkit".
+
+   TAPED CARDS — add per-card + tape-position classes to each card:
+     <a class="project-card ... c-onaka tape-tl" href="onaka.html"> ... </a>
+   Tape positions distributed across the grid: tl / tc / tr.
+
+   PROJECT-PAGE SECTION NOTE — replace the old note with the arrow,
+   and set .hand-arr colour to the page's own --{accent}-deep:
+     <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>where it all began</span>
+   Per-page note colour: onaka var(--blue-deep), period var(--copper-deep),
+   numa var(--numa-deep), milo var(--mustard-deep), vattenkanna var(--sage-deep),
+   ilia var(--walnut-deep), airflux var(--teal-deep).
+   (Purple stays for shared furniture only; each project keeps its own colour.)
+
+   DELIVERY — these pages load styles.css + script.js externally and are
+   often opened as standalone files, so always ship a SELF-CONTAINED copy:
+   inline styles.css into a <style> (replacing the <link>) and script.js
+   into a <script> (replacing the external src), so each page renders
+   with no external dependencies.
+   ============================================================ */
+
+
+/* ============================================
+   Override: hide the legacy ↗ pill from .project-card::after
+   so the new .pj-reveal overlay (Nefs name + hand-drawn arrow) wins
+   ============================================ */
+.focus-grid .project-card::after,
+.home-focus .project-card::after {
+  content: '' !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* The .pj-reveal overlay on project cards: hovered reveals Nefs title + arrow */
+.pj-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 18px 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 5;
+  border-radius: 2px;
+}
+.focus-grid .project-card:hover .pj-reveal,
+.home-focus .project-card:hover .pj-reveal { opacity: 1; }
+.pj-reveal .nm { color: #fff; }
+
+/* Anchors / parents of marginalia must be relative — applied via inline style in HTML */
+
+
+/* ============================================
+   Project-page: section-marker hand-arr inherits the note's own
+   per-project deep accent colour (instead of hardcoded blue)
+   ============================================ */
+.section-marker .note .hand-arr { color: inherit !important; }
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMA · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('assets/nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Numa uses its own brand purple, the one used across the project's diagrams
+       and UI. The only case study allowed a vibrant accent rather than a muted one,
+       because here the brand identity is the work. */
+    --numa: #1D009D;
+    --numa-deep: #15006A;
+    --numa-soft: #EDEAF7;
+    --numa-bright: #4A2BC2;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --bg-warm: #F7F6FB;
+    --rule: #E6E4EE;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--numa-deep); font-weight: inherit; }
+
+  /* NAV */
+  .upload-nav-disabled-numa {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--numa-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID: section structure, identical to the other case studies */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--numa-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--numa-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--numa-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--numa-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 0;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--numa);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* §01 PERSONA: photo + summary/challenges/goals */
+  .persona {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-top: 1px solid var(--ink);
+    padding-top: 2.5rem;
+  }
+  .persona-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.75rem;
+    align-items: center;
+    background: var(--bg-warm);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+  .persona-photo {
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--numa-soft);
+    border: 1px solid var(--rule);
+  }
+  .persona-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .persona-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1rem;
+  }
+  .persona-photo-placeholder span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    opacity: 0.7;
+  }
+  .persona-id {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .persona-id .pn {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .persona-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .ppill {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--numa-deep);
+    background: var(--numa-soft);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+  }
+  .pd-summary {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0.15rem 0 0;
+  }
+  .persona-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .pd-panel {
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .pd-pains { background: var(--bg-2); border: 1px solid var(--rule); }
+  .pd-goals { background: var(--numa-soft); }
+  .pd-panel .pd-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .pd-pains .pd-tag { color: var(--ink-3); }
+  .pd-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .pd-panel li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .pd-pains li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    top: -0.05rem;
+    color: var(--ink-4);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .pd-goals li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    background: var(--numa);
+    border-radius: 50%;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .persona-detail { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .persona-card { grid-template-columns: 1fr; justify-items: start; gap: 1.25rem; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+
+
+<style id="sketchbook-extras">
+  /* Sketchbook reconciliation — added */
+
+    /* Paper grain on body + nav — matches the rest of the site */
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    background-repeat: repeat !important;
+    background-attachment: scroll !important;
+  }
+  nav.nav {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    background-image: none !important;
+  }
+
+  /* Purple oval around active nav link (Work on project pages) */
+  nav.nav .nav-links a.active {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: #7C5BD6 !important;
+  }
+
+  /* Taped-print treatment for hero image (subtle — no big rotation since it's a banner) */
+  figure.hero-image {
+    position: relative;
+    border-radius: 2px !important;
+    overflow: visible !important;
+    box-shadow: 0 8px 22px rgba(40, 28, 0, 0.10), 0 2px 6px rgba(40, 28, 0, 0.06);
+  }
+  figure.hero-image::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    margin-left: -48px;
+    width: 96px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 3;
+    transform: rotate(-3deg);
+    pointer-events: none;
+  }
+
+  /* Hide the legacy ::before arrow — the inline <span class="hand-arr"> in each note is the canonical arrow */
+  .section-marker .note::before { display: none !important; content: '' !important; }
+</style>
+<style id="nav-dropdown-css">
+.nav-item-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  border: 1px solid var(--grey-line, #D6D6D6);
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(40, 28, 0, 0.10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+/* invisible bridge so hover survives the gap between Work link and the dropdown */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.nav-dropdown a:hover {
+  color: var(--purple);
+}
+.nav-dropdown a .nu {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute, #8E8E8E);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover .nu {
+  color: var(--purple);
+}
+@media (max-width: 720px) {
+  .nav-dropdown { display: none !important; }
+}
+/* "All work" — hidden in the desktop hover menu, shown only in the mobile menu */
+.nav-dd-all { display: none !important; }
+@media (max-width: 720px) {
+  .nav-item-dropdown.open .nav-dropdown a.nav-dd-all { display: flex !important; }
+}
+</style>
+<style id="numa-sketchbook-figs">
+  .section figure:not(.screen):not(.video-hero) figcaption {
+    font-family: var(--mono) !important; font-size: 0.7rem !important; color: var(--ink-3) !important;
+    letter-spacing: 0.02em !important; line-height: 1.5 !important; margin-top: 0.85rem !important;
+    padding: 0 !important; border: none !important; background: transparent !important; text-align: left !important;
+  }
+  .section figure:has(.marginalia) { overflow: visible !important; }
+  .marginalia {
+    position: absolute; z-index: 6; font-family: var(--hand); font-weight: 400; text-transform: none;
+    font-size: 17px; line-height: 1.05; color: #1D009D; letter-spacing: -0.01em;
+    pointer-events: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  }
+  .marginalia .m-arr { width: 28px; height: 18px; flex-shrink: 0; color: #1D009D; }
+  .marginalia .m-arr svg { width: 100%; height: 100%; overflow: visible; }
+  @media (max-width: 900px) { .marginalia { display: none; } }
+</style>
+
+<style id="mobile-nav-css">
+  .nav-burger { display: none; }
+  @media (max-width: 720px) {
+    nav.nav { position: fixed; }
+    .nav-burger { display:inline-flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:40px; padding:9px; background:none; border:none; cursor:pointer; z-index:130; margin-left:auto; }
+    .nav-burger span { display:block; width:22px; height:2px; border-radius:2px; background:#0E0E0C; transition: transform .25s ease, opacity .2s ease; }
+    nav.nav.menu-open .nav-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    nav.nav.menu-open .nav-burger span:nth-child(2){ opacity:0; }
+    nav.nav.menu-open .nav-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    html nav.nav .nav-links,
+    html body[class*="case-"] nav.nav .nav-links {
+      display:none !important; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column !important; align-items:stretch !important; gap:0 !important;
+      background:#FFFFFF !important; border-bottom:1px solid var(--rule,#D6D6D6);
+      padding:6px 0 10px !important; box-shadow:0 14px 30px rgba(0,0,0,.10);
+    }
+    html nav.nav.menu-open .nav-links,
+    html body[class*="case-"] nav.nav.menu-open .nav-links { display:flex !important; }
+
+    nav.nav .nav-links > a,
+    nav.nav .nav-item-dropdown > a {
+      display:block !important; width:100% !important;
+      padding:13px var(--gutter,24px) !important; border:none !important; border-radius:0 !important; font-size:15px !important;
+    }
+    nav.nav .nav-links a .scribble-oval { display:none !important; }
+    .nav-item-dropdown { position:static !important; display:block !important; width:100%; }
+    .nav-item-dropdown > a::after { content:' +'; color: var(--purple, #7C5BD6); font-family: var(--mono, monospace); }
+    .nav-item-dropdown.open > a::after { content:' \2013'; }
+    .nav-dropdown, body[class*="case-"] .nav-dropdown {
+      display:none !important; position:static !important; transform:none !important;
+      opacity:1 !important; pointer-events:auto !important; box-shadow:none !important; border:none !important;
+      min-width:0 !important; width:100% !important; padding:0 0 4px 0 !important; background:transparent !important;
+    }
+    .nav-item-dropdown.open .nav-dropdown { display:flex !important; flex-direction:column; }
+    .nav-dropdown::before { display:none !important; }
+    .nav-dropdown a { justify-content:flex-start !important; text-align:left !important; padding:9px var(--gutter,24px) 9px calc(var(--gutter,24px) + 16px) !important; font-size:13px !important; opacity:.85; }
+    .nav-time { display:none !important; }
+  }
+</style>
+
+<style id="proj-footer-line-fix">
+  /* one black divider above the project nav; no line under it */
+  body[class*="case-"] .footer { border-top: none !important; padding-top: 28px !important; }
+  body[class*="case-"] .onaka-pagenav { border-top: 1px solid var(--rule) !important; }
+  body[class*="case-"] .section:last-of-type { border-bottom: none !important; }
+</style>
+</head>
+<body class="case-numa" style="background-color: rgb(255, 255, 255)">
+
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav" style="background-color: rgba(255, 255, 255, 0.88)">
+  <a href="index.html" class="nav-logo" style="font-weight: 400; letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download>CV ↓</a>
+  </div>
+  <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<style>
+  body.case-numa nav.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 22px var(--gutter) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid #D6D6D6 !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important;
+    z-index: 100 !important;
+  }
+  body.case-numa nav.nav .nav-logo {
+    font-family: 'Nefs', 'Instrument Serif', cursive !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    color: #0E0E0C !important;
+    transform: translateY(4px) !important;
+    transition: color 0.2s !important;
+    padding-right: 4px !important;
+    text-decoration: none !important;
+    letter-spacing: -3px !important;
+  }
+  body.case-numa nav.nav .nav-links {
+    display: flex !important;
+    gap: 8px !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    list-style: none !important;
+  }
+  body.case-numa nav.nav .nav-links a {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    padding: 7px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #0E0E0C !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    text-transform: none !important;
+  }
+  body.case-numa nav.nav .nav-links a:hover { color: #7C5BD6 !important; }
+  body.case-numa nav.nav .nav-links a.active { color: #7C5BD6 !important; }
+  body.case-numa nav.nav .nav-logo:hover { color: #7C5BD6 !important; }
+  body.case-numa nav.nav .nav-time {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    color: #8E8E8E !important;
+  }
+  body.case-numa section.hero { padding-top: 9rem !important; }
+  body.case-numa .hero-meta, body.case-numa .hero-table { text-transform: none !important; }
+</style>
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">03 — NUMA</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">October 2025</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Product design concept · self-directed</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, UX, UI, branding</span>
+    </div>
+  </div>
+  <h1 class="display a d2" style="font-size: 49px">A health app that tells you what to <em style="color: rgb(21, 0, 106)">do</em>, not just what you did.</h1>
+  <p class="hero-sub a d3">NUMA is a premium health and fitness concept built around one idea: turn a day of scattered metrics into a single clear answer to <em>what should I do next to feel better</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">UI Design</span>
+    <span class="tag">Information Architecture</span>
+    <span class="tag">Wireframing</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="assets/numa/hero.png" data-placeholder-for="numa-hero.jpg" alt="The numa app shown on two iPhones against a purple gradient: the NUMA splash screen and the Home screen with the day's metrics and Day Score" />
+</figure>
+
+<!-- 1. BRIEF + USER -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Brief + user</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>not another app full of charts</span>
+    </div>
+    <div>
+      <h2 class="wide">Design a premium health app that feels <em>luxurious yet simple</em>.</h2>
+      <p class="lede">The brief: a health and fitness app that tracks key metrics, follows personalised plans, and surfaces clear insights through an elegant interface, combining advanced analytics, AI recommendations, and wearable integration to support a balanced lifestyle. The hard part is the contradiction inside it. Advanced analytics usually means more charts. A balanced lifestyle usually means fewer. The whole project lives in resolving that tension.</p>
+
+      <div class="pull">
+        <blockquote>"I don't need another app full of charts. I just want something that tells me what I should do next to feel better."</blockquote>
+        <cite>George Matthews · primary persona</cite>
+      </div>
+
+      <!-- Persona -->
+      <div class="persona">
+        <div class="persona-card">
+          <div class="persona-photo">
+            <img src="assets/numa/persona-george.png" data-placeholder-for="numa-persona.jpg" alt="George Matthews, the primary persona: a man in his mid-fifties in a light blue shirt" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <div class="persona-id">
+            <span class="pn">George Matthews</span>
+            <div class="persona-pills">
+              <span class="ppill">54</span>
+              <span class="ppill">Venture capitalist</span>
+              <span class="ppill">Married</span>
+              <span class="ppill">Runs regularly</span>
+            </div>
+            <p class="pd-summary">A busy professional balancing a high-stress job with family life. He runs, eats well, and wants to stay healthy, but has no time to analyse complex data.</p>
+          </div>
+        </div>
+
+        <div class="persona-detail">
+          <div class="pd-panel pd-pains">
+            <span class="pd-tag">What frustrates him</span>
+            <ul>
+              <li>Health apps that feel overwhelming and data-heavy.</li>
+              <li>Graphs and metrics he has to decode himself.</li>
+              <li>Anything that needs manual tracking he has no time for.</li>
+            </ul>
+          </div>
+          <div class="pd-panel pd-goals">
+            <span class="pd-tag">What he wants</span>
+            <ul>
+              <li>Quick, clear suggestions: rest, move, hydrate.</li>
+              <li>A dashboard around the metrics he actually cares about.</li>
+              <li>To feel in control, without anxiety over the numbers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THREE APPS STUDIED: Apple Health / Oura / Whoop -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where the gaps are</span>
+    </div>
+    <div>
+      <h2>Three apps that each get <em>one thing</em> right.</h2>
+      <p class="lede">To understand how leading health apps work and where they leave room, I studied three: Apple Health, Oura, and Whoop. Each is strong in a different way, and each leaves a gap that became a design opening for NUMA.</p>
+
+      <div class="apps-grid">
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="assets/numa/icon-apple.png" data-placeholder-for="numa-icon-apple.png" alt="Apple Health app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <span class="app-role">The aggregator</span>
+          <span class="app-name">Apple Health</span>
+          <p class="app-take">Great for unified data. Needs more personalisation and a nudge toward what to actually do.</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> connects with everything, trusted, visualises trends over time.</p>
+            <p><strong>Gap:</strong> shows numbers but rarely suggests next steps.</p>
+          </div>
+        </div>
+
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="assets/numa/icon-oura.png" data-placeholder-for="numa-icon-oura.png" alt="Oura app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <span class="app-role">The elegant tracker</span>
+          <span class="app-name">Oura</span>
+          <p class="app-take">Beautifully calm. The next step is direction: what should I do right now?</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> minimal UI, scores delivered cleanly, low-friction ring.</p>
+            <p><strong>Gap:</strong> AI summaries restate the charts rather than guiding.</p>
+          </div>
+        </div>
+
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="assets/numa/icon-whoop.png" data-placeholder-for="numa-icon-whoop.png" alt="Whoop app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            </div>
+          <span class="app-role">The performance coach</span>
+          <span class="app-name">Whoop</span>
+          <p class="app-take">Powerful for athletes. The opening is to widen appeal and soften the learning curve.</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> strain and recovery framing turns data into context.</p>
+            <p><strong>Gap:</strong> steep for novices, and value-for-cost is debated.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synthesis line, full width -->
+      <div class="research-synth">
+        <span class="rs-tag">The opening</span>
+        <p>All three are built for people who already want the data. None is built for someone who just wants to be told, in plain language, what to do next. <em>That</em> is the space NUMA is designed for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Research: 3 icon-led columns + full-width synthesis */
+  .apps-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .app-col {
+    padding: 2.25rem 1.75rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .app-col:not(:first-child) { padding-left: 1.75rem; }
+  .app-col:last-child { border-right: none; padding-right: 0; }
+  .app-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .app-icon-ph {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: var(--numa-soft);
+    border: 1px dashed var(--rule);
+  }
+  .app-icon-ph span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--numa-deep);
+    opacity: 0.8;
+  }
+  .app-role {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .app-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .app-take {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .app-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    margin-top: auto;
+  }
+  .app-detail p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .app-detail strong {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+
+  .research-synth {
+    margin-top: 3rem;
+    padding: 2.25rem 2.5rem;
+    background: var(--numa-soft);
+    border: 1px solid var(--numa);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .rs-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .research-synth p {
+    font-family: var(--display);
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  .research-synth em { font-style: italic; color: var(--numa-deep); font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .apps-grid { grid-template-columns: 1fr; gap: 0; }
+    .app-col { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 0; }
+    .app-col:not(:first-child) { padding-left: 0; }
+    .app-col:first-child { padding-top: 2rem; }
+    .app-col:last-child { border-bottom: none; }
+    .app-detail { margin-top: 1rem; }
+    .research-synth { padding: 1.75rem 1.5rem; }
+  }
+</style>
+
+<!-- 3. SIX PROBLEMS, SIX MOVES: paired problem/solution rows -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Problems + moves</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>every gap, a decision</span>
+    </div>
+    <div>
+      <h2>Six problems with health apps. Six <em>design moves</em>.</h2>
+      <p class="lede">Every common frustration in the category became a specific decision in NUMA. Tap any card to see the problem each move solves.</p>
+
+      <div class="moves-cards">
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Clarity and calm">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">01</span>
+              <h4>Clarity and calm</h4>
+              <p>One clear daily summary per category. Calm by default, detail on request.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Data overload</strong>
+              <p>Most apps bury users in graphs and stats that feel more like analysis than self-care.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Actionable guidance">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">02</span>
+              <h4>Actionable guidance</h4>
+              <p>Every screen ends in a small next step, so data always becomes a decision.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Data without direction</strong>
+              <p>Apps show plenty of metrics but rarely tell you what to actually do with them.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Customisable dashboard">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">03</span>
+              <h4>Customisable dashboard</h4>
+              <p>Users choose which categories matter and arrange them in their own order.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>One-size-fits-all tracking</strong>
+              <p>Most apps assume everyone cares about the same metrics, creating clutter and noise.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Effortless automation">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">04</span>
+              <h4>Effortless automation</h4>
+              <p>Connected devices sync automatically; a single Day Score reduces the effort.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Manual logging fatigue</strong>
+              <p>People tire of logging by hand, or of making sense of too many separate numbers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Focus on wellbeing">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">05</span>
+              <h4>Focus on wellbeing</h4>
+              <p>Calm feedback and gentle encouragement, supporting balance over perfection.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Performance pressure</strong>
+              <p>Framing health as competition can create pressure and guilt rather than care.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Integrated daily support">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">06</span>
+              <h4>Integrated daily support</h4>
+              <p>A Resources page turns insights into real actions: stretches, meals, mindfulness.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Disconnected insights</strong>
+              <p>Health data often feels separate from daily life and the real choices people make.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Six problems, six moves: flip cards */
+  .moves-cards {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1200px;
+    min-height: 160px;
+    cursor: pointer;
+    border-radius: 14px;
+    outline: none;
+  }
+  .flip-card:focus-visible .flip-inner {
+    box-shadow: 0 0 0 2px var(--numa);
+    border-radius: 14px;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    overflow: hidden;
+  }
+  .flip-front {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s;
+  }
+  .flip-card:hover .flip-front { border-color: var(--numa); }
+  .mc-num {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-family: var(--display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--numa-soft);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .flip-front h4 {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 0.3rem;
+    color: var(--ink);
+  }
+  .flip-front h4::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--numa);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  .flip-front p {
+    position: relative;
+    z-index: 1;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .flip-hint {
+    position: relative;
+    z-index: 1;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 1rem;
+    transition: color 0.2s;
+  }
+  .flip-card:hover .flip-hint { color: var(--numa-deep); }
+  .flip-back {
+    background: var(--numa);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .fb-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+  .flip-back strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0.15rem 0 0.4rem;
+  }
+  .flip-back p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.9);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .moves-cards { grid-template-columns: 1fr 1fr; }
+    .flip-inner { min-height: 240px; }
+  }
+  @media (max-width: 560px) {
+    .moves-cards { grid-template-columns: 1fr; }
+    .flip-inner { min-height: 200px; }
+  }
+</style>
+
+<!-- 4. THREE JOURNEYS: task flows -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Journeys</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>designed around goals</span>
+    </div>
+    <div>
+      <h2>Three journeys, each ending in a <em>goal met</em>.</h2>
+      <p class="lede">Rather than map every screen, I mapped the three things a user actually comes to NUMA to do. Each flow starts with an intent and ends in a resolved state, with the decision points the design has to handle along the way.</p>
+
+      <!-- Three goal labels with paired flow diagrams -->
+      <div class="journey-labels" style="margin-bottom: 3rem;">
+        <div class="jl-cell">
+          <span class="jl-num">Journey 01</span>
+          <h4>"Tell me what to do tonight to feel better tomorrow."</h4>
+          <p>The core daily loop: open, read the Day Score, act on one suggestion. Ends in feeling in control.</p>
+          <figure class="jl-flow">
+            <img src="assets/numa/journey-01-tonight.png" alt="Task flow for Journey 01: open app in evening, home screen day at a glance, read Day Score 72, see suggestion to try a light walk, decide whether to act, then either dismiss (closes app) or tap suggestion, pick wind-down (evening walk 25mins), start routine with goal met" />
+          </figure>
+        </div>
+        <div class="jl-cell">
+          <span class="jl-num">Journey 02</span>
+          <h4>"Log something the device didn't track."</h4>
+          <p>The manual-entry case, with a smart check for whether the wearable already caught it, so nothing gets logged twice.</p>
+          <figure class="jl-flow">
+            <img src="assets/numa/journey-02-log.png" alt="Task flow for Journey 02: on Categories tab, tap the plus button to open the add menu, choose entry type (meal, workout, period), check whether already tracked by the device, then either fill in details via quick form or edit existing entry to avoid duplicate, save with the category updating to meet the goal" />
+          </figure>
+        </div>
+        <div class="jl-cell">
+          <span class="jl-num">Journey 03</span>
+          <h4>"Get set up fast and see something useful."</h4>
+          <p>Onboarding: account, categories, optional device connect, straight to a first dashboard that already shows value.</p>
+          <figure class="jl-flow">
+            <img src="assets/numa/journey-03-onboarding.png" alt="Task flow for Journey 03: open app first time, welcome screen 'Clarity not data overload', create account with email and name, pick categories (activity, sleep, mood), reach optional device-connect step, then either go to manual mode (can connect later) or sync wearable (pulls recent data), both paths land on first dashboard with the goal met" />
+          </figure>
+        </div>
+      </div>
+
+      <!-- The point of the flows -->
+      <div class="journey-note">
+        <span class="jn-tag">Why flows, not screens</span>
+        <p>Mapping by goal kept the design honest. If a path to a goal got long or branched too much, that was a problem to fix in the structure, not decorate in the UI. The "already tracked?" check in Journey 02 and the optional device step in Journey 03 both came directly from spotting friction in these flows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §04 Journeys: 3 cells with paired flow diagrams */
+  .journey-labels {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+  }
+  .jl-flow {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    overflow: hidden;
+  }
+  .jl-flow img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  @media (max-width: 900px) {
+    .journey-labels { grid-template-columns: 1fr; }
+  }
+  .jl-cell {
+    padding: 0 2rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .jl-cell:not(:first-child) { padding-left: 2rem; }
+  .jl-cell:last-child { border-right: none; padding-right: 0; }
+  .jl-cell .jl-num,
+  .jl-cell h4,
+  .jl-cell p { max-width: 30ch; }
+  .jl-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .jl-cell h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0 0 0.35rem;
+    color: var(--ink);
+  }
+  .jl-cell p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .journey-image {
+    margin: 3rem 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  .journey-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent;
+  }
+  .journey-placeholder {
+    aspect-ratio: 21 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .journey-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .journey-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .journey-note {
+    padding: 1.5rem 2rem;
+    background: var(--numa-soft);
+    border-left: 3px solid var(--numa);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .jn-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .journey-note p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .journey-labels { grid-template-columns: 1fr; gap: 1.5rem 0; padding-top: 1.5rem; }
+    .jl-cell { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+    .jl-cell:last-child { border-bottom: none; padding-bottom: 0; }
+    .journey-note { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+    .journey-image img { padding: 0; }
+  }
+</style>
+
+<!-- 5. STRUCTURE + SCREENS: site map, wireframes, final UI -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Structure + screens</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>boxes before polish</span>
+    </div>
+    <div>
+      <h2>The interface came from <em>structure</em>, not styling.</h2>
+      <p class="lede">A site map fixed the architecture, then wireframes resolved the layout decisions in greyscale, before any visual design went on top. The hard calls were made in boxes, where a weak structure has nowhere to hide.</p>
+
+      <!-- Site map -->
+      <div class="struct-block">
+        <span class="struct-tag">Information architecture</span>
+        <h3>Five tabs, one persistent <em>spine</em>.</h3>
+        <p class="struct-lede">Everything hangs off a five-tab bottom nav: Home, Categories, Resources, Assistant, Settings. Categories holds all eleven trackable areas; the rest stay shallow so nothing is more than a tap or two from the home screen.</p>
+        <figure class="struct-image">
+          <img src="assets/numa/sitemap.png" data-placeholder-for="numa-sitemap.png" alt="The NUMA site map: Sign In leads to Onboarding, then the Main App with a persistent bottom nav of Home, Categories, Resources, Assistant, and Settings. Each tab expands into its child screens, with Categories showing eleven trackable areas including Activity, Sleep, Vitals, and Nutrition." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Site map: 5-tab spine with Categories holding the eleven trackable areas.</figcaption>
+          </figure>
+      </div>
+
+      <!-- Wireframes -->
+      <div class="struct-block">
+        <span class="struct-tag">Wireframes · low to mid fidelity</span>
+        <h3>Four screens, resolved in <em>greyscale</em> first.</h3>
+        <p class="struct-lede">I worked the hardest layout decisions in grey first, where there is no colour or polish to lean on. Each screen went from a low-fidelity test to a mid-fidelity resolution.</p>
+        <figure class="struct-image">
+          <img src="assets/numa/wireframes.png" data-placeholder-for="numa-wireframes.png" alt="Two rows of wireframes for the Home, Sleep, Resources, and Assistant screens, shown from low-fidelity grey-box layouts to mid-fidelity resolved versions." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Four screens resolved in greyscale before colour: Home, Sleep, Resources, Assistant.</figcaption>
+          </figure>
+
+        <div class="wf-reasons">
+          <div class="wf-reason">
+            <span class="wf-screen">Home</span>
+            <p>Tested three rings versus five. Five won, made horizontally scrollable and customisable, turning a layout decision into a personalisation feature.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Sleep</span>
+            <p>One clear number first. The big total leads, the stage graph waits below the fold, following a "not data overload" principle.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Resources</span>
+            <p>Lo-fi had choice paralysis from equal-weight lists. Mid-fi lifted one prioritised "For tonight" recommendation to the top.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Assistant</span>
+            <p>An empty chat read as intimidating, so suggested prompt chips were added to show what the assistant can do at a glance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. THE INTERFACE: final UI screens -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">The interface</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>in full colour</span>
+    </div>
+    <div>
+      <h2>The product, <em>resolved</em>.</h2>
+      <p class="lede">The visual language combines minimal layouts, soft purple gradients, and plain-language summaries, so the app feels supportive rather than technical. Every screen stays quiet until you ask it for more.</p>
+
+      <!-- Annotated home screen -->
+      <figure class="ui-hero" style="position:relative;">
+        <span class="marginalia" style="top:-14px; left:6%; transform:rotate(-3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the home screen</span>
+        <img src="assets/numa/ui-home.png" data-placeholder-for="numa-ui-home.png" alt="The NUMA home screen with annotations: Day at a Glance shows the day's key metrics, Personalised Insight offers a contextual bedtime nudge, the Day Score of 72 summarises the day with a short reflection, and a Customisable Overview lets users arrange categories by priority." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Annotated home screen: Day at a Glance, Personalised Insight, Day Score, Customisable Overview.</figcaption>
+        </figure>
+
+      <!-- Curated screen gallery, Period-style labels -->
+      <div class="screen-strip">
+        <div class="scol">
+          <div class="slabel">01 · Vitals</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-vitals.png" data-placeholder-for="numa-screen-vitals.png" alt="NUMA Vitals screen: heart rate, resting heart rate, blood pressure, body temperature, blood oxygen and HRV shown as one-number cards in a red palette." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>Category overview. One number per card, colour-coded.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">02 · Metric info</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-vitals-info.png" data-placeholder-for="numa-screen-vitals-info.png" alt="The Vitals screen with an information popup explaining what resting heart rate means and why it matters." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>Tap any metric and it explains itself, so nothing feels opaque.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">03 · Total sleep</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-sleep.png" data-placeholder-for="numa-screen-sleep.png" alt="NUMA Total Sleep detail screen: a large sleep duration, a stage graph, and a breakdown of REM, light and deep sleep." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>Detail when wanted. The summary sits up top, the full breakdown a scroll away.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">04 · Resources</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-resources.png" data-placeholder-for="numa-screen-resources.png" alt="NUMA Resources screen: evening exercises and dinner ideas suggested based on the day's data." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>Actionable guidance. Insights become real next steps: stretches, meals.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">05 · Assistant</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-assistant.png" data-placeholder-for="numa-screen-assistant.png" alt="NUMA Assistant screen: a conversational AI answering a question about heart rate." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>AI assistant. Clear, conversational answers that read the user's own data.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">06 · Smart device</div>
+          <figure class="screen">
+            <div class="screen-clip"><img src="assets/numa/screen-device.png" data-placeholder-for="numa-screen-device.png" alt="NUMA Smart Device screen: a connected smart band showing status, last sync time, and a live sync visualisation." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" /></div>
+            <figcaption>Wearable integration. Devices sync automatically, status at a glance.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Prototype link -->
+      <a href="https://www.figma.com/proto/XBiR3DTMTOynn2PhudUgU8/Numa-Revolut?node-id=0-1" target="_blank" rel="noopener" class="proto-link">
+        <span class="proto-text">Try the interactive prototype</span>
+        <span class="proto-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Structure + screens */
+  .struct-block {
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .struct-block:first-of-type { margin-top: 3rem; }
+  .struct-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 0.65rem;
+  }
+  .struct-block h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+  .struct-block h3 em { font-style: italic; color: var(--numa-deep); font-weight: 700; }
+  .struct-lede {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 2rem;
+    max-width: 72ch;
+  }
+
+  /* Shared figcaption style across all numa figures */
+  .ui-hero figcaption,
+  .brand-moodboard figcaption,
+  .struct-image figcaption,
+  .jl-flow figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.6rem 0 0;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+  }
+  /* Hover-to-reveal captions (match onaka / period) */
+  .section figure:not(.screen):not(.video-hero) figcaption {
+    opacity: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease !important;
+  }
+  .section figure:not(.screen):not(.video-hero):hover figcaption {
+    opacity: 1 !important;
+    max-height: 8rem !important;
+    margin-top: 0.6rem !important;
+    padding-top: 0.6rem !important;
+    border-top: 1px solid var(--rule) !important;
+  }
+
+  .struct-image {
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  .struct-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent;
+  }
+  .struct-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .struct-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .struct-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  /* Wireframe reasoning: 4 compact cells */
+  .wf-reasons {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+  .wf-reason {
+    padding: 0 1.25rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .wf-reason:not(:first-child) { padding-left: 1.25rem; }
+  .wf-reason:last-child { border-right: none; padding-right: 0; }
+  .wf-screen {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .wf-reason p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .wf-reasons { grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
+    .wf-reason { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); }
+    .wf-reason:nth-child(2n) { padding-left: 1.25rem !important; border-right: none; }
+    .wf-reason:nth-last-child(-n+2) { border-bottom: none; padding-bottom: 0; }
+    .struct-image img { padding: 0; }
+  }
+
+  /* §06 Interface: hero + 3-up grid */
+  .ui-hero {
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    background: transparent;
+  }
+  .ui-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .ui-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .ui-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .ui-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  /* Screen gallery, Period-style: grey label on top, image, caption below */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.25rem 1.5rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.85rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+  }
+  .screen .screen-clip {
+    aspect-ratio: 9 / 19.5;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+.screen .screen-clip img {
+    border-radius: 14px;
+  }
+  .screen figcaption {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease;
+  }
+  .screen:hover figcaption {
+    opacity: 1;
+    max-height: 8rem;
+    margin-top: 0.5rem;
+  }
+  .screen-placeholder {
+    aspect-ratio: 9 / 19.5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+    border-radius: 14px;
+  }
+  .screen-placeholder span { opacity: 0.7; }
+
+  /* Minimal prototype link */
+  .proto-link {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--numa-deep);
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--numa);
+    transition: gap 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .proto-link:hover {
+    gap: 0.9rem;
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .proto-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  .proto-link:hover .proto-arrow { transform: translateX(2px); }
+
+  @media (max-width: 900px) {
+    .screen-strip { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: 1fr; max-width: 320px; }
+  }
+</style>
+
+<!-- 7. BRAND + CLOSE: name, palette, font, moodboard, links -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Brand</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>find your flow</span>
+    </div>
+    <div>
+      <h2>A name that means <em>inner vitality</em>.</h2>
+      <p class="lede">NUMA comes from "numen", the inner life force, the spark of vitality. The brand reflects clarity, calm, and quiet sophistication: a deep purple that reads as both relaxing and rich, set in clean Helvetica, for a product about wellbeing rather than performance.</p>
+
+      <!-- Moodboard -->
+      <figure class="brand-moodboard" style="position:relative;">
+        <span class="marginalia" style="top:-14px; right:6%; transform:rotate(3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the whole system</span>
+        <img src="assets/numa/brand-collage.png" data-placeholder-for="numa-moodboard.png" alt="The NUMA brand moodboard: the app on a phone and a smart watch, a purple matchbox, and a purple tote bag with the NUMA logo, all in the brand's deep purple." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Brand applications: phone and smartwatch UI, tote, hoodie, matchbox, signage, business cards.</figcaption>
+        </figure>
+
+      <!-- Palette + font -->
+      <div class="brand-grid">
+        <div class="brand-block">
+          <span class="brand-tag">Colour palette</span>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="sw-chip" style="background: #1D009D;"></div>
+              <span class="sw-hex">#1D009D</span>
+              <span class="sw-name">Primary purple</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #F0F0F0; border: 1px solid var(--rule);"></div>
+              <span class="sw-hex">#F0F0F0</span>
+              <span class="sw-name">Soft grey</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #878787;"></div>
+              <span class="sw-hex">#878787</span>
+              <span class="sw-name">Mid grey</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #454547;"></div>
+              <span class="sw-hex">#454547</span>
+              <span class="sw-name">Charcoal</span>
+            </div>
+          </div>
+        </div>
+        <div class="brand-block">
+          <span class="brand-tag">Product font</span>
+          <div class="font-spec">
+            <span class="font-aa">Aa</span>
+            <div class="font-detail">
+              <strong>Helvetica</strong>
+              <p>A clean, neutral sans-serif. Familiar and modern, it keeps the interface quiet so the data and suggestions lead.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Brand: moodboard + palette/font + links */
+  .brand-moodboard {
+    margin: 3rem 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  .brand-moodboard img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .brand-moodboard-ph {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .brand-moodboard-ph strong { font-size: 0.9rem; font-weight: 500; color: var(--ink-2); }
+  .brand-moodboard-ph p { font-family: var(--mono); font-size: 0.7rem; opacity: 0.7; margin: 0; }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2.5rem;
+  }
+  .brand-block {
+    padding-right: 2.5rem;
+    border-right: 1px solid var(--rule);
+  }
+  .brand-block:last-child { padding-right: 0; padding-left: 2.5rem; border-right: none; }
+  .brand-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .sw-chip {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+  }
+  .sw-hex {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .sw-name {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    line-height: 1.3;
+  }
+  .font-spec {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .font-aa {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .font-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .font-detail strong {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .font-detail p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .brand-grid { grid-template-columns: 1fr; gap: 2.5rem 0; }
+    .brand-block { padding-right: 0; border-right: none; }
+    .brand-block:last-child { padding-left: 0; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+    .swatches { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .swatches { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<!-- FOOTER: minimal prev/next + thin contact strip -->
+
+
+<style>
+  /* FOOTER: minimal closing strip */
+  .site-footer {
+    background: var(--numa-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--numa-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--numa-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--numa-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+<script>
+  // §03 flip cards: toggle on click, and on Enter/Space for keyboard users
+  document.querySelectorAll('.flip-card').forEach(function (card) {
+    function toggle() { card.classList.toggle('flipped'); }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
+
+
+
+
+
+<nav class="onaka-pagenav">
+  <a href="period.html" class="prev">
+    <span class="step">Previous project · 02</span>
+    <span class="dir"><span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 41,8 C 30,5 14,10 4,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 11,3 C 8,6 6,7 4,8 C 6,9 8,11 11,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <em>period.</em></span>
+  </a>
+  <a href="milo.html" class="next">
+    <span class="step">Next project · 04</span>
+    <span class="dir"><em>Milo</em> <span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 3,8 C 14,5 30,10 40,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 33,3 C 36,6 38,7 40,8 C 38,9 36,11 33,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+  </a>
+</nav>
+
+<style>
+  body.case-numa .onaka-pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 2.5rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  body.case-numa .onaka-pagenav a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: color 0.25s;
+  }
+  body.case-numa .onaka-pagenav a.prev { align-items: flex-start; text-align: left; }
+  body.case-numa .onaka-pagenav a.next { align-items: flex-end; text-align: right; }
+  body.case-numa .onaka-pagenav .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+  }
+  body.case-numa .onaka-pagenav .dir {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #0A0A0A;
+  }
+  body.case-numa .onaka-pagenav .dir em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  body.case-numa .onaka-pagenav a:hover .dir em { opacity: 0.75; }
+  .onaka-pagenav .pn-arr { display: inline-flex; width: 34px; height: 14px; vertical-align: middle; }
+  .onaka-pagenav .pn-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .onaka-pagenav .pn-arr { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .onaka-pagenav a.prev:hover .pn-arr { transform: translateX(-7px); }
+  .onaka-pagenav a.next:hover .pn-arr { transform: translateX(7px); }
+  @media (max-width: 720px) {
+    body.case-numa .onaka-pagenav { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 1.25rem; }
+  }
+</style>
+
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-col"><span class="caption">Email</span><a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a></div>
+    <div class="footer-col"><span class="caption">Phone</span><a href="tel:+447766964868">+44 (0)7766 964 868</a></div>
+    <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>London · <span id="footTime">—</span></span></div>
+</footer>
+
+<script id="inlined-script">
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+</script>
+
+
+<script id="mobile-nav-js">
+(function(){
+  var nav=document.querySelector('nav.nav');
+  var burger=nav&&nav.querySelector('.nav-burger');
+  if(!nav||!burger)return;
+  function closeMenu(){ nav.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); var open=nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded',String(open)); if(!open){ nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); } });
+  var mq=window.matchMedia('(max-width:720px)');
+  nav.querySelectorAll('.nav-item-dropdown > a').forEach(function(a){
+    a.addEventListener('click',function(e){ if(mq.matches){ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); } });
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(mq.matches && a.parentElement && a.parentElement.classList.contains('nav-item-dropdown')) return; closeMenu(); });
+  });
+  document.addEventListener('click',function(e){ if(nav.classList.contains('menu-open')&&!nav.contains(e.target)) closeMenu(); });
+})();
+</script>
+<style id="hero-mobile-fit">
+  @media (max-width: 700px) {
+    figure.hero-image { height: auto !important; min-height: 0 !important; width: auto !important; margin-left: 20px !important; margin-right: 20px !important; }
+    figure.hero-image img { width: 100% !important; height: auto !important; aspect-ratio: 4 / 3 !important; object-fit: cover !important; transform: none !important; object-position: center !important; }
+  }
+</style>
+</body>
+</html>

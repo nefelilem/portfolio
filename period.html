@@ -1,0 +1,4779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>period. · Nefeli Lemessiou</title>
+<style id="inlined-styles">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+
+
+/* ============================================================
+   NEFELI LEMESSIOU — "SKETCHBOOK" DESIGN SYSTEM
+   Reusable styles + exact SVG marks used across the portfolio.
+   Drop this into any page's <style> (or styles.css) and apply
+   the classes/markup as described in the GUIDE at the bottom.
+
+   Depends on two things the site already defines:
+     --hand    handwriting font  ('Nefs', 'Instrument Serif', cursive)
+     #7C5BD6   the purple site accent
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. PAPER GRAIN  — body + fixed nav
+   Very low-alpha SVG noise. Should register as warmth, not as
+   a visible paper image. Apply to BOTH body and nav so the
+   texture is continuous as the fixed nav sits over the page.
+   On project pages, scope the body rule to that page's body
+   class, e.g.  body.case-onaka { ... }
+   ------------------------------------------------------------ */
+body {
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+}
+.nav {
+  /* warm the existing translucent tint to match the paper, keep the blur */
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   2. ACTIVE-NAV OVAL  (purple — shared site furniture)
+   Replaces the active link's pill/underline with a hand-drawn
+   loop. Requires the inline <svg class="scribble-oval"> inside
+   the active <a> (see GUIDE).
+   ------------------------------------------------------------ */
+.nav-links a { position: relative; }
+.nav-links a.active {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #7C5BD6 !important;
+}
+.nav-links a .scribble-oval {
+  position: absolute; inset: -4px -6px;
+  pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.nav-links a.active .scribble-oval { opacity: 1; }
+
+
+/* ------------------------------------------------------------
+   3. HAND-DRAWN ARROW
+   Used in CTAs ("View all work", "See more about me") and in
+   project-card hover-reveal corners, replacing any "→" glyph.
+   Wrap in a span; the inline <svg> uses stroke="currentColor"
+   so it inherits the surrounding text colour.
+   ------------------------------------------------------------ */
+.arr-hand {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px !important; height: 28px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #7C5BD6 !important;        /* or currentColor on dark overlays */
+}
+.arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+/* optional nudge on hover when used in a link */
+a:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+
+/* ------------------------------------------------------------
+   4. HAND-DRAWN UNDERLINE  (.ink)
+   A wobbly SVG as a background-image so it hugs the baseline
+   and wraps correctly across lines, even inside headings.
+   Apply to ONE key emphasis phrase per major section.
+   ------------------------------------------------------------ */
+.ink {
+  color: #7C5BD6;
+  font-style: normal;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 9' preserveAspectRatio='none'><path d='M 2,5 C 14,2 28,7 42,4 C 58,2 74,8 90,5 C 106,2 122,7 138,4 C 154,2 170,8 186,4 C 194,5 196,4 198,5' fill='none' stroke='%237C5BD6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.02em);
+  background-size: 100% 0.16em;
+  padding-bottom: 0.06em;
+}
+em.ink, .ink em { font-style: normal; }
+
+
+/* ------------------------------------------------------------
+   5. MARGINALIA  — small handwritten notes in the gutters
+   Position each instance with its own modifier class (examples
+   below). Keep to ~1–2 per page, lowercase, and hide on narrow
+   viewports so they never crop. Each note's parent must be
+   position: relative.
+   ------------------------------------------------------------ */
+.marginalia {
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 400;
+  font-size: 22px;
+  color: #7C5BD6;
+  line-height: 1.05;
+  letter-spacing: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: none;
+  z-index: 6;
+}
+.marginalia .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px; height: 12px;
+}
+.marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+/* --- example per-instance placements (tune the px to your layout) --- */
+.marg-hello     { top: calc(100% - 4px); left: 0; transform: rotate(-3deg); font-size: 24px; }   /* homepage greeting */
+.marg-available { top: -30px; right: 0;  transform: rotate(-2deg); font-size: 20px; }              /* "open to work" block */
+.marg-work      { top: -6px; left: calc(100% + 14px); transform: rotate(-3deg); font-size: 21px; }/* "selected work" label */
+.marg-count     { top: -34px; right: -10px; transform: rotate(-3deg); font-size: 22px; }           /* work-page project count */
+.marg-hint      { bottom: -34px; left: 0; transform: rotate(-2deg); font-size: 20px; }             /* work-page intro / hover hint */
+.marg-cta       { top: -34px; left: 0; transform: rotate(-3deg); font-size: 22px; }                /* about-page hire CTA */
+.marg-cando     { top: -8px; left: calc(100% + 16px); transform: rotate(-2deg); font-size: 20px; } /* about-page skills heading */
+@media (max-width: 900px) {
+  .marg-available, .marg-work, .marg-hint, .marg-cando { display: none; }
+}
+@media (max-width: 760px) { .marg-hello { display: none; } }
+
+
+/* ------------------------------------------------------------
+   6. TAPED PHOTO PRINTS  — project cards (work page + homepage)
+   Slight FIXED rotation per card, soft-grey paper-tape strip,
+   sharp corners, lifted shadow. Straighten-on-focus is wired
+   into the existing focus-gallery hover (see 6b).
+   Scope to your grid container (.focus-grid / .home-focus).
+   ------------------------------------------------------------ */
+.focus-grid .project-card,
+.home-focus .project-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease;
+}
+.focus-grid .project-thumb,
+.home-focus .project-thumb {
+  border-radius: 2px;              /* sharp print edge, not rounded card */
+  box-shadow: 0 12px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* the tape strip */
+.focus-grid .project-card::before,
+.home-focus .project-card::before {
+  content: '';
+  position: absolute;
+  width: 96px; height: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  z-index: 4; pointer-events: none;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+  transition: opacity .35s ease;
+}
+.project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+.project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+.project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+.project-card:hover::before { opacity: .55; }
+
+/* per-card FIXED rotations — never randomize */
+.c-onaka   { --rot: -1.2deg; }
+.c-period  { --rot:  1.6deg; }
+.c-numa    { --rot: -2.0deg; }
+.c-airflux { --rot:  1.2deg; }
+.c-milo    { --rot:  2.0deg; }
+.c-vatten  { --rot: -1.4deg; }
+.c-ilia    { --rot:  1.0deg; }
+
+/* 6b. straighten-on-focus, layered onto the existing focus gallery */
+.focus-grid:hover .project-card,
+.home-focus:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+.focus-grid:hover .project-card img,
+.home-focus:hover .project-card img { filter: saturate(.55); }
+.focus-grid:hover .project-card:hover,
+.home-focus:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+.focus-grid:hover .project-card:hover .project-thumb,
+.home-focus:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); }
+.focus-grid:hover .project-card:hover img,
+.home-focus:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+/* hover-revealed title in handwriting */
+.pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; }
+.pj-reveal .go { width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ------------------------------------------------------------
+   7. TAPED PORTRAIT  — about page
+   Same print treatment for the .portrait figure. Remove any
+   overflow:hidden so the tape can sit outside the edge.
+   ------------------------------------------------------------ */
+.portrait {
+  position: relative;
+  border-radius: 2px;
+  transform: rotate(1.5deg);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12), 0 3px 8px rgba(0,0,0,.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  /* NOTE: delete `overflow: hidden;` from the original .portrait rule */
+}
+.portrait:hover { transform: rotate(0deg); }
+.portrait img { border-radius: 2px; }
+.portrait::before {
+  content: '';
+  position: absolute;
+  width: 110px; height: 28px;
+  top: -12px; left: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.82) 0%, rgba(200,198,190,.74) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  transform: rotate(-7deg);
+  z-index: 4; pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   8. MARQUEE  — make the homepage ticker blend in
+   ------------------------------------------------------------ */
+.marquee {
+  background: transparent !important;
+  border-top: 1px solid var(--grey-line, #E5E2DD) !important;
+  border-bottom: 1px solid var(--grey-line, #E5E2DD) !important;
+  padding: 13px 0 !important;
+  font-size: clamp(15px, 1.6vw, 22px) !important;
+  color: var(--ink-soft, #6B6B6B) !important;
+}
+.marquee em { color: var(--ink-soft, #6B6B6B) !important; }
+.marquee-track .dot { width: 6px !important; height: 6px !important; background: #7C5BD6 !important; opacity: .6; }
+
+
+/* ------------------------------------------------------------
+   9. PROJECT-PAGE SECTION-NOTE ARROW  (project pages only)
+   Replaces the typographic "↓" above each handwritten margin
+   note with a hand-drawn down-arrow, rendered in THAT PROJECT'S
+   own deep accent colour (NOT purple). Set the colour per page
+   to its --{accent}-deep variable, e.g. var(--blue-deep) on
+   onaka, var(--copper-deep) on period, etc.
+   ------------------------------------------------------------ */
+.section-marker .note::before { display: none !important; }   /* drop the ↓ glyph */
+.section-marker .note { position: relative; padding-top: 1.6rem; }
+.section-marker .note .hand-arr {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 16px;
+  color: var(--blue-deep);          /* <-- change per project page */
+}
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ============================================================
+   GUIDE — markup snippets & where to apply
+   ============================================================
+
+   ACTIVE-NAV OVAL — put inside the active <a> (Home on homepage,
+   Work on work + project pages, About on about page):
+
+     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval"
+       viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20"
+         fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/>
+     </svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+
+   HAND-DRAWN ARROW — replace a "→" in a CTA or reveal corner.
+   On dark overlays set stroke="currentColor" and color:#fff on the span:
+
+     <span class="arr arr-hand"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>
+
+   UNDERLINE — wrap one key phrase per section:
+     ... where <span class="ink">calm, considered detail</span> still matters ...
+
+   MARGINALIA — parent must be position:relative; arrow optional,
+   rotate it to point at the thing it annotates:
+     <span class="marginalia marg-hello">
+       <span class="arrow" style="transform: rotate(-130deg); margin-right:4px;">
+         <svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+           <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+           <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+       </span>that's me</span>
+   Suggested notes: homepage "that's me" / "available!" / "favourites";
+   work "still growing" / "try hovering"; about "hi, hire me" / "the toolkit".
+
+   TAPED CARDS — add per-card + tape-position classes to each card:
+     <a class="project-card ... c-onaka tape-tl" href="onaka.html"> ... </a>
+   Tape positions distributed across the grid: tl / tc / tr.
+
+   PROJECT-PAGE SECTION NOTE — replace the old note with the arrow,
+   and set .hand-arr colour to the page's own --{accent}-deep:
+     <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>where it all began</span>
+   Per-page note colour: onaka var(--blue-deep), period var(--copper-deep),
+   numa var(--numa-deep), milo var(--mustard-deep), vattenkanna var(--sage-deep),
+   ilia var(--walnut-deep), airflux var(--teal-deep).
+   (Purple stays for shared furniture only; each project keeps its own colour.)
+
+   DELIVERY — these pages load styles.css + script.js externally and are
+   often opened as standalone files, so always ship a SELF-CONTAINED copy:
+   inline styles.css into a <style> (replacing the <link>) and script.js
+   into a <script> (replacing the external src), so each page renders
+   with no external dependencies.
+   ============================================================ */
+
+
+/* ============================================
+   Override: hide the legacy ↗ pill from .project-card::after
+   so the new .pj-reveal overlay (Nefs name + hand-drawn arrow) wins
+   ============================================ */
+.focus-grid .project-card::after,
+.home-focus .project-card::after {
+  content: '' !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* The .pj-reveal overlay on project cards: hovered reveals Nefs title + arrow */
+.pj-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 18px 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 5;
+  border-radius: 2px;
+}
+.focus-grid .project-card:hover .pj-reveal,
+.home-focus .project-card:hover .pj-reveal { opacity: 1; }
+.pj-reveal .nm { color: #fff; }
+
+/* Anchors / parents of marginalia must be relative — applied via inline style in HTML */
+
+
+/* ============================================
+   Project-page: section-marker hand-arr inherits the note's own
+   per-project deep accent colour (instead of hardcoded blue)
+   ============================================ */
+.section-marker .note .hand-arr { color: inherit !important; }
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('assets/nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Period uses a warm copper accent system instead of Onaka's cool blue */
+    --copper: #C56A3A;
+    --copper-deep: #9A4A1F;
+    --copper-soft: #F8EDE3;
+    --copper-bright: #E58647;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --bg-warm: #FBF7F2;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--copper); font-weight: inherit; }
+
+  /* NAV */
+  .upload-nav-disabled-period {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--copper); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID : section structure */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--copper-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--copper-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* CHAPTER DIVIDER : demoted: thin marker between device and app halves */
+  .chapter-break {
+    background: var(--copper-soft);
+    color: var(--ink);
+    padding: 1.5rem 2.5rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-break-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .chapter-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--copper-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .chapter-break p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .chapter-break p em { font-style: italic; color: var(--copper-deep); }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: none;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--copper); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--copper); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+
+  /* IMAGE BOX (placeholder) */
+  .ib {
+    background: var(--copper-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    gap: 0.5rem; position: relative; overflow: hidden;
+  }
+  .ib.n { background: #F5F2EC; }
+  .ib.d { background: #0A0A0A; border-color: rgba(255,255,255,0.08); }
+  .ib p {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--copper-deep); text-align: center; opacity: 0.7;
+    letter-spacing: 0.02em;
+  }
+  .ib.n p { color: var(--ink-3); }
+  .ib.d p { color: rgba(255,255,255,0.4); }
+  .ib strong {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-2);
+    text-align: center; letter-spacing: -0.01em;
+  }
+  .ib.d strong { color: rgba(255,255,255,0.7); }
+  .phi {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px dashed currentColor; opacity: 0.35;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--copper-deep);
+  }
+  .ib.n .phi { color: var(--ink-3); }
+  .ib.d .phi { color: rgba(255,255,255,0.4); }
+  .phi svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 95vh;
+    min-height: 720px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--copper);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* RESEARCH METHODS : 5 column condensed strip */
+  .methods-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-cell {
+    padding: 2rem 1.5rem 2rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .method-cell:not(:first-child) { padding-left: 1.5rem; }
+  .method-cell:last-child { border-right: none; padding-right: 0; }
+  .method-cell .method-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .method-cell h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .method-cell h4 em { font-style: italic; color: var(--copper); }
+  .method-cell p {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+
+  /* INSIGHTS : pill row */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pill-row .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase;
+    width: 100%; margin-bottom: 0.6rem;
+  }
+  .pill {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+    background: var(--bg);
+  }
+
+  /* COMPETITIVE LANDSCAPE : small horizontal row of apps with one-liner takeaway */
+  .competitive {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .comp-card {
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .comp-card .comp-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .comp-card .comp-issue {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  /* DEVICE : concept origin */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .concept-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--bg-warm);
+  }
+  .concept-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .concept-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* HOW IT WORKS : circle steps (reused pattern from Onaka) */
+  .interaction-system {
+    position: relative;
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .connectors path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .i-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .i-step-1 { padding-top: 4rem; }
+  .i-step-2 { padding-top: 1rem; }
+  .i-step-3 { padding-top: 0; }
+  .i-step-4 { padding-top: 3rem; }
+  .i-label {
+    color: var(--copper-deep);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 14ch;
+  }
+  .i-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-warm);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .i-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .i-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+
+  /* TECHNICAL : split into prototype-built + manufacturing */
+  .tech-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+  .tech-block h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .tech-block h3 em { font-style: italic; color: var(--copper); }
+  .tech-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .tech-list li {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .tech-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.65rem;
+    width: 14px; height: 1px;
+    background: var(--ink-3);
+  }
+
+  /* BOM : three rows + total, styled as a tiny spec table */
+  .bom {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .bom-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.6fr;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.85rem;
+    align-items: baseline;
+  }
+  .bom-row.total {
+    border-bottom: 1px solid var(--ink);
+    border-top: 1px solid var(--rule);
+    margin-top: 0.4rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .bom-name { color: var(--ink-2); }
+  .bom-spec {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .bom-cost {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--ink-2);
+  }
+  .bom-row.total .bom-cost { color: var(--ink); }
+  .bom-row.divider {
+    text-align: center;
+    color: var(--ink-4);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.4rem 0;
+    grid-column: 1 / -1;
+    display: block;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* DECISION FLOW : was/now layout for decision sections */
+  .decision-flow {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .dec-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+  }
+  .dec-stage.has-img {
+    grid-template-columns: 1fr 1.2fr;
+  }
+  .dec-stage.now.has-img {
+    grid-template-columns: 1.2fr 1fr;
+  }
+  .dec-stage.has-img .dec-text > p,
+  .dec-stage.has-img .dec-text > .dec-list { max-width: 36ch; }
+  .dec-stage.has-img .dec-img-wrap { max-width: none; }
+  .dec-stage.has-img .dec-img-photo { aspect-ratio: 3 / 2; background: transparent; border: none; }
+  .dec-stage.has-img .dec-img-photo img { object-fit: contain; }
+  .dec-stage.now {
+    margin-top: 3rem;
+  }
+  .dec-stage.now.has-img .dec-text { order: 2; }
+  .dec-stage.now.has-img .dec-img-wrap { order: 1; }
+  .dec-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .dec-tag.was { color: var(--ink-3); }
+  .dec-tag.now { color: var(--copper-deep); }
+  .dec-tag::before {
+    content: ''; display: block;
+    width: 18px; height: 1px;
+  }
+  .dec-tag.was::before { background: var(--ink-3); }
+  .dec-tag.now::before { background: var(--copper-deep); }
+  .dec-stage h3 {
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+    font-weight: 700;
+    max-width: 22ch;
+  }
+  .dec-stage h3 em { font-style: italic; color: var(--copper); }
+  .dec-text > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+    max-width: 56ch;
+  }
+  .dec-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    max-width: 52ch;
+  }
+  .dec-list li {
+    font-size: 0.92rem; color: var(--ink-2);
+    padding-left: 1.6rem; position: relative;
+    line-height: 1.55;
+  }
+  .dec-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.65rem;
+    width: 14px; height: 1px; background: var(--ink-3);
+  }
+  .dec-list li.x { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+  .dec-img-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+  }
+  .dec-img-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .dec-img-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .dec-img-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+  .dec-arrow {
+    position: relative;
+    height: 80px;
+    margin: 0;
+  }
+  .dec-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .dec-arrow path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  .dec-arrow .tip {
+    fill: var(--copper);
+    opacity: 0.7;
+  }
+
+  /* Horizontal variant : for image-less decisions, side-by-side layout */
+  .decision-flow.horizontal {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .decision-flow.horizontal .dec-stage {
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-self: start;
+  }
+  .decision-flow.horizontal .dec-stage.now {
+    margin-top: 0;
+  }
+  .dec-arrow.horizontal {
+    height: 220px;
+    width: 100%;
+    align-self: center;
+    padding-top: 0;
+    margin-top: 6rem;       /* push down so it aligns roughly with the lists, not the headlines */
+  }
+  .dec-arrow.horizontal svg {
+    height: 220px;
+    width: 100%;
+  }
+
+  /* THREADING ROW : 4 cards showing how device + app are co-designed */
+  .threading {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .threading-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .threading-lede {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 64ch;
+    margin-bottom: 2.5rem;
+  }
+  .threading-lede em { font-style: italic; color: var(--copper); }
+  .thread-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .thread-flip {
+    perspective: 1100px;
+    min-height: 190px;
+    cursor: pointer;
+    border-radius: 12px;
+    outline: none;
+  }
+  .thread-flip:focus-visible .tf-inner {
+    box-shadow: 0 0 0 2px var(--copper-deep);
+    border-radius: 12px;
+  }
+  .tf-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .thread-flip.flipped .tf-inner { transform: rotateY(180deg); }
+  .tf-front, .tf-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .tf-front {
+    background: var(--bg);
+    border: 1px solid #EBD9C9;
+  }
+  .thread-flip:hover .tf-front { border-color: var(--copper-deep); }
+  .thread-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .thread-pair {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .thread-side {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--copper);
+    border-radius: 3px;
+    background: var(--copper-soft);
+  }
+  .tf-front h4 {
+    font-size: 1.02rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 0.15rem 0 0;
+  }
+  .tf-front h4 em { font-style: italic; color: var(--copper); font-weight: 600; }
+  .tf-hint {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: auto;
+    transition: color 0.2s;
+  }
+  .thread-flip:hover .tf-hint { color: var(--copper-deep); }
+  .tf-back {
+    background: var(--copper-deep);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .tf-back p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #fff;
+    margin: 0;
+  }
+  .tf-back em { font-style: italic; color: #fff; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .methods-strip { grid-template-columns: 1fr; }
+    .method-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .method-cell:not(:first-child) { padding-left: 0; }
+    .competitive { grid-template-columns: 1fr 1fr; }
+    .concept-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .interaction-system { grid-template-columns: 1fr; gap: 3rem; }
+    .connectors { display: none; }
+    .i-step,
+    .i-step-1, .i-step-2, .i-step-3, .i-step-4 { padding-top: 0; }
+    .i-circle { width: 200px; height: 200px; }
+    .tech-split { grid-template-columns: 1fr; gap: 2.5rem; }
+    .chapter-break-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+    .dec-stage.has-img,
+    .dec-stage.now.has-img { grid-template-columns: 1fr; gap: 1.5rem; }
+    .dec-stage.now.has-img .dec-text { order: 1; }
+    .dec-stage.now.has-img .dec-img-wrap { order: 2; }
+    .dec-stage.now { margin-top: 2rem; }
+    .dec-arrow { height: 60px; }
+    .decision-flow.horizontal {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .dec-arrow.horizontal {
+      min-height: 60px;
+      height: 60px;
+      padding-top: 0;
+    }
+    .dec-arrow.horizontal svg {
+      min-height: 60px;
+      height: 60px;
+      transform: rotate(90deg);
+    }
+    .thread-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .thread-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+
+
+<style id="sketchbook-extras">
+  /* Sketchbook reconciliation — added */
+
+    /* Paper grain on body + nav — matches the rest of the site */
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    background-repeat: repeat !important;
+    background-attachment: scroll !important;
+  }
+  nav.nav {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    background-image: none !important;
+  }
+
+  /* Purple oval around active nav link (Work on project pages) */
+  nav.nav .nav-links a.active {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: #7C5BD6 !important;
+  }
+
+  /* Taped-print treatment for hero image (subtle — no big rotation since it's a banner) */
+  figure.hero-image {
+    position: relative;
+    border-radius: 2px !important;
+    overflow: visible !important;
+    box-shadow: 0 8px 22px rgba(40, 28, 0, 0.10), 0 2px 6px rgba(40, 28, 0, 0.06);
+  }
+  figure.hero-image::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    margin-left: -45px;
+    width: 90px;
+    height: 22px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 3;
+    transform: rotate(2deg);
+    pointer-events: none;
+  }
+
+  /* Hide the legacy ::before arrow — the inline <span class="hand-arr"> in each note is the canonical arrow */
+  .section-marker .note::before { display: none !important; content: '' !important; }
+</style>
+<style id="nav-dropdown-css">
+.nav-item-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  border: 1px solid var(--grey-line, #D6D6D6);
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(40, 28, 0, 0.10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+/* invisible bridge so hover survives the gap between Work link and the dropdown */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.nav-dropdown a:hover {
+  color: var(--purple);
+}
+.nav-dropdown a .nu {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute, #8E8E8E);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover .nu {
+  color: var(--purple);
+}
+@media (max-width: 720px) {
+  .nav-dropdown { display: none !important; }
+}
+/* "All work" — hidden in the desktop hover menu, shown only in the mobile menu */
+.nav-dd-all { display: none !important; }
+@media (max-width: 720px) {
+  .nav-item-dropdown.open .nav-dropdown a.nav-dd-all { display: flex !important; }
+}
+</style>
+<style id="period-sketchbook-figs">
+  /* Taped photo prints — tilt + tape on the image; sketches/diagrams/screens excluded */
+  .section figure { position: relative; }
+  .section figure > img {
+    border-radius: 2px;
+    box-shadow: 0 8px 22px rgba(40,28,0,0.12), 0 2px 6px rgba(40,28,0,0.08);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+    display: block;
+  }
+  .section figure:nth-of-type(4n+1) > img { transform: rotate(-1.1deg); }
+  .section figure:nth-of-type(4n+2) > img { transform: rotate(0.9deg); }
+  .section figure:nth-of-type(4n+3) > img { transform: rotate(1.3deg); }
+  .section figure:nth-of-type(4n+4) > img { transform: rotate(-0.7deg); }
+  .section figure:hover > img { transform: rotate(0deg); }
+  .section figure::before {
+    content: ''; position: absolute; width: 90px; height: 22px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 4; pointer-events: none;
+  }
+  .section figure:nth-of-type(3n+1)::before { top: -10px; left: 16%; transform: rotate(-4deg); }
+  .section figure:nth-of-type(3n+2)::before { top: -11px; left: 50%; margin-left: -45px; transform: rotate(2deg); }
+  .section figure:nth-of-type(3n+3)::before { top: -10px; right: 16%; transform: rotate(4deg); }
+  /* loop-figure: circular (restored) */
+  .section figure.loop-figure { border-radius: 50% !important; overflow: hidden !important; background: var(--bg-warm) !important; box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important; }
+  .section figure.loop-figure > img { border-radius: 50% !important; transform: none !important; box-shadow: none !important; }
+  .section figure.loop-figure::before { display: none !important; }
+  /* Exclude sketches, diagrams, screens, video */
+  .section figure.proto-stage-img > img,
+  .section figure.dec-img-photo > img,
+  .section figure.sketch-sheet > img,
+  .section figure.ia-hero > img,
+  .section figure.icon-frame > img,
+  .section figure.theme-variants > img,
+  .section figure.tech-internals > img,
+  .section figure.screen > img,
+  .ia-rotate-wrap > img,
+  .section figure:has(img[src*="sketch"]):not(.proto-taped) > img,
+  .section figure:has(img[src*="ideation"]) > img,
+  .section figure:has(img[src*="material-grid"]):not(.proto-taped) > img,
+  .section figure:has(img[src*="icons-library"]) > img,
+  .section figure:has(img[src*="themes-three"]) > img,
+  .section figure:has(img[src*="screen-"]) > img {
+    transform: none !important; box-shadow: none !important; background: transparent !important;
+  }
+  .section figure.proto-stage-img::before,
+  .section figure.dec-img-photo::before,
+  .section figure.sketch-sheet::before,
+  .section figure.ia-hero::before,
+  .section figure.icon-frame::before,
+  .section figure.theme-variants::before,
+  .section figure.tech-internals::before,
+  .section figure.screen::before,
+  .section figure:has(img[src*="sketch"]):not(.proto-taped)::before,
+  .section figure:has(img[src*="ideation"])::before,
+  .section figure:has(img[src*="material-grid"]):not(.proto-taped)::before,
+  .section figure:has(img[src*="icons-library"])::before,
+  .section figure:has(img[src*="themes-three"])::before,
+  .section figure:has(img[src*="screen-"])::before {
+    display: none !important;
+  }
+  /* thin rule under non-taped images */
+  .section figure.proto-stage-img figcaption,
+  .section figure.sketch-sheet figcaption,
+  .section figure.tech-internals figcaption,
+  .section figure.tech-flatlay figcaption,
+  .section figure.theme-variants figcaption,
+  .section figure.screen figcaption {
+    border-top: 1px solid var(--rule) !important; padding-top: 0.85rem !important; margin-top: 0.85rem !important;
+  }
+  /* unified caption layout (screens/video keep their own) */
+  .section figure:not(.screen):not(.video-hero) figcaption {
+    font-family: var(--mono) !important; font-size: 0.7rem !important; color: var(--ink-3) !important;
+    letter-spacing: 0.02em !important; line-height: 1.5 !important; margin-top: 0.85rem !important;
+    padding: 0 !important; border: none !important; background: transparent !important; text-align: left !important;
+  }
+  .section figure:has(.marginalia) { overflow: visible !important; }
+
+  /* ===== Hover-to-reveal image captions ===== */
+  .section figure figcaption,
+  .dec-img-wrap .dec-img-caption {
+    opacity: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease !important;
+  }
+  .section figure:hover figcaption,
+  .dec-img-wrap:hover .dec-img-caption {
+    opacity: 1 !important;
+    max-height: 8rem !important;
+    margin-top: 0.7rem !important;
+    padding-top: 0.7rem !important;
+    border-top: 1px solid var(--rule) !important;
+  }
+  /* marginalia notes — period copper */
+  .marginalia {
+    position: absolute; z-index: 6; font-family: var(--hand); font-weight: 400; text-transform: none;
+    font-size: 17px; line-height: 1.05; color: var(--copper-deep); letter-spacing: -0.01em;
+    pointer-events: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  }
+  .marginalia .m-arr { width: 28px; height: 18px; flex-shrink: 0; color: var(--copper-deep); }
+  .marginalia .m-arr svg { width: 100%; height: 100%; overflow: visible; }
+  @media (max-width: 900px) { .marginalia { display: none; } }
+  /* Re-enable tape on selected proto-stage prototype photos (§06 parts 2 & 3) */
+  .section figure.proto-stage-img.proto-taped > img,
+  .section figure.proto-taped > img {
+    transform: rotate(-0.8deg) !important;
+    box-shadow: 0 8px 22px rgba(40,28,0,0.12), 0 2px 6px rgba(40,28,0,0.08) !important;
+    border-radius: 2px !important;
+  }
+  .section figure.proto-taped:hover > img { transform: rotate(0deg) !important; }
+  .section figure.proto-taped { overflow: visible !important; }
+  .section figure.proto-stage-img.proto-taped::before,
+  .section figure.proto-taped::before {
+    display: block !important;
+    content: '' !important;
+    position: absolute;
+    width: 90px; height: 22px;
+    top: -11px; left: 50%; margin-left: -45px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    transform: rotate(2deg);
+    z-index: 4; pointer-events: none;
+  }
+  .section figure.proto-taped.flip-tape::before { transform: rotate(-3deg); left: 18%; margin-left: 0; }
+
+  /* ===== Hand-drawn sketchbook chapter dividers (match Onaka) ===== */
+  .chapter-break {
+    position: relative !important;
+    background: transparent !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    padding: 3rem 2.5rem 1.5rem !important;
+  }
+  .chapter-break::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 12px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 16' preserveAspectRatio='none'><path d='M 4,9 C 120,3 240,14 360,8 C 480,2 600,13 720,7 C 840,2 960,13 1080,8 C 1200,2 1320,13 1440,8 C 1500,5 1550,7 1596,8' fill='none' stroke='%239A4A1F' stroke-width='1.4' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 12px;
+    opacity: 0.9;
+  }
+  .section:has(+ .chapter-break),
+  .section:has(+ style + .chapter-break) { border-bottom: none !important; }
+  .chapter-break-inner {
+    display: block !important;
+    grid-template-columns: none !important;
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+  .chapter-meta {
+    font-family: var(--hand) !important;
+    font-size: 1.4rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    color: var(--copper-deep) !important;
+    font-weight: 400 !important;
+  }
+  .chapter-break p { display: none !important; }
+  /* Foldable chapter affordance */
+  .chapter-break.chapter-toggle { cursor: pointer; }
+  .chapter-break.chapter-toggle .chapter-meta::after {
+    content: ' — click to open ↓';
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+  .chapter-break.chapter-toggle.open .chapter-meta::after {
+    content: ' — click to close ↑';
+  }
+</style>
+
+<style id="mobile-nav-css">
+  .nav-burger { display: none; }
+  @media (max-width: 720px) {
+    nav.nav { position: fixed; }
+    .nav-burger { display:inline-flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:40px; padding:9px; background:none; border:none; cursor:pointer; z-index:130; margin-left:auto; }
+    .nav-burger span { display:block; width:22px; height:2px; border-radius:2px; background:#0E0E0C; transition: transform .25s ease, opacity .2s ease; }
+    nav.nav.menu-open .nav-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    nav.nav.menu-open .nav-burger span:nth-child(2){ opacity:0; }
+    nav.nav.menu-open .nav-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    html nav.nav .nav-links,
+    html body[class*="case-"] nav.nav .nav-links {
+      display:none !important; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column !important; align-items:stretch !important; gap:0 !important;
+      background:#FFFFFF !important; border-bottom:1px solid var(--rule,#D6D6D6);
+      padding:6px 0 10px !important; box-shadow:0 14px 30px rgba(0,0,0,.10);
+    }
+    html nav.nav.menu-open .nav-links,
+    html body[class*="case-"] nav.nav.menu-open .nav-links { display:flex !important; }
+
+    nav.nav .nav-links > a,
+    nav.nav .nav-item-dropdown > a {
+      display:block !important; width:100% !important;
+      padding:13px var(--gutter,24px) !important; border:none !important; border-radius:0 !important; font-size:15px !important;
+    }
+    nav.nav .nav-links a .scribble-oval { display:none !important; }
+    .nav-item-dropdown { position:static !important; display:block !important; width:100%; }
+    .nav-item-dropdown > a::after { content:' +'; color: var(--purple, #7C5BD6); font-family: var(--mono, monospace); }
+    .nav-item-dropdown.open > a::after { content:' \2013'; }
+    .nav-dropdown, body[class*="case-"] .nav-dropdown {
+      display:none !important; position:static !important; transform:none !important;
+      opacity:1 !important; pointer-events:auto !important; box-shadow:none !important; border:none !important;
+      min-width:0 !important; width:100% !important; padding:0 0 4px 0 !important; background:transparent !important;
+    }
+    .nav-item-dropdown.open .nav-dropdown { display:flex !important; flex-direction:column; }
+    .nav-dropdown::before { display:none !important; }
+    .nav-dropdown a { justify-content:flex-start !important; text-align:left !important; padding:9px var(--gutter,24px) 9px calc(var(--gutter,24px) + 16px) !important; font-size:13px !important; opacity:.85; }
+    .nav-time { display:none !important; }
+  }
+</style>
+
+<style id="proj-footer-line-fix">
+  /* one black divider above the project nav; no line under it */
+  body[class*="case-"] .footer { border-top: none !important; padding-top: 28px !important; }
+  body[class*="case-"] .onaka-pagenav { border-top: 1px solid var(--rule) !important; }
+  body[class*="case-"] .section:last-of-type { border-bottom: none !important; }
+</style>
+</head>
+<body class="case-period" style="background-color: rgb(255, 255, 255)">
+
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav" style="background-color: rgba(255, 255, 255, 0.88)">
+  <a href="index.html" class="nav-logo" style="font-weight: 400; letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download>CV ↓</a>
+  </div>
+  <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<!-- Brute-force match site nav exactly (upload styles otherwise leak) -->
+<style>
+  body.case-period nav.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 22px var(--gutter) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid #D6D6D6 !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important;
+    z-index: 100 !important;
+  }
+  body.case-period nav.nav .nav-logo {
+    font-family: 'Nefs', 'Instrument Serif', cursive !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    color: #0E0E0C !important;
+    transform: translateY(4px) !important;
+    transition: color 0.2s !important;
+    padding-right: 4px !important;
+    text-decoration: none !important;
+    letter-spacing: -3px !important;
+  }
+  body.case-period nav.nav .nav-links {
+    display: flex !important;
+    gap: 8px !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    list-style: none !important;
+  }
+  body.case-period nav.nav .nav-links a {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    padding: 7px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #0E0E0C !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    text-transform: none !important;
+  }
+  body.case-period nav.nav .nav-links a:hover { color: #7C5BD6 !important; }
+  body.case-period nav.nav .nav-links a.active { color: #7C5BD6 !important; }
+  body.case-period nav.nav .nav-logo:hover { color: #7C5BD6 !important; }
+  body.case-period nav.nav .nav-time {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    color: #8E8E8E !important;
+  }
+  /* Push hero below fixed nav so it isn't covered */
+  body.case-period section.hero { padding-top: 9rem !important; }
+  /* Don't let .hero-meta force uppercase (site styles.css carries that rule) */
+  body.case-period .hero-meta { text-transform: none !important; }
+</style>
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">02 — period.</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2023 — May 2024</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">BA Final Project · University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, hardware, app</span>
+    </div>
+  </div>
+  <h1 class="display a d2" style="font-size: 49px">Helping women understand their cycles, not just <em style="color: rgb(197, 106, 58)">record</em> them.</h1>
+  <p class="hero-sub a d3">A <em>connected experience</em> across physical and digital: a smart period calendar and companion app, designed together. Cycle tracking as a calmer, more <em>educational</em> daily ritual, anchored to a beautiful object, not a phone notification.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">Industrial Design</span>
+    <span class="tag">IoT</span>
+    <span class="tag">App UX/UI</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="assets/period/hero.jpg" data-placeholder-for="period-hero.jpg" alt="The period. device, a copper fan-shaped calendar glowing red on a bedside table" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where it began</span>
+    </div>
+    <div>
+      <h2 class="wide">Half the world menstruates. Almost no products are <em>designed</em> for it.</h2>
+      <p class="lede">Period tracking is dominated by apps that feel like data-entry chores: stereotyped pink interfaces, daily symptom checklists, and notifications that get ignored. They track the period, but they rarely help women <em>understand</em> what is happening to their bodies, and they are easy to forget.</p>
+      <div class="pull">
+        <blockquote>"I keep forgetting to input my period, and even when I do, I forget to check the app."</blockquote>
+        <cite>— Survey participant · Edinburgh, 2024</cite>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num" style="font-size: 48px">~480<em>×</em></div><div class="lbl">Periods in a typical lifetime, ages 12 to 55</div></div>
+        <div class="stat"><div class="num" style="font-size: 48px">31 <em>women</em></div><div class="lbl">surveyed about how and why they track their cycles</div></div>
+        <div class="stat"><div class="num" style="font-size: 48px">48<em>%</em></div><div class="lbl">don't <em>always</em> feel their tracking app helps them understand their cycle</div></div>
+        <div class="stat"><div class="num" style="font-size: 48px">100<em>%</em></div><div class="lbl">wanted a less stereotypically gendered design</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+    </div>
+    <div>
+      <h2>Eight months of <em>conversations</em> with patients, doctors, and apps.</h2>
+      <p class="lede">The research split across five methods, each chosen to answer a different question: <em>why</em> women track, <em>what</em> they want a tracker to do, and <em>how</em> a smart device could fit into their daily lives without feeling like another chore.</p>
+
+      <div class="methods-strip">
+        <div class="method-cell">
+          <div class="method-num">A · Lit review</div>
+          <h4>Three peer-<em>reviewed</em> papers</h4>
+          <p>HCI research on menstrual self-tracking, feminist design for the changing body, and the gap between user identity and existing app personas.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">B · Workshops</div>
+          <h4>Two co-design <em>sessions</em></h4>
+          <p>One on what "woman-centred design" actually means; one with plasticine to find forms that feel calm, trustworthy, and intuitive.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">C · Interviews</div>
+          <h4>Gynaecologist + <em>HCI PhD</em></h4>
+          <p>A medical perspective on what to track and what AI should never do. A research perspective on visualising bodily data.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">D · Survey</div>
+          <h4>31 women, <em>distributed</em> via QR</h4>
+          <p>Survey posters placed in campus toilets to ensure private completion. Three sections covering tracking habits, app feedback, and product wishes.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">E · Probe</div>
+          <h4>Public AI <em>opinion box</em></h4>
+          <p>An open box in the exhibition area asking what women would and would not want from an AI menstrual assistant.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 4rem; margin-bottom: 1.25rem; font-size: 1rem; font-family: var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; display: none;">Apps tested · 5 users · 1 month</h3>
+      <div class="competitive" style="display: none;">
+        <div class="comp-card">
+          <div class="comp-name">Flo</div>
+          <div class="comp-issue">Best predictor; aggressive notifications create anxiety.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Period Calendar</div>
+          <div class="comp-issue">Pink-on-pink. Felt patronising to several testers.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">My Calendar</div>
+          <div class="comp-issue">Tracking only. No education or context.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">My Cycle</div>
+          <div class="comp-issue">Cluttered. Buries the cycle phase under symptom logs.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Apple Health</div>
+          <div class="comp-issue">Clinical. Reduces the body to a row in a spreadsheet.</div>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 3rem;">
+        <blockquote>"AI for understanding, not diagnosis. Doctors stay the doctors."</blockquote>
+        <cite>— Synthesised from gynaecologist interview &amp; AI probe (33 responses)</cite>
+      </div>
+
+      <div class="pill-row">
+        <span class="pl">What the research told us</span>
+        <span class="pill">Women forget to log; reminders fail</span>
+        <span class="pill">Users want to understand the cycle, not just track it</span>
+        <span class="pill">Pink stereotypes are actively disliked</span>
+        <span class="pill">Open to AI for Q&amp;A, wary of AI for diagnosis</span>
+        <span class="pill">A device on a bedside table is more memorable than an app icon</span>
+        <span class="pill">Aesthetic must blend into the home, not look "medical"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS : moved up, expanded to cross device + app -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">How it works</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>one loop, two media</span>
+    </div>
+    <div>
+      <h2>One <em>daily loop</em>, across the bedside and the pocket.</h2>
+      <p class="lede">Six moments. Three on the device, three on the app. The <em>hand-off</em> between them is the design.</p>
+
+      <div class="loop-system">
+        <!-- Row 1: device side -->
+        <div class="loop-row">
+          <div class="loop-side-tag">Device<br>ambient + ritual</div>
+          <div class="loop-row-grid">
+            <!-- Connector overlay sitting over the circles strip in this row -->
+            <svg class="loop-connector-row" viewBox="0 0 1000 184" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 167 104 Q 333 50, 500 104" />
+              <path d="M 500 104 Q 667 158, 833 104" />
+            </svg>
+            <div class="loop-step">
+              <div class="loop-num">01</div>
+              <div class="loop-label">Glance</div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-01-glance.jpg" data-placeholder-for="period-step-01-glance.jpg" alt="The fan glowing red on a bedside table" />
+              </figure>
+              <p class="loop-copy">Colour shifts daily. Readable across the room.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">02</div>
+              <div class="loop-label">Fold</div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-02-fold.jpg" data-placeholder-for="period-step-02-spin.jpg" alt="Fingers folding away unused days on the copper fan" />
+              </figure>
+              <p class="loop-copy">Each fold is one day. Tucks to fit any 21–35 day cycle.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">03</div>
+              <div class="loop-label">Auto-turn</div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-03-autoturn.jpg" data-placeholder-for="period-device-detail.jpg" alt="Close-up of the copper fan showing day numbers and rotating pointer" />
+              </figure>
+              <p class="loop-copy">Turns one fold at midnight. Stays current even when forgotten.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bridge: dotted curve dropping from row 1 right down to row 2 left -->
+        <div class="loop-bridge-row">
+          <div class="loop-bridge-spacer"></div>
+          <div class="loop-bridge-svg-wrap">
+            <svg class="loop-bridge-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 833 0 Q 950 30, 700 50 T 167 80" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 2: app side -->
+        <div class="loop-row">
+          <div class="loop-side-tag app">App<br>depth + history</div>
+          <div class="loop-row-grid">
+            <svg class="loop-connector-row" viewBox="0 0 1000 184" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 167 104 Q 333 50, 500 104" />
+              <path d="M 500 104 Q 667 158, 833 104" />
+            </svg>
+            <div class="loop-step">
+              <div class="loop-num">04</div>
+              <div class="loop-label">Ask <span class="loop-bridge">device&nbsp;↔&nbsp;app</span></div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-04-ask.png" data-placeholder-for="period-step-03-luna.jpg" alt="Typing a question to Luna in the app, with the copper device on the desk behind" />
+              </figure>
+              <p class="loop-copy">Luna answers cycle questions. Voice at the bedside, text in the app.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">05</div>
+              <div class="loop-label">Log &amp; learn</div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-05-loglearn.png" data-placeholder-for="period-screen-period-detail.png" alt="Logging symptoms on the phone while reaching for the copper device beside" />
+              </figure>
+              <p class="loop-copy">Log symptoms. Read what the phase means for the body.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">06</div>
+              <div class="loop-label">Carry</div>
+              <figure class="loop-figure">
+                <img src="assets/period/howitworks-06-carry.png" data-placeholder-for="period-screen-home.png" alt="Two hands holding the phone away from the bedside, home screen open" />
+              </figure>
+              <p class="loop-copy">Away from the bedside, the cycle goes with you. Same fan, same theme.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THREADING moved to §04 below -->
+    </div>
+  </div>
+</section>
+
+<!-- 4. THREADING : its own section, framed as the system overview -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">The threading</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where device + app meet</span>
+    </div>
+    <div>
+      <h2>Four places the device and the app are <em>co-designed</em>.</h2>
+      <p class="lede">Not two parallel deliverables. The hand-offs are the design.</p>
+      <div class="threading">
+        <div class="thread-grid">
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how the gradient threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">01</span>
+                <div class="thread-pair"><span class="thread-side">Device → App</span></div>
+                <h4>Gradient <em>chosen</em> on the device.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how the shared form threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">02</span>
+                <div class="thread-pair"><span class="thread-side">Shared form</span></div>
+                <h4>Fan as the <em>navigation centre</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The fan-shape becomes the central button on every app screen, the same anchor as the bedside object.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how the shared type threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">03</span>
+                <div class="thread-pair"><span class="thread-side">Shared type</span></div>
+                <h4>Italic numerals, <em>two materials</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The same italic display family is engraved into copper and rendered on glass.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how Luna threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">04</span>
+                <div class="thread-pair"><span class="thread-side">Shared agent</span></div>
+                <h4>Luna, <em>two voices</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The same AI assistant. Speaks at the bedside; types in the app for when speaking out loud is not an option.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 3 : Cross-touchpoint loop with continuous dotted connector */
+  .loop-system {
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+  .loop-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    line-height: 1.45;
+    padding-top: 0.4rem;
+  }
+  .loop-side-tag.app {
+    color: var(--copper-deep);
+  }
+  .loop-row-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+  }
+  /* SVG connector sits over the row of circles (not the captions below) */
+  .loop-connector-row {
+    position: absolute;
+    top: 0;                  /* aligned with the start of the step content */
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 184px;           /* circle area: 12px num + 12px gap + 160px circle = 184px */
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+  .loop-connector-row path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  /* Bridge: lives between the two rows, aligned with loop-row-grid horizontally */
+  .loop-bridge-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+  }
+  .loop-bridge-spacer {
+    width: 120px;
+  }
+  .loop-bridge-svg-wrap {
+    position: relative;
+    height: 60px;
+    margin: 0;
+  }
+  .loop-bridge-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .loop-bridge-svg path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .loop-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .loop-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .loop-bridge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    padding: 0.18rem 0.45rem;
+    background: var(--copper-soft);
+    border-radius: 3px;
+  }
+  .loop-figure {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-radius: 50%;
+    margin: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-copy {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+
+  @media (max-width: 1024px) {
+    .loop-connector-row,
+    .loop-bridge-row { display: none; }
+    .loop-row { grid-template-columns: 1fr; gap: 1rem; }
+    .loop-row-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .loop-figure { width: 200px; height: 200px; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER A : THE DEVICE (demoted)                             -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter A · The device</div>
+    <p>A fan-shaped calendar that visualises the cycle through <em>colour, motion, and light</em>.</p>
+  </div>
+</section>
+
+<!-- 5. DECISION 01 : Object first, app second -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Decision 01</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where the form lives</span>
+    </div>
+    <div>
+      <h2>Why the app couldn't be the <em>main thing</em>.</h2>
+      <p class="lede">Every existing tracker is app-first. The research said <em>that's exactly why</em> women keep forgetting to log.</p>
+
+      <div class="decision-flow horizontal">
+        <div class="dec-stage was">
+          <div class="dec-text">
+            <span class="dec-tag was">The default move</span>
+            <h3>Build a better tracking app.</h3>
+            <p>The fastest, cheapest, most fundable answer. Better notifications, friendlier copy, fewer pink hearts.</p>
+            <ul class="dec-list">
+              <li class="x">Notifications get muted within a week</li>
+              <li class="x">App icons disappear into the third home screen</li>
+              <li class="x">Out of sight on the days that matter most</li>
+              <li class="x">Solves the symptom, not the cause</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dec-arrow horizontal" aria-hidden="true">
+          <svg viewBox="0 0 200 600">
+            <path d="M 100 60 Q 40 220, 120 360 T 80 540" />
+            <polygon class="tip" points="80,540 70,528 88,532 92,524" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">The choice</span>
+            <h3>Anchor the experience to a <em>physical object</em>.</h3>
+            <p>The device sits where forgetting is hardest, the bedside. The app exists for what an object can't carry: depth, history, portability.</p>
+            <ul class="dec-list">
+              <li>Device for ritual: glanceable, ambient, present</li>
+              <li>App for depth: phase explanations, history, doctor export</li>
+              <li>Each medium chosen for what it does best</li>
+              <li>Forgetting becomes architecturally harder</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CONCEPT & FORM : prototyping journey, accordion-as-decision extracted -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Concept &amp; form</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>how the fan emerged</span>
+    </div>
+    <div>
+      <h2>From fourteen ideas to a <em>fan</em>.</h2>
+      <p class="lede">Fourteen concepts. Three prototype stages on the way to copper. One quiet rule running through all of them: it has to look at home on a bedside <em>or</em> on a wall.</p>
+
+      <!-- Stage 1: Ideation -->
+      <div class="proto-stage wide-img">
+        <div class="proto-stage-meta">
+          <span class="proto-num">1 · Ideation</span>
+          <h3>The calendar idea kept <em>returning</em>.</h3>
+          <p>Fourteen concepts in fifteen minutes: period underwear, a heating bra, a smart pill reminder, a comfort blanket. The calendar kept winning out: physical, household, hard to ignore.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="assets/period/ideation-sketches.png" data-placeholder-for="period-ideas.jpg" alt="Hand-sketched grid of 14 early product concepts" />
+          <figcaption>Fourteen concepts.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 2: Material refinement (was Stage 3) -->
+      <div class="proto-stage flip wide-img">
+        <div class="proto-stage-meta">
+          <span class="proto-num">2 · Material</span>
+          <h3>Paper to brass to <em>copper</em>.</h3>
+          <p>Paper handled the geometry but couldn't survive daily use. A brass-foil prototype was sturdier but creased after repeated folding. Thin copper sheet, engraved with day numbers, magnetised at the folds, gave the right balance of durability, finish, and a satisfying snap when folded away.</p>
+        </div>
+        <figure class="proto-stage-img proto-taped">
+          <img src="assets/period/material-grid.png" data-placeholder-for="period-form-purple.jpg" alt="Purple paper and gold foil accordion fan prototypes at scale" />
+          <figcaption>Scale tests in paper and gold foil, then copper.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 3: Sit, or hang (was Stage 4) -->
+      <div class="proto-stage wide-img">
+        <div class="proto-stage-meta">
+          <span class="proto-num">3 · Sit, or hang</span>
+          <h3>One object, <em>two affordances</em>.</h3>
+          <p>Each early iteration solved one mode and broke the other. The answer merged both: <em>sand the base flat</em> for tabletop, <em>integrate a wooden handle</em> that slides out for sitting, and a hook on the back for hanging.</p>
+        </div>
+        <figure class="proto-stage-img proto-taped">
+          <img src="assets/period/sit-or-hang-sketches.png" data-placeholder-for="period-device-detail.jpg" alt="Close-up of the final device showing the sanded flat base resting on a surface and the integrated copper handle wrapping the body" />
+          <figcaption>Final form: sanded base, slide-out handle, wall hook.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Concept & form : Prototype journey styles */
+  .proto-stage {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    align-items: center;
+  }
+  .proto-stage.flip { grid-template-columns: 1.1fr 1fr; }
+  .proto-stage.wide-img { grid-template-columns: 1fr 1.4fr; }
+  .proto-stage.flip.wide-img { grid-template-columns: 1.4fr 1fr; }
+  .proto-stage.wide-img .proto-stage-meta h3 { max-width: 18ch; }
+  .proto-stage.wide-img .proto-stage-meta p { max-width: 36ch; }
+  .proto-stage.flip .proto-stage-meta { order: 2; }
+  .proto-stage.flip .proto-stage-img { order: 1; }
+  .proto-stage-meta .proto-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .proto-stage-meta h3 {
+    font-size: 1.7rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    font-weight: 700;
+  }
+  .proto-stage-meta h3 em { font-style: italic; color: var(--copper); }
+  .proto-stage-meta p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .proto-stage-img {
+    width: 100%;
+    overflow: hidden;
+  }
+  .proto-stage-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .proto-stage-img figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  @media (max-width: 1024px) {
+    .proto-stage,
+    .proto-stage.flip,
+    .proto-stage.wide-img,
+    .proto-stage.flip.wide-img { grid-template-columns: 1fr; gap: 1.5rem; }
+    .proto-stage.flip .proto-stage-meta,
+    .proto-stage.flip .proto-stage-img { order: initial; }
+    .proto-stage.wide-img .proto-stage-meta h3,
+    .proto-stage.wide-img .proto-stage-meta p { max-width: none; }
+    .proto-stage-img { margin-top: 1rem; }
+  }
+</style>
+
+<!-- 7. DECISION 02 : 28 folds, not 28 days -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Decision 02</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the form unlock</span>
+    </div>
+    <div>
+      <h2><em>28 folds</em>, not 28 days.</h2>
+      <p class="lede">Cycles run 21 to 35 days. Any rigid calendar erases someone.</p>
+
+      <div class="decision-flow">
+        <div class="dec-stage was has-img">
+          <div class="dec-text">
+            <span class="dec-tag was">The early prototypes</span>
+            <h3>A calendar of <em>fixed</em> days.</h3>
+            <p>Date strips, spinning discs, axis cards. Each broke the moment a cycle ran short or long.</p>
+            <ul class="dec-list">
+              <li class="x">Locked to a 28-day assumption</li>
+              <li class="x">Short cycles leave blank days; long ones run out of room</li>
+              <li class="x">Treats the average user as the only user</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="assets/period/decision02-early-sketches.png" data-placeholder-for="period-form-accordions.jpg" alt="Sketch grid of early fixed-day calendar concepts: clock-style dial with day arrow, spinning inner circles for tracking, light-circle indicator, and a spiral day layout" />
+            </figure>
+            <div class="dec-img-caption">Early sketches: clock-face dials, spinning inner discs, light-circles, spirals — each fixed-day idea before the fan.</div>
+          </div>
+        </div>
+
+        <div class="dec-arrow" aria-hidden="true">
+          <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+            <path d="M 80 10 Q 240 90, 380 40 T 540 60" />
+            <polygon class="tip" points="540,60 528,52 532,62 524,70" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now has-img">
+          <div class="dec-text">
+            <span class="dec-tag now">The unlock</span>
+            <h3>Each fold is one day. <em>Unused folds tuck away.</em></h3>
+            <p>An accordion of 35 folds, magnetised. The form adapts to the body, not the other way round.</p>
+            <ul class="dec-list">
+              <li>Fits any cycle from 21 to 35 days</li>
+              <li>Magnets give a tactile snap when folded</li>
+              <li>The form itself is the date system</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <span class="marginalia" style="top:-26px; right:4%; transform:rotate(-3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the unlock</span>
+              <img src="assets/period/decision02-unlock-sketches.png" alt="Sketch grid exploring fan-fold mechanics — turning inside vs outside, drag-to-open more, hiding past days, and flexible fan designs" />
+            </figure>
+            <div class="dec-img-caption">Fan-fold explorations: turn inside or outside, drag to open more, hide the days already passed, customise to cycle length.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. TECHNICAL : reframed as systems thinking -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Building it for real</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>prototype + scale</span>
+    </div>
+    <div>
+      <h2>A system that <em>actually runs</em>, costed to scale.</h2>
+      <p class="lede">Two parallel tracks: a Raspberry Pi prototype that <em>genuinely works</em>, and a manufacturing plan with a costed bill of materials.</p>
+
+      <figure class="tech-flatlay">
+        <img src="assets/period/tech-flatlay.jpg" data-placeholder-for="period-tech-flatlay.jpg" alt="Flat lay of every component used to build the period. device, base, lid, copper fan, handle, electronics, screws, cable" />
+        <figcaption>Every part of period., thirteen components total.</figcaption>
+      </figure>
+
+      <div class="tech-twin">
+        <div class="tech-card">
+          <span class="tech-eyebrow">A · The working system</span>
+          <h3>Raspberry Pi, <em>end-to-end</em>.</h3>
+          <p>Built in Python. Tracks the cycle day from a stored start date, drives a NeoPixel ring through gradient transitions, turns the metal fan on a servo, takes voice input through a microphone, replies through a speaker via OpenAI's GPT-3.5, scoped to menstrual health and forbidden from diagnoses.</p>
+          <div class="tech-spec-row">
+            <span>Raspberry Pi 4</span>
+            <span>NeoPixel 12-LED ring</span>
+            <span>SG90 servo</span>
+            <span>USB mic + speaker</span>
+          </div>
+          <figure class="tech-internals">
+            <img src="assets/period/tech-internals.png" data-placeholder-for="period-tech-internals.png" alt="The five core electronic components laid out left to right: Raspberry Pi, NeoPixel LED ring, SG90 servo motor, USB microphone, and speaker" />
+            <figcaption>Internals: Pi, NeoPixel ring, servo, mic, speaker.</figcaption>
+          </figure>
+        </div>
+
+        <div class="tech-card">
+          <span class="tech-eyebrow">B · The production system</span>
+          <h3>CNC, lamination, <em>custom PCB</em>.</h3>
+          <p>Birch plywood base (CNC-machined). Copper or brass fan (CNC-engraved with day numbers, folded on a press brake). Brass dowel for durability. Custom PCB and ARM Cortex-A35 controller specified for production, modelled on the Amazon Echo Dot teardown.</p>
+
+          <div class="bom">
+            <div class="bom-row">
+              <div class="bom-name">Birch plywood base</div>
+              <div class="bom-spec">200 × 200 × 30mm</div>
+              <div class="bom-cost">£3.00</div>
+            </div>
+            <div class="bom-row">
+              <div class="bom-name">Copper fan sheet</div>
+              <div class="bom-spec">1400 × 75 × 0.8mm</div>
+              <div class="bom-cost">£3.80</div>
+            </div>
+            <div class="bom-row">
+              <div class="bom-name">Custom PCB &amp; microcontroller</div>
+              <div class="bom-spec">incl. memory, audio SoC</div>
+              <div class="bom-cost">£8.00</div>
+            </div>
+            <div class="bom-row divider">+ 9 more components</div>
+            <div class="bom-row total">
+              <div class="bom-name">Total unit cost</div>
+              <div class="bom-spec">retail target £50</div>
+              <div class="bom-cost">£21.88</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §08 Building it for real : tech styles */
+  .tech-flatlay {
+    margin-top: 3rem;
+    overflow: visible;
+  }
+  .tech-flatlay img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-flatlay figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .tech-twin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3.5rem;
+  }
+  .tech-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .tech-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+  .tech-card h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .tech-card h3 em { font-style: italic; color: var(--copper); }
+  .tech-card > p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.25rem;
+  }
+  .tech-spec-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .tech-spec-row span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+  }
+  .tech-internals {
+    margin-top: 1.75rem;
+    overflow: hidden;
+  }
+  .tech-internals img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-internals figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0 0;
+    line-height: 1.5;
+    background: transparent;
+  }
+
+  @media (max-width: 900px) {
+    .tech-twin { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER B : THE APP (demoted)                                -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter B · The app</div>
+    <p>What a bedside object can't carry: <em>depth, history, and portability</em>.</p>
+  </div>
+</section>
+
+<!-- 10. SKETCHES & ITERATION -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 09</span>
+      <span class="nm">Sketches &amp; iteration</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>deciding by hand</span>
+    </div>
+    <div>
+      <h2>Pen on paper, before <em>pixels</em>.</h2>
+      <p class="lede">One sheet of dense iteration. Right margins are <em>self-critique</em>: questions about whether descriptions are too busy, whether the home page needs a calendar, where Luna should live.</p>
+
+      <figure class="sketch-sheet">
+        <img src="assets/period/sketches-01.jpg" data-placeholder-for="period-sketches-2.jpg" alt="Sketch sheet of eight app-screen mockups in two rows — luteal phase home, calendar, alt home with bottom-tab nav, device settings, symptom input, side menu, daily input, and profile — with handwritten self-critique in the margins" />
+        <figcaption>Sketch sheet 01. Eight screen states, critiqued in the margins.</figcaption>
+      </figure>
+
+      <div class="sketch-callouts">
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Might be too busy to have description"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">Phase descriptions move to a dedicated detail page, accessed via a "see details" link.</span>
+        </div>
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Need a home page choice"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">Home is the cycle status. The menu opens from the central fan button, not a tab.</span>
+        </div>
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Light up the same as the device"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">App background tints to the user's chosen NeoPixel gradient, syncing with the device.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §10 Sketches : sheet + critique callouts */
+  .sketch-sheet {
+    margin-top: 3rem;
+    overflow: hidden;
+  }
+  .sketch-sheet img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sketch-sheet figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .sketch-callouts {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  .sk-call {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .sk-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+  }
+  .sk-call > p {
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .sk-resolved {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 900px) {
+    .sketch-callouts {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+
+<!-- 9. DECISION 03 : The fan as centre (absorbs IA + visual system minus typography) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 10</span>
+      <span class="nm">Decision 03</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the fan, again</span>
+    </div>
+    <div>
+      <h2>The fan, <em>at the centre</em> of every screen.</h2>
+      <p class="lede">The deciding question wasn't which navigation was cleaner. It was which one was <em>honest</em> about what the product is, a device with a companion app, not an app with an accessory.</p>
+
+      <figure class="ia-hero">
+        <div class="ia-rotate-wrap">
+          <img src="assets/period/sketches-02.jpg" data-placeholder-for="period-sketches-1.jpg" alt="Sketch sheet exploring app navigation on the left — Concept 1 five-tab variations and Concept 2 with a raised central fan button — alongside six annotated phone-screen mockups on the right: luteal phase, device settings, calendar, input log, and device controls" />
+        </div>
+        <figcaption>Sketch sheet 02. Navigation concepts, left; annotated screen mockups, right.</figcaption>
+      </figure>
+
+      <div class="ia-decision">
+        <p>This concept won because the geometry told the story. The fan-shaped central button anchors every screen the way the device anchors the user's day, placing the AI assistant at the literal centre of the app, where it lives in the room.</p>
+      </div>
+
+      <!-- Visual system absorbed: gradients + icons (typography removed) -->
+      <div class="ds-absorbed">
+        <div class="ds-block ds-split">
+          <div class="ds-split-text">
+            <h3 class="ds-h">Three themes, <em>chosen on the device</em>.</h3>
+            <p class="ds-sub">The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match. Pink is one option, never the default.</p>
+            <div class="grad-row">
+              <div class="grad">
+                <div class="grad-disc grad-1"></div>
+                <span class="grad-label">Red&nbsp;→&nbsp;Orange</span>
+              </div>
+              <div class="grad">
+                <div class="grad-disc grad-2"></div>
+                <span class="grad-label">Green&nbsp;→&nbsp;Yellow</span>
+              </div>
+              <div class="grad">
+                <div class="grad-disc grad-3"></div>
+                <span class="grad-label">Pink&nbsp;→&nbsp;Purple</span>
+              </div>
+            </div>
+          </div>
+          <figure class="ds-split-img theme-variants">
+            <img src="assets/period/themes-three.png" data-placeholder-for="period-color-variants.png" alt="Three iPhone screens showing the same Period view in white, pink, and peach background variants" />
+            <figcaption>Same screen, three palettes. The fan stays copper.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ds-block ds-split ds-split-rev">
+          <figure class="ds-split-img icon-frame">
+            <img src="assets/period/icons-library.png" data-placeholder-for="period-icons.png" alt="Custom icon library: symptoms, body states, cervical mucus types, gradient swatches, controls" />
+            <figcaption>Custom icon library, organised by category.</figcaption>
+          </figure>
+          <div class="ds-split-text">
+            <h3 class="ds-h">A custom <em>icon library</em>.</h3>
+            <p class="ds-sub">Drawn line by line, not pulled from a stock pack. Forty-plus marks across symptoms, cycle states, input categories, and device controls, all at one consistent stroke weight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §09 : IA + visual system absorbed */
+  .ia-hero {
+    margin-top: 3rem;
+    overflow: hidden;
+  }
+  .ia-rotate-wrap {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .ia-rotate-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: none;
+  }
+  .ia-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .ia-decision {
+    margin-top: 3rem;
+    padding-left: 0;
+    border-left: none;
+    max-width: none;
+  }
+  .ia-decision p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    font-weight: 400;
+  }
+
+  /* Absorbed visual system */
+  .ds-absorbed {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .ds-block { margin-top: 4rem; }
+  .ds-block:first-of-type { margin-top: 0; }
+  .ds-h {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+  .ds-h em { font-style: italic; color: var(--copper); }
+  .ds-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin-bottom: 2rem;
+  }
+  .ds-split {
+    display: grid;
+    grid-template-columns: 0.8fr 1.5fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .ds-split-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .ds-split-text .ds-sub { margin-bottom: 1.75rem; }
+  .ds-split-rev { grid-template-columns: 1.5fr 0.8fr !important; }
+  .ds-split-rev .ds-split-text { padding-top: 2rem; }
+  .ds-split-img { margin: 0; }
+  .grad-row {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 1.75rem;
+    justify-content: start;
+    align-items: center;
+  }
+  .grad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .grad-disc {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.20);
+  }
+  .grad-1 {
+    background: conic-gradient(from 220deg, #FF8534, #FF5722, #E63946, #C5251A, #FF6B35, #FF8534);
+  }
+  .grad-2 {
+    background: conic-gradient(from 220deg, #D4E157, #AED581, #7CB342, #2E8B3D, #689F38, #D4E157);
+  }
+  .grad-3 {
+    background: conic-gradient(from 220deg, #FF66B2, #E91E63, #C2185B, #7B1FA2, #4A1AC5, #FF66B2);
+  }
+  .grad-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .theme-variants { overflow: hidden; margin: 0; }
+  .theme-variants img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .theme-variants figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .icon-frame {
+    background: var(--bg);
+    padding: 2rem;
+    overflow: hidden;
+    margin: 0;
+  }
+  .icon-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .icon-frame figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .ds-split, .ds-split-rev { grid-template-columns: 1fr !important; gap: 2rem; }
+    .ds-split-rev .ds-split-text { padding-top: 0; }
+    .grad-row { grid-template-columns: repeat(3, auto); gap: 1.5rem; }
+    .icon-frame { padding: 1rem; }
+    .icon-frame img { width: 100%; max-width: 520px; margin: 0 auto; }
+  }
+</style>
+
+<!-- 10. FINAL SCREENS : video as chapter hero -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 11</span>
+      <span class="nm">Final screens</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the app, in motion</span>
+    </div>
+    <div>
+      <h2>Built in Figma. Tested with <em>real cycles</em>.</h2>
+      <p class="lede">Forty-plus screens across the home, calendar, input, device control, and settings flows. Below, the working prototype walking through a full cycle, then four key states pulled from the deck.</p>
+
+      <div class="final-row">
+        <figure class="video-hero">
+          <video controls preload="metadata" playsinline style="background: #1a1a1a;">
+            <source src="assets/period/app-demo.mp4" type="video/mp4" />
+          </video>
+          <figcaption>App walkthrough.</figcaption>
+        </figure>
+
+        <div class="screen-strip">
+          <div class="scol">
+            <div class="slabel">01 · Home</div>
+            <figure class="screen">
+              <img src="assets/period/screen-home.png" data-placeholder-for="period-screen-home.png" alt="Home screen showing the Follicular Phase with 5 days until ovulation" />
+              <figcaption>Phase named first. Countdown second. Logging is one tap on the central fan.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">02 · Phase detail</div>
+            <figure class="screen">
+              <img src="assets/period/screen-phase.png" data-placeholder-for="period-screen-period-detail.png" alt="Period phase detail screen with explanation and possible symptoms" />
+              <figcaption>Plain-language explanation, symptom list, self-care guidance.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">03 · Input</div>
+            <figure class="screen">
+              <img src="assets/period/screen-input.png" data-placeholder-for="period-screen-input.png" alt="Input screen for logging symptoms, intercourse, contraception" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Log symptoms, intercourse, contraception. One tap from the home screen.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">04 · Luna, written</div>
+            <figure class="screen">
+              <img src="assets/period/screen-luna.png" data-placeholder-for="period-screen-luna.png" alt="Luna AI assistant introducing herself in the app with options to access device settings or chat" />
+              <figcaption>The voice assistant, available as text. For when speaking out loud is not an option.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">05 · Calendar</div>
+            <figure class="screen">
+              <img src="assets/period/screen-calendar.png" data-placeholder-for="period-step-04-track.jpg" alt="Tracker / calendar view showing logged days across the cycle" />
+              <figcaption>Cycle history at a glance. Exportable to share with a doctor.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">06 · Device settings</div>
+            <figure class="screen">
+              <img src="assets/period/screen-device.png" data-placeholder-for="period-screen-device.png" alt="Device control screen showing volume, microphone, brightness, and gradient colour selection" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Volume, microphone, brightness, and the gradient that the NeoPixel ring uses.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 10 : Final screens: video left, 2x2 screens right */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .section figure.video-hero {
+    margin: 0;
+    width: 100%;
+    background: transparent;
+    overflow: visible;
+    border-radius: 8px;
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+    padding-top: 40px;
+  }
+  .section figure.video-hero::before { display: none !important; }
+  .video-hero video {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 12rem);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: #1a1a1a;
+    border-radius: 8px;
+  }
+  .video-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  /* Screen strip : 3 columns × 2 rows in the right column */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem 1rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .screen figcaption {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  /* Placeholder for screens not yet uploaded */
+  .screen-placeholder {
+    aspect-ratio: 9 / 19;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--bg-warm);
+    color: var(--ink-3);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+  }
+  .screen-placeholder span {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .section figure.video-hero { max-width: 280px; margin: 0 auto; position: static !important; top: auto !important; padding-top: 0 !important; }
+    .screen-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- 12. FINAL PRODUCT : brass + copper, in context, in motion -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 12</span>
+      <span class="nm">Final product</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>two finishes, one object</span>
+    </div>
+    <div>
+      <h2>Two finishes. <em>Same object</em>.</h2>
+      <p class="lede">Copper and brass: chosen so the device looks at home in any bedroom palette, and so the user's first decision (before they even open the app) is theirs to make.</p>
+
+      <div class="finish-grid">
+        <figure class="finish">
+          <span class="marginalia" style="top:-36px; left:0; transform:rotate(3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>two finishes</span>
+          <img src="assets/period/final-copper-studio.jpg" data-placeholder-for="period-device-studio.jpg" alt="Final period. device in copper finish, photographed in studio" />
+          <figcaption>Copper finish, defaults to the red-orange gradient.</figcaption>
+        </figure>
+        <figure class="finish">
+          <img src="assets/period/final-brass-studio.jpg" data-placeholder-for="period-device-brass.jpg" alt="Final period. device in brass finish, photographed in studio" />
+          <figcaption>Brass finish, pairs with the green-yellow gradient.</figcaption>
+        </figure>
+      </div>
+
+      <!-- In context: how it lives in the room -->
+      <div class="context-block">
+        <div class="context-grid">
+          <figure class="ctx ctx-large">
+            <img src="assets/period/final-hand-copper.jpg" data-placeholder-for="period-device-hand.jpg" alt="Side view of the copper device on a wooden bedside table with a hand resting on its right edge, glowing red" />
+            <figcaption>Copper, hand touching fan.</figcaption>
+          </figure>
+          <figure class="ctx">
+            <img src="assets/period/final-bedside-lamp.jpg" data-placeholder-for="period-device-context.jpg" alt="The brass device on a wooden bedside table next to a tripod lamp and a star-shaped planter, glowing green" />
+            <figcaption>Brass, beside the lamp.</figcaption>
+          </figure>
+          <figure class="ctx">
+            <img src="assets/period/final-wall-brass.jpg" data-placeholder-for="period-device-alone.jpg" alt="The brass device wall-mounted on a textured white wall, viewed straight on, with the power cable dropping below" />
+            <figcaption>Wall-mounted, brass.</figcaption>
+          </figure>
+          <figure class="ctx">
+            <img src="assets/period/final-app-follicular.png" data-placeholder-for="period-device-bedroom.jpg" alt="Two phones showing the period. companion app on the Follicular Phase screen — the home view with days until ovulation, and the detail view explaining the phase and cervical mucus" />
+            <figcaption>The companion app — Follicular Phase, home and detail.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- In motion: video walkthrough -->
+      <div class="context-block video-block">
+        <div class="yt-embed">
+          <iframe
+            src="https://www.youtube.com/embed/euJWdGEKTdw"
+            title="period. device demo video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 4rem;">
+        <blockquote>"Aesthetic that doesn't compromise functionality, and functionality that respects the user."</blockquote>
+        <cite>— Workshop synthesis on what woman-centred design means in practice</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 11 : Final product, two finishes */
+  .finish-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .finish {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .finish img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .finish figcaption,
+  .ctx figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin-top: 0.6rem;
+    text-transform: none;
+  }
+
+  /* In-room contextual gallery */
+  .context-block {
+    margin-top: 1.5rem;
+  }
+  .context-block.video-block {
+    margin-top: 4rem;
+  }
+  .context-grid {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .ctx {
+    margin: 0;
+  }
+  .ctx > img {
+    border-radius: 0;
+  }
+  .ctx img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .ctx-large img {
+    aspect-ratio: 16 / 9;
+    object-position: 50% 100%;
+  }
+  .ctx-large {
+    grid-column: 1 / -1;
+  }
+
+  /* YouTube embed : responsive 16:9 */
+  .yt-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+  }
+  .yt-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .finish-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .context-grid { grid-template-columns: 1fr; }
+    .ctx-large img { aspect-ratio: 4 / 3; }
+    .context-block.video-block { margin-top: 2rem; }
+  }
+</style>
+
+<!-- FOOTER : next project -->
+
+
+<style>
+  .case-footer {
+    background: var(--copper-soft);
+    color: var(--ink);
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+  }
+  .case-footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .case-footer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .case-footer-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .case-footer-title {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .case-footer-detail {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 26ch;
+  }
+
+  .next-card {
+    display: block;
+    padding: 2.5rem 2.5rem;
+    border: 1px solid var(--rule);
+    background: var(--bg);
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .next-card:hover {
+    background: var(--bg);
+    border-color: var(--copper);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(154, 74, 31, 0.08);
+  }
+  .next-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--copper-deep);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+  .next-title {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .next-sub {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 0 1.25rem;
+  }
+  .next-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  .case-footer-credits {
+    grid-column: 1 / -1;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .case-footer-credits a {
+    color: var(--ink-2);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.2s ease;
+  }
+  .case-footer-credits a:hover {
+    color: var(--copper-deep);
+    border-color: var(--copper-deep);
+  }
+
+  @media (max-width: 900px) {
+    .case-footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .next-card { padding: 2rem 1.5rem; }
+  }
+</style>
+
+<!--
+  ============================================================
+  TODO, ASSETS TO SWAP / UPLOAD BEFORE PUBLISHING
+  ============================================================
+
+  § 03 (Concept &amp; form), Stage 4 "Sit, or hang" currently uses
+    period-device-detail.jpg as the visual proof of the resolved form.
+    If you have process photos of the six desk-vs-hang prototype
+    iterations (separate stand, picture-frame wire, rod-and-frame,
+    cable-as-hook, wraparound handle, sanded base + handle merged),
+    they could replace the single shot with a small prototype strip.
+
+  § 04 (How it works), Currently using the existing step-0X images.
+    Original screenshot reference used these four bubble images:
+      [1] Voice Assistant : woman with red Luna glow on bedside (silhouette)
+      [2] Foldable Days   : gold fan with green NeoPixel + fingers folding
+      [3] Cycle Day Indicator : copper close-up showing the day pointer
+      [4] Indicative Light : two hands cupping fan with red halo glow
+    → If those source files are recovered, replace:
+        period-step-03-luna.jpg   → [1] Voice Assistant
+        period-step-02-spin.jpg   → [2] Foldable Days
+        period-device-detail.jpg  → [3] Cycle Day Indicator
+        period-step-01-glance.jpg → [4] Indicative Light
+
+  § 05 (Technical), Using period-tech-flatlay.jpg and period-tech-internals.png.
+    No further swaps needed unless higher-res becomes available.
+
+  § 10 (Final screens), Calendar tile uses period-step-04-track.jpg as a
+    stand-in. Replace with a clean Calendar screen export from Figma when
+    available. Other three (home, period detail, luna) use the dedicated
+    period-screen-*.png exports.
+
+  § 11 (Final product), Using period-device-studio.jpg (copper) and
+    period-device-brass.jpg (brass). Original brief mentioned IMG_3076 +
+    IMG_3085; if those are different/better shots, swap them in.
+
+  Footer, links to onaka.html. Make sure that file is published in the
+    same directory at the root of the portfolio.
+
+  ============================================================
+-->
+
+
+
+
+
+<nav class="onaka-pagenav">
+  <a href="onaka.html" class="prev">
+    <span class="step">Previous project · 01</span>
+    <span class="dir"><span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 41,8 C 30,5 14,10 4,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 11,3 C 8,6 6,7 4,8 C 6,9 8,11 11,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <em>Onaka</em></span>
+  </a>
+  <a href="numa.html" class="next">
+    <span class="step">Next project · 03</span>
+    <span class="dir"><em>NUMA</em> <span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 3,8 C 14,5 30,10 40,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 33,3 C 36,6 38,7 40,8 C 38,9 36,11 33,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+  </a>
+</nav>
+
+<style>
+  body.case-period .onaka-pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 2.5rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  body.case-period .onaka-pagenav a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: color 0.25s;
+  }
+  body.case-period .onaka-pagenav a.prev { align-items: flex-start; text-align: left; }
+  body.case-period .onaka-pagenav a.next { align-items: flex-end; text-align: right; }
+  body.case-period .onaka-pagenav .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+  }
+  body.case-period .onaka-pagenav .dir {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #0A0A0A;
+  }
+  body.case-period .onaka-pagenav .dir em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  body.case-period .onaka-pagenav a:hover .dir em { opacity: 0.75; }
+  .onaka-pagenav .pn-arr { display: inline-flex; width: 34px; height: 14px; vertical-align: middle; }
+  .onaka-pagenav .pn-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .onaka-pagenav .pn-arr { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .onaka-pagenav a.prev:hover .pn-arr { transform: translateX(-7px); }
+  .onaka-pagenav a.next:hover .pn-arr { transform: translateX(7px); }
+  @media (max-width: 720px) {
+    body.case-period .onaka-pagenav { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 1.25rem; }
+  }
+</style>
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-col"><span class="caption">Email</span><a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a></div>
+    <div class="footer-col"><span class="caption">Phone</span><a href="tel:+447766964868">+44 (0)7766 964 868</a></div>
+    <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>London · <span id="footTime">—</span></span></div>
+</footer>
+
+<script id="inlined-script">
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+// Flip cards (§04 threading): toggle on click + Enter/Space
+(function () {
+  document.querySelectorAll('.thread-flip').forEach(function (card) {
+    function toggle() { card.classList.toggle('flipped'); }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+// Foldable chapters (A · device, B · app): collapsed by default, click divider to expand
+(function () {
+  var breaks = document.querySelectorAll('.chapter-break');
+  breaks.forEach(function (cb) {
+    var wrap = document.createElement('div');
+    wrap.className = 'chapter-fold';
+    var node = cb.nextElementSibling;
+    var collected = [];
+    while (node) {
+      if (node.classList && node.classList.contains('chapter-break')) break;
+      if (node.classList && node.classList.contains('section')) {
+        var num = node.querySelector('.section-marker .num');
+        if (num) {
+          var t = num.textContent.replace(/\s/g, '');
+          if (t === '§11' || t === '§12') break;
+        }
+      }
+      collected.push(node);
+      node = node.nextElementSibling;
+    }
+    if (!collected.length) return;
+    cb.parentNode.insertBefore(wrap, node);
+    collected.forEach(function (n) { wrap.appendChild(n); });
+    wrap.hidden = true;
+    cb.classList.add('chapter-toggle');
+    cb.setAttribute('role', 'button');
+    cb.setAttribute('tabindex', '0');
+    cb.setAttribute('aria-expanded', 'false');
+    function toggle() {
+      var open = !wrap.hidden;
+      wrap.hidden = open;
+      cb.setAttribute('aria-expanded', String(!open));
+      cb.classList.toggle('open', !open);
+    }
+    cb.addEventListener('click', toggle);
+    cb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+</script>
+
+
+<script id="mobile-nav-js">
+(function(){
+  var nav=document.querySelector('nav.nav');
+  var burger=nav&&nav.querySelector('.nav-burger');
+  if(!nav||!burger)return;
+  function closeMenu(){ nav.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); var open=nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded',String(open)); if(!open){ nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); } });
+  var mq=window.matchMedia('(max-width:720px)');
+  nav.querySelectorAll('.nav-item-dropdown > a').forEach(function(a){
+    a.addEventListener('click',function(e){ if(mq.matches){ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); } });
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(mq.matches && a.parentElement && a.parentElement.classList.contains('nav-item-dropdown')) return; closeMenu(); });
+  });
+  document.addEventListener('click',function(e){ if(nav.classList.contains('menu-open')&&!nav.contains(e.target)) closeMenu(); });
+})();
+</script>
+<style id="hero-mobile-fit">
+  @media (max-width: 700px) {
+    figure.hero-image { height: auto !important; min-height: 0 !important; width: auto !important; margin-left: 20px !important; margin-right: 20px !important; }
+    figure.hero-image img { width: 100% !important; height: auto !important; aspect-ratio: 4 / 3 !important; object-fit: cover !important; transform: none !important; object-position: center !important; }
+  }
+</style>
+</body>
+</html>

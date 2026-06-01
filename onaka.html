@@ -1,0 +1,5229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onaka — Tracking gut health without the anxiety it causes · Nefeli Lemessiou</title>
+<style id="inlined-styles">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+
+
+/* ============================================================
+   NEFELI LEMESSIOU — "SKETCHBOOK" DESIGN SYSTEM
+   Reusable styles + exact SVG marks used across the portfolio.
+   Drop this into any page's <style> (or styles.css) and apply
+   the classes/markup as described in the GUIDE at the bottom.
+
+   Depends on two things the site already defines:
+     --hand    handwriting font  ('Nefs', 'Instrument Serif', cursive)
+     #7C5BD6   the purple site accent
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. PAPER GRAIN  — body + fixed nav
+   Very low-alpha SVG noise. Should register as warmth, not as
+   a visible paper image. Apply to BOTH body and nav so the
+   texture is continuous as the fixed nav sits over the page.
+   On project pages, scope the body rule to that page's body
+   class, e.g.  body.case-onaka { ... }
+   ------------------------------------------------------------ */
+body {
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+}
+.nav {
+  /* warm the existing translucent tint to match the paper, keep the blur */
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  background-image: none;
+}
+
+
+/* ------------------------------------------------------------
+   2. ACTIVE-NAV OVAL  (purple — shared site furniture)
+   Replaces the active link's pill/underline with a hand-drawn
+   loop. Requires the inline <svg class="scribble-oval"> inside
+   the active <a> (see GUIDE).
+   ------------------------------------------------------------ */
+.nav-links a { position: relative; }
+.nav-links a.active {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #7C5BD6 !important;
+}
+.nav-links a .scribble-oval {
+  position: absolute; inset: -4px -6px;
+  pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.nav-links a.active .scribble-oval { opacity: 1; }
+
+
+/* ------------------------------------------------------------
+   3. HAND-DRAWN ARROW
+   Used in CTAs ("View all work", "See more about me") and in
+   project-card hover-reveal corners, replacing any "→" glyph.
+   Wrap in a span; the inline <svg> uses stroke="currentColor"
+   so it inherits the surrounding text colour.
+   ------------------------------------------------------------ */
+.arr-hand {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px !important; height: 28px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  color: #7C5BD6 !important;        /* or currentColor on dark overlays */
+}
+.arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+/* optional nudge on hover when used in a link */
+a:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+
+/* ------------------------------------------------------------
+   4. HAND-DRAWN UNDERLINE  (.ink)
+   A wobbly SVG as a background-image so it hugs the baseline
+   and wraps correctly across lines, even inside headings.
+   Apply to ONE key emphasis phrase per major section.
+   ------------------------------------------------------------ */
+.ink {
+  color: #7C5BD6;
+  font-style: normal;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 9' preserveAspectRatio='none'><path d='M 2,5 C 14,2 28,7 42,4 C 58,2 74,8 90,5 C 106,2 122,7 138,4 C 154,2 170,8 186,4 C 194,5 196,4 198,5' fill='none' stroke='%237C5BD6' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 calc(100% - 0.02em);
+  background-size: 100% 0.16em;
+  padding-bottom: 0.06em;
+}
+em.ink, .ink em { font-style: normal; }
+
+
+/* ------------------------------------------------------------
+   5. MARGINALIA  — small handwritten notes in the gutters
+   Position each instance with its own modifier class (examples
+   below). Keep to ~1–2 per page, lowercase, and hide on narrow
+   viewports so they never crop. Each note's parent must be
+   position: relative.
+   ------------------------------------------------------------ */
+.marginalia {
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 400;
+  font-size: 22px;
+  color: #7C5BD6;
+  line-height: 1.05;
+  letter-spacing: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-transform: none;
+  z-index: 6;
+}
+.marginalia .arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px; height: 12px;
+}
+.marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+
+/* --- example per-instance placements (tune the px to your layout) --- */
+.marg-hello     { top: calc(100% - 4px); left: 0; transform: rotate(-3deg); font-size: 24px; }   /* homepage greeting */
+.marg-available { top: -30px; right: 0;  transform: rotate(-2deg); font-size: 20px; }              /* "open to work" block */
+.marg-work      { top: -6px; left: calc(100% + 14px); transform: rotate(-3deg); font-size: 21px; }/* "selected work" label */
+.marg-count     { top: -34px; right: -10px; transform: rotate(-3deg); font-size: 22px; }           /* work-page project count */
+.marg-hint      { bottom: -34px; left: 0; transform: rotate(-2deg); font-size: 20px; }             /* work-page intro / hover hint */
+.marg-cta       { top: -34px; left: 0; transform: rotate(-3deg); font-size: 22px; }                /* about-page hire CTA */
+.marg-cando     { top: -8px; left: calc(100% + 16px); transform: rotate(-2deg); font-size: 20px; } /* about-page skills heading */
+@media (max-width: 900px) {
+  .marg-available, .marg-work, .marg-hint, .marg-cando { display: none; }
+}
+@media (max-width: 760px) { .marg-hello { display: none; } }
+
+
+/* ------------------------------------------------------------
+   6. TAPED PHOTO PRINTS  — project cards (work page + homepage)
+   Slight FIXED rotation per card, soft-grey paper-tape strip,
+   sharp corners, lifted shadow. Straighten-on-focus is wired
+   into the existing focus-gallery hover (see 6b).
+   Scope to your grid container (.focus-grid / .home-focus).
+   ------------------------------------------------------------ */
+.focus-grid .project-card,
+.home-focus .project-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease;
+}
+.focus-grid .project-thumb,
+.home-focus .project-thumb {
+  border-radius: 2px;              /* sharp print edge, not rounded card */
+  box-shadow: 0 12px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* the tape strip */
+.focus-grid .project-card::before,
+.home-focus .project-card::before {
+  content: '';
+  position: absolute;
+  width: 96px; height: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  z-index: 4; pointer-events: none;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+  transition: opacity .35s ease;
+}
+.project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+.project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+.project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+.project-card:hover::before { opacity: .55; }
+
+/* per-card FIXED rotations — never randomize */
+.c-onaka   { --rot: -1.2deg; }
+.c-period  { --rot:  1.6deg; }
+.c-numa    { --rot: -2.0deg; }
+.c-airflux { --rot:  1.2deg; }
+.c-milo    { --rot:  2.0deg; }
+.c-vatten  { --rot: -1.4deg; }
+.c-ilia    { --rot:  1.0deg; }
+
+/* 6b. straighten-on-focus, layered onto the existing focus gallery */
+.focus-grid:hover .project-card,
+.home-focus:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+.focus-grid:hover .project-card img,
+.home-focus:hover .project-card img { filter: saturate(.55); }
+.focus-grid:hover .project-card:hover,
+.home-focus:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+.focus-grid:hover .project-card:hover .project-thumb,
+.home-focus:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); }
+.focus-grid:hover .project-card:hover img,
+.home-focus:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+/* hover-revealed title in handwriting */
+.pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; }
+.pj-reveal .go { width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ------------------------------------------------------------
+   7. TAPED PORTRAIT  — about page
+   Same print treatment for the .portrait figure. Remove any
+   overflow:hidden so the tape can sit outside the edge.
+   ------------------------------------------------------------ */
+.portrait {
+  position: relative;
+  border-radius: 2px;
+  transform: rotate(1.5deg);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12), 0 3px 8px rgba(0,0,0,.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  /* NOTE: delete `overflow: hidden;` from the original .portrait rule */
+}
+.portrait:hover { transform: rotate(0deg); }
+.portrait img { border-radius: 2px; }
+.portrait::before {
+  content: '';
+  position: absolute;
+  width: 110px; height: 28px;
+  top: -12px; left: 24px;
+  background: linear-gradient(180deg, rgba(220,218,210,.82) 0%, rgba(200,198,190,.74) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+  transform: rotate(-7deg);
+  z-index: 4; pointer-events: none;
+}
+
+
+/* ------------------------------------------------------------
+   8. MARQUEE  — make the homepage ticker blend in
+   ------------------------------------------------------------ */
+.marquee {
+  background: transparent !important;
+  border-top: 1px solid var(--grey-line, #E5E2DD) !important;
+  border-bottom: 1px solid var(--grey-line, #E5E2DD) !important;
+  padding: 13px 0 !important;
+  font-size: clamp(15px, 1.6vw, 22px) !important;
+  color: var(--ink-soft, #6B6B6B) !important;
+}
+.marquee em { color: var(--ink-soft, #6B6B6B) !important; }
+.marquee-track .dot { width: 6px !important; height: 6px !important; background: #7C5BD6 !important; opacity: .6; }
+
+
+/* ------------------------------------------------------------
+   9. PROJECT-PAGE SECTION-NOTE ARROW  (project pages only)
+   Replaces the typographic "↓" above each handwritten margin
+   note with a hand-drawn down-arrow, rendered in THAT PROJECT'S
+   own deep accent colour (NOT purple). Set the colour per page
+   to its --{accent}-deep variable, e.g. var(--blue-deep) on
+   onaka, var(--copper-deep) on period, etc.
+   ------------------------------------------------------------ */
+.section-marker .note::before { display: none !important; }   /* drop the ↓ glyph */
+.section-marker .note { position: relative; padding-top: 1.6rem; }
+.section-marker .note .hand-arr {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 16px;
+  color: var(--blue-deep);          /* <-- change per project page */
+}
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+
+/* ============================================================
+   GUIDE — markup snippets & where to apply
+   ============================================================
+
+   ACTIVE-NAV OVAL — put inside the active <a> (Home on homepage,
+   Work on work + project pages, About on about page):
+
+     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval"
+       viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20"
+         fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/>
+     </svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+
+   HAND-DRAWN ARROW — replace a "→" in a CTA or reveal corner.
+   On dark overlays set stroke="currentColor" and color:#fff on the span:
+
+     <span class="arr arr-hand"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24"
+         fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>
+
+   UNDERLINE — wrap one key phrase per section:
+     ... where <span class="ink">calm, considered detail</span> still matters ...
+
+   MARGINALIA — parent must be position:relative; arrow optional,
+   rotate it to point at the thing it annotates:
+     <span class="marginalia marg-hello">
+       <span class="arrow" style="transform: rotate(-130deg); margin-right:4px;">
+         <svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+           <path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+           <path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+       </span>that's me</span>
+   Suggested notes: homepage "that's me" / "available!" / "favourites";
+   work "still growing" / "try hovering"; about "hi, hire me" / "the toolkit".
+
+   TAPED CARDS — add per-card + tape-position classes to each card:
+     <a class="project-card ... c-onaka tape-tl" href="onaka.html"> ... </a>
+   Tape positions distributed across the grid: tl / tc / tr.
+
+   PROJECT-PAGE SECTION NOTE — replace the old note with the arrow,
+   and set .hand-arr colour to the page's own --{accent}-deep:
+     <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg">
+       <path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+       <path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg></span>where it all began</span>
+   Per-page note colour: onaka var(--blue-deep), period var(--copper-deep),
+   numa var(--numa-deep), milo var(--mustard-deep), vattenkanna var(--sage-deep),
+   ilia var(--walnut-deep), airflux var(--teal-deep).
+   (Purple stays for shared furniture only; each project keeps its own colour.)
+
+   DELIVERY — these pages load styles.css + script.js externally and are
+   often opened as standalone files, so always ship a SELF-CONTAINED copy:
+   inline styles.css into a <style> (replacing the <link>) and script.js
+   into a <script> (replacing the external src), so each page renders
+   with no external dependencies.
+   ============================================================ */
+
+
+/* ============================================
+   Override: hide the legacy ↗ pill from .project-card::after
+   so the new .pj-reveal overlay (Nefs name + hand-drawn arrow) wins
+   ============================================ */
+.focus-grid .project-card::after,
+.home-focus .project-card::after {
+  content: '' !important;
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* The .pj-reveal overlay on project cards: hovered reveals Nefs title + arrow */
+.pj-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 18px 20px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 5;
+  border-radius: 2px;
+}
+.focus-grid .project-card:hover .pj-reveal,
+.home-focus .project-card:hover .pj-reveal { opacity: 1; }
+.pj-reveal .nm { color: #fff; }
+
+/* Anchors / parents of marginalia must be relative — applied via inline style in HTML */
+
+
+/* ============================================
+   Project-page: section-marker hand-arr inherits the note's own
+   per-project deep accent colour (instead of hardcoded blue)
+   ============================================ */
+.section-marker .note .hand-arr { color: inherit !important; }
+.section-marker .note .hand-arr svg { width: 100%; height: 100%; overflow: visible; }
+
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onaka — Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('assets/nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #6B7DF2;
+    --blue-deep: #3B6FBF;
+    --blue-soft: #EAF1FB;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--display); cursor: none;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--blue); font-weight: inherit; }
+
+  /* NAV */
+  body.case-onaka > nav.upload-nav-removed {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .upload-nav-removed .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .upload-nav-removed .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .upload-nav-removed .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .upload-nav-removed .nav-links a:hover { color: var(--blue); }
+  .upload-nav-removed .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID — section structure */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--blue-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* CHAPTER DIVIDER — demoted: thin marker between device and app halves */
+  .chapter-break {
+    background: var(--blue-soft);
+    color: var(--ink);
+    padding: 1.5rem 2.5rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-break-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .chapter-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--blue-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .chapter-break p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .chapter-break p em { font-style: italic; color: var(--blue-deep); }
+  @media (max-width: 900px) {
+    .chapter-break-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--blue); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem 2rem;
+    align-items: start;
+    padding-top: 1.75rem;
+    margin-bottom: 4rem;
+    border-top: 1px solid var(--rule);
+    text-transform: none;
+  }
+  .hero-meta .meta-item { display: flex; flex-direction: column; gap: 0.75rem; }
+  .hero-meta .meta-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-meta .meta-value {
+    font-family: var(--display);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  @media (max-width: 700px) {
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.75rem 1.5rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: none;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 3rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--blue); font-weight: 500; }
+  .hero-credit {
+    display: flex;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    margin-bottom: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    max-width: 720px;
+  }
+  .hero-credit-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .hero-credit-text {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 700px) {
+    .hero-credit { flex-direction: column; gap: 0.4rem; }
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+
+  /* IMAGE BOX (placeholder) */
+  .ib {
+    background: var(--blue-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    gap: 0.5rem; position: relative; overflow: hidden;
+  }
+  .ib.n { background: #F5F2EC; }
+  .ib.d { background: #0A0A0A; border-color: rgba(255,255,255,0.08); }
+  .ib p {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--blue-deep); text-align: center; opacity: 0.7;
+    letter-spacing: 0.02em;
+  }
+  .ib.n p { color: var(--ink-3); }
+  .ib.d p { color: rgba(255,255,255,0.4); }
+  .ib strong {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-2);
+    text-align: center; letter-spacing: -0.01em;
+  }
+  .ib.d strong { color: rgba(255,255,255,0.7); }
+  .phi {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px dashed currentColor; opacity: 0.35;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-deep);
+  }
+  .ib.n .phi { color: var(--ink-3); }
+  .ib.d .phi { color: rgba(255,255,255,0.4); }
+  .phi svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 72%;
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .hero-image { height: 60vh; min-height: 380px; }
+    .hero-image img { object-position: center center; }
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat {
+    padding-right: 0;
+    border-right: none;
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* BLOCKQUOTE pull */
+  .pull {
+    border-left: 2px solid var(--blue);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* RESEARCH 3-COL */
+  .res-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .res-cell {
+    padding: 2rem 2rem 2rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .res-cell:not(:first-child) { padding-left: 2rem; }
+  .res-cell:last-child { border-right: none; padding-right: 0; }
+  .res-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .res-cell h3 { margin-bottom: 0.85rem; }
+  .res-cell h3 em { font-style: italic; color: var(--blue); }
+  .res-cell p { font-size: 0.88rem; }
+
+  /* INSIGHT pills */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pill-row .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase;
+    width: 100%; margin-bottom: 0.6rem;
+  }
+  .pill {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+    background: var(--bg);
+  }
+
+  /* DECISION — flowing story */
+  .decision-flow {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .dec-stage {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+  }
+  .dec-stage.now {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .dec-stage.was {
+    margin-left: 0;
+  }
+  .dec-stage.now {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+  /* "was" puts text left, image right; "now" flips it for visual rhythm */
+  .dec-stage.now .dec-text { order: 2; }
+  .dec-stage.now .dec-img-wrap { order: 1; }
+  .dec-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .dec-tag.was { color: #8A2A2A; }
+  .dec-tag.now { color: var(--blue-deep); }
+  .dec-tag::before {
+    content: ''; display: block;
+    width: 18px; height: 1px;
+  }
+  .dec-tag.was::before { background: #8A2A2A; }
+  .dec-tag.now::before { background: var(--blue-deep); }
+  .dec-stage h3 {
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .dec-stage h3 em { font-style: italic; color: var(--blue); }
+  .dec-text > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+  }
+  .dec-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .dec-list li {
+    font-size: 0.92rem; color: var(--ink-2);
+    padding-left: 1.6rem; position: relative;
+    line-height: 1.55;
+  }
+  .dec-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.65rem;
+    width: 14px; height: 1px; background: var(--ink-3);
+  }
+  .dec-list li.x { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+  .dec-img-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+  }
+  .dec-img-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .dec-img-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .dec-img-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+  .dec-arrow {
+    position: relative;
+    height: 80px;
+    margin: 0;
+  }
+  .dec-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .dec-arrow path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  .dec-arrow .tip {
+    fill: var(--blue);
+    opacity: 0.7;
+  }
+  @media (max-width: 900px) {
+    .dec-stage {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .dec-stage.now .dec-text { order: 1; }
+    .dec-stage.now .dec-img-wrap { order: 2; }
+    .dec-stage .dec-text { order: 1; }
+    .dec-stage .dec-img-wrap { order: 2; }
+    .dec-stage.now { margin-top: 2rem; }
+    .dec-arrow { height: 60px; }
+  }
+
+  /* DECISION 02 — annotated diagram */
+  .symptom-intro {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .symptom-intro .lede {
+    margin: 0;
+  }
+  .principle-soft {
+    padding: 1.5rem 1.75rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+  }
+  .principle-soft .pl {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .principle-soft p {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  .annotated-device {
+    position: relative;
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: var(--bg);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .annotated-device-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    z-index: 1;
+  }
+  /* SVG annotation lines layer */
+  .annotation-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .annotation-lines path {
+    fill: none;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 5;
+    stroke-linecap: round;
+  }
+  .annotation-lines circle {
+    fill: var(--bg-2);
+    stroke-width: 1.5;
+  }
+  .annotation-lines .pain-line   { stroke: #B03A2E; }
+  .annotation-lines .pain-dot    { stroke: #B03A2E; }
+  .annotation-lines .anx-line    { stroke: var(--blue-deep); }
+  .annotation-lines .anx-dot     { stroke: var(--blue-deep); }
+  .annotation-lines .bowel-line  { stroke: #B8841C; }
+  .annotation-lines .bowel-dot   { stroke: #B8841C; }
+
+  /* Annotation labels — absolutely positioned */
+  .ann-label {
+    position: absolute;
+    z-index: 3;
+    max-width: 220px;
+  }
+  .ann-label .ann-tag {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border-radius: 100px;
+    margin-bottom: 0.6rem;
+  }
+  .ann-label.pain .ann-tag   { background: #FBE9E6; color: #B03A2E; }
+  .ann-label.anx .ann-tag    { background: var(--blue-soft); color: var(--blue-deep); }
+  .ann-label.bowel .ann-tag  { background: #FBF1DA; color: #8C6510; }
+
+  .ann-label h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+  }
+  .ann-label p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  /* Position the three labels — desktop */
+  .ann-pain  { top: 12%;  left: 4%; }
+  .ann-anx   { bottom: 8%; left: 4%; }
+  .ann-bowel { top: 38%;  right: 4%; text-align: right; }
+
+  @media (max-width: 900px) {
+    .symptom-intro { grid-template-columns: 1fr; gap: 2rem; }
+    .annotated-device {
+      aspect-ratio: auto;
+      padding: 2rem 1.25rem;
+    }
+    .annotated-device-img {
+      position: relative;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      margin-bottom: 1.5rem;
+    }
+    .annotation-lines { display: none; }
+    .ann-label {
+      position: relative;
+      max-width: none;
+      margin-bottom: 1.5rem;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      text-align: left !important;
+    }
+  }
+
+  /* DECISION 03 — method comparison */
+  .methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .method {
+    display: flex;
+    flex-direction: column;
+  }
+  .method-frame {
+    width: 100%;
+    aspect-ratio: 9 / 13;
+    overflow: hidden;
+    background: #EFEDE7;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .method-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    display: block;
+  }
+  .method-frame.lists img { object-position: 50% 50%; }
+  .method-frame.icons img { object-position: 50% 50%; }
+  .method-frame.text-voice img { object-position: 50% 50%; }
+  .method-tag {
+    position: absolute;
+    top: 0.85rem; left: 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 100px;
+    font-weight: 500;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .method-tag.win {
+    background: var(--blue);
+    color: var(--bg);
+    border-color: var(--blue);
+  }
+  .method-tag.lose {
+    color: var(--ink-3);
+  }
+  .method h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.4rem;
+  }
+  .method h4 em { font-style: italic; color: var(--blue); }
+  .method-result {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.85rem;
+  }
+  .method-result.win { color: var(--blue-deep); font-weight: 500; }
+  .method-result.win::before {
+    content: '✓';
+    margin-right: 0.4rem;
+  }
+  .method dt {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+  .method dd {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .method-summary {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .method-summary h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+  .method-summary h3 em { font-style: italic; color: var(--blue); }
+  .summary-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .summary-label::before {
+    content: '';
+    display: block;
+    width: 18px; height: 1px;
+    background: var(--blue-deep);
+  }
+  .principle-callout {
+    padding: 1.5rem 1.75rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+    margin-top: 1.5rem;
+  }
+  .principle-callout .pl {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .principle-callout p {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .method-summary.solo { grid-template-columns: 1fr; }
+  .method-summary.solo > div { max-width: none; }
+  @media (max-width: 900px) {
+    .methods { grid-template-columns: 1fr; gap: 2.5rem; }
+    .method-summary { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .input-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .bar-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar-row:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+  .bar-label {
+    font-size: 0.92rem; font-weight: 500;
+    min-width: 88px; color: var(--ink);
+  }
+  .bar-track {
+    flex: 1; height: 6px; background: var(--bg-2);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; background: var(--ink-4);
+  }
+  .bar-fill.w { background: var(--blue); }
+  .bar-value {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--ink-3); min-width: 110px; text-align: right;
+    letter-spacing: 0.01em;
+  }
+  .bar-value.w { color: var(--blue-deep); font-weight: 500; }
+  .meta-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    margin-top: 1rem;
+  }
+  .meta-card .ml {
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .meta-card p { font-size: 0.88rem; line-height: 1.55; }
+
+  /* FORM DEVELOPMENT */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .form-grid .ib {
+    border: 1px solid var(--rule);
+    height: 280px;
+  }
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .form-grid-2 .ib {
+    border: 1px solid var(--rule);
+    height: 220px;
+  }
+
+  /* APP — screen strip */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .scol {
+    display: flex; flex-direction: column;
+  }
+  .slabel {
+    padding: 0.85rem 0;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.5rem;
+  }
+  .scol .ib { border: 1px solid var(--rule); height: 340px; }
+
+  /* PRINCIPLES — flowing */
+  .princ-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem 5rem;
+    margin-top: 4rem;
+  }
+  .princ {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .princ-num {
+    font-family: var(--display);
+    font-size: 3.5rem;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--blue);
+    font-style: italic;
+  }
+  .princ h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .princ p {
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+  @media (max-width: 700px) {
+    .princ-row { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* DETAIL ROW */
+  .detail-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .detail-row .ib {
+    border: 1px solid var(--rule);
+    height: 320px;
+  }
+
+  /* BRANDING — flowing */
+  .brand-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .brand h4 {
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .brand p { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .brand-strip { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  .cdots { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .cdot { width: 28px; height: 28px; border-radius: 50%; }
+  .tsamp { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1rem; }
+  .tr {
+    display: flex; align-items: baseline; gap: 0.85rem;
+    padding-bottom: 0.55rem; border-bottom: 1px solid var(--rule);
+  }
+  .tr:last-child { border-bottom: none; }
+  .tlbl {
+    font-family: var(--mono); font-size: 0.65rem; color: var(--ink-3);
+    min-width: 64px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  /* HOW IT WORKS — circular interaction system */
+  .interaction-system {
+    position: relative;
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .connectors path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .i-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .i-step-1 { padding-top: 4rem; }
+  .i-step-2 { padding-top: 1rem; }
+  .i-step-3 { padding-top: 0; }
+  .i-step-4 { padding-top: 3rem; }
+  .i-label {
+    color: var(--blue-deep);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 14ch;
+  }
+  .i-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .i-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* per-step crop tuning so the subject sits centred in each circle */
+  .i-step-1 .i-circle img { object-position: 35% 60%; transform: scale(1.6); }
+  .i-step-2 .i-circle img { object-position: 50% 50%; transform: scale(1.05); }
+  .i-step-3 .i-circle img { object-position: 50% 45%; transform: scale(1.4); }
+  .i-step-4 .i-circle img { object-position: 50% 40%; transform: scale(1.3); }
+  .i-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+  @media (max-width: 900px) {
+    .interaction-system {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .connectors { display: none; }
+    .i-step,
+    .i-step-1, .i-step-2, .i-step-3, .i-step-4 { padding-top: 0; }
+    .i-circle { width: 200px; height: 200px; }
+  }
+
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule-strong);
+    margin-top: 3rem;
+  }
+  .flow-step {
+    padding: 2rem 1.75rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.5rem; top: 2rem;
+    color: var(--ink-4);
+    font-size: 1rem;
+    background: var(--bg);
+    padding: 0 0.25rem;
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-num {
+    font-family: var(--display);
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--blue-soft);
+    margin-bottom: 1.2rem;
+  }
+  .flow-step h4 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .flow-step p { font-size: 0.85rem; color: var(--ink-3); }
+  .flow-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 0.65rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+    margin-top: 1rem;
+  }
+  .flow-tag.dev { background: var(--blue-soft); color: var(--blue-deep); }
+  .flow-tag.iot { background: #F0EFEA; color: var(--ink-3); }
+  .flow-tag.app { background: #E6F0E5; color: #2F5F3F; }
+
+  /* FINAL */
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .final-grid .ib {
+    border: 1px solid var(--rule);
+  }
+  .final-hero {
+    height: 440px;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+  .final-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 18% center;
+    transform: scale(1.4);
+    transform-origin: 18% center;
+    display: block;
+  }
+  .out-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .out {
+    padding: 0;
+  }
+  .out .ol {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .out p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .out-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: transparent;
+    padding: 0;
+    color: var(--ink);
+  }
+  /* Condensed sections — §09 and §10 */
+  .section.condensed { padding: 4rem 2.5rem; }
+  .section.condensed h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); margin-bottom: 1.25rem; }
+  .section.condensed .lede { font-size: 1rem; }
+  .section.condensed .methods { margin-top: 2rem; gap: 1.25rem; }
+  .section.condensed .method h4 { font-size: 1rem; }
+  .section.condensed .method dl dt { margin-top: 0.5rem; }
+  .section.condensed .method dd { font-size: 0.82rem; }
+  .section.condensed .method-summary { margin-top: 2.5rem; padding-top: 2rem; gap: 2.5rem; }
+  .section.condensed .method-summary h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+  .section.condensed .method-summary p { font-size: 0.88rem; }
+  .section.condensed .bar-row { padding: 0.6rem 0; }
+  .section.condensed .conditional-strip { margin-top: 2rem; padding: 1.5rem 1.75rem; }
+  .section.condensed .insights-output { margin-top: 2.5rem; padding-top: 2rem; gap: 2rem; }
+  .section.condensed .io-card { padding: 1rem 1.15rem; }
+  .section.condensed .io-card p { font-size: 0.85rem; }
+  .foot-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+  .foot-marker {
+    font-family: var(--mono); font-size: 0.75rem;
+    color: var(--blue-deep);
+    letter-spacing: 0.02em;
+  }
+  .foot-name {
+    font-family: var(--hand);
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .foot-meta {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .foot-next {
+    text-align: right;
+  }
+  .nl {
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.4rem;
+  }
+  .nt {
+    font-family: var(--display); font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: var(--ink); text-decoration: none;
+    font-weight: 700; letter-spacing: -0.03em;
+    transition: color 0.2s;
+  }
+  .nt:hover { color: var(--blue-deep); }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+
+  /* §03 — 4-step cross-medium loop, single 1×4 row */
+  .loop-system {
+    margin-top: 4rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  /* Dashed connector arc sitting over the four circles */
+  .loop-connector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+  .loop-connector path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Vertical stagger for visual rhythm, matching period's pattern */
+  .loop-step-1 { padding-top: 4rem; }
+  .loop-step-2 { padding-top: 1rem; }
+  .loop-step-3 { padding-top: 0; }
+  .loop-step-4 { padding-top: 3rem; }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+    margin-bottom: 0.85rem;
+    display: inline-block;
+  }
+  .loop-label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  .loop-figure {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 24ch;
+  }
+
+  /* §04 — Threading: where device and app are co-designed */
+  .threading {
+    margin-top: 3rem;
+  }
+  .thread-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .thread-flip {
+    perspective: 1100px;
+    min-height: 180px;
+    cursor: pointer;
+    border-radius: 12px;
+    outline: none;
+  }
+  .thread-flip:focus-visible .tf-inner {
+    box-shadow: 0 0 0 2px var(--blue-deep);
+    border-radius: 12px;
+  }
+  .tf-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .thread-flip.flipped .tf-inner { transform: rotateY(180deg); }
+  .tf-front, .tf-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .tf-front {
+    background: var(--bg);
+    border: 1px solid #DCE4F5;
+  }
+  .thread-flip:hover .tf-front { border-color: var(--blue-deep); }
+  .thread-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .thread-pair {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .thread-side {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--blue);
+    border-radius: 3px;
+    background: var(--blue-soft);
+  }
+  .tf-front h4 {
+    font-size: 1.02rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 0.15rem 0 0;
+  }
+  .tf-front h4 em { font-style: italic; color: var(--blue); font-weight: 600; }
+  .tf-hint {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: auto;
+    transition: color 0.2s;
+  }
+  .thread-flip:hover .tf-hint { color: var(--blue-deep); }
+  .tf-back {
+    background: var(--blue-deep);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .tf-back p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #fff;
+    margin: 0;
+  }
+  .tf-back em { font-style: italic; color: #fff; }
+
+  @media (max-width: 900px) {
+    .loop-system { grid-template-columns: 1fr; gap: 3rem; margin-top: 3rem; }
+    .loop-connector { display: none; }
+    .loop-step,
+    .loop-step-1, .loop-step-2, .loop-step-3, .loop-step-4 { padding-top: 0; }
+    .loop-figure { width: 200px; height: 200px; }
+    .thread-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .thread-grid { grid-template-columns: 1fr; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .stat { border-right: none; padding-right: 0; }
+    .res-grid, .form-grid, .form-grid-2, .screen-strip, .princ-row, .detail-row, .brand-strip, .flow-grid, .final-grid, .out-grid { grid-template-columns: 1fr; }
+    .res-cell, .form-grid .ib, .form-grid-2 .ib, .scol, .detail-row .ib, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .sym-grid, .input-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-next { text-align: left; }
+    .flow-step::after { display: none; }
+  }
+</style>
+
+
+<style id="sketchbook-extras">
+  /* Sketchbook reconciliation — added */
+
+    /* Paper grain on body + nav — matches the rest of the site */
+  body {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    background-repeat: repeat !important;
+    background-attachment: scroll !important;
+  }
+  nav.nav {
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    background-image: none !important;
+  }
+
+  /* Purple oval around active nav link (Work on project pages) */
+  nav.nav .nav-links a.active {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: #7C5BD6 !important;
+  }
+
+  /* Taped-print treatment for hero image (subtle — no big rotation since it's a banner) */
+  figure.hero-image {
+    position: relative;
+    border-radius: 2px !important;
+    overflow: visible !important;
+    box-shadow: 0 8px 22px rgba(40, 28, 0, 0.10), 0 2px 6px rgba(40, 28, 0, 0.06);
+  }
+  figure.hero-image::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    margin-left: -48px;
+    width: 96px;
+    height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 3;
+    transform: rotate(-3deg);
+    pointer-events: none;
+  }
+
+  /* Hide the legacy ::before arrow — the inline <span class="hand-arr"> in each note is the canonical arrow */
+  .section-marker .note::before { display: none !important; content: '' !important; }
+</style>
+<style id="nav-dropdown-css">
+.nav-item-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  border: 1px solid var(--grey-line, #D6D6D6);
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(40, 28, 0, 0.10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+/* invisible bridge so hover survives the gap between Work link and the dropdown */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  padding: 9px 20px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.nav-dropdown a:hover {
+  color: var(--purple);
+}
+.nav-dropdown a .nu {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-mute, #8E8E8E);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover .nu {
+  color: var(--purple);
+}
+@media (max-width: 720px) {
+  .nav-dropdown { display: none !important; }
+}
+/* "All work" — hidden in the desktop hover menu, shown only in the mobile menu */
+.nav-dd-all { display: none !important; }
+@media (max-width: 720px) {
+  .nav-item-dropdown.open .nav-dropdown a.nav-dd-all { display: flex !important; }
+}
+</style>
+<style id="onaka-sketchbook-figs">
+  /* ===== Taped photo prints — tilt + tape on the IMAGE, caption stays flat on the page ===== */
+  .section figure { position: relative; }
+  .section figure > img {
+    border-radius: 2px;
+    box-shadow: 0 8px 22px rgba(40,28,0,0.12), 0 2px 6px rgba(40,28,0,0.08);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+    display: block;
+  }
+  .section figure:nth-of-type(4n+1) > img { transform: rotate(-1.1deg); }
+  .section figure:nth-of-type(4n+2) > img { transform: rotate(0.9deg); }
+  .section figure:nth-of-type(4n+3) > img { transform: rotate(1.3deg); }
+  .section figure:nth-of-type(4n+4) > img { transform: rotate(-0.7deg); }
+  .section figure:hover > img { transform: rotate(0deg); }
+  /* paper-tape strip — matches the work-page tape */
+  .section figure::before {
+    content: '';
+    position: absolute;
+    width: 96px; height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 4;
+    pointer-events: none;
+  }
+  .section figure:nth-of-type(3n+1)::before { top: -11px; left: 16%; transform: rotate(-4deg); }
+  .section figure:nth-of-type(3n+2)::before { top: -12px; left: 50%; margin-left: -48px; transform: rotate(2deg); }
+  .section figure:nth-of-type(3n+3)::before { top: -11px; right: 16%; transform: rotate(4deg); }
+
+  /* ===== Exclude diagrams + sketches — drawn directly on the page ===== */
+  .section figure.annotated-device > img,
+  .section figure.sitemap > img,
+  .section figure.tech-exploded > img,
+  .section figure.tech-internals > img,
+  .section figure.tech-flatlay > img,
+  .section figure.logo-frame > img,
+  .section figure.brand-moodboard > img,
+  .section figure.jl-flow > img,
+  .section figure:has(img[src*="sketch"]) > img,
+  .section figure:has(img[src*="ideation"]) > img,
+  .section figure:has(img[src*="wireframe"]) > img,
+  .section figure:has(img[src*="logo-origin"]) > img {
+    transform: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .section figure.annotated-device::before,
+  .section figure.sitemap::before,
+  .section figure.tech-exploded::before,
+  .section figure.tech-internals::before,
+  .section figure.tech-flatlay::before,
+  .section figure.logo-frame::before,
+  .section figure.brand-moodboard::before,
+  .section figure.jl-flow::before,
+  .section figure:has(img[src*="sketch"])::before,
+  .section figure:has(img[src*="ideation"])::before,
+  .section figure:has(img[src*="wireframe"])::before,
+  .section figure:has(img[src*="logo-origin"])::before {
+    display: none !important;
+  }
+  /* How-it-works loop figures: rectangular taped prints (like the rest of the page) */
+  .section figure.loop-figure {
+    width: 180px !important;
+    max-width: 180px;
+    height: 180px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    background: var(--bg-2) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+  }
+  .section figure.loop-figure > img {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  /* tablet (8"/12"): shrink the 4-up loop figures so the row fits without overflow */
+  @media (min-width: 901px) and (max-width: 1100px) {
+    .loop-step { min-width: 0; }
+    .section figure.loop-figure { width: 132px !important; max-width: 132px; height: 132px !important; }
+  }
+  /* no tape on the circular how-it-works figures */
+  .section figure.loop-figure::before {
+    display: none !important;
+  }
+  /* §07 silicone ring + §12 app screenshots: treated as sketches, no tape/tilt */
+  .section figure:has(img[src*="form-03-silicone"]) > img,
+  .section figure.screen > img {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .section figure:has(img[src*="form-03-silicone"])::before,
+  .section figure.screen::before {
+    display: none !important;
+  }
+  /* Section 08: keep the exploded render pinned while the components scroll */
+  .tech-twin { overflow: visible !important; }
+  .tech-exploded { position: sticky !important; top: 6rem !important; overflow: visible !important; }
+
+  /* figures carrying a marginalia note must not clip it */
+  .section figure:has(.marginalia) { overflow: visible !important; }
+
+  /* ===== Hover-to-reveal image captions ===== */
+  .section figure figcaption,
+  .dec-img-wrap .dec-img-caption {
+    opacity: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease !important;
+  }
+  .section figure:hover figcaption,
+  .dec-img-wrap:hover .dec-img-caption {
+    opacity: 1 !important;
+    max-height: 8rem !important;
+    margin-top: 0.7rem !important;
+    padding-top: 0.7rem !important;
+    border-top: 1px solid var(--rule) !important;
+  }
+  /* Non-taped images (diagrams, sketches, silicone, screens): a thin rule
+     under the image separating it from its description */
+  .section figure.sitemap figcaption,
+  .section figure.tech-exploded figcaption,
+  .section figure.tech-internals figcaption,
+  .section figure.tech-flatlay figcaption,
+  .section figure.logo-frame figcaption,
+  .section figure.brand-moodboard figcaption,
+  .section figure.screen figcaption,
+  .section figure:has(img[src*="sketch"]) figcaption,
+  .section figure:has(img[src*="ideation"]) figcaption,
+  .section figure:has(img[src*="wireframe"]) figcaption,
+  .section figure:has(img[src*="logo-origin"]) figcaption,
+  .section figure:has(img[src*="form-03-silicone"]) figcaption {
+    border-top: 1px solid var(--rule) !important;
+    padding-top: 0.85rem !important;
+    margin-top: 0.85rem !important;
+  }
+  /* Unified caption layout — every figcaption reads like section 05's on-page caption
+     (mono, grey, flat below the image). Section 12 screens + the demo video keep their own. */
+  .section figure:not(.screen):not(.video-hero) figcaption {
+    font-family: var(--mono) !important;
+    font-size: 0.7rem !important;
+    color: var(--ink-3) !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.5 !important;
+    margin-top: 0.85rem !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: left !important;
+  }
+  /* taped prints must not clip their own tilt-shadow or tape strip */
+  .section figure.proto-stage-img,
+  .section figure.dec-img-photo,
+  .section figure.outcome-tile,
+  .section figure.outcome-hero,
+  .section figure.screen {
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* ===== Handwritten marginalia ===== */
+  .marginalia {
+    position: absolute;
+    z-index: 6;
+    font-family: var(--hand);
+    font-weight: 400;
+    text-transform: none;
+    font-size: 1.4rem;
+    line-height: 1.05;
+    color: var(--blue-deep);
+    letter-spacing: -0.01em;
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .marginalia .m-arr { width: 30px; height: 18px; flex-shrink: 0; color: var(--blue-deep); }
+  .marginalia .m-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .marg-squeeze { top: -20px; right: 4%; transform: rotate(-3deg); font-size: 17px; }
+  .marg-squeeze .m-arr { transform: rotate(120deg); }
+  .marg-shape { top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg); font-size: 17px; }
+  .marg-shape .m-arr { transform: rotate(20deg); }
+  .marg-cmf { top: -16px; right: 6%; left: auto; transform: rotate(-3deg); font-size: 17px; }
+  .marg-cmf .m-arr { transform: rotate(20deg); }
+  @media (max-width: 900px) { .marginalia { display: none; } }
+
+  /* ===== Quiet sketchbook chapter dividers ===== */
+  .chapter-break {
+    position: relative !important;
+    background: transparent !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    padding: 3rem 2.5rem 1.5rem !important;
+  }
+  /* full-width hand-drawn wavy line as the section separator */
+  .chapter-break::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 12px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 16' preserveAspectRatio='none'><path d='M 4,9 C 120,3 240,14 360,8 C 480,2 600,13 720,7 C 840,2 960,13 1080,8 C 1200,2 1320,13 1440,8 C 1500,5 1550,7 1596,8' fill='none' stroke='%233B6FBF' stroke-width='1.4' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 12px;
+    opacity: 0.9;
+  }
+  /* drop the grey section rule that sits right above the blue chapter line */
+  .section:has(+ .chapter-break),
+  .section:has(+ style + .chapter-break) { border-bottom: none !important; }
+  .chapter-break-inner {
+    display: block !important;
+    grid-template-columns: none !important;
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+  .chapter-meta {
+    font-family: var(--hand) !important;
+    font-size: 22px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    color: var(--blue-deep) !important;
+    font-weight: 400 !important;
+  }
+  /* Non-taped images (except §12 screens): a rule under the image, below its full bleed */
+  .section figure.sitemap > img,
+  .section figure.tech-exploded > img,
+  .section figure.tech-internals > img,
+  .section figure.tech-flatlay > img,
+  .section figure.logo-frame > img,
+  .section figure.brand-moodboard > img,
+  .section figure.annotated-device > img,
+  .section figure.jl-flow > img,
+  .section figure:has(img[src*="sketch"]) > img,
+  .section figure:has(img[src*="ideation"]) > img,
+  .section figure:has(img[src*="wireframe"]) > img,
+  .section figure:has(img[src*="logo-origin"]) > img,
+  .section figure:has(img[src*="form-03-silicone"]) > img {
+    border-bottom: 1px solid var(--rule) !important;
+    padding-bottom: 0.85rem !important;
+  }
+  .chapter-break p { display: none !important; }
+  /* Foldable chapter affordance */
+  .chapter-break.chapter-toggle { cursor: pointer; }
+  .chapter-break.chapter-toggle .chapter-meta::after {
+    content: ' — click to open ↓';
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+  .chapter-break.chapter-toggle.open .chapter-meta::after {
+    content: ' — click to close ↑';
+  }
+</style>
+
+<style id="mobile-nav-css">
+  .nav-burger { display: none; }
+  @media (max-width: 720px) {
+    nav.nav { position: fixed; }
+    .nav-burger { display:inline-flex; flex-direction:column; justify-content:center; gap:5px; width:40px; height:40px; padding:9px; background:none; border:none; cursor:pointer; z-index:130; margin-left:auto; }
+    .nav-burger span { display:block; width:22px; height:2px; border-radius:2px; background:#0E0E0C; transition: transform .25s ease, opacity .2s ease; }
+    nav.nav.menu-open .nav-burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    nav.nav.menu-open .nav-burger span:nth-child(2){ opacity:0; }
+    nav.nav.menu-open .nav-burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    html nav.nav .nav-links,
+    html body[class*="case-"] nav.nav .nav-links {
+      display:none !important; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column !important; align-items:stretch !important; gap:0 !important;
+      background:#FFFFFF !important; border-bottom:1px solid var(--rule,#D6D6D6);
+      padding:6px 0 10px !important; box-shadow:0 14px 30px rgba(0,0,0,.10);
+    }
+    html nav.nav.menu-open .nav-links,
+    html body[class*="case-"] nav.nav.menu-open .nav-links { display:flex !important; }
+
+    nav.nav .nav-links > a,
+    nav.nav .nav-item-dropdown > a {
+      display:block !important; width:100% !important;
+      padding:13px var(--gutter,24px) !important; border:none !important; border-radius:0 !important; font-size:15px !important;
+    }
+    nav.nav .nav-links a .scribble-oval { display:none !important; }
+    .nav-item-dropdown { position:static !important; display:block !important; width:100%; }
+    .nav-item-dropdown > a::after { content:' +'; color: var(--purple, #7C5BD6); font-family: var(--mono, monospace); }
+    .nav-item-dropdown.open > a::after { content:' \2013'; }
+    .nav-dropdown, body[class*="case-"] .nav-dropdown {
+      display:none !important; position:static !important; transform:none !important;
+      opacity:1 !important; pointer-events:auto !important; box-shadow:none !important; border:none !important;
+      min-width:0 !important; width:100% !important; padding:0 0 4px 0 !important; background:transparent !important;
+    }
+    .nav-item-dropdown.open .nav-dropdown { display:flex !important; flex-direction:column; }
+    .nav-dropdown::before { display:none !important; }
+    .nav-dropdown a { justify-content:flex-start !important; text-align:left !important; padding:9px var(--gutter,24px) 9px calc(var(--gutter,24px) + 16px) !important; font-size:13px !important; opacity:.85; }
+    .nav-time { display:none !important; }
+  }
+</style>
+
+<style id="proj-footer-line-fix">
+  /* one black divider above the project nav; no line under it */
+  body[class*="case-"] .footer { border-top: none !important; padding-top: 28px !important; }
+  body[class*="case-"] .onaka-pagenav { border-top: 1px solid var(--rule) !important; }
+  body[class*="case-"] .section:last-of-type { border-bottom: none !important; }
+</style>
+<style id="onaka-mobile-fix">
+  @media (max-width: 900px) {
+    /* §02 research: align B and C flush-left like A */
+    .res-cell:not(:first-child) { padding-left: 0 !important; }
+    /* §05 decision: stack image under text on smaller tablets too */
+    .dec-stage, .dec-stage.now { grid-template-columns: 1fr !important; }
+    .dec-img-wrap { max-width: 100% !important; }
+    /* §10 reflection: keep flip cards inside the viewport */
+    .conditional-strip { grid-template-columns: 1fr !important; padding: 1.25rem !important; max-width: 100%; }
+    .cond-head { width: auto !important; }
+    .cond-pairs { grid-template-columns: 1fr !important; }
+    .cf-inner, .cf-front, .cf-back { min-width: 0; }
+    .cf-front, .cf-back { overflow-wrap: anywhere; }
+    /* §10 insights: stack the 4 boxes under the text, full width */
+    .insights-output { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+    .io-examples { grid-template-columns: 1fr !important; }
+    .io-card { min-width: 0; overflow-wrap: anywhere; }
+    /* hard stop any horizontal overflow in §10 */
+    .section .conditional-strip, .section .insights-output { overflow-x: clip; }
+  }
+</style>
+</head>
+<body class="case-onaka" style="background-color: rgb(255, 255, 255)">
+
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav" style="background-color: rgba(255, 255, 255, 0.88)">
+  <a href="index.html" class="nav-logo" style="letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <div class="nav-dropdown" aria-label="Projects">
+      <a href="work.html" class="nav-dd-all">All work</a>
+      <a href="onaka.html">onaka</a>
+      <a href="period.html">period.</a>
+      <a href="numa.html">NUMA</a>
+      <a href="milo.html">Milo</a>
+      <a href="vattenkanna.html">Vattenkanna</a>
+      <a href="ilia.html">Ilia</a>
+      <a href="airflux.html">AirFlux</a>
+    </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download>CV ↓</a>
+  </div>
+  <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<!-- Force site nav styles to win against upload styles -->
+<style>
+  body.case-onaka nav.nav { padding-top: 22px; padding-bottom: 22px; }
+  body.case-onaka section.hero { padding-top: 9rem; }
+  /* Brute-force match site nav exactly */
+  body.case-onaka nav.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 22px var(--gutter) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-bottom: 1px solid #D6D6D6 !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important;
+    z-index: 100 !important;
+  }
+  body.case-onaka nav.nav .nav-logo {
+    font-family: 'Nefs', 'Instrument Serif', cursive !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    color: #0E0E0C !important;
+    transform: translateY(4px) !important;
+    transition: color 0.2s !important;
+    padding-right: 4px !important;
+  }
+  body.case-onaka nav.nav .nav-links {
+    display: flex !important;
+    gap: 8px !important;
+    font-family: 'Geist', -apple-system, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.02em !important;
+    list-style: none !important;
+  }
+  body.case-onaka nav.nav .nav-links a {
+    padding: 7px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #0E0E0C !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+  }
+  body.case-onaka nav.nav .nav-links a:hover { color: #7C5BD6 !important; }
+  body.case-onaka nav.nav .nav-links a.active { color: #7C5BD6 !important; }
+  body.case-onaka nav.nav .nav-logo:hover { color: #7C5BD6 !important; }
+  body.case-onaka nav.nav .nav-time {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    color: #8E8E8E !important;
+  }
+</style>
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-meta a d1">
+    <div class="meta-item">
+      <span class="meta-label">Project</span>
+      <span class="meta-value">01 — onaka</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Year</span>
+      <span class="meta-value">Nov 2024 — Jul 2025</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Context</span>
+      <span class="meta-value">MA Design Products · Royal College of Art</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Role</span>
+      <span class="meta-value">Sole designer · research, hardware, app</span>
+    </div>
+  </div>
+  <h1 class="display a d2" style="font-size: 49px">Tracking gut health <em style="color: rgb(107, 125, 242)">without</em> the anxiety it causes.</h1>
+  <p class="hero-sub a d3">A pocketable IoT device and companion app that lets people with chronic GI conditions log symptoms in <em>seconds</em>, without screens, overwhelm, or medicalised interfaces.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">Interaction Design</span>
+    <span class="tag">IoT</span>
+    <span class="tag">UI Design</span>
+    <span class="tag">Data Design</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="assets/onaka/onaka-hero-device-app.jpg" alt="A hand pressing the blue Onaka device beside a phone showing the onaka companion app dashboard with symptom counts and daily tips" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where it all began</span>
+    </div>
+    <div>
+      <h2 class="wide"><em>1 in 5</em> people in the UK have a GI condition. The tools meant to help make things <em>worse</em>.</h2>
+      <p class="lede">Existing apps demand frequent logging and create hyper-awareness that worsens anxiety. The gut–brain axis means stress and GI symptoms feed each other, so a tool that adds cognitive load actively harms the people it's meant to help.</p>
+      <div class="pull">
+        <blockquote>"Existing solutions need too much effort, they cause more stress than relief."</blockquote>
+        <cite>— Patient interview · 2024</cite>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num" style="font-size: 49px">1<em>/5</em></div><div class="lbl">UK people with chronic GI conditions</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">10–20<em>%</em></div><div class="lbl">of UK population has IBS</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">3<em> apps</em></div><div class="lbl">tested by 5 users over 5 days, all overwhelming</div></div>
+        <div class="stat"><div class="num" style="font-size: 49px">100<em>%</em></div><div class="lbl">wanted something faster and less effortful</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+    </div>
+    <div>
+      <h2>Talking to <em>doctors and patients</em> before touching a sketch.</h2>
+      <div class="res-grid">
+        <div class="res-cell">
+          <div class="res-label">A · Clinicians</div>
+          <h3>Gastroenterologist <em>interviews</em></h3>
+          <p>Two sessions, project start and mid-development. Key finding: patients can't accurately describe symptoms to doctors without a tracking tool.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">B · Patients</div>
+          <h3>Journey <em>mapping</em></h3>
+          <p>Guided conversations and a day-mapping exercise. Identified the anxiety–symptom cycle and the emotional cost of existing tools.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">C · Competitors</div>
+          <h3>App <em>case study</em></h3>
+          <p>5 users, 5 days. Participants used three leading GI apps and kept diaries. All created hyper-awareness and data overwhelm rather than genuine understanding.</p>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 3rem;">
+        <blockquote>"People need a fast, low-stress way to capture lived experience, and return only the most helpful insights."</blockquote>
+        <cite>— Design insight · synthesised from research</cite>
+      </div>
+
+      <div class="pill-row">
+        <span class="pl">Key insights</span>
+        <span class="pill">Anxiety worsens GI symptoms, and vice versa</span>
+        <span class="pill">Patients can't recall symptoms without logging</span>
+        <span class="pill">Data overload causes hyper-awareness</span>
+        <span class="pill">Existing apps feel like another chore</span>
+        <span class="pill">Should feel like a companion, not a medical tool</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS — cross-medium loop, device + app -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">How it works</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>one loop, two media</span>
+    </div>
+    <div>
+      <h2>One <em>daily loop</em>, across the pocket and the screen.</h2>
+      <p class="lede">Four moments. Two on the device, two in the app. The <em>hand-off</em> between them is the design.</p>
+
+      <div class="loop-system">
+        <!-- Dashed connector arcs sitting over the four circles -->
+        <svg class="loop-connector" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 145 180 Q 230 240, 320 165" />
+          <path d="M 395 145 Q 480 80, 570 130" />
+          <path d="M 645 165 Q 730 240, 820 175" />
+        </svg>
+
+        <div class="loop-step loop-step-1">
+          <span class="loop-side-tag">Device</span>
+          <div class="loop-label">Press to log</div>
+          <figure class="loop-figure">
+            <img src="assets/onaka/hiw-01.png?v=3" alt="Hand pressing the blue Onaka device" />
+          </figure>
+          <p class="loop-copy">Pain, anxiety, or bowel movements in seconds, without opening anything.</p>
+        </div>
+
+        <div class="loop-step loop-step-2">
+          <span class="loop-side-tag">Device</span>
+          <div class="loop-label">Breathe, then carry on</div>
+          <figure class="loop-figure">
+            <img src="assets/onaka/hiw-02.png?v=3" alt="Onaka device emitting a blue NeoPixel breathing pulse" />
+          </figure>
+          <p class="loop-copy">Press anxiety and the device responds, a 5s inhale / 5s exhale pulse, before logging.</p>
+        </div>
+
+        <div class="loop-step loop-step-3">
+          <span class="loop-side-tag">App</span>
+          <div class="loop-label">Reflect, once a day</div>
+          <figure class="loop-figure">
+            <img src="assets/onaka/hiw-03.png?v=3" alt="Companion app asking 'You felt anxious 2 times today. Main trigger?'" />
+          </figure>
+          <p class="loop-copy">A single end-of-day question, generated from what was logged. No daily input required.</p>
+        </div>
+
+        <div class="loop-step loop-step-4">
+          <span class="loop-side-tag">App</span>
+          <div class="loop-label">Read, don't decode</div>
+          <figure class="loop-figure">
+            <img src="assets/onaka/hiw-04.png?v=3" alt="Priority Insights screen showing Anxiety-Gut Connection card" />
+          </figure>
+          <p class="loop-copy">Patterns surfaced as plain-English insights, prioritised. No charts, no jargon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. THREADING — where device and app are co-designed -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">The threading</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where device + app meet</span>
+    </div>
+    <div>
+      <h2>Four places the device and the app are <em>co-designed</em>.</h2>
+      <p class="lede">Not two parallel deliverables. The hand-offs are the design.</p>
+      <div class="threading">
+        <div class="thread-grid">
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how pressing anxiety threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">01</span>
+                <div class="thread-pair"><span class="thread-side">Device → App</span></div>
+                <h4>Press anxiety, <em>breathe</em>, then reflect.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The anxiety button triggers a calming pulse on the device, then surfaces as a reflection prompt in the app at end of day.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how three symptoms thread device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">02</span>
+                <div class="thread-pair"><span class="thread-side">Device → App</span></div>
+                <h4>Three symptoms, <em>three question banks</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The device's three buttons aren't arbitrary. Each one defines a bank of reflection questions the app can ask.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how the shared form threads device and app">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">03</span>
+                <div class="thread-pair"><span class="thread-side">Shared form</span></div>
+                <h4>Three rings, <em>one mark</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The device's concentric rings became the logo. The logo's <em>o</em> became the brand name, onaka, "tummy" in Japanese.</p>
+              </div>
+            </div>
+          </div>
+          <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how lived data threads to the doctor">
+            <div class="tf-inner">
+              <div class="tf-front">
+                <span class="thread-num">04</span>
+                <div class="thread-pair"><span class="thread-side">Device + App → Doctor</span></div>
+                <h4>Lived data, <em>compiled</em>.</h4>
+                <span class="tf-hint">Tap to see how ↻</span>
+              </div>
+              <div class="tf-back">
+                <p>The device captures symptoms a patient can't recall in clinic. The app compiles them into a shareable medical report.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER A — THE DEVICE (demoted)                             -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta" style="font-size: 22px">Chapter A · The device</div>
+    <p>A pocketable, tactile object designed for <em>seconds-long</em> capture, without screens or screens-shaped behaviour.</p>
+  </div>
+</section>
+
+<!-- 5. DECISION 1 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Decision 01</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the hardest pivot</span>
+    </div>
+    <div>
+      <h2>Why I <em>abandoned</em> gesture input.</h2>
+      <p class="lede">Users loved the tactile quality of squeezing fabric, but they couldn't trust their inputs were registering. The data corrupted itself.</p>
+      <div class="decision-flow">
+        <div class="dec-stage was">
+          <div class="dec-text">
+            <span class="dec-tag was">Original concept</span>
+            <h3>Squeeze, twist, pinch.</h3>
+            <p>Three gestures to log three symptoms. Tactile and playful, but unreadable to the device.</p>
+            <ul class="dec-list">
+              <li class="x">No confirmation that a gesture had registered</li>
+              <li class="x">Squeezing felt satisfying as a fidget, corrupting data</li>
+              <li class="x">FSR sensor couldn't reliably distinguish patterns</li>
+              <li class="x">Robotics expert confirmed: unreliable in advanced systems</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="assets/onaka/decision-1-squeeze.jpg" alt="Nine-up grid of fabric squeeze prototypes in green, pink, and striped patterns being held and squeezed" />
+              <span class="marginalia marg-squeeze">this didn't work <span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+            </figure>
+            <div class="dec-img-caption">Fabric squeeze prototypes, tested for grip and gesture.</div>
+          </div>
+        </div>
+
+        <div class="dec-arrow" aria-hidden="true">
+          <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+            <path d="M 80 10 Q 240 90, 380 40 T 540 60" />
+            <polygon class="tip" points="540,60 528,52 532,62 524,70" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">Final solution</span>
+            <h3>Three buttons, integrated into the <em>form</em>.</h3>
+            <p>Buttons give immediate, unambiguous confirmation. Concentric ring layout means each is distinguishable by touch, usable from a pocket without looking.</p>
+            <ul class="dec-list">
+              <li>Short / long press differentiates severity</li>
+              <li>Raised ring edges guide fingers without looking</li>
+              <li>NeoPixel confirms input, blue breathing pulse for anxiety</li>
+              <li>No accidental logging during ordinary handling</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="assets/onaka/decision-1-buttons.jpg" alt="MDF prototypes of the button-based device showing edge profile and raised tactile button shapes" />
+            </figure>
+            <div class="dec-img-caption">MDF prototypes, testing edge profiles and button shapes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DECISION 2 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Decision 02</span>
+    </div>
+    <div>
+      <h2><em>Three symptoms</em>, no more.</h2>
+      <div class="symptom-intro">
+        <p class="lede">A second gastroenterologist interview asked which daily GI factors matter most to capture. Pain, anxiety, and bowel movements were chosen because they are spontaneous, identifiable in the moment, and the visible surface of deeper patterns. This lets the app generate targeted reflective questions rather than asking users to fill in a form.</p>
+        <div class="principle-soft">
+          <div class="pl">Design principle</div>
+          <p>"Capture the minimum data that allows meaningful questions to be asked at end of day."</p>
+        </div>
+      </div>
+
+      <figure class="annotated-device">
+        <span class="marginalia marg-shape"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> the final shape</span>
+        <img class="annotated-device-img" src="assets/onaka/onaka-render-front.png" alt="3D render of the Onaka device showing three concentric rings — centre button, middle ring, and outer ring with blue NeoPixel glow" />
+
+        <!-- SVG annotation lines connecting each label to its target ring -->
+        <svg class="annotation-lines" viewBox="0 0 1000 600" preserveAspectRatio="none">
+          <!-- Pain → centre button -->
+          <path class="pain-line" d="M 230 130 Q 360 240, 470 286" />
+          <circle class="pain-dot" cx="470" cy="286" r="5" />
+
+          <!-- Anxiety → middle ring (now bottom-left label) -->
+          <path class="anx-line" d="M 230 510 Q 320 400, 392 292" />
+          <circle class="anx-dot" cx="392" cy="292" r="5" />
+
+          <!-- Bowel → ring between centre and right (now right label) -->
+          <path class="bowel-line" d="M 770 250 Q 680 276, 596 298" />
+          <circle class="bowel-dot" cx="596" cy="298" r="5" />
+        </svg>
+
+        <div class="ann-label pain ann-pain">
+          <span class="ann-tag">01 · Centre button</span>
+          <h4>Pain</h4>
+          <p>The most urgent symptom. Short press = mild, long press = severe.</p>
+        </div>
+
+        <div class="ann-label anx ann-anx">
+          <span class="ann-tag">02 · Middle ring</span>
+          <h4>Anxiety</h4>
+          <p>Triggers a blue NeoPixel breathing pulse, 5s inhale / 5s exhale, as immediate calming feedback.</p>
+        </div>
+
+        <div class="ann-label bowel ann-bowel">
+          <span class="ann-tag">03 · Outer ring</span>
+          <h4>Bowel movement</h4>
+          <p>Three press durations differentiate between normal, loose, and hard movements.</p>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CONCEPT & FORM — three-stage prototyping journey -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Concept &amp; form</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>how the ring emerged</span>
+    </div>
+    <div>
+      <h2>From many directions to a <em>silicone ring</em>.</h2>
+      <p class="lede">The brief was a calm object that lives in a pocket, presses without looking, and feels nothing like a screen. Many directions, many MDF prototypes, then silicone, on the way to the final form.</p>
+
+      <!-- Stage 1: Ideation -->
+      <div class="proto-stage">
+        <div class="proto-stage-meta">
+          <span class="proto-num">1 · Ideation</span>
+          <h3>Many <em>directions</em>, all tactile.</h3>
+          <p>Initial concepts ranged from a ripple disc, a soft cube with corners-as-buttons, a pebble, to a leaf pod. Every direction was anchored to one constraint: it had to be operable by touch alone, in a pocket, without a screen.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="assets/onaka/form-01-ideation.jpg" alt="Sketch grid of early concept directions, including ripple disc, soft cube, pebble, and leaf pod" />
+          <figcaption>Concept directions, touch-only.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 2: MDF prototyping -->
+      <div class="proto-stage flip">
+        <div class="proto-stage-meta">
+          <span class="proto-num">2 · MDF prototypes</span>
+          <h3>Many forms, in the <em>hand</em>.</h3>
+          <p>Laser-cut MDF and acrylic let me test grip, button placement, and accidental-press resistance on each direction. Buttons and lights were wired into each prototype so users could feel the actual interaction, not just the silhouette.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="assets/onaka/form-02-mdf-prototypes.png" alt="MDF prototypes laid out, each a different form being held and pressed" />
+          <figcaption>MDF prototypes, button-wired for testing.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 3: The ring, in silicone -->
+      <div class="proto-stage full wide-text">
+        <div class="proto-stage-meta">
+          <span class="proto-num">3 · The ring, in silicone</span>
+          <h3>Three concentric rings, cast in <em>silicone</em>.</h3>
+          <p>The disc-with-rings won across every test: locatable by touch, no accidental presses, and a layout that maps to symptom hierarchy — centre for pain, middle for anxiety, outer for bowel. Cast from two-part silicone in matte tones that read as object, not gadget, with a NeoPixel ring underneath for the breathing pulse.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="assets/onaka/form-03-silicone.png" alt="Iteration sequence from MDF and wood prototypes to 3D-printed and cast silicone discs in green, white, and black, with side-view sketches above each" />
+          <figcaption>MDF, then 3D print, then cast silicone.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Concept & form — three-stage journey, mirrors period's proto-stage */
+  .proto-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    align-items: center;
+  }
+  .proto-stage.flip { grid-template-columns: 1fr 1fr; }
+  /* Stage 3 — wide panoramic image. Stack text above image. */
+  .proto-stage.full {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .proto-stage.full .proto-stage-img { margin-top: 1.5rem; }
+  .proto-stage-img { max-width: 460px; justify-self: center; }
+  .proto-stage.flip .proto-stage-img { justify-self: center; }
+  .proto-stage.full .proto-stage-img { max-width: 100%; }
+  .proto-stage.flip .proto-stage-meta { order: 2; }
+  .proto-stage.flip .proto-stage-img,
+  .proto-stage.flip .proto-pair { order: 1; }
+  .proto-stage-meta .proto-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .proto-stage.full.wide-text .proto-stage-meta h3 { max-width: 56ch; font-size: 2.4rem; }
+  .proto-stage.full.wide-text .proto-stage-meta p { max-width: 80ch; }
+  .proto-stage-meta h3 {
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+    max-width: 22ch;
+    font-weight: 700;
+  }
+  .proto-stage-meta h3 em { font-style: italic; color: var(--blue); }
+  .proto-stage-meta p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 48ch;
+  }
+  .proto-stage-img {
+    width: 100%;
+    overflow: hidden;
+  }
+  .proto-stage-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .proto-stage-img figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .proto-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .proto-pair .proto-stage-img { margin-top: 0; }
+
+  @media (max-width: 900px) {
+    .proto-stage,
+    .proto-stage.flip { grid-template-columns: 1fr; gap: 1.5rem; }
+    .proto-stage.flip .proto-stage-meta,
+    .proto-stage.flip .proto-stage-img,
+    .proto-stage.flip .proto-pair { order: initial; }
+    .proto-stage-img,
+    .proto-pair { margin-top: 1rem; }
+    .proto-pair { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 8. BUILDING IT FOR REAL — technical breakdown -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Building it for real</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>electronics &amp; path to production</span>
+    </div>
+    <div>
+      <h2>A working device, <em>pocket-sized</em>.</h2>
+      <p class="lede">The internals went through three microcontrollers before settling on the SparkFun Qwiic Pocket, the only board small enough to fit the final 60&nbsp;mm form factor while still carrying Wi-Fi. The full electronics stack runs on a 1200&nbsp;mAh LiPo, charges over USB-C, and pushes button events to the app over Blynk IoT.</p>
+
+      <div class="tech-twin">
+        <figure class="tech-exploded">
+          <img src="assets/onaka/exploded-new.png" alt="Exploded render of the Onaka device showing the silicone button interface, PLA stiffener, NeoPixel ring, SparkFun Qwiic Pocket microcontroller, and 1200mAh LiPo battery in the SLA resin base" />
+          <figcaption>Exploded view, every part from silicone shell to SLA base.</figcaption>
+        </figure>
+
+        <div class="tech-components">
+          <div class="tech-comp">
+            <span class="tech-num">01</span>
+            <h4>Silicone shell + <em>buttons</em></h4>
+            <p>Two-part cast silicone with three integrated buttons. Skin-safe, water and UV resistant, dyed in matte finishes. Sits over a 2&nbsp;mm PLA stiffener so presses register without flex.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">02</span>
+            <h4>1200&nbsp;mAh <em>LiPo + USB-C</em></h4>
+            <p>Connected via 2-pin JST. Charges through a USB-C port machined into the SLA base. Sized for several days of typical use between charges.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">03</span>
+            <h4>SparkFun <em>Qwiic Pocket</em></h4>
+            <p>Wi-Fi-capable microcontroller chosen for its compact footprint, the third board after testing M5StickC Plus and Arduino Nano 33 IoT. Pushes events to Blynk over Wi-Fi.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">04</span>
+            <h4>NeoPixel ring, <em>12 LEDs</em></h4>
+            <p>Mounted under the rear face. Pulses blue at 5&nbsp;s inhale / 5&nbsp;s exhale for anxiety, confirms button input, and shows connection and battery state.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">05</span>
+            <h4>Blynk IoT <em>cloud</em></h4>
+            <p>Each button press is sent as an event to the Blynk cloud, which the app retrieves via auth token. A demo mode bypasses the cloud for offline review.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-to-production">
+        <div class="ptp-label">Path to production</div>
+        <p>The prototype uses PLA for the stiffener and SLA resin for the translucent base. Both are slated for swap to <em>injection-moulded polypropylene</em> in production for durability and cost. The current SparkFun board is a development part, the production direction is a custom PCB sized to the same 60&nbsp;mm footprint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §08 Building it for real — onaka technical styles */
+  .tech-twin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3.5rem;
+    align-items: start;
+  }
+  .tech-exploded {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+  }
+  .tech-exploded img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-exploded figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .tech-components {
+    display: flex;
+    flex-direction: column;
+  }
+  .tech-comp {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tech-comp:first-child { padding-top: 0; }
+  .tech-comp:last-child { border-bottom: none; }
+  .tech-comp .tech-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .tech-comp h4 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .tech-comp h4 em { font-style: italic; color: var(--blue); }
+  .tech-comp p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .path-to-production {
+    margin-top: 4rem;
+    padding: 2rem 2.25rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+  }
+  .path-to-production .ptp-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .path-to-production p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+  }
+  .path-to-production p em { font-style: italic; color: var(--blue-deep); font-weight: 500; }
+
+  @media (max-width: 900px) {
+    .tech-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .tech-exploded { position: static !important; }
+    .tech-components { order: 1; }
+    .tech-exploded { order: 2; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER B — THE APP (demoted)                                -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta" style="font-size: 22px">Chapter B · The app</div>
+    <p>What a pocket object can't carry: <em>reflection, history, and a trail for the doctor</em>.</p>
+  </div>
+</section>
+
+<!-- 9. DECISION 3 -->
+<section class="section condensed">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 09</span>
+      <span class="nm">Decision 03</span>
+    </div>
+    <div>
+      <h2 class="wide">Testing the <em>interaction model</em> before designing the UI.</h2>
+      <p class="lede">Four parallel low-fidelity prototypes were built in Figma, each testing a different input philosophy, and put in front of 5 participants over several days. The winning method defined the entire app's interaction model.</p>
+
+      <div class="methods">
+        <div class="method">
+          <div class="method-frame lists">
+            <span class="method-tag win">Method 01 · Winner</span>
+            <img src="assets/onaka/decision-3-lists.png?v=2" alt="Lists method prototypes — categorised picker lists for food, mood and symptom tracking" />
+          </div>
+          <h4>Categorised <em>lists</em></h4>
+          <div class="method-result win">Preferred, 3 / 5 participants</div>
+          <dl>
+            <dt>Why it won</dt>
+            <dd>Fastest to complete. No typing. Familiar mental model. Worked when participants were tired or in a hurry.</dd>
+          </dl>
+        </div>
+
+        <div class="method">
+          <div class="method-frame icons">
+            <span class="method-tag lose">Method 02</span>
+            <img src="assets/onaka/decision-3-icons.png?v=2" alt="Icons method prototypes — emoji-based mood faces and body-part illustrations" />
+          </div>
+          <h4>Icons &amp; <em>illustrations</em></h4>
+          <div class="method-result">Backup, 2 / 5 participants</div>
+          <dl>
+            <dt>Why it lost</dt>
+            <dd>Ambiguous icons forced re-reading. Several participants found the visual language too playful for a tool meant to support a chronic medical condition.</dd>
+          </dl>
+        </div>
+
+        <div class="method">
+          <div class="method-frame text-voice">
+            <span class="method-tag lose">Method 03 · 04</span>
+            <img src="assets/onaka/decision-3-text-voice.png?v=2" alt="Free text and voice input prototypes — open type fields and voice modal" />
+          </div>
+          <h4>Free text &amp; <em>voice</em></h4>
+          <div class="method-result">Rejected, 0 / 5 preferred</div>
+          <dl>
+            <dt>Why it lost</dt>
+            <dd>Free typing felt like another effortful task at the end of an already tiring day. Voice input was rejected for use in shared or public settings. Both methods raised cognitive load instead of reducing it.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="method-summary solo">
+        <div>
+          <div class="summary-label">What it changed</div>
+          <h3>From "open input" to <em>structured choice</em>.</h3>
+          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--ink-2);">Every input the app would ever ask for got rebuilt as a multiple-choice prompt. No blank fields, no "type your answer here", no voice capture. Voice survived in one place only, as the AI's voice when reading the daily reflection question aloud, never as the user's.</p>
+          <div class="principle-callout">
+            <div class="pl">App principle</div>
+            <p>"The device handles all logging. The app exists for reflection, and reflection happens at the user's most tired moment of the day."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. REFLECTION SYSTEM — slimmed: principle + conditional pairs -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 10</span>
+      <span class="nm">The reflection system</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>questions in, insights out</span>
+    </div>
+    <div>
+      <h2>Eight to twelve questions, generated from <em>what was logged</em>.</h2>
+      <p class="lede">Three banks behind the scenes, one for bowel, one for pain, one for anxiety, plus an end-of-day wrap-up. When two symptoms occur close together, the app pairs them and asks a conditional question that links the two.</p>
+
+      <!-- Conditional / combination questions -->
+      <div class="conditional-strip">
+        <div class="cond-head">
+          <span class="cond-label">Conditional questions</span>
+        </div>
+        <div class="cond-pairs">
+          <div class="cond-flip" tabindex="0" role="button" aria-label="Reveal the question asked when pain and bowel symptoms pair">
+            <div class="cf-inner">
+              <div class="cf-front">
+                <span class="cond-symbols">Pain&nbsp;<em>+</em>&nbsp;Bowel</span>
+                <span class="cf-hint">Tap for the question ↻</span>
+              </div>
+              <div class="cf-back">
+                <p>"Did the pain lessen after going to the toilet?"</p>
+              </div>
+            </div>
+          </div>
+          <div class="cond-flip" tabindex="0" role="button" aria-label="Reveal the question asked when anxiety and pain symptoms pair">
+            <div class="cf-inner">
+              <div class="cf-front">
+                <span class="cond-symbols">Anxiety&nbsp;<em>+</em>&nbsp;Pain</span>
+                <span class="cf-hint">Tap for the question ↻</span>
+              </div>
+              <div class="cf-back">
+                <p>"Did the anxiety arrive before the pain, or after?"</p>
+              </div>
+            </div>
+          </div>
+          <div class="cond-flip" tabindex="0" role="button" aria-label="Reveal the question asked when anxiety and bowel symptoms pair">
+            <div class="cf-inner">
+              <div class="cf-front">
+                <span class="cond-symbols">Anxiety&nbsp;<em>+</em>&nbsp;Bowel</span>
+                <span class="cf-hint">Tap for the question ↻</span>
+              </div>
+              <div class="cf-back">
+                <p>"Did stress feel like it changed what happened in the gut?"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The output: insights as plain sentences, not graphs -->
+      <div class="insights-output">
+        <div class="io-head">
+          <span class="io-label">What the answers become</span>
+          <h3>Plain, <em>actionable sentences</em>. No graphs.</h3>
+          <p>Answers are written back as short, plain-English insights, prioritised by urgency.</p>
+        </div>
+        <div class="io-examples">
+          <div class="io-card io-priority">
+            <span class="io-tag">Priority</span>
+            <p>Pain has eased after bowel movements three times this fortnight.</p>
+          </div>
+          <div class="io-card io-pattern">
+            <span class="io-tag">Pattern</span>
+            <p>Anxiety tends to precede pain by 30 to 60 minutes on weekdays.</p>
+          </div>
+          <div class="io-card io-food">
+            <span class="io-tag">Food</span>
+            <p>Bowel discomfort followed dairy four times this month.</p>
+          </div>
+          <div class="io-card io-advice">
+            <span class="io-tag">Advice</span>
+            <p>Try the device's breathing pulse next time anxiety arrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §10 Reflection system — slim: just the conditional strip */
+  .conditional-strip {
+    margin-top: 3rem;
+    padding: 2rem 2.25rem;
+    background: var(--blue-soft);
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (max-width: 1100px) {
+    .conditional-strip { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  .cond-head .cond-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .cond-head p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .cond-pairs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .cond-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  /* §13 Final product: standard outcome pattern (hero + 3 tiles + video) */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm, #FFFFFF);
+    border: 1px solid var(--rule);
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--blue-soft);
+    color: var(--blue-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-tile .outcome-placeholder { aspect-ratio: 1 / 1; }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .outcome-video {
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 8px;
+  }
+  .ov-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .ov-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .outcome-video figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+
+  .cond-symbols {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* §10 conditional question flip cards */
+  .cond-flip {
+    perspective: 1000px;
+    min-height: 132px;
+    cursor: pointer;
+    border-radius: 12px;
+    outline: none;
+  }
+  .cond-flip:focus-visible .cf-inner {
+    box-shadow: 0 0 0 2px var(--blue-deep);
+    border-radius: 12px;
+  }
+  .cf-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 96px;
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .cond-flip.flipped .cf-inner { transform: rotateY(180deg); }
+  .cf-front, .cf-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cf-front {
+    background: var(--bg);
+    border: 1px solid #D6E2F4;
+  }
+  .cond-flip:hover .cf-front { border-color: var(--blue-deep); }
+  .cf-hint {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    transition: color 0.2s;
+  }
+  .cond-flip:hover .cf-hint { color: var(--blue-deep); }
+  .cf-back {
+    background: var(--blue-deep);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .cf-back p {
+    font-family: var(--display);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    font-style: italic;
+    color: #fff;
+    margin: 0;
+  }
+  .cond-symbols em {
+    font-style: normal;
+    color: var(--blue-deep);
+    margin: 0 0.15rem;
+  }
+  .cond-pair p {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 900px) {
+    .conditional-strip { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+    .cond-pairs { grid-template-columns: 1fr; gap: 1.25rem; }
+    .insights-output { grid-template-columns: 1fr; gap: 1.5rem; }
+    .insights-output .io-head { order: 1; }
+    .insights-output .io-examples { order: 2; }
+    .io-examples { grid-template-columns: 1fr; }
+  }
+
+  /* §10 — Insights output (the closing argument: sentences, not graphs) */
+  .insights-output {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .io-head .io-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+  .io-head h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin: 0 0 1rem;
+    max-width: 14ch;
+    font-weight: 700;
+  }
+  .io-head h3 em { font-style: italic; color: var(--blue); }
+  .io-head p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .io-examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .io-card {
+    padding: 1.25rem 1.4rem;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--blue);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .io-priority { border-left-color: var(--blue-deep); background: var(--blue-soft); }
+  .io-pattern { border-left-color: #72D2C3; }
+  .io-food { border-left-color: #78C8DA; }
+  .io-advice { border-left-color: #588FF0; }
+  .io-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .io-priority .io-tag { color: var(--blue-deep); }
+  .io-card p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+</style>
+
+<!-- 11. IA + VISUAL SYSTEM — sitemap, palette, logo origin -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 11</span>
+      <span class="nm">IA + visual system</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the logo, at the centre</span>
+    </div>
+    <div>
+      <h2>Four tabs, with a <em>central button</em> for the only screen that asks.</h2>
+      <p class="lede">Four bottom-nav tabs cover everything passive, Home, Insights, Resources, Settings. The reflection flow sits on a fifth, central button, raised above the bar, marked with the logo. It's the only place the user is asked to think, and it lives where the app's geometry naturally points.</p>
+
+      <!-- Sitemap, full-bleed -->
+      <figure class="sitemap">
+        <img src="assets/onaka/onaka-sitemap.png" alt="Sitemap of the Onaka app showing Sign-in/Sign-up leading to Onboarding Setup, then Main App with five children: Home, Insights, the central Reflection Flow, Resources and Settings. Each child branches into its sub-screens, with a dashed line showing reflection answers feeding back into Insights." />
+        <figcaption>Site map: a five-tab main app, with reflection at the centre.</figcaption>
+      </figure>
+
+      <!-- Visual system absorbed: palette + logo origin -->
+      <div class="ds-absorbed">
+        <div class="ds-block ds-split">
+          <div class="ds-split-text">
+            <h3 class="ds-h">Soft blues for calm, <em>three accents</em> for the symptoms.</h3>
+            <p class="ds-sub">The base palette is shades of blue, chosen against the clinical grey of existing GI apps and the pink of period-tracker conventions. Symptoms keep three warm accents so they read at a glance in logs and insights.</p>
+          </div>
+          <div class="ds-split-img">
+            <div class="palette-grid">
+              <div class="pgroup">
+                <div class="pg-label">Base</div>
+                <div class="pg-row">
+                  <div class="pswatch" style="background: #5783DA;"><span>Blue · deep</span></div>
+                  <div class="pswatch" style="background: #2BBFE3;"><span>Blue· bright</span></div>
+                  <div class="pswatch" style="background: #78C8DA;"><span>Blue · green</span></div>
+                  <div class="pswatch" style="background: #DBE9FE; color: var(--ink-2);"><span>Blue · cream</span></div>
+                </div>
+              </div>
+              <div class="pgroup">
+                <div class="pg-label">Symptoms</div>
+                <div class="pg-row">
+                  <div class="pswatch" style="background: #E05A5A;"><span>Pain · red</span></div>
+                  <div class="pswatch" style="background: #6B7DF2;"><span>Anxiety · blue</span></div>
+                  <div class="pswatch" style="background: #F5C842; color: var(--ink);"><span>Bowel · yellow</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-block ds-split">
+          <figure class="logo-frame logo-wide">
+            <img src="assets/onaka/onaka-logo-origin.png" alt="Logo iteration sheet — rows of concentric ring marks exploring positive and negative space, then in blue colour studies" />
+            <figcaption>Three concentric rings became the o-letter, then the name.</figcaption>
+          </figure>
+          <div class="ds-split-text">
+            <h3 class="ds-h">The logo named the <em>product</em>.</h3>
+            <p class="ds-sub">The mark started as the device's three concentric rings, simplified into a circular form that doubled as the letter <em>o</em>. The product needed a name with an <em>o</em> in it that the logo could replace. <em>Onaka</em>, Japanese for "tummy," fit the meaning of the product and the shape of the mark in a single word.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §11 — Sitemap + visual system */
+  .sitemap {
+    margin: 3rem 0 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .sitemap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sitemap figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  .ia-decision {
+    margin-top: 3rem;
+    padding-left: 2rem;
+    border-left: 2px solid var(--blue);
+    max-width: none;
+  }
+  .ia-decision p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .ds-absorbed {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .ds-block { margin-top: 4rem; }
+  .ds-block:first-of-type { margin-top: 0; }
+  .ds-h {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    max-width: 28ch;
+  }
+  .ds-h em { font-style: italic; color: var(--blue); }
+  .ds-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 0 2rem;
+  }
+  .ds-sub em { font-style: italic; color: var(--blue-deep); }
+  .ds-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .palette-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .pgroup .pg-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .pg-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pswatch {
+    flex: 1 1 0;
+    min-width: 80px;
+    padding: 0.85rem 0.75rem;
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    aspect-ratio: 1 / 0.6;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .logo-frame {
+    margin: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  .logo-frame.logo-wide img { padding: 0; box-sizing: border-box; }
+  .logo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .logo-frame figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .ds-split { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+
+<!-- 12. FINAL SCREENS — period-style: video left, 3x2 screen strip right -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 12</span>
+      <span class="nm">Final screens</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the app, in motion</span>
+    </div>
+    <div>
+      <h2>Built in Lovable. Connected via <em>Blynk</em>.</h2>
+      <p class="lede">A walking prototype, end to end, hardware to insights. Below, the app demo running on the device, then the six screens that anchor the day-to-day experience.</p>
+
+      <div class="final-row">
+        <figure class="video-hero">
+          <video controls preload="metadata" playsinline style="background: #1a1a1a;">
+            <source src="assets/onaka/app-demo.mp4" type="video/mp4" />
+          </video>
+          <figcaption>App walkthrough.</figcaption>
+        </figure>
+
+        <div class="screen-strip">
+          <div class="scol">
+            <div class="slabel">01 · Home</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-01-home.png" alt="Home screen showing today's symptom counts, daily tips, and a button to compile data for a doctor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Today's counts and tips.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">02 · Symptom logs</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-02-logs.png" alt="Symptom log view showing pain, anxiety, and bowel entries with timestamp and severity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Entries with time and severity.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">03 · Reflection</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-03-reflection.png" alt="Reflection screen, full-screen, no menu visible, showing a question with multiple-choice answers" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Full-screen, structured-choice questions.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">04 · Insights</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-04-insights.png" alt="Insights screen showing plain-language insights organised into priority, patterns, food, and advice" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Plain-language sentences, prioritised.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">05 · Resources</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-05-resources.png" alt="Resources screen with articles, exercises, and recipes filtered by the user's GI condition" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Articles, exercises, recipes by condition.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">06 · Doctor report</div>
+            <figure class="screen">
+              <img src="assets/onaka/screen-06-doctor.png" alt="Compiled doctor report screen showing symptom history and reflection summary ready to share" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <figcaption>Downloadable medical report.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §12 — Final screens: video left, 3x2 screens right (mirrors period) */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .section figure.video-hero {
+    margin: 0;
+    width: 100%;
+    background: transparent;
+    overflow: visible;
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+    padding-top: 40px;
+  }
+  .video-hero::before { display: none !important; }
+  .video-hero video {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 12rem);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: transparent;
+    border-radius: 8px;
+  }
+  .video-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem 1rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .screen figcaption {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .screen-placeholder {
+    aspect-ratio: 9 / 19;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--blue-soft);
+    color: var(--ink-3);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+  }
+  .screen-placeholder span {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .section figure.video-hero { max-width: 280px; margin: 0 auto; position: static !important; top: auto !important; padding-top: 0 !important; }
+    .screen-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- 13. FINAL -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 13</span>
+      <span class="nm">Final product</span>
+      <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>all together now</span>
+    </div>
+    <div>
+      <h2><em>Onaka</em>, a system designed around calm.</h2>
+      <!-- Hero render -->
+      <figure class="outcome-hero">
+        <span class="marginalia marg-cmf"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> proudest of this</span>
+        <img src="assets/onaka/final-cmf-lineup.jpg" alt="The five colour variants of the Onaka device lined up, green to white, each with a blue glow" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <figcaption>Five colourways, each with the signature blue base glow.</figcaption>
+        </figure>
+      <!-- 3-up grid -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="assets/onaka/final-home-hand.png" alt="The Onaka companion app held in a hand, showing the home dashboard: today's symptom counts, daily tips and today's overview" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Home dashboard — daily tips and today's overview.</figcaption>
+          </figure>
+        <figure class="outcome-tile">
+          <img src="assets/onaka/final-insights-hand.png" alt="The red Onaka device on a keychain, held in a hand" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>Pocketable, on a keychain for everyday carry.</figcaption>
+          </figure>
+        <figure class="outcome-tile">
+          <img src="assets/onaka/final-usb.png" alt="Side view of the white device showing the USB-C charging port and blue base glow" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <figcaption>USB-C charging in the glowing silicone base.</figcaption>
+          </figure>
+      </div>
+      <!-- Demo video, full width below -->
+      <figure class="outcome-video">
+        <div class="ov-embed">
+          <iframe
+            src="https://www.youtube.com/embed/GTGG6Nl0Uls"
+            title="Onaka demonstration video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        <figcaption>Demonstration video: the device and companion app in use.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<nav class="onaka-pagenav">
+  <a href="airflux.html" class="prev">
+    <span class="step">Previous project · 07</span>
+    <span class="dir"><span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 41,8 C 30,5 14,10 4,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 11,3 C 8,6 6,7 4,8 C 6,9 8,11 11,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <em>AirFlux</em></span>
+  </a>
+  <a href="period.html" class="next">
+    <span class="step">Next project · 02</span>
+    <span class="dir"><em>period.</em> <span class="pn-arr"><svg viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg"><path d="M 3,8 C 14,5 30,10 40,8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 33,3 C 36,6 38,7 40,8 C 38,9 36,11 33,13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+  </a>
+</nav>
+
+<style>
+  body.case-onaka .onaka-pagenav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 2.5rem 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  body.case-onaka .onaka-pagenav a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: color 0.25s;
+  }
+  body.case-onaka .onaka-pagenav a.prev { align-items: flex-start; text-align: left; }
+  body.case-onaka .onaka-pagenav a.next { align-items: flex-end; text-align: right; }
+  body.case-onaka .onaka-pagenav .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+  }
+  body.case-onaka .onaka-pagenav .dir {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #0A0A0A;
+  }
+  body.case-onaka .onaka-pagenav .dir em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--blue);
+  }
+  body.case-onaka .onaka-pagenav a:hover .dir { color: var(--blue-deep); }
+  body.case-onaka .onaka-pagenav a.prev:hover .dir { color: #6B6B6B; }
+  .onaka-pagenav .pn-arr { display: inline-flex; width: 34px; height: 14px; vertical-align: middle; }
+  .onaka-pagenav .pn-arr svg { width: 100%; height: 100%; overflow: visible; }
+  .onaka-pagenav .pn-arr { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .onaka-pagenav a.prev:hover .pn-arr { transform: translateX(-7px); }
+  .onaka-pagenav a.next:hover .pn-arr { transform: translateX(7px); }
+  @media (max-width: 720px) {
+    body.case-onaka .onaka-pagenav { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 2rem 1.25rem; }
+  }
+</style>
+
+
+
+
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-col"><span class="caption">Email</span><a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a></div>
+    <div class="footer-col"><span class="caption">Phone</span><a href="tel:+447766964868">+44 (0)7766 964 868</a></div>
+    <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a></div>
+    <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>London · <span id="footTime">—</span></span></div>
+</footer>
+
+<script id="inlined-script">
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+</script>
+<script>
+  // Flip cards (§04 threading + §10 conditional questions): toggle on click + Enter/Space
+  document.querySelectorAll('.thread-flip, .cond-flip').forEach(function (card) {
+    function toggle() { card.classList.toggle('flipped'); }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  // Foldable chapters (A · device, B · app): collapsed by default, click divider to expand
+  (function () {
+    var breaks = document.querySelectorAll('.chapter-break');
+    breaks.forEach(function (cb) {
+      var wrap = document.createElement('div');
+      wrap.className = 'chapter-fold';
+      var node = cb.nextElementSibling;
+      var collected = [];
+      while (node) {
+        if (node.classList && node.classList.contains('chapter-break')) break;
+        if (node.classList && node.classList.contains('section')) {
+          var num = node.querySelector('.section-marker .num');
+          if (num) {
+            var t = num.textContent.replace(/\s/g, '');
+            if (t === '§12' || t === '§13') break;
+          }
+        }
+        collected.push(node);
+        node = node.nextElementSibling;
+      }
+      if (!collected.length) return;
+      cb.parentNode.insertBefore(wrap, node);
+      collected.forEach(function (n) { wrap.appendChild(n); });
+      wrap.hidden = true;
+      cb.classList.add('chapter-toggle');
+      cb.setAttribute('role', 'button');
+      cb.setAttribute('tabindex', '0');
+      cb.setAttribute('aria-expanded', 'false');
+      function toggle() {
+        var open = !wrap.hidden;
+        wrap.hidden = open;
+        cb.setAttribute('aria-expanded', String(!open));
+        cb.classList.toggle('open', !open);
+      }
+      cb.addEventListener('click', toggle);
+      cb.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+  })();
+</script>
+
+
+<script id="mobile-nav-js">
+(function(){
+  var nav=document.querySelector('nav.nav');
+  var burger=nav&&nav.querySelector('.nav-burger');
+  if(!nav||!burger)return;
+  function closeMenu(){ nav.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); var open=nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded',String(open)); if(!open){ nav.querySelectorAll('.nav-item-dropdown.open').forEach(function(d){d.classList.remove('open');}); } });
+  var mq=window.matchMedia('(max-width:720px)');
+  nav.querySelectorAll('.nav-item-dropdown > a').forEach(function(a){
+    a.addEventListener('click',function(e){ if(mq.matches){ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); } });
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(mq.matches && a.parentElement && a.parentElement.classList.contains('nav-item-dropdown')) return; closeMenu(); });
+  });
+  document.addEventListener('click',function(e){ if(nav.classList.contains('menu-open')&&!nav.contains(e.target)) closeMenu(); });
+})();
+</script>
+<style id="hero-mobile-fit">
+  @media (max-width: 700px) {
+    figure.hero-image { height: auto !important; min-height: 0 !important; width: auto !important; margin-left: 20px !important; margin-right: 20px !important; }
+    figure.hero-image img { width: 100% !important; height: auto !important; aspect-ratio: 4 / 3 !important; object-fit: cover !important; transform: none !important; object-position: center !important; }
+  }
+</style>
+</body>
+</html>
