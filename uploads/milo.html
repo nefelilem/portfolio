@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milo · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Milo uses a warm mustard accent, sits between period's copper and onaka's blue.
+       The four pastel button colours appear only inside the §02 concept diagram. */
+    --mustard: #C99A2E;
+    --mustard-deep: #8F6B1D;
+    --mustard-soft: #FAF0D7;
+    --mustard-bright: #E0B547;
+    /* Pastel button accents : used sparingly, only in concept diagram */
+    --m-yellow: #F2D26B;
+    --m-blue: #A8C6E6;
+    --m-pink: #F2A8C0;
+    --m-green: #B5D89D;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF8;
+    --bg-warm: #FBF8F0;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--mustard); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--mustard); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID : section structure (identical to period / onaka) */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--mustard-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--mustard-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--mustard); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--mustard); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--mustard);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">04 — milo</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Jan 2023 — May 2023</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Product Design 2A · University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">With Quentin Bachelot · concept, prototyping, code</span>
+    </div>
+  </div>
+  <h1 class="display a d2">A connected memory game for people who live <em>apart</em>.</h1>
+  <p class="hero-sub a d3">A pair of small, tactile devices that let two people play Simon together across any distance, in light, rhythm, and memory, no screens, no chat, just a quiet conversation that builds over <em>days</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Connected Things</span>
+    <span class="tag">Tangible UX</span>
+    <span class="tag">Emotional Tech</span>
+    <span class="tag">Interaction Design</span>
+    <span class="tag">Prototyping</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="milo-hero.jpg" alt="The Milo pair, two small wooden devices with four pastel buttons and a glass-blown diffuser top, sitting side by side" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">distance, quietly</span>
+    </div>
+    <div>
+      <h2 class="wide">Loved ones live apart, and most ways of <em>keeping in touch</em> are loud.</h2>
+      <p class="lede">Long-distance relationships rely almost entirely on screens, calls that need scheduling, texts that pile up. The small, mundane signals of closeness don't have a digital equivalent. Milo is a screen-free way to leave each other those signals, played as a game.</p>
+
+      <div class="pull">
+        <blockquote>"I love how nostalgic and calming it feels. I'd actually use it with long-distance friends."</blockquote>
+        <cite>, Play tester · Edinburgh, 2023</cite>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num">92<em>%</em></div><div class="lbl">of international students in the US report missing the familiarities of home (UNESCO)</div></div>
+        <div class="stat"><div class="num">49<em>%</em></div><div class="lbl">believe not having family or friends nearby affects their academic performance</div></div>
+        <div class="stat"><div class="num">70<em>%</em></div><div class="lbl">of men and 55% of women aged 18 to 34 say games help them stay connected (ESA)</div></div>
+        <div class="stat"><div class="num">65<em>%</em></div><div class="lbl">of video game players play with others, connection, more than competition</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CONCEPT : two-device image + 6-step "how it works" -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Concept</span>
+      <span class="note">like Simon, across distance</span>
+    </div>
+    <div>
+      <h2>A <em>rhythmic conversation</em>, played in light and memory.</h2>
+      <p class="lede">Two devices, paired over the cloud. One person taps a sequence of colours; the other receives it, watches the lights play it back, repeats it, and adds one more. Get it right and play on. Get it wrong and the other player scores, and a new round begins.</p>
+
+      <div class="concept-pair">
+        <figure class="concept-image">
+          <img src="milo-pair.jpg" alt="A pair of small wooden Milo devices, one with a white connector top and one with a black, four pastel buttons on each, with a dashed paper-airplane arrow between them showing how a sequence travels from one to the other" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="concept-placeholder" style="display:none;">
+            <strong>Milo · the pair</strong>
+            <p>milo-pair.jpg</p>
+          </div>
+          <figcaption>A sequence travels between the two devices, one round at a time.</figcaption>
+        </figure>
+
+        <ol class="concept-steps">
+          <li class="cstep">
+            <span class="cdot" style="background: var(--m-green);"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">01</div>
+              <h4>Start the <em>sequence</em></h4>
+              <p>Player 1 taps three colours to begin a new game.</p>
+            </div>
+          </li>
+          <li class="cstep">
+            <span class="cdot" style="background: var(--m-blue);"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">02</div>
+              <h4>Receive the sequence</h4>
+              <p>A blue light signals it's your turn. Press the side button when you're ready to play.</p>
+            </div>
+          </li>
+          <li class="cstep">
+            <span class="cdot" style="background: var(--m-pink);"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">03</div>
+              <h4>Watch and remember</h4>
+              <p>The NeoPixel ring plays back the colour sequence sent by the other player.</p>
+            </div>
+          </li>
+          <li class="cstep">
+            <span class="cdot" style="background: var(--m-yellow);"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">04</div>
+              <h4>Repeat, then add one</h4>
+              <p>Tap the sequence back on the four coloured buttons. Add one more colour at the end to extend the round.</p>
+            </div>
+          </li>
+          <li class="cstep">
+            <span class="cdot" style="background: #3F8F4F;"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">05</div>
+              <h4>Nailed it</h4>
+              <p>Flashing green and a rising beep. The longer sequence travels back to the other player.</p>
+            </div>
+          </li>
+          <li class="cstep">
+            <span class="cdot" style="background: #C95A4A;"></span>
+            <div class="cstep-body">
+              <div class="cstep-num">06</div>
+              <h4>Miss it</h4>
+              <p>Flashing red and a falling beep. The other player scores a point and starts a fresh sequence.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <p class="concept-tag">A rhythmic conversation, played across time and space.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Concept : two-device image left, 6-step list right */
+  .concept-pair {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .concept-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .concept-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .concept-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .concept-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--mustard-soft);
+    color: var(--mustard-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .concept-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .concept-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .concept-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cstep {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .cstep:first-child { padding-top: 0; }
+  .cstep:last-child { border-bottom: none; }
+  .cdot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-top: 0.4rem;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .cstep-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+  .cstep h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.35rem;
+  }
+  .cstep h4 em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .cstep p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .concept-tag {
+    margin-top: 3rem;
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--mustard-deep);
+    letter-spacing: -0.02em;
+    text-align: center;
+    max-width: 50ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 900px) {
+    .concept-pair { grid-template-columns: 1fr; gap: 2rem; }
+    .concept-image { position: static; }
+  }
+</style>
+
+<!-- 3. THE PIVOT : fixed to portable, anchored in user testing -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">The pivot</span>
+      <span class="note">when the rough one won</span>
+    </div>
+    <div>
+      <h2>The <em>cardboard prototype</em> kept winning the tests. We listened.</h2>
+      <p class="lede">The first design was a fixed object, sized to sit on a shelf at home, with a turn-light readable from across the room. It was almost complete when testing started telling us a different story.</p>
+
+      <div class="pivot-row">
+        <figure class="pivot-side">
+          <div class="pivot-label">
+            <span class="pivot-tag">First direction</span>
+            <h3>Fixed and <em>visible</em>.</h3>
+          </div>
+          <div class="pivot-image">
+            <img src="milo-pivot-fixed.jpg" alt="The fixed Milo prototype: a larger, almost-complete enclosure with the four pastel buttons on its top surface, sitting on a desk" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pivot-placeholder" style="display:none;">
+              <strong>Fixed prototype</strong>
+              <p>milo-pivot-fixed.jpg</p>
+            </div>
+          </div>
+        </figure>
+
+        <figure class="pivot-side">
+          <div class="pivot-label">
+            <span class="pivot-tag">What testers chose</span>
+            <h3>The <em>cardboard</em> rig.</h3>
+          </div>
+          <div class="pivot-image">
+            <img src="milo-pivot-cardboard.jpg" alt="The cardboard electronics test rig: an exposed circuit on a rough cardboard housing with four buttons within a hand-sized footprint" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pivot-placeholder" style="display:none;">
+              <strong>Cardboard prototype</strong>
+              <p>milo-pivot-cardboard.jpg</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="pull">
+        <blockquote>"Testers, including ourselves, kept preferring the cardboard electronics prototype over the actual one. We had been biased by the original Simon and hadn't designed for the way young adults actually pick things up."</blockquote>
+        <cite>, Design journal · Iteration review, mid-project</cite>
+      </div>
+
+      <div class="pivot-resolution">
+        <div class="pivot-res-text">
+          <span class="pivot-tag">Resolution</span>
+          <h3>Translated, not <em>redesigned</em>.</h3>
+          <p>The new direction kept the design language of the fixed version, rounded square, wood, pastel buttons, and shrank it to hand size. Two units, paired and visually distinct: white diffuser cap for Player 1, black for Player 2. The colour distinction lives in the form itself, not just the app or the wiring.</p>
+        </div>
+        <figure class="pivot-res-image">
+          <img src="milo-pivot-resolved.jpg" alt="The resolved Milo pair: two small handheld wooden devices, one with a white glass-blown diffuser cap and one with a black, both with the same four pastel buttons" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="pivot-placeholder" style="display:none;">
+            <strong>Resolved pair, white + black</strong>
+            <p>milo-pivot-resolved.jpg</p>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 The pivot : two-side comparison + resolution block */
+  .pivot-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .pivot-side {
+    margin: 0;
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-right: 1px solid var(--rule);
+  }
+  .pivot-side:last-child {
+    border-right: none;
+    background: var(--mustard-soft);
+  }
+  .pivot-side:first-child { padding-left: 0; }
+  .pivot-side:last-child { padding-right: 0; padding-left: 2rem; }
+  .pivot-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+    margin-bottom: 0.7rem;
+  }
+  .pivot-label h3 {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+  .pivot-label h3 em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .pivot-label p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 38ch;
+  }
+  .pivot-image {
+    width: 100%;
+    overflow: hidden;
+    margin-top: auto;
+  }
+  .pivot-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .pivot-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--bg-warm);
+    color: var(--ink-3);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .pivot-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .pivot-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .pivot-resolution {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .pivot-res-text h3 {
+    font-size: 1.7rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+    font-weight: 700;
+  }
+  .pivot-res-text h3 em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .pivot-res-text p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .pivot-res-image {
+    margin: 0;
+    overflow: hidden;
+  }
+  .pivot-res-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .pivot-row { grid-template-columns: 1fr; }
+    .pivot-side { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 0; }
+    .pivot-side:last-child { padding: 2rem; }
+    .pivot-resolution { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+
+<!-- 4. MAKING : form, materials, process -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Making</span>
+      <span class="note">wood, glass, and pastels</span>
+    </div>
+    <div>
+      <h2>Playful, but <em>not childish</em>.</h2>
+      <p class="lede">Milo is an "adult toy", which made the CMF choice tricky. Pastel buttons on wood gave the playfulness without tipping into youth product, and kept a quiet line of sight back to the original Simon: nostalgia without imitation.</p>
+
+      <!-- Three design decisions: form, palette, materials -->
+      <div class="make-decisions">
+        <div class="make-cell">
+          <span class="make-tag">Form</span>
+          <h3>Operated with the <em>thumb</em>.</h3>
+          <p>Sized to be held like a small game controller. The side button for "ready to play" sits under the index finger.</p>
+        </div>
+        <div class="make-cell">
+          <span class="make-tag">Palette</span>
+          <h3>Pastel <em>over bright</em>.</h3>
+          <p>Bright primaries would read as a children's toy. Muted pastels keep the Simon-coded colour memory but feel calmer and more adult.</p>
+        </div>
+        <div class="make-cell">
+          <span class="make-tag">Diffuser</span>
+          <h3>Glass-blown, <em>sandblasted</em>.</h3>
+          <p>The blown-glass cap diffuses the NeoPixel into a soft glow. White cap = Player 1, black cap = Player 2.</p>
+        </div>
+      </div>
+
+      <!-- Process strip: 4 steps, mono-numbered, photo-captioned -->
+      <div class="make-process">
+        <h3 class="mp-h">From flat sheets to a <em>working pair</em>.</h3>
+        <p class="mp-sub">The second prototype (after the pivot) was rebuilt from scratch in roughly two weeks. Laser-cut MDF for the housing, hand-blown glass for the diffuser, and laser-cut layered button caps.</p>
+
+        <div class="mp-grid">
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="milo-make-01-laser.jpg" alt="Sheets of MDF being laser cut into the parts that form the rounded square casing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>milo-make-01-laser.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">01</span>
+              <strong>Laser-cut MDF</strong>
+              <span>Casing parts and stands cut from flat sheets, then glued and sanded into the rounded square form.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="milo-make-02-glass.jpg" alt="Hot glass being blown into a wooden mold to form the square diffuser caps" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>milo-make-02-glass.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">02</span>
+              <strong>Glass-blowing</strong>
+              <span>A wooden mold gave the square shape; the diamond saw cut to height; sandblasting diffused the light.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="milo-make-03-buttons.jpg" alt="Laser-cut layered MDF button caps in pastel colours, glued together to achieve the required thickness" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>milo-make-03-buttons.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">03</span>
+              <strong>Layered button caps</strong>
+              <span>MDF laser-cut and stacked to the right thickness, then primed and painted in the four pastel tones.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="milo-make-04-assembly.jpg" alt="The finished pair being assembled: glass cap joined to MDF connector piece with epoxy, then bonded to the casing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>milo-make-04-assembly.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">04</span>
+              <strong>Assembly</strong>
+              <span>Glass to connector with two-part epoxy; connector to casing with PVA. Back panel screws on for electronics access.</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Collaboration note -->
+      <div class="make-collab">
+        <div class="mc-label">Working together</div>
+        <p>Most of the project ran in true collaboration. The split that emerged: I led sketching, mind-mapping, and physical making; Quentin led CAD and digital renders. Code, electronics, testing, and the design judgement around the pivot were shared decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §04 Making : three-cell decisions + 4-step process + collab note */
+  .make-decisions {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .make-cell {
+    padding: 1.75rem 1.5rem 1.75rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .make-cell:not(:first-child) { padding-left: 1.5rem; }
+  .make-cell:last-child { border-right: none; padding-right: 0; }
+  .make-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .make-cell h3 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    max-width: 18ch;
+  }
+  .make-cell h3 em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .make-cell p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .make-process {
+    margin-top: 4.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .mp-h {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.85rem;
+    font-weight: 700;
+  }
+  .mp-h em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .mp-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 2.5rem;
+  }
+  .mp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .mp-step {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .mp-img-wrap {
+    overflow: hidden;
+  }
+  .mp-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .mp-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: var(--mustard-soft);
+    border: 1px dashed var(--rule);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--mustard-deep);
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .mp-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .mp-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+  }
+  .mp-cap strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .mp-cap span:last-child {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .make-collab {
+    margin-top: 4rem;
+    padding: 1.5rem 6rem 1.5rem 2rem;
+    background: var(--mustard-soft);
+    border-left: 3px solid var(--mustard);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .mc-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+  }
+  .make-collab p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .make-decisions { grid-template-columns: 1fr; }
+    .make-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .make-cell:not(:first-child) { padding-left: 0; }
+    .make-cell:last-child { border-bottom: none; }
+    .mp-grid { grid-template-columns: 1fr 1fr; }
+    .make-collab { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+  }
+  @media (max-width: 560px) {
+    .mp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 5. ELECTRONICS : components + wiring -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Electronics</span>
+      <span class="note">five parts, one cloud</span>
+    </div>
+    <div>
+      <h2>One <em>M5 Stick</em>, two units, one shared cloud.</h2>
+      <p class="lede">Each Milo runs on an M5 Stick C Plus, an ESP32-based microcontroller with Wi-Fi and a built-in LiPo battery. The two units talk to each other through Adafruit IO: each press writes to a cloud feed, the partner unit subscribes and plays it back. Game state lives in the cloud, so the two players never need to be online at the same time.</p>
+
+      <div class="elec-twin">
+        <figure class="elec-image">
+          <img src="milo-electronics.jpg" alt="The Milo electronics laid out: two M5 Stick C Plus boards, NeoPixel ring, four push buttons, a speaker, and a side button, all wired together on a breadboard during testing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="elec-placeholder" style="display:none;">
+            <strong>Electronics overview</strong>
+            <p>milo-electronics.jpg</p>
+          </div>
+          <figcaption>The full electronics for one unit, photographed on the breadboard during testing.</figcaption>
+        </figure>
+
+        <ol class="elec-list">
+          <li class="ecomp">
+            <span class="ecomp-num">01</span>
+            <div>
+              <h4>M5 Stick C Plus, <em>ESP32-based</em></h4>
+              <p>Runs the code, handles Wi-Fi, and pushes button events to Adafruit IO. Built-in LiPo battery means the device is portable; the built-in screen is repurposed as a small score readout.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">02</span>
+            <div>
+              <h4>Four push buttons, <em>one per colour</em></h4>
+              <p>Soldered into the casing rather than left on the breadboard so the layered laser-cut caps could sit flush. Each press writes a colour ID to the cloud feed.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">03</span>
+            <div>
+              <h4>NeoPixel ring</h4>
+              <p>Mounted under the glass cap. Plays back the colour sequence, signals turn state (blue = your turn, green = correct, red = wrong), and animates the win/loss beeps.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">04</span>
+            <div>
+              <h4>Side button</h4>
+              <p>Re-uses the M5's built-in button, extended into the casing with a small wooden dowel and a painted cap. Used to confirm "I'm ready to receive the sequence."</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">05</span>
+            <div>
+              <h4>Speaker + <em>Adafruit IO</em></h4>
+              <p>A small piezo speaker plays the rising and falling beeps for win and loss. Adafruit IO carries the two feeds (send + receive) that connect the pair across distance.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Electronics : overview image + 5 numbered components */
+  .elec-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .elec-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .elec-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .elec-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .elec-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--mustard-soft);
+    color: var(--mustard-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .elec-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .elec-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .elec-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ecomp {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ecomp:first-child { padding-top: 0; }
+  .ecomp:last-child { border-bottom: none; }
+  .ecomp-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--mustard-deep);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+  .ecomp h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .ecomp h4 em { font-style: italic; color: var(--mustard); font-weight: 700; }
+  .ecomp p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .elec-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .elec-image { position: static; }
+  }
+</style>
+
+<!-- 6. TESTING : playtesting video left, condensed findings right -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Testing</span>
+      <span class="note">in a room, across one</span>
+    </div>
+    <div>
+      <h2>Tested <em>twice</em>. Once in a room, once across one.</h2>
+      <p class="lede">The second phase mattered most: we each took a unit home and played for a couple of days, to test the design where it was actually meant to live.</p>
+
+      <div class="final-row">
+        <figure class="video-hero">
+          <div class="yt-embed">
+            <iframe
+              src="https://www.youtube.com/embed/x7ihPZWE8EI"
+              title="Milo, Playtesting compilation"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+          <figcaption>Playtesting compilation, studio and at-home rounds.</figcaption>
+        </figure>
+
+        <div class="testing-phases">
+          <div class="tphase">
+            <span class="tp-num">Phase 01 · Studio</span>
+            <div class="tp-quotes">
+              <div class="tq tq-pos">
+                <span class="tq-tag">Worked</span>
+                <p>Button feedback "ideal amount of wonky". Beeps clear. Right level of difficulty.</p>
+              </div>
+              <div class="tq tq-neg">
+                <span class="tq-tag">Didn't</span>
+                <p>"Add a colour" cue unclear. Unit could be thinner. Some pastels confused at a glance.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tphase">
+            <span class="tp-num">Phase 02 · At distance</span>
+            <div class="tp-quotes">
+              <div class="tq tq-pos">
+                <span class="tq-tag">Worked</span>
+                <p>Prompted texting between rounds. Felt sense of connection even with no contact. Spread-out rounds genuinely harder.</p>
+              </div>
+              <div class="tq tq-neg">
+                <span class="tq-tag">Didn't</span>
+                <p>Could get repetitive over a long stretch without gameplay variation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Further developments : slim strip -->
+      <div class="further-dev">
+        <div class="fd-label">Further developments</div>
+        <ul class="fd-list">
+          <li><strong>Slimmer body</strong> · a custom PCB would let the unit halve in thickness.</li>
+          <li><strong>Base as charger</strong> · the stand should charge on contact rather than plug in.</li>
+          <li><strong>Resilient state</strong> · the game should survive a power cycle by persisting in the cloud.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FINAL OUTCOME : pure showcase: photos + demo video -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Final outcome</span>
+      <span class="note">the pair, resolved</span>
+    </div>
+    <div>
+      <h2>The <em>resolved</em> pair.</h2>
+
+      <!-- Hero shot -->
+      <figure class="outcome-hero">
+        <img src="milo-final-hero.jpg" alt="The resolved Milo pair photographed together, white and black diffuser caps lit, four pastel buttons visible on each" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="outcome-placeholder" style="display:none;">
+          <strong>Final hero shot</strong>
+          <p>milo-final-hero.jpg</p>
+        </div>
+      </figure>
+
+      <!-- 3-up grid of additional product shots -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="milo-final-01.jpg" alt="A single Milo unit held in one hand, thumb on a pastel button" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>In hand</strong>
+            <p>milo-final-01.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="milo-final-02.jpg" alt="Detail of the NeoPixel glow through the sandblasted glass diffuser cap" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Cap detail</strong>
+            <p>milo-final-02.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="milo-final-03.jpg" alt="Both Milo units on their stands, side by side on a desk" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>On the stands</strong>
+            <p>milo-final-03.jpg</p>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Demo video : full-width -->
+      <figure class="outcome-video">
+        <div class="ov-embed">
+          <iframe
+            src="https://www.youtube.com/embed/Ok8nlGeNGQ4"
+            title="Milo, Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        <figcaption>Demo: a full round across the pair.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §06 Testing, tightened: phase rows lose their h3+lede,
+     keep just the mono label + worked/didn't card pair */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .video-hero {
+    margin: 0;
+    width: 100%;
+    background: var(--ink);
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .video-hero .yt-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .video-hero .yt-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .video-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+  .testing-phases {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .tphase {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tphase:last-child { border-bottom: none; padding-bottom: 0; }
+  .tp-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+  }
+  .tp-quotes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .tq {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--mustard);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .tq-pos { border-left-color: var(--mustard-deep); background: var(--mustard-soft); }
+  .tq-neg { border-left-color: var(--ink-4); }
+  .tq-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+  }
+  .tq-neg .tq-tag { color: var(--ink-3); }
+  .tq p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .further-dev {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .fd-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .fd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem 2rem;
+  }
+  .fd-list li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .fd-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 4px;
+    height: 4px;
+    background: var(--mustard);
+    border-radius: 50%;
+  }
+  .fd-list li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* §07 Final outcome : hero + 3-up + demo video */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--mustard-soft);
+    color: var(--mustard-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+
+  .outcome-video {
+    margin: 0;
+    overflow: hidden;
+    background: var(--ink);
+    border-radius: 8px;
+  }
+  .ov-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .ov-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .outcome-video figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .video-hero { max-width: 100%; margin: 0; }
+    .tp-quotes { grid-template-columns: 1fr; }
+    .fd-list { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- FOOTER : minimal: prev/next nav + thin contact strip -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="proj-nav">
+      <a href="period_5.html" class="proj-link proj-prev">
+        <span class="pl-arrow">←</span>
+        <span class="pl-stack">
+          <span class="pl-meta">Previous project</span>
+          <span class="pl-name">period.</span>
+        </span>
+      </a>
+      <a href="onaka_3.html" class="proj-link proj-next">
+        <span class="pl-stack">
+          <span class="pl-meta">Next project</span>
+          <span class="pl-name">Onaka</span>
+        </span>
+        <span class="pl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer-base">
+      <div class="fb-logo">Nefeli Lemessiou</div>
+      <div class="fb-contact">
+        <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+        <span class="fb-sep">·</span>
+        <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">@nephele_design</a>
+        <span class="fb-sep">·</span>
+        <a href="#">CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* FOOTER : minimal closing strip */
+  .site-footer {
+    background: var(--mustard-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--mustard-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mustard-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--mustard-deep);
+    line-height: 1;
+  }
+
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--mustard-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilia · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Ilia uses warm walnut, pulled from the wooden base of the lamp itself.
+       Distinct from period copper, onaka blue, milo mustard, vattenkanna sage. */
+    --walnut: #8B6B47;
+    --walnut-deep: #6B4F2E;
+    --walnut-soft: #F0E8DE;
+    --walnut-bright: #A88B68;
+    /* Lamp colours, appear only in §02 mode explanations */
+    --lamp-blue: #6B85B5;
+    --lamp-yellow: #E0B547;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF7;
+    --bg-warm: #FBF7F1;
+    --rule: #E8E2D8;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--walnut-deep); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--walnut-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID, section structure (identical to period / onaka / milo / vattenkanna) */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--walnut-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--walnut-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--walnut-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--walnut-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--walnut);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* §01 FUNNEL, mental health → student anxiety → studying → breathing */
+  .funnel {
+    margin-top: 3.5rem;
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .funnel-step {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .funnel-step:last-child { border-right: none; }
+  .funnel-step .fn-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 500;
+  }
+  .funnel-step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--ink-3);
+  }
+  .funnel-step.active h4 {
+    color: var(--ink);
+  }
+  .funnel-step.active .fn-num { color: var(--walnut-deep); }
+  .funnel-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.55em;
+    top: 1.55rem;
+    font-size: 0.9rem;
+    color: var(--ink-4);
+    background: var(--bg);
+    padding: 0 0.2rem;
+    z-index: 1;
+  }
+  .funnel-step:last-child::after { display: none; }
+  .funnel-step .fn-note {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin-top: 0.15rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .funnel { grid-template-columns: 1fr 1fr; }
+    .funnel-step::after { display: none; }
+    .funnel-step { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .funnel-step:nth-child(2n) { border-right: none; }
+    .funnel-step:nth-child(n+3) { border-bottom: none; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .funnel { grid-template-columns: 1fr; }
+    .funnel-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .funnel-step:last-child { border-bottom: none; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">06 — ilia</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Jan 2022 — May 2022</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Electronic Things · University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">With Quentin Bachelot · making, electronics, testing</span>
+    </div>
+  </div>
+  <h1 class="display a d2">A desk lamp that helps you <em>breathe</em>.</h1>
+  <p class="hero-sub a d3">A wood-and-glass lamp for university students that doubles as a guided breathing exercise. Place your hands on the base and the light pulses to slow your breath, no app, no <em>screen</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Tangible UX</span>
+    <span class="tag">Mental Health</span>
+    <span class="tag">Emotional Tech</span>
+    <span class="tag">Glass + Wood</span>
+    <span class="tag">Arduino</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="ilia-hero.jpg" alt="Ilia, a wooden dome base with a sandblasted glass cloud diffuser on top, sitting on a study desk, the diffuser glowing softly" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">stillness at the desk</span>
+    </div>
+    <div>
+      <h2 class="wide">Anxiety is loudest where students spend most of their time, <em>at the desk</em>.</h2>
+      <p class="lede">Mental health is a vast subject. The funnel from there to a desk lamp came from where anxiety actually shows up in young adults' lives, and from the techniques that consistently come out on top as ways to manage it.</p>
+
+      <!-- Funnel: mental health → student anxiety → studying → breathing -->
+      <div class="funnel">
+        <div class="funnel-step">
+          <span class="fn-num">Brief 00</span>
+          <h4>Mental <em>health</em></h4>
+          <p class="fn-note">A broad starting point, sharpened by the rise in post-pandemic anxiety.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 01</span>
+          <h4>Student anxiety</h4>
+          <p class="fn-note">Gen Z is the most anxious generation on record; uncertainty about the future is a constant.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 02</span>
+          <h4>Studying as the peak</h4>
+          <p class="fn-note">For students, anxiety is highest while studying or working, and the desk is where it lands.</p>
+        </div>
+        <div class="funnel-step active">
+          <span class="fn-num">Step 03</span>
+          <h4>Breathing as a tool</h4>
+          <p class="fn-note">Across a dozen reviewed sources, breathing exercises consistently ranked top alongside physical exercise.</p>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num">63<em>%</em></div><div class="lbl">of US university students experience increased anxiety post-COVID (APA)</div></div>
+        <div class="stat"><div class="num">62<em>%</em></div><div class="lbl">of UK students report peak anxiety while studying or working</div></div>
+        <div class="stat"><div class="num">82<em>%</em></div><div class="lbl">say uncertainty about post-COVID years is causing them stress (APA)</div></div>
+        <div class="stat"><div class="num">#2</div><div class="lbl">most-recommended stress-relief technique across 12 reviewed sources, second only to exercise</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CONCEPT: lamp image left + two-mode UX right -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Concept</span>
+      <span class="note">two modes, one lamp</span>
+    </div>
+    <div>
+      <h2>A desk lamp that <em>pulses</em> when you need a moment.</h2>
+      <p class="lede">Ilia works like a normal desk lamp until you place your hands on its wooden base. Two modes let the user choose how much initiative the lamp takes.</p>
+
+      <div class="concept-pair">
+        <figure class="concept-image">
+          <img src="ilia-on-desk.jpg" alt="Ilia on a study desk, a sandblasted glass cloud diffuser on a wooden dome base, the diffuser glowing softly with the user's hands placed on either side of the base" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="concept-placeholder" style="display:none;">
+            <strong>Ilia · on the desk</strong>
+            <p>ilia-on-desk.jpg</p>
+          </div>
+          <figcaption>Hands on the base, light shifts to blue, breathing cycle begins.</figcaption>
+        </figure>
+
+        <div class="concept-right">
+          <!-- Breathing cycle timeline -->
+          <div class="cycle-block">
+            <span class="research-tag">The breathing cycle</span>
+            <div class="cycle-row">
+              <div class="cycle-step">
+                <span class="cycle-dot" style="background: var(--lamp-blue);"></span>
+                <div class="cycle-body">
+                  <strong>5s inhale</strong>
+                  <span>Light brightens slowly.</span>
+                </div>
+              </div>
+              <div class="cycle-step">
+                <span class="cycle-dot" style="background: var(--lamp-blue); opacity: 0.5;"></span>
+                <div class="cycle-body">
+                  <strong>5s exhale</strong>
+                  <span>Light dims slowly.</span>
+                </div>
+              </div>
+              <div class="cycle-step">
+                <span class="cycle-dot" style="background: var(--lamp-yellow);"></span>
+                <div class="cycle-body">
+                  <strong>2 minutes later</strong>
+                  <span>Light turns yellow; keep going or let go.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two modes -->
+          <div class="modes-block">
+            <div class="modes-grid">
+              <div class="mode-card mode-free">
+                <div class="mode-head">
+                  <span class="mode-num">Mode 01</span>
+                  <h4>Free.</h4>
+                </div>
+                <p>The lamp stays out of the way. Breathing is available whenever you want it, never when you don't.</p>
+                <span class="mode-for">For users who already know when they need a break.</span>
+              </div>
+              <div class="mode-card mode-timed">
+                <div class="mode-head">
+                  <span class="mode-num">Mode 02</span>
+                  <h4>Timed.</h4>
+                </div>
+                <p>Every two hours, the light turns blue on its own and waits. It only resets once you complete a full two-minute cycle.</p>
+                <span class="mode-for">For users who lose track of time and would otherwise never stop.</span>
+              </div>
+            </div>
+            <p class="modes-switch">Switch between modes with a potentiometer at the back of the base.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Concept: image left, breathing cycle + two modes right */
+  .concept-pair {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .concept-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .concept-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .concept-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .concept-placeholder {
+    aspect-ratio: 4 / 5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--walnut-soft);
+    color: var(--walnut-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .concept-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .concept-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .concept-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* Shared mono tag for §02 subsections */
+  .research-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  /* Breathing cycle: 3-step horizontal flow */
+  .cycle-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .cycle-step {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 0.85rem;
+    align-items: start;
+  }
+  .cycle-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 0.4rem;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .cycle-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .cycle-body strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+  .cycle-body span {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+  }
+
+  /* Two modes: side by side */
+  .modes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .mode-card {
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--rule);
+    background: var(--bg-2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .mode-card.mode-timed {
+    background: var(--walnut-soft);
+    border-color: var(--walnut);
+  }
+  .mode-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .mode-num {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .mode-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .mode-card p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .mode-for {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--ink-3);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    font-style: italic;
+  }
+  .modes-switch {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    margin: 0.75rem 0 0;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 900px) {
+    .concept-pair { grid-template-columns: 1fr; gap: 2rem; }
+    .concept-image { position: static; }
+    .modes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 3. MAKING: glass cloud + wooden dome base -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Making</span>
+      <span class="note">glass, wood, hands</span>
+    </div>
+    <div>
+      <h2>A <em>cloud</em> on a wooden dome.</h2>
+      <p class="lede">The form had to feel warm, calm, and tactile. Something a stressed student would actually want on their desk.</p>
+
+      <!-- Three design decisions: form, materials, two sizes -->
+      <div class="make-decisions">
+        <div class="make-cell">
+          <span class="make-tag">Form</span>
+          <h3>A cloud, <em>diffused</em>.</h3>
+          <p>An organic, slightly random glass shape, not a perfect dome. Calmer, less product-like, more atmospheric.</p>
+        </div>
+        <div class="make-cell">
+          <span class="make-tag">Base</span>
+          <h3>Wood, <em>warm</em> to the touch.</h3>
+          <p>The base is what the user actually places their hands on. Wood invites that contact in a way plastic or metal wouldn't.</p>
+        </div>
+        <div class="make-cell">
+          <span class="make-tag">Sizes</span>
+          <h3>Two bases, <em>two hand sizes</em>.</h3>
+          <p>Testing showed no single size worked for everyone. Both versions shipped, with slightly different necks.</p>
+        </div>
+      </div>
+
+      <!-- Process strip: 4 steps -->
+      <div class="make-process">
+        <h3 class="mp-h">From <em>furnace</em> to finished pair.</h3>
+        <p class="mp-sub">Glass made first with Ingrid in the hot workshop, then cold-worked and sandblasted. Wood prepared by gluing MDF blocks, then turned on the lathe by the technicians as we assisted.</p>
+
+        <div class="mp-grid">
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="ilia-make-01-glass.jpg" alt="Hot glass being blown and shaped with wooden rods to create the cloud-form diffuser" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>ilia-make-01-glass.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">01</span>
+              <strong>Glass blowing</strong>
+              <span>Sphere blown, neck shaped with jacks, wooden rods pressed in for the cloud creases.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="ilia-make-02-sandblast.jpg" alt="The blown glass cooled in the annealer, then sawn at the neck and sandblasted to a frosted finish" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>ilia-make-02-sandblast.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">02</span>
+              <strong>Cold work</strong>
+              <span>Cooled in the annealer, neck sawn to length, then sandblasted to a frosted finish.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="ilia-make-03-wood.jpg" alt="MDF blocks glued together and clamped overnight, then mounted on the lathe for woodturning" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>ilia-make-03-wood.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">03</span>
+              <strong>Wood prep</strong>
+              <span>MDF blocks glued overnight, then turned on the lathe by the technicians to a dome.</span>
+            </div>
+          </figure>
+          <figure class="mp-step">
+            <div class="mp-img-wrap">
+              <img src="ilia-make-04-assembly.jpg" alt="The wooden base hollowed out with a drill and chisel, electronics fitted inside, glass diffuser seated on top" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="mp-placeholder" style="display:none;"><span>ilia-make-04-assembly.jpg</span></div>
+            </div>
+            <div class="mp-cap">
+              <span class="mp-num">04</span>
+              <strong>Assembly</strong>
+              <span>Base hollowed with drill and chisel, channels cut for the LDR sensors, glass seated on top.</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Honest note: the remake moment -->
+      <div class="make-honest">
+        <div class="mh-label">The remake</div>
+        <p>We made the glass first, then realised it was too small to sit properly on the bases we'd designed. The base couldn't shrink. It needed the room for the electronics. So we went back to the hot workshop and remade four new glasses, experimenting with deeper creases this time, and picked the best two.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ELECTRONICS: Arduino + LDRs + NeoPixel + potentiometer -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Electronics</span>
+      <span class="note">light sensing light</span>
+    </div>
+    <div>
+      <h2>Sensing hands by the <em>shadow</em> they cast.</h2>
+      <p class="lede">The lamp uses LDRs (light-dependent resistors) on the sides of the base to detect when hands cover them. Proximity sensors and touch sensors were on the table early on, but LDRs were small enough to stay discreet, and the team had already coded with them. A simple sensor doing a poetic job.</p>
+
+      <div class="elec-twin">
+        <figure class="elec-image">
+          <img src="ilia-electronics.jpg" alt="The Ilia electronics laid out: Arduino Uno, NeoPixel ring, two LDR sensors with soldered wire extensions, a potentiometer, and an external power switch, all on a breadboard during testing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="elec-placeholder" style="display:none;">
+            <strong>Electronics overview</strong>
+            <p>ilia-electronics.jpg</p>
+          </div>
+          <figcaption>The full electronics for one lamp, photographed during breadboard testing.</figcaption>
+        </figure>
+
+        <ol class="elec-list">
+          <li class="ecomp">
+            <span class="ecomp-num">01</span>
+            <div>
+              <h4>Arduino <em>Uno</em></h4>
+              <p>Runs the code, drives the NeoPixel animation, and reads sensor input. Lives inside the hollowed-out base.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">02</span>
+            <div>
+              <h4>Two <em>LDR sensors</em></h4>
+              <p>Soldered to wire extensions so they could sit on opposite sides of the base. When hands cover both, ambient light drops, and the breathing cycle starts.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">03</span>
+            <div>
+              <h4>NeoPixel ring</h4>
+              <p>An 8-pixel ring inside the glass diffuser. Yellow as the default lamp glow, soft pulsing blue during a breathing cycle.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">04</span>
+            <div>
+              <h4>Potentiometer</h4>
+              <p>Located at the back of the base. Switches between Free and Timed mode with a turn.</p>
+            </div>
+          </li>
+          <li class="ecomp">
+            <span class="ecomp-num">05</span>
+            <div>
+              <h4>External switch</h4>
+              <p>A USB-cable inline switch cuts power directly, simpler than wiring a soft on/off into the code and saves a sliver of electricity when the lamp's idle.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Sine-wave coding note (honest, brief) -->
+      <div class="code-honest">
+        <div class="ch-label">The hard part of the code</div>
+        <p>Pulsing the LED smoothly turned out to need a sine function, beyond what we'd learned at that point. Our tutor Matthew helped us with the maths so the breathing animation actually breathed, not stepped.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Making: 3-cell decisions + 4-step process + honest remake note */
+  .make-decisions {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .make-cell {
+    padding: 1.75rem 1.5rem 1.75rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .make-cell:not(:first-child) { padding-left: 1.5rem; }
+  .make-cell:last-child { border-right: none; padding-right: 0; }
+  .make-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .make-cell h3 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    max-width: 18ch;
+  }
+  .make-cell h3 em { font-style: italic; color: var(--walnut-deep); font-weight: 700; }
+  .make-cell p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .make-process {
+    margin-top: 4.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .mp-h {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.85rem;
+    font-weight: 700;
+  }
+  .mp-h em { font-style: italic; color: var(--walnut-deep); font-weight: 700; }
+  .mp-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 2.5rem;
+  }
+  .mp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .mp-step {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .mp-img-wrap {
+    overflow: hidden;
+  }
+  .mp-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .mp-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: var(--walnut-soft);
+    border: 1px dashed var(--rule);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--walnut-deep);
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .mp-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .mp-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .mp-cap strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .mp-cap span:last-child {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .make-honest {
+    margin-top: 4rem;
+    padding: 1.5rem 6rem 1.5rem 2rem;
+    background: var(--walnut-soft);
+    border-left: 3px solid var(--walnut);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .mh-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .make-honest p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §04 Electronics: overview image + 5 numbered components + code-honest note */
+  .elec-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .elec-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .elec-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .elec-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .elec-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--walnut-soft);
+    color: var(--walnut-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .elec-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .elec-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .elec-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ecomp {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ecomp:first-child { padding-top: 0; }
+  .ecomp:last-child { border-bottom: none; }
+  .ecomp-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--walnut-deep);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+  .ecomp h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .ecomp h4 em { font-style: italic; color: var(--walnut-deep); font-weight: 700; }
+  .ecomp p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .code-honest {
+    margin-top: 3rem;
+    padding: 1.5rem 6rem 1.5rem 2rem;
+    background: var(--walnut-soft);
+    border-left: 3px solid var(--walnut);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .ch-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .code-honest p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .make-decisions { grid-template-columns: 1fr; }
+    .make-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .make-cell:not(:first-child) { padding-left: 0; }
+    .make-cell:last-child { border-bottom: none; }
+    .mp-grid { grid-template-columns: 1fr 1fr; }
+    .make-honest, .code-honest { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+    .elec-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .elec-image { position: static; }
+  }
+  @media (max-width: 560px) {
+    .mp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 5. TESTING: demo video + feedback + further developments -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Testing</span>
+      <span class="note">on real desks</span>
+    </div>
+    <div>
+      <h2>Tested where it would actually <em>live</em>.</h2>
+      <p class="lede">Two phases of testing. Quick studio sessions with first-time users, and a longer context test with one student keeping the lamp on her desk for a full day.</p>
+
+      <div class="final-row">
+        <div class="testing-images">
+          <figure class="ti-cell">
+            <img src="ilia-testing-01.jpg" alt="A student trying the Ilia lamp during a quick studio session, hands on the wooden base" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="ti-placeholder" style="display:none;">
+              <strong>Studio testing</strong>
+              <p>ilia-testing-01.jpg</p>
+            </div>
+          </figure>
+          <figure class="ti-cell">
+            <img src="ilia-testing-02.jpg" alt="A student with the Ilia lamp on her desk during a full-day context test" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="ti-placeholder" style="display:none;">
+              <strong>Context test, full day</strong>
+              <p>ilia-testing-02.jpg</p>
+            </div>
+          </figure>
+        </div>
+
+        <div class="testing-phases">
+          <div class="tphase">
+            <span class="tp-num">What landed</span>
+            <div class="tp-quotes">
+              <div class="tq tq-pos">
+                <span class="tq-tag">Worked</span>
+                <p>Testers found the interaction intuitive without instructions. One described the design as "the right balance between interesting and basic enough to fit my space."</p>
+              </div>
+              <div class="tq tq-pos">
+                <span class="tq-tag">Worked</span>
+                <p>The two-size split resolved itself naturally. Larger hands preferred the bigger base; smaller hands preferred the smaller. No single ideal size, just two right ones.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tphase">
+            <span class="tp-num">What didn't</span>
+            <div class="tp-quotes">
+              <div class="tq tq-neg">
+                <span class="tq-tag">Didn't</span>
+                <p>No visible markings around the potentiometer made mode-switching unclear. Easy fix with an engraved knob, flagged as a development.</p>
+              </div>
+              <div class="tq tq-neg">
+                <span class="tq-tag">Didn't</span>
+                <p>One tester with severe anxiety noted that touching the base continuously could trigger sensory overload. Raised a real question about contact-required interactions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FINAL OUTCOME: pure showcase, photos only -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Final outcome</span>
+      <span class="note">the pair, glowing</span>
+    </div>
+    <div>
+      <h2>Ilia, <em>resolved</em>.</h2>
+
+      <!-- Hero shot -->
+      <figure class="outcome-hero">
+        <img src="ilia-final-hero.jpg" alt="Both Ilia lamps photographed together, glass cloud diffusers glowing softly above their wooden dome bases" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="outcome-placeholder" style="display:none;">
+          <strong>Final hero shot</strong>
+          <p>ilia-final-hero.jpg</p>
+        </div>
+      </figure>
+
+      <!-- 3-up grid -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="ilia-final-01.jpg" alt="A single Ilia lamp glowing yellow in its resting state on a study desk" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Resting state</strong>
+            <p>ilia-final-01.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="ilia-final-02.jpg" alt="The lamp glowing blue during a breathing cycle, hands placed on the wooden base" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Breathing cycle</strong>
+            <p>ilia-final-02.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="ilia-final-03.jpg" alt="Detail of the sandblasted glass cloud diffuser showing the soft pressed creases" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Glass detail</strong>
+            <p>ilia-final-03.jpg</p>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Demo video, full width below -->
+      <figure class="outcome-video">
+        <div class="ov-embed">
+          <iframe
+            src="https://www.youtube.com/embed/MvGl5-Jg3pI"
+            title="Ilia demonstration video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        <figcaption>Demonstration video: both lamps in use, breathing cycle visible.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Testing: image strip left, two-column feedback right */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .testing-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .ti-cell {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .ti-cell img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .ti-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--walnut-soft);
+    color: var(--walnut-deep);
+    text-align: center;
+    padding: 1.25rem;
+    border: 1px dashed var(--rule);
+  }
+  .ti-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .ti-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .testing-phases {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .tphase {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tphase:last-child { border-bottom: none; padding-bottom: 0; }
+  .tp-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .tp-quotes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .tq {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--walnut);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .tq-pos { border-left-color: var(--walnut-deep); background: var(--walnut-soft); }
+  .tq-neg { border-left-color: var(--ink-4); }
+  .tq-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .tq-neg .tq-tag { color: var(--ink-3); }
+  .tq p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* §06 Final outcome: hero + 3-up + demo video */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--walnut-soft);
+    color: var(--walnut-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+  .outcome-video {
+    margin: 0;
+    overflow: hidden;
+    background: var(--ink);
+    border-radius: 8px;
+  }
+  .ov-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .ov-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .outcome-video figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .testing-images { flex-direction: row; }
+    .testing-images .ti-cell { flex: 1; }
+    .tp-quotes { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .testing-images { flex-direction: column; }
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- FOOTER: minimal prev/next nav + thin contact strip -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="proj-nav">
+      <a href="vattenkanna.html" class="proj-link proj-prev">
+        <span class="pl-arrow">←</span>
+        <span class="pl-stack">
+          <span class="pl-meta">Previous project</span>
+          <span class="pl-name">Vattenkanna</span>
+        </span>
+      </a>
+      <a href="airflux.html" class="proj-link proj-next">
+        <span class="pl-stack">
+          <span class="pl-meta">Next project</span>
+          <span class="pl-name">AirFlux</span>
+        </span>
+        <span class="pl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer-base">
+      <div class="fb-logo">Nefeli Lemessiou</div>
+      <div class="fb-contact">
+        <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+        <span class="fb-sep">·</span>
+        <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">@nephele_design</a>
+        <span class="fb-sep">·</span>
+        <a href="#">CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* FOOTER: minimal closing strip */
+  .site-footer {
+    background: var(--walnut-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--walnut-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--walnut-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--walnut-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--walnut-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+</body>
+</html>

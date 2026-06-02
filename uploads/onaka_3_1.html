@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onaka — Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #6B7DF2;
+    --blue-deep: #3B6FBF;
+    --blue-soft: #EAF1FB;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF8;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--blue); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID — section structure */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--blue-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* CHAPTER DIVIDER — demoted: thin marker between device and app halves */
+  .chapter-break {
+    background: var(--blue-soft);
+    color: var(--ink);
+    padding: 1.5rem 2.5rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-break-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .chapter-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--blue-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .chapter-break p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .chapter-break p em { font-style: italic; color: var(--blue-deep); }
+  @media (max-width: 900px) {
+    .chapter-break-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--blue); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-meta {
+    display: flex; gap: 1rem; align-items: center;
+    font-family: var(--mono); font-size: 0.75rem;
+    letter-spacing: 0.02em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 3.5rem;
+  }
+  .hero-meta .sep { color: var(--ink-4); }
+  .hero-meta .live {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(107, 125, 242, 0.18);
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 38ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 3rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--blue); font-weight: 500; }
+  .hero-credit {
+    display: flex;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    margin-bottom: 0.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    max-width: 720px;
+  }
+  .hero-credit-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .hero-credit-text {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 700px) {
+    .hero-credit { flex-direction: column; gap: 0.4rem; }
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+
+  /* IMAGE BOX (placeholder) */
+  .ib {
+    background: var(--blue-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    gap: 0.5rem; position: relative; overflow: hidden;
+  }
+  .ib.n { background: #F5F2EC; }
+  .ib.d { background: #0A0A0A; border-color: rgba(255,255,255,0.08); }
+  .ib p {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--blue-deep); text-align: center; opacity: 0.7;
+    letter-spacing: 0.02em;
+  }
+  .ib.n p { color: var(--ink-3); }
+  .ib.d p { color: rgba(255,255,255,0.4); }
+  .ib strong {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-2);
+    text-align: center; letter-spacing: -0.01em;
+  }
+  .ib.d strong { color: rgba(255,255,255,0.7); }
+  .phi {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px dashed currentColor; opacity: 0.35;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-deep);
+  }
+  .ib.n .phi { color: var(--ink-3); }
+  .ib.d .phi { color: rgba(255,255,255,0.4); }
+  .phi svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 18% center;
+    transform: scale(1.35);
+    transform-origin: 18% center;
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .hero-image { height: 60vh; min-height: 380px; }
+    .hero-image img { object-position: 25% center; transform: scale(1.5); transform-origin: 25% center; }
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat {
+    padding-right: 0;
+    border-right: none;
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* BLOCKQUOTE pull */
+  .pull {
+    border-left: 2px solid var(--blue);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* RESEARCH 3-COL */
+  .res-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .res-cell {
+    padding: 2rem 2rem 2rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .res-cell:not(:first-child) { padding-left: 2rem; }
+  .res-cell:last-child { border-right: none; padding-right: 0; }
+  .res-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .res-cell h3 { margin-bottom: 0.85rem; }
+  .res-cell h3 em { font-style: italic; color: var(--blue); }
+  .res-cell p { font-size: 0.88rem; }
+
+  /* INSIGHT pills */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pill-row .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase;
+    width: 100%; margin-bottom: 0.6rem;
+  }
+  .pill {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+    background: var(--bg);
+  }
+
+  /* DECISION — flowing story */
+  .decision-flow {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .dec-stage {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+  }
+  .dec-stage.now {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .dec-stage.was {
+    margin-left: 0;
+  }
+  .dec-stage.now {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+  /* "was" puts text left, image right; "now" flips it for visual rhythm */
+  .dec-stage.now .dec-text { order: 2; }
+  .dec-stage.now .dec-img-wrap { order: 1; }
+  .dec-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .dec-tag.was { color: #8A2A2A; }
+  .dec-tag.now { color: var(--blue-deep); }
+  .dec-tag::before {
+    content: ''; display: block;
+    width: 18px; height: 1px;
+  }
+  .dec-tag.was::before { background: #8A2A2A; }
+  .dec-tag.now::before { background: var(--blue-deep); }
+  .dec-stage h3 {
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .dec-stage h3 em { font-style: italic; color: var(--blue); }
+  .dec-text > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+  }
+  .dec-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .dec-list li {
+    font-size: 0.92rem; color: var(--ink-2);
+    padding-left: 1.6rem; position: relative;
+    line-height: 1.55;
+  }
+  .dec-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.65rem;
+    width: 14px; height: 1px; background: var(--ink-3);
+  }
+  .dec-list li.x { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+  .dec-img-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+  }
+  .dec-img-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+  }
+  .dec-img-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .dec-img-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+  .dec-arrow {
+    position: relative;
+    height: 80px;
+    margin: 0;
+  }
+  .dec-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .dec-arrow path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  .dec-arrow .tip {
+    fill: var(--blue);
+    opacity: 0.7;
+  }
+  @media (max-width: 900px) {
+    .dec-stage {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .dec-stage.now .dec-text { order: 1; }
+    .dec-stage.now .dec-img-wrap { order: 2; }
+    .dec-stage.now { margin-top: 2rem; }
+    .dec-arrow { height: 60px; }
+  }
+
+  /* DECISION 02 — annotated diagram */
+  .symptom-intro {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .symptom-intro .lede {
+    margin: 0;
+  }
+  .principle-soft {
+    padding: 1.5rem 1.75rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+  }
+  .principle-soft .pl {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .principle-soft p {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  .annotated-device {
+    position: relative;
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .annotated-device-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    z-index: 1;
+  }
+  /* SVG annotation lines layer */
+  .annotation-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .annotation-lines path {
+    fill: none;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 5;
+    stroke-linecap: round;
+  }
+  .annotation-lines circle {
+    fill: var(--bg-2);
+    stroke-width: 1.5;
+  }
+  .annotation-lines .pain-line   { stroke: #B03A2E; }
+  .annotation-lines .pain-dot    { stroke: #B03A2E; }
+  .annotation-lines .anx-line    { stroke: var(--blue-deep); }
+  .annotation-lines .anx-dot     { stroke: var(--blue-deep); }
+  .annotation-lines .bowel-line  { stroke: #B8841C; }
+  .annotation-lines .bowel-dot   { stroke: #B8841C; }
+
+  /* Annotation labels — absolutely positioned */
+  .ann-label {
+    position: absolute;
+    z-index: 3;
+    max-width: 220px;
+  }
+  .ann-label .ann-tag {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border-radius: 100px;
+    margin-bottom: 0.6rem;
+  }
+  .ann-label.pain .ann-tag   { background: #FBE9E6; color: #B03A2E; }
+  .ann-label.anx .ann-tag    { background: var(--blue-soft); color: var(--blue-deep); }
+  .ann-label.bowel .ann-tag  { background: #FBF1DA; color: #8C6510; }
+
+  .ann-label h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+  }
+  .ann-label p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  /* Position the three labels — desktop */
+  .ann-pain  { top: 12%;  left: 4%; }
+  .ann-anx   { top: 38%;  right: 4%; text-align: right; }
+  .ann-bowel { bottom: 8%; left: 4%; }
+
+  @media (max-width: 900px) {
+    .symptom-intro { grid-template-columns: 1fr; gap: 2rem; }
+    .annotated-device {
+      aspect-ratio: auto;
+      padding: 2rem 1.25rem;
+    }
+    .annotated-device-img {
+      position: relative;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      margin-bottom: 1.5rem;
+    }
+    .annotation-lines { display: none; }
+    .ann-label {
+      position: relative;
+      max-width: none;
+      margin-bottom: 1.5rem;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      text-align: left !important;
+    }
+  }
+
+  /* DECISION 03 — method comparison */
+  .methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .method {
+    display: flex;
+    flex-direction: column;
+  }
+  .method-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #EFEDE7;
+    border: 1px solid var(--rule);
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .method-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .method-frame.lists img { object-position: 50% 30%; }
+  .method-frame.icons img { object-position: 50% 25%; }
+  .method-frame.text-voice img { object-position: 50% 20%; }
+  .method-tag {
+    position: absolute;
+    top: 0.85rem; left: 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 100px;
+    font-weight: 500;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .method-tag.win {
+    background: var(--blue);
+    color: var(--bg);
+    border-color: var(--blue);
+  }
+  .method-tag.lose {
+    color: var(--ink-3);
+  }
+  .method h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.4rem;
+  }
+  .method h4 em { font-style: italic; color: var(--blue); }
+  .method-result {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.85rem;
+  }
+  .method-result.win { color: var(--blue-deep); font-weight: 500; }
+  .method-result.win::before {
+    content: '✓';
+    margin-right: 0.4rem;
+  }
+  .method dt {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+  .method dd {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .method-summary {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .method-summary h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+  .method-summary h3 em { font-style: italic; color: var(--blue); }
+  .summary-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .summary-label::before {
+    content: '';
+    display: block;
+    width: 18px; height: 1px;
+    background: var(--blue-deep);
+  }
+  .principle-callout {
+    padding: 1.5rem 1.75rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+    margin-top: 1.5rem;
+  }
+  .principle-callout .pl {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .principle-callout p {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  @media (max-width: 900px) {
+    .methods { grid-template-columns: 1fr; gap: 2.5rem; }
+    .method-summary { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .input-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .bar-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar-row:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+  .bar-label {
+    font-size: 0.92rem; font-weight: 500;
+    min-width: 88px; color: var(--ink);
+  }
+  .bar-track {
+    flex: 1; height: 6px; background: var(--bg-2);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; background: var(--ink-4);
+  }
+  .bar-fill.w { background: var(--blue); }
+  .bar-value {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--ink-3); min-width: 110px; text-align: right;
+    letter-spacing: 0.01em;
+  }
+  .bar-value.w { color: var(--blue-deep); font-weight: 500; }
+  .meta-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    margin-top: 1rem;
+  }
+  .meta-card .ml {
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .meta-card p { font-size: 0.88rem; line-height: 1.55; }
+
+  /* FORM DEVELOPMENT */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .form-grid .ib {
+    border: 1px solid var(--rule);
+    height: 280px;
+  }
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .form-grid-2 .ib {
+    border: 1px solid var(--rule);
+    height: 220px;
+  }
+
+  /* APP — screen strip */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .scol {
+    display: flex; flex-direction: column;
+  }
+  .slabel {
+    padding: 0.85rem 0;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.5rem;
+  }
+  .scol .ib { border: 1px solid var(--rule); height: 340px; }
+
+  /* PRINCIPLES — flowing */
+  .princ-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem 5rem;
+    margin-top: 4rem;
+  }
+  .princ {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .princ-num {
+    font-family: var(--display);
+    font-size: 3.5rem;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--blue);
+    font-style: italic;
+  }
+  .princ h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .princ p {
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+  @media (max-width: 700px) {
+    .princ-row { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* DETAIL ROW */
+  .detail-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .detail-row .ib {
+    border: 1px solid var(--rule);
+    height: 320px;
+  }
+
+  /* BRANDING — flowing */
+  .brand-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .brand h4 {
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .brand p { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .brand-strip { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  .cdots { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .cdot { width: 28px; height: 28px; border-radius: 50%; }
+  .tsamp { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1rem; }
+  .tr {
+    display: flex; align-items: baseline; gap: 0.85rem;
+    padding-bottom: 0.55rem; border-bottom: 1px solid var(--rule);
+  }
+  .tr:last-child { border-bottom: none; }
+  .tlbl {
+    font-family: var(--mono); font-size: 0.65rem; color: var(--ink-3);
+    min-width: 64px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  /* HOW IT WORKS — circular interaction system */
+  .interaction-system {
+    position: relative;
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .connectors path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .i-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .i-step-1 { padding-top: 4rem; }
+  .i-step-2 { padding-top: 1rem; }
+  .i-step-3 { padding-top: 0; }
+  .i-step-4 { padding-top: 3rem; }
+  .i-label {
+    color: var(--blue-deep);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 14ch;
+  }
+  .i-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .i-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* per-step crop tuning so the subject sits centred in each circle */
+  .i-step-1 .i-circle img { object-position: 35% 60%; transform: scale(1.6); }
+  .i-step-2 .i-circle img { object-position: 50% 50%; transform: scale(1.05); }
+  .i-step-3 .i-circle img { object-position: 50% 45%; transform: scale(1.4); }
+  .i-step-4 .i-circle img { object-position: 50% 40%; transform: scale(1.3); }
+  .i-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+  @media (max-width: 900px) {
+    .interaction-system {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .connectors { display: none; }
+    .i-step,
+    .i-step-1, .i-step-2, .i-step-3, .i-step-4 { padding-top: 0; }
+    .i-circle { width: 200px; height: 200px; }
+  }
+
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule-strong);
+    margin-top: 3rem;
+  }
+  .flow-step {
+    padding: 2rem 1.75rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.5rem; top: 2rem;
+    color: var(--ink-4);
+    font-size: 1rem;
+    background: var(--bg);
+    padding: 0 0.25rem;
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-num {
+    font-family: var(--display);
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--blue-soft);
+    margin-bottom: 1.2rem;
+  }
+  .flow-step h4 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .flow-step p { font-size: 0.85rem; color: var(--ink-3); }
+  .flow-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 0.65rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+    margin-top: 1rem;
+  }
+  .flow-tag.dev { background: var(--blue-soft); color: var(--blue-deep); }
+  .flow-tag.iot { background: #F0EFEA; color: var(--ink-3); }
+  .flow-tag.app { background: #E6F0E5; color: #2F5F3F; }
+
+  /* FINAL */
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .final-grid .ib {
+    border: 1px solid var(--rule);
+  }
+  .final-hero {
+    height: 440px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: #FAFAF8;
+  }
+  .final-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 18% center;
+    transform: scale(1.4);
+    transform-origin: 18% center;
+    display: block;
+  }
+  .out-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .out {
+    padding: 0;
+  }
+  .out .ol {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .out p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .out-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-soft);
+    padding: 4rem 2.5rem;
+    color: var(--ink);
+    border-top: 1px solid var(--rule);
+  }
+  .foot-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+  .foot-marker {
+    font-family: var(--mono); font-size: 0.75rem;
+    color: var(--blue-deep);
+    letter-spacing: 0.02em;
+  }
+  .foot-name {
+    font-family: var(--hand);
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .foot-meta {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .foot-next {
+    text-align: right;
+  }
+  .nl {
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.4rem;
+  }
+  .nt {
+    font-family: var(--display); font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: var(--ink); text-decoration: none;
+    font-weight: 700; letter-spacing: -0.03em;
+    transition: color 0.2s;
+  }
+  .nt:hover { color: var(--blue-deep); }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+
+  /* §03 — 4-step cross-medium loop, single 1×4 row */
+  .loop-system {
+    margin-top: 4rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  /* Dashed connector arc sitting over the four circles */
+  .loop-connector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+  .loop-connector path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Vertical stagger for visual rhythm, matching period's pattern */
+  .loop-step-1 { padding-top: 4rem; }
+  .loop-step-2 { padding-top: 1rem; }
+  .loop-step-3 { padding-top: 0; }
+  .loop-step-4 { padding-top: 3rem; }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+    margin-bottom: 0.85rem;
+    display: inline-block;
+  }
+  .loop-label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  .loop-figure {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 24ch;
+  }
+
+  /* §04 — Threading: where device and app are co-designed */
+  .threading {
+    margin-top: 3rem;
+  }
+  .thread-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .thread-card {
+    padding: 1.5rem 1.25rem 1.5rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .thread-card:not(:first-child) { padding-left: 1.25rem; }
+  .thread-card:last-child { border-right: none; padding-right: 0; }
+  .thread-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .thread-pair {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .thread-side {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--blue);
+    border-radius: 3px;
+    background: var(--blue-soft);
+  }
+  .thread-card h4 {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 0.15rem 0 0;
+  }
+  .thread-card h4 em { font-style: italic; color: var(--blue); font-weight: 600; }
+  .thread-card p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .loop-system { grid-template-columns: 1fr; gap: 3rem; margin-top: 3rem; }
+    .loop-connector { display: none; }
+    .loop-step,
+    .loop-step-1, .loop-step-2, .loop-step-3, .loop-step-4 { padding-top: 0; }
+    .loop-figure { width: 200px; height: 200px; }
+    .thread-grid { grid-template-columns: 1fr 1fr; }
+    .thread-card { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.25rem 0; }
+    .thread-card:not(:first-child) { padding-left: 0; }
+    .thread-card:last-child { border-bottom: none; }
+  }
+  @media (max-width: 560px) {
+    .thread-grid { grid-template-columns: 1fr; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .stat { border-right: none; padding-right: 0; }
+    .res-grid, .form-grid, .form-grid-2, .screen-strip, .princ-row, .detail-row, .brand-strip, .flow-grid, .final-grid, .out-grid { grid-template-columns: 1fr; }
+    .res-cell, .form-grid .ib, .form-grid-2 .ib, .scol, .detail-row .ib, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .sym-grid, .input-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-next { text-align: left; }
+    .flow-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-meta a d1">
+    <span class="live"></span>
+    <span>Onaka</span>
+    <span class="sep">·</span>
+    <span>Product Design · MA Project</span>
+    <span class="sep">·</span>
+    <span>Royal College of Art · 2025</span>
+  </div>
+  <h1 class="display a d2">Tracking gut health <em>without</em> the anxiety it causes.</h1>
+  <p class="hero-sub a d3">A pocketable IoT device and companion app that lets people with chronic GI conditions log symptoms in <em>seconds</em>, without screens, overwhelm, or medicalised interfaces.</p>
+  <div class="hero-credit a d3">
+    <span class="hero-credit-label">My role</span>
+    <span class="hero-credit-text">Sole designer · 8 months · Concept &amp; research, industrial design, IoT prototyping, app UX/UI, branding</span>
+  </div>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">Interaction Design</span>
+    <span class="tag">IoT</span>
+    <span class="tag">UI Design</span>
+    <span class="tag">Data Design</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="onaka-hero.png" alt="Hand holding the blue Onaka device against a white wall" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">where it all began</span>
+    </div>
+    <div>
+      <h2 class="wide"><em>1 in 5</em> people in the UK have a GI condition. The tools meant to help make things <em>worse</em>.</h2>
+      <p class="lede">Existing apps demand frequent logging and create hyper-awareness that worsens anxiety. The gut–brain axis means stress and GI symptoms feed each other, so a tool that adds cognitive load actively harms the people it's meant to help.</p>
+      <div class="pull">
+        <blockquote>"Existing solutions need too much effort, they cause more stress than relief."</blockquote>
+        <cite>— Patient interview · 2024</cite>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">1<em>/5</em></div><div class="lbl">UK people with chronic GI conditions</div></div>
+        <div class="stat"><div class="num">10–20<em>%</em></div><div class="lbl">of UK population has IBS</div></div>
+        <div class="stat"><div class="num">3<em> apps</em></div><div class="lbl">tested by 5 users over 5 days, all overwhelming</div></div>
+        <div class="stat"><div class="num">100<em>%</em></div><div class="lbl">wanted something faster and less effortful</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+    </div>
+    <div>
+      <h2>Talking to <em>doctors and patients</em> before touching a sketch.</h2>
+      <div class="res-grid">
+        <div class="res-cell">
+          <div class="res-label">A · Clinicians</div>
+          <h3>Gastroenterologist <em>interviews</em></h3>
+          <p>Two sessions, project start and mid-development. Key finding: patients can't accurately describe symptoms to doctors without a tracking tool.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">B · Patients</div>
+          <h3>Journey <em>mapping</em></h3>
+          <p>Guided conversations and a day-mapping exercise. Identified the anxiety–symptom cycle and the emotional cost of existing tools.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">C · Competitors</div>
+          <h3>App <em>case study</em></h3>
+          <p>5 users, 5 days. Participants used three leading GI apps and kept diaries. All created hyper-awareness and data overwhelm rather than genuine understanding.</p>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 3rem;">
+        <blockquote>"People need a fast, low-stress way to capture lived experience, and return only the most helpful insights."</blockquote>
+        <cite>— Design insight · synthesised from research</cite>
+      </div>
+
+      <div class="pill-row">
+        <span class="pl">Key insights</span>
+        <span class="pill">Anxiety worsens GI symptoms, and vice versa</span>
+        <span class="pill">Patients can't recall symptoms without logging</span>
+        <span class="pill">Data overload causes hyper-awareness</span>
+        <span class="pill">Existing apps feel like another chore</span>
+        <span class="pill">Should feel like a companion, not a medical tool</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS — cross-medium loop, device + app -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">How it works</span>
+      <span class="note">one loop, two media</span>
+    </div>
+    <div>
+      <h2>One <em>daily loop</em>, across the pocket and the screen.</h2>
+      <p class="lede">Four moments. Two on the device, two in the app. The <em>hand-off</em> between them is the design.</p>
+
+      <div class="loop-system">
+        <!-- Dashed connector arcs sitting over the four circles -->
+        <svg class="loop-connector" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 145 180 Q 230 240, 320 165" />
+          <path d="M 395 145 Q 480 80, 570 130" />
+          <path d="M 645 165 Q 730 240, 820 175" />
+        </svg>
+
+        <div class="loop-step loop-step-1">
+          <span class="loop-side-tag">Device</span>
+          <div class="loop-label">Press to log</div>
+          <figure class="loop-figure">
+            <img src="step-01-log.png" alt="Hand pressing the blue Onaka device" />
+          </figure>
+          <p class="loop-copy">Pain, anxiety, or bowel movements in seconds, without opening anything.</p>
+        </div>
+
+        <div class="loop-step loop-step-2">
+          <span class="loop-side-tag">Device</span>
+          <div class="loop-label">Breathe, then carry on</div>
+          <figure class="loop-figure">
+            <img src="step-02-respond.png" alt="Onaka device emitting a blue NeoPixel breathing pulse" />
+          </figure>
+          <p class="loop-copy">Press anxiety and the device responds, a 5s inhale / 5s exhale pulse, before logging.</p>
+        </div>
+
+        <div class="loop-step loop-step-3">
+          <span class="loop-side-tag">App</span>
+          <div class="loop-label">Reflect, once a day</div>
+          <figure class="loop-figure">
+            <img src="step-03-reflect.png" alt="Companion app asking 'You felt anxious 2 times today. Main trigger?'" />
+          </figure>
+          <p class="loop-copy">A single end-of-day question, generated from what was logged. No daily input required.</p>
+        </div>
+
+        <div class="loop-step loop-step-4">
+          <span class="loop-side-tag">App</span>
+          <div class="loop-label">Read, don't decode</div>
+          <figure class="loop-figure">
+            <img src="step-04-insights.png" alt="Priority Insights screen showing Anxiety-Gut Connection card" />
+          </figure>
+          <p class="loop-copy">Patterns surfaced as plain-English insights, prioritised. No charts, no jargon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. THREADING — where device and app are co-designed -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">The threading</span>
+      <span class="note">where device + app meet</span>
+    </div>
+    <div>
+      <h2>Four places the device and the app are <em>co-designed</em>.</h2>
+      <p class="lede">Not two parallel deliverables. The hand-offs are the design.</p>
+      <div class="threading">
+        <div class="thread-grid">
+          <div class="thread-card">
+            <span class="thread-num">01</span>
+            <div class="thread-pair">
+              <span class="thread-side">Device → App</span>
+            </div>
+            <h4>Press anxiety, <em>breathe</em>, then reflect.</h4>
+            <p>The anxiety button triggers a calming pulse on the device, then surfaces as a reflection prompt in the app at end of day.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">02</span>
+            <div class="thread-pair">
+              <span class="thread-side">Device → App</span>
+            </div>
+            <h4>Three symptoms, <em>three question banks</em>.</h4>
+            <p>The device's three buttons aren't arbitrary. Each one defines a bank of reflection questions the app can ask.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">03</span>
+            <div class="thread-pair">
+              <span class="thread-side">Shared form</span>
+            </div>
+            <h4>Three rings, <em>one mark</em>.</h4>
+            <p>The device's concentric rings became the logo. The logo's <em>o</em> became the brand name, onaka, "tummy" in Japanese.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">04</span>
+            <div class="thread-pair">
+              <span class="thread-side">Device + App → Doctor</span>
+            </div>
+            <h4>Lived data, <em>compiled</em>.</h4>
+            <p>The device captures symptoms a patient can't recall in clinic. The app compiles them into a shareable medical report.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CHAPTER A — THE DEVICE (demoted)                             -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter A · The device</div>
+    <p>A pocketable, tactile object designed for <em>seconds-long</em> capture, without screens or screens-shaped behaviour.</p>
+  </div>
+</section>
+
+<!-- 5. DECISION 1 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Decision 01</span>
+      <span class="note">the hardest pivot</span>
+    </div>
+    <div>
+      <h2>Why I <em>abandoned</em> gesture input.</h2>
+      <p class="lede">Users loved the tactile quality of squeezing fabric, but they couldn't trust their inputs were registering. The data corrupted itself.</p>
+      <div class="decision-flow">
+        <div class="dec-stage was">
+          <div class="dec-text">
+            <span class="dec-tag was">Original concept</span>
+            <h3>Squeeze, twist, pinch.</h3>
+            <p>Three gestures to log three symptoms. Tactile and playful, but unreadable to the device.</p>
+            <ul class="dec-list">
+              <li class="x">No confirmation that a gesture had registered</li>
+              <li class="x">Squeezing felt satisfying as a fidget, corrupting data</li>
+              <li class="x">FSR sensor couldn't reliably distinguish patterns</li>
+              <li class="x">Robotics expert confirmed: unreliable in advanced systems</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="decision-1-squeeze.png" alt="Nine-up grid of fabric squeeze prototypes in green, pink, and striped patterns being held and squeezed" />
+            </figure>
+            <div class="dec-img-caption">Fabric squeeze prototypes, green, pink, and striped variants tested for grip and gesture recognition.</div>
+          </div>
+        </div>
+
+        <div class="dec-arrow" aria-hidden="true">
+          <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+            <path d="M 80 10 Q 240 90, 380 40 T 540 60" />
+            <polygon class="tip" points="540,60 528,52 532,62 524,70" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">Final solution</span>
+            <h3>Three buttons, integrated into the <em>form</em>.</h3>
+            <p>Buttons give immediate, unambiguous confirmation. Concentric ring layout means each is distinguishable by touch, usable from a pocket without looking.</p>
+            <ul class="dec-list">
+              <li>Short / long press differentiates severity</li>
+              <li>Raised ring edges guide fingers without looking</li>
+              <li>NeoPixel confirms input, blue breathing pulse for anxiety</li>
+              <li>No accidental logging during ordinary handling</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="decision-1-buttons.png" alt="MDF prototypes of the button-based device showing edge profile and raised tactile button shapes" />
+            </figure>
+            <div class="dec-img-caption">MDF prototypes, testing edge profiles and raised, distinguishable button shapes for blind operation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DECISION 2 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Decision 02</span>
+    </div>
+    <div>
+      <h2><em>Three symptoms</em>, no more.</h2>
+      <div class="symptom-intro">
+        <p class="lede">A second gastroenterologist interview asked which daily GI factors matter most to capture. Pain, anxiety, and bowel movements were chosen because they are spontaneous, identifiable in the moment, and the visible surface of deeper patterns. This lets the app generate targeted reflective questions rather than asking users to fill in a form.</p>
+        <div class="principle-soft">
+          <div class="pl">Design principle</div>
+          <p>"Capture the minimum data that allows meaningful questions to be asked at end of day."</p>
+        </div>
+      </div>
+
+      <figure class="annotated-device">
+        <img class="annotated-device-img" src="onaka-render-transparent.png" alt="3D render of the Onaka device showing three concentric rings — centre button, middle ring, and outer ring with blue NeoPixel glow" />
+
+        <!-- SVG annotation lines connecting each label to its target ring -->
+        <svg class="annotation-lines" viewBox="0 0 1000 600" preserveAspectRatio="none">
+          <!-- Pain → centre dot -->
+          <path class="pain-line" d="M 230 130 Q 360 200, 500 300" />
+          <circle class="pain-dot" cx="500" cy="300" r="5" />
+
+          <!-- Anxiety → middle ring (right side) -->
+          <path class="anx-line" d="M 770 240 Q 700 270, 615 295" />
+          <circle class="anx-dot" cx="615" cy="295" r="5" />
+
+          <!-- Bowel → outer ring (bottom-left edge) -->
+          <path class="bowel-line" d="M 230 510 Q 350 470, 460 440" />
+          <circle class="bowel-dot" cx="460" cy="440" r="5" />
+        </svg>
+
+        <div class="ann-label pain ann-pain">
+          <span class="ann-tag">01 · Centre button</span>
+          <h4>Pain</h4>
+          <p>The most urgent symptom. Short press = mild, long press = severe.</p>
+        </div>
+
+        <div class="ann-label anx ann-anx">
+          <span class="ann-tag">02 · Middle ring</span>
+          <h4>Anxiety</h4>
+          <p>Triggers a blue NeoPixel breathing pulse, 5s inhale / 5s exhale, as immediate calming feedback.</p>
+        </div>
+
+        <div class="ann-label bowel ann-bowel">
+          <span class="ann-tag">03 · Outer ring</span>
+          <h4>Bowel movement</h4>
+          <p>Three press durations differentiate between normal, loose, and hard movements.</p>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CONCEPT & FORM — three-stage prototyping journey -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Concept &amp; form</span>
+      <span class="note">how the ring emerged</span>
+    </div>
+    <div>
+      <h2>From seven directions to a <em>silicone ring</em>.</h2>
+      <p class="lede">The brief was a calm object that lives in a pocket, presses without looking, and feels nothing like a screen. Seven directions, seven MDF prototypes, then silicone, on the way to the final form.</p>
+
+      <!-- Stage 1: Ideation -->
+      <div class="proto-stage">
+        <div class="proto-stage-meta">
+          <span class="proto-num">1 · Ideation</span>
+          <h3>Seven <em>directions</em>, all tactile.</h3>
+          <p>Initial concepts ranged from a ripple disc, a soft cube with corners-as-buttons, a pebble, a leaf pod, to a wearable lanyard. Every direction was anchored to one constraint: it had to be operable by touch alone, in a pocket, without a screen.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="form-01-ideation.png" alt="Sketch grid of seven early concept directions, including ripple disc, soft cube, pebble, and leaf pod" />
+          <figcaption>Seven directions sketched, each tested against the same touch-only constraint.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 2: MDF prototyping -->
+      <div class="proto-stage flip">
+        <div class="proto-stage-meta">
+          <span class="proto-num">2 · MDF prototypes</span>
+          <h3>Seven forms, in the <em>hand</em>.</h3>
+          <p>Laser-cut MDF and acrylic let me test grip, button placement, and accidental-press resistance on each direction. Buttons and lights were wired into each prototype so users could feel the actual interaction, not just the silhouette.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="form-02-mdf-prototypes.png" alt="Seven MDF prototypes laid out, each a different form being held and pressed" />
+          <figcaption>Laser-cut MDF prototypes, button-wired for live feedback during user testing.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 3: The ring, in silicone -->
+      <div class="proto-stage">
+        <div class="proto-stage-meta">
+          <span class="proto-num">3 · The ring, in silicone</span>
+          <h3>Three concentric rings, cast in <em>silicone</em>.</h3>
+          <p>The disc-with-rings won across every test: locatable by touch, no accidental presses, and a layout that maps directly to symptom hierarchy. Centre = pain (most urgent), middle = anxiety, outer = bowel. The face was cast from two-part silicone in a 3D-printed mould, dyed in matte tones that read as object, not gadget. A 2&nbsp;mm PLA stiffener sits beneath so presses register reliably, and a NeoPixel ring under the rear face runs the breathing pulse.</p>
+        </div>
+        <div class="proto-pair">
+          <figure class="proto-stage-img">
+            <img src="form-03-ring-neopixel.png" alt="Concentric ring prototype held in hand, NeoPixel illuminated blue" />
+            <figcaption>Concentric rings with NeoPixel test fit.</figcaption>
+          </figure>
+          <figure class="proto-stage-img">
+            <img src="form-03-silicone-cast.png" alt="Cast silicone button interface in matte finish, three colour variants" />
+            <figcaption>Cast silicone buttons, matte finish, three colour variants.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Concept & form — three-stage journey, mirrors period's proto-stage */
+  .proto-stage {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .proto-stage.flip { grid-template-columns: 1.1fr 1fr; }
+  .proto-stage.flip .proto-stage-meta { order: 2; }
+  .proto-stage.flip .proto-stage-img,
+  .proto-stage.flip .proto-pair { order: 1; }
+  .proto-stage-meta .proto-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .proto-stage-meta h3 {
+    font-size: 1.7rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    font-weight: 700;
+  }
+  .proto-stage-meta h3 em { font-style: italic; color: var(--blue); }
+  .proto-stage-meta p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .proto-stage-img {
+    width: 100%;
+    overflow: hidden;
+  }
+  .proto-stage-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .proto-stage-img figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .proto-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .proto-pair .proto-stage-img { margin-top: 0; }
+
+  @media (max-width: 900px) {
+    .proto-stage,
+    .proto-stage.flip { grid-template-columns: 1fr; gap: 1.5rem; }
+    .proto-stage.flip .proto-stage-meta,
+    .proto-stage.flip .proto-stage-img,
+    .proto-stage.flip .proto-pair { order: initial; }
+    .proto-stage-img,
+    .proto-pair { margin-top: 1rem; }
+    .proto-pair { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 8. BUILDING IT FOR REAL — technical breakdown -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Building it for real</span>
+      <span class="note">electronics &amp; path to production</span>
+    </div>
+    <div>
+      <h2>A working device, <em>pocket-sized</em>.</h2>
+      <p class="lede">The internals went through three microcontrollers before settling on the SparkFun Qwiic Pocket, the only board small enough to fit the final 60&nbsp;mm form factor while still carrying Wi-Fi. The full electronics stack runs on a 1200&nbsp;mAh LiPo, charges over USB-C, and pushes button events to the app over Blynk IoT.</p>
+
+      <div class="tech-twin">
+        <figure class="tech-exploded">
+          <img src="onaka-electronics-exploded.png" alt="Exploded render of the Onaka device showing the silicone button interface, PLA stiffener, NeoPixel ring, SparkFun Qwiic Pocket microcontroller, and 1200mAh LiPo battery in the SLA resin base" />
+          <figcaption>Exploded view: silicone interface · PLA stiffener · NeoPixel ring · SparkFun board · LiPo · SLA base.</figcaption>
+        </figure>
+
+        <div class="tech-components">
+          <div class="tech-comp">
+            <span class="tech-num">01</span>
+            <h4>Silicone shell + <em>buttons</em></h4>
+            <p>Two-part cast silicone with three integrated buttons. Skin-safe, water and UV resistant, dyed in matte finishes. Sits over a 2&nbsp;mm PLA stiffener so presses register without flex.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">02</span>
+            <h4>NeoPixel ring, <em>12 LEDs</em></h4>
+            <p>Mounted under the rear face. Pulses blue at 5&nbsp;s inhale / 5&nbsp;s exhale for anxiety, confirms button input, and shows connection and battery state.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">03</span>
+            <h4>SparkFun <em>Qwiic Pocket</em></h4>
+            <p>Wi-Fi-capable microcontroller chosen for its compact footprint, the third board after testing M5StickC Plus and Arduino Nano 33 IoT. Pushes events to Blynk over Wi-Fi.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">04</span>
+            <h4>1200&nbsp;mAh <em>LiPo + USB-C</em></h4>
+            <p>Connected via 2-pin JST. Charges through a USB-C port machined into the SLA base. Sized for several days of typical use between charges.</p>
+          </div>
+          <div class="tech-comp">
+            <span class="tech-num">05</span>
+            <h4>Blynk IoT <em>cloud</em></h4>
+            <p>Each button press is sent as an event to the Blynk cloud, which the app retrieves via auth token. A demo mode bypasses the cloud for offline review.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-to-production">
+        <div class="ptp-label">Path to production</div>
+        <p>The prototype uses PLA for the stiffener and SLA resin for the translucent base. Both are slated for swap to <em>injection-moulded polypropylene</em> in production for durability and cost. The current SparkFun board is a development part, the production direction is a custom PCB sized to the same 60&nbsp;mm footprint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §08 Building it for real — onaka technical styles */
+  .tech-twin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3.5rem;
+    align-items: start;
+  }
+  .tech-exploded {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+  }
+  .tech-exploded img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-exploded figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .tech-components {
+    display: flex;
+    flex-direction: column;
+  }
+  .tech-comp {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tech-comp:first-child { padding-top: 0; }
+  .tech-comp:last-child { border-bottom: none; }
+  .tech-comp .tech-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .tech-comp h4 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .tech-comp h4 em { font-style: italic; color: var(--blue); }
+  .tech-comp p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .path-to-production {
+    margin-top: 4rem;
+    padding: 2rem 2.25rem;
+    background: var(--blue-soft);
+    border-left: 3px solid var(--blue);
+  }
+  .path-to-production .ptp-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .path-to-production p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 64ch;
+  }
+  .path-to-production p em { font-style: italic; color: var(--blue-deep); font-weight: 500; }
+
+  @media (max-width: 900px) {
+    .tech-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .tech-exploded { position: static; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER B — THE APP (demoted)                                -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter B · The app</div>
+    <p>What a pocket object can't carry: <em>reflection, history, and a trail for the doctor</em>.</p>
+  </div>
+</section>
+
+<!-- 9. DECISION 3 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 09</span>
+      <span class="nm">Decision 03</span>
+    </div>
+    <div>
+      <h2 class="wide">Testing the <em>interaction model</em> before designing the UI.</h2>
+      <p class="lede">Four parallel low-fidelity prototypes were built in Figma, each testing a different input philosophy, and put in front of 5 participants over several days. The winning method defined the entire app's interaction model.</p>
+
+      <div class="methods">
+        <div class="method">
+          <div class="method-frame lists">
+            <span class="method-tag win">Method 01 · Winner</span>
+            <img src="decision-3-lists.png" alt="Lists method prototypes — categorised picker lists for food, mood and symptom tracking" />
+          </div>
+          <h4>Categorised <em>lists</em></h4>
+          <div class="method-result win">Preferred, 3 / 5 participants</div>
+          <dl>
+            <dt>Hypothesis</dt>
+            <dd>Pre-built taxonomies (Meat / Vegetables / Body parts) reduce decision fatigue compared to free input.</dd>
+            <dt>Why it won</dt>
+            <dd>Fastest to complete. No typing. Familiar mental model. Worked when participants were tired or in a hurry.</dd>
+          </dl>
+        </div>
+
+        <div class="method">
+          <div class="method-frame icons">
+            <span class="method-tag lose">Method 02</span>
+            <img src="decision-3-icons.png" alt="Icons method prototypes — emoji-based mood faces and body-part illustrations" />
+          </div>
+          <h4>Icons &amp; <em>illustrations</em></h4>
+          <div class="method-result">Backup, 2 / 5 participants</div>
+          <dl>
+            <dt>Hypothesis</dt>
+            <dd>Visual symbols (emoji moods, body diagrams) feel friendlier and remove the language barrier.</dd>
+            <dt>Why it lost</dt>
+            <dd>Ambiguous icons forced re-reading. Several participants found the visual language too playful for a tool meant to support a chronic medical condition.</dd>
+          </dl>
+        </div>
+
+        <div class="method">
+          <div class="method-frame text-voice">
+            <span class="method-tag lose">Method 03 · 04</span>
+            <img src="decision-3-text-voice.png" alt="Free text and voice input prototypes — open type fields and voice modal" />
+          </div>
+          <h4>Free text &amp; <em>voice</em></h4>
+          <div class="method-result">Rejected, 0 / 5 preferred</div>
+          <dl>
+            <dt>Hypothesis</dt>
+            <dd>Open input lets users describe nuance, the body's most subjective experiences.</dd>
+            <dt>Why it lost</dt>
+            <dd>Free typing felt like another effortful task at the end of an already tiring day. Voice input was rejected for use in shared or public settings. Both methods raised cognitive load instead of reducing it.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="method-summary">
+        <div>
+          <div class="summary-label">Test result</div>
+          <h3>The data was unambiguous.</h3>
+          <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1.25rem; margin-top: 1.5rem;">Input preference, 5 participants</p>
+          <div class="bar-row">
+            <span class="bar-label">Lists</span>
+            <div class="bar-track"><div class="bar-fill w" style="width: 60%;"></div></div>
+            <span class="bar-value w">3 / 5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Icons</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 40%;"></div></div>
+            <span class="bar-value">2 / 5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Free text</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 8%;"></div></div>
+            <span class="bar-value">0 / 5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Voice</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 5%;"></div></div>
+            <span class="bar-value">Output only</span>
+          </div>
+        </div>
+        <div>
+          <div class="summary-label">What it changed</div>
+          <h3>From "open input" to <em>structured choice</em>.</h3>
+          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--ink-2);">Every input the app would ever ask for got rebuilt as a multiple-choice prompt. No blank fields, no "type your answer here", no voice capture. Voice survived in one place only, as the AI's voice when reading the daily reflection question aloud, never as the user's.</p>
+          <div class="principle-callout">
+            <div class="pl">App principle</div>
+            <p>"The device handles all logging. The app exists for reflection, and reflection happens at the user's most tired moment of the day."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. REFLECTION SYSTEM — slimmed: principle + conditional pairs -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 10</span>
+      <span class="nm">The reflection system</span>
+      <span class="note">questions in, insights out</span>
+    </div>
+    <div>
+      <h2>Eight to twelve questions, generated from <em>what was logged</em>.</h2>
+      <p class="lede">The device captures spontaneous symptoms. The app's job, once a day, is to turn those captures into a small set of reflective questions tailored to the symptoms that actually happened. Three banks behind the scenes, one for bowel, one for pain, one for anxiety, plus an end-of-day wrap-up. When two symptoms occur close together, the app pairs them and asks a conditional question that links the two.</p>
+
+      <!-- Conditional / combination questions -->
+      <div class="conditional-strip">
+        <div class="cond-head">
+          <span class="cond-label">Conditional questions</span>
+          <p>The most informative question is rarely about a single symptom. It's about the link between two.</p>
+        </div>
+        <div class="cond-pairs">
+          <div class="cond-pair">
+            <span class="cond-symbols">Pain&nbsp;<em>+</em>&nbsp;Bowel</span>
+            <p>"Did the pain lessen after going to the toilet?"</p>
+          </div>
+          <div class="cond-pair">
+            <span class="cond-symbols">Anxiety&nbsp;<em>+</em>&nbsp;Pain</span>
+            <p>"Did the anxiety arrive before the pain, or after?"</p>
+          </div>
+          <div class="cond-pair">
+            <span class="cond-symbols">Anxiety&nbsp;<em>+</em>&nbsp;Bowel</span>
+            <p>"Did stress feel like it changed what happened in the gut?"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The output: insights as plain sentences, not graphs -->
+      <div class="insights-output">
+        <div class="io-head">
+          <span class="io-label">What the answers become</span>
+          <h3>Plain, <em>actionable sentences</em>. No graphs.</h3>
+          <p>Existing GI apps return charts and frequency counts, the kind of data that creates hyper-awareness without telling the user what to do with it. Onaka takes the answers from the day's questions and writes them back as short, plain-English insights, each prioritised by urgency and labelled by category. The reading load stays where it should, low.</p>
+        </div>
+        <div class="io-examples">
+          <div class="io-card io-priority">
+            <span class="io-tag">Priority insight</span>
+            <p>Pain on Monday eased after a bowel movement. This pattern has now appeared three times in the last two weeks.</p>
+          </div>
+          <div class="io-card io-pattern">
+            <span class="io-tag">Pattern</span>
+            <p>Anxiety has tended to precede pain by 30 to 60 minutes on weekdays.</p>
+          </div>
+          <div class="io-card io-food">
+            <span class="io-tag">Food</span>
+            <p>Bowel discomfort has occurred within a few hours of dairy four times this month.</p>
+          </div>
+          <div class="io-card io-advice">
+            <span class="io-tag">Advice</span>
+            <p>Try the breathing pulse on the device next time anxiety arrives, and log whether it helped.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §10 Reflection system — slim: just the conditional strip */
+  .conditional-strip {
+    margin-top: 3rem;
+    padding: 2rem 2.25rem;
+    background: var(--blue-soft);
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .cond-head .cond-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .cond-head p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .cond-pairs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .cond-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .cond-symbols {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .cond-symbols em {
+    font-style: normal;
+    color: var(--blue-deep);
+    margin: 0 0.15rem;
+  }
+  .cond-pair p {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 900px) {
+    .conditional-strip { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+    .cond-pairs { grid-template-columns: 1fr; gap: 1.25rem; }
+    .insights-output { grid-template-columns: 1fr; gap: 1.5rem; }
+    .io-examples { grid-template-columns: 1fr; }
+  }
+
+  /* §10 — Insights output (the closing argument: sentences, not graphs) */
+  .insights-output {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .io-head .io-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+  .io-head h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin: 0 0 1rem;
+    max-width: 14ch;
+    font-weight: 700;
+  }
+  .io-head h3 em { font-style: italic; color: var(--blue); }
+  .io-head p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .io-examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .io-card {
+    padding: 1.25rem 1.4rem;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--blue);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .io-priority { border-left-color: var(--blue-deep); background: var(--blue-soft); }
+  .io-pattern { border-left-color: var(--blue); }
+  .io-food { border-left-color: #B8D0F0; }
+  .io-advice { border-left-color: #6B7DF2; }
+  .io-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .io-priority .io-tag { color: var(--blue-deep); }
+  .io-card p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+</style>
+
+<!-- 11. IA + VISUAL SYSTEM — sitemap, palette, logo origin -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 11</span>
+      <span class="nm">IA + visual system</span>
+      <span class="note">the logo, at the centre</span>
+    </div>
+    <div>
+      <h2>Four tabs, with a <em>central button</em> for the only screen that asks.</h2>
+      <p class="lede">Four bottom-nav tabs cover everything passive, Home, Insights, Resources, Settings. The reflection flow sits on a fifth, central button, raised above the bar, marked with the logo. It's the only place the user is asked to think, and it lives where the app's geometry naturally points.</p>
+
+      <!-- Sitemap, full-bleed -->
+      <figure class="sitemap">
+        <img src="onaka-sitemap.png" alt="Sitemap of the Onaka app showing Sign-in/Sign-up at the top leading to Onboarding Setup, then the Main App with persistent bottom nav. Five children: Home (with Dashboard, Symptom Counts, Daily Tips, Today's Overview, Medical Report, All Symptom Logs, and Pain/Anxiety/Bowel entries), Insights (Hub, Priority Insights, General Advice), the central Reflection Flow (Correlation Q1, Correlation Q2, more questions, Submit and Close, dashed-line feeding back into Insights), Resources (Hub, Articles, Therapeutic Exercises, Recipes), and Settings (Profile, Appearance, Device Settings for Blynk, App Resources, Account)." />
+        <figcaption>Full sitemap. Symptom logs nest under Home; Device Settings under Settings. The dashed red line shows the once-daily reflection flow feeding back into Insights.</figcaption>
+      </figure>
+
+      <!-- Decision rationale, mirrors period's pattern -->
+      <div class="ia-decision">
+        <p>Putting reflection on a central, raised button instead of a tab made the architecture honest about what the product is: a device that captures, with an app that asks one good question a day. The geometry of the navigation matches the geometry of the object, three concentric rings, the same form as the logo and the device itself.</p>
+      </div>
+
+      <!-- Visual system absorbed: palette + logo origin -->
+      <div class="ds-absorbed">
+        <div class="ds-block ds-split">
+          <div class="ds-split-text">
+            <h3 class="ds-h">Soft blues for calm, <em>three accents</em> for the symptoms.</h3>
+            <p class="ds-sub">The base palette is shades of blue, chosen against the clinical grey of existing GI apps and the pink of period-tracker conventions. Symptoms keep three warm accents so they read at a glance in logs and insights.</p>
+            <div class="palette-grid">
+              <div class="pgroup">
+                <div class="pg-label">Base</div>
+                <div class="pg-row">
+                  <div class="pswatch" style="background: #3B6FBF;"><span>Blue · deep</span></div>
+                  <div class="pswatch" style="background: #6B7DF2;"><span>Blue</span></div>
+                  <div class="pswatch" style="background: #B8D0F0;"><span>Blue · soft</span></div>
+                  <div class="pswatch" style="background: #EAF1FB; color: var(--ink-2);"><span>Blue · cream</span></div>
+                </div>
+              </div>
+              <div class="pgroup">
+                <div class="pg-label">Symptoms</div>
+                <div class="pg-row">
+                  <div class="pswatch" style="background: #E05A5A;"><span>Pain · red</span></div>
+                  <div class="pswatch" style="background: #6B7DF2;"><span>Anxiety · blue</span></div>
+                  <div class="pswatch" style="background: #F5C842; color: var(--ink);"><span>Bowel · yellow</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figure class="ds-split-img logo-frame">
+            <img src="onaka-logo-origin.png" alt="Logo origin sequence: device with three concentric rings, the same form rendered as the o-shaped logo, the wordmark onaka" />
+            <figcaption>Three rings, the o-letter, the name. The device is the logo.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ds-block">
+          <h3 class="ds-h">The logo named the <em>product</em>.</h3>
+          <p class="ds-sub">The mark started as the device's three concentric rings, simplified into a circular form that doubled as the letter <em>o</em>. The product needed a name with an <em>o</em> in it that the logo could replace. <em>Onaka</em>, Japanese for "tummy," fit the meaning of the product and the shape of the mark in a single word.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §11 — Sitemap + visual system */
+  .sitemap {
+    margin: 3rem 0 0;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .sitemap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sitemap figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  .ia-decision {
+    margin-top: 3rem;
+    padding-left: 2rem;
+    border-left: 2px solid var(--blue);
+    max-width: 64ch;
+  }
+  .ia-decision p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .ds-absorbed {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .ds-block { margin-top: 4rem; }
+  .ds-block:first-of-type { margin-top: 0; }
+  .ds-h {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    max-width: 28ch;
+  }
+  .ds-h em { font-style: italic; color: var(--blue); }
+  .ds-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 0 2rem;
+  }
+  .ds-sub em { font-style: italic; color: var(--blue-deep); }
+  .ds-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .palette-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .pgroup .pg-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .pg-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pswatch {
+    flex: 1 1 0;
+    min-width: 80px;
+    padding: 0.85rem 0.75rem;
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    aspect-ratio: 1 / 0.6;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .logo-frame {
+    margin: 0;
+    overflow: hidden;
+    background: var(--blue-soft);
+  }
+  .logo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .logo-frame figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .ds-split { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+
+<!-- 12. FINAL SCREENS — period-style: video left, 3x2 screen strip right -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 12</span>
+      <span class="nm">Final screens</span>
+      <span class="note">the app, in motion</span>
+    </div>
+    <div>
+      <h2>Built in Lovable. Connected via <em>Blynk</em>.</h2>
+      <p class="lede">A walking prototype, end to end, hardware to insights. Below, the app demo running on the device, then the six screens that anchor the day-to-day experience.</p>
+
+      <div class="final-row">
+        <figure class="video-hero">
+          <video controls poster="onaka-app-demo-poster.jpg" preload="metadata">
+            <source src="onaka-app-demo.mp4" type="video/mp4" />
+          </video>
+          <figcaption>App walkthrough. Home → reflection → insights → doctor compile.</figcaption>
+        </figure>
+
+        <div class="screen-strip">
+          <div class="scol">
+            <div class="slabel">01 · Home</div>
+            <figure class="screen">
+              <img src="onaka-screen-01-home.png" alt="Home screen showing today's symptom counts, daily tips, and a button to compile data for a doctor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Home<br><span>onaka-screen-01-home.png</span></div>
+              <figcaption>Today's symptom counts. Tips. One tap to compile a doctor report.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">02 · Symptom logs</div>
+            <figure class="screen">
+              <img src="onaka-screen-02-logs.png" alt="Symptom log view showing pain, anxiety, and bowel entries with timestamp and severity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Symptom logs<br><span>onaka-screen-02-logs.png</span></div>
+              <figcaption>Each entry with time and severity. Filter by symptom, export to Excel.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">03 · Reflection</div>
+            <figure class="screen">
+              <img src="onaka-screen-03-reflection.png" alt="Reflection screen, full-screen, no menu visible, showing a question with multiple-choice answers" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Reflection<br><span>onaka-screen-03-reflection.png</span></div>
+              <figcaption>Full-screen, no menu. Eight to twelve questions, structured choice only.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">04 · Insights</div>
+            <figure class="screen">
+              <img src="onaka-screen-04-insights.png" alt="Insights screen showing plain-language insights organised into priority, patterns, food, and advice" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Insights<br><span>onaka-screen-04-insights.png</span></div>
+              <figcaption>Plain-language sentences, prioritised. No graphs, no raw counts.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">05 · Resources</div>
+            <figure class="screen">
+              <img src="onaka-screen-05-resources.png" alt="Resources screen with articles, exercises, and recipes filtered by the user's GI condition" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Resources<br><span>onaka-screen-05-resources.png</span></div>
+              <figcaption>Articles, exercises, recipes, filtered to the user's condition.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">06 · Doctor report</div>
+            <figure class="screen">
+              <img src="onaka-screen-06-doctor.png" alt="Compiled doctor report screen showing symptom history and reflection summary ready to share" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Doctor report<br><span>onaka-screen-06-doctor.png</span></div>
+              <figcaption>Compiled symptoms and reflections. Downloadable, shareable.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §12 — Final screens: video left, 3x2 screens right (mirrors period) */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .video-hero {
+    margin: 0;
+    width: 100%;
+    background: var(--ink);
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .video-hero video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--ink);
+  }
+  .video-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem 1rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .screen figcaption {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .screen-placeholder {
+    aspect-ratio: 9 / 19;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--blue-soft);
+    color: var(--ink-3);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+  }
+  .screen-placeholder span {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .video-hero { max-width: 280px; margin: 0 auto; }
+    .screen-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- 13. FINAL -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 13</span>
+      <span class="nm">Final product</span>
+      <span class="note">all together now</span>
+    </div>
+    <div>
+      <h2><em>Onaka</em>, a system designed around calm.</h2>
+      <div class="final-grid">
+        <figure class="final-hero">
+          <img src="onaka-hero.png" alt="Final blue Onaka device held in hand" />
+        </figure>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="ib" style="height: 220px;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Companion app, 4 key screens</strong>
+            <p>Portfolio p.10</p>
+          </div>
+          <div class="ib n" style="height: 220px;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>5 colour variant renders</strong>
+            <p>Journal p.114</p>
+          </div>
+        </div>
+      </div>
+      <div class="out-grid">
+        <div class="out">
+          <div class="ol">Device</div>
+          <p>60mm silicone disc. Three concentric ring buttons. NeoPixel breathing light. USB-C charge. Keychain attachment.</p>
+        </div>
+        <div class="out">
+          <div class="ol">Electronics</div>
+          <p>SparkFun Qwiic Pocket. NeoPixel ring. 1200mAh LiPo. Blynk IoT cloud for wireless sync to app.</p>
+        </div>
+        <div class="out">
+          <div class="ol">App</div>
+          <p>Built in Lovable + Figma. AI-generated reflective questions. Colour-coded text insights. Doctor export. Dark mode.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-marker">§ END</div>
+    <div>
+      <div class="foot-name">Nefeli Lemessiou</div>
+      <div class="foot-meta">MA Design Products · Royal College of Art · 2025</div>
+    </div>
+    <div class="foot-next">
+      <div class="nl">Next project</div>
+      <a class="nt" href="#">period. →</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

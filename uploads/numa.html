@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMA · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Numa uses its own brand purple, the one used across the project's diagrams
+       and UI. The only case study allowed a vibrant accent rather than a muted one,
+       because here the brand identity is the work. */
+    --numa: #1D009D;
+    --numa-deep: #15006A;
+    --numa-soft: #EDEAF7;
+    --numa-bright: #4A2BC2;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAFA;
+    --bg-warm: #F7F6FB;
+    --rule: #E6E4EE;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--numa-deep); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--numa-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID: section structure, identical to the other case studies */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--numa-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--numa-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--numa-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--numa-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 0;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--numa);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* §01 PERSONA: photo + summary/challenges/goals */
+  .persona {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-top: 1px solid var(--ink);
+    padding-top: 2.5rem;
+  }
+  .persona-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.75rem;
+    align-items: center;
+    background: var(--bg-warm);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+  .persona-photo {
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--numa-soft);
+    border: 1px solid var(--rule);
+  }
+  .persona-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .persona-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1rem;
+  }
+  .persona-photo-placeholder span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    opacity: 0.7;
+  }
+  .persona-id {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .persona-id .pn {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .persona-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .ppill {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--numa-deep);
+    background: var(--numa-soft);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+  }
+  .pd-summary {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0.15rem 0 0;
+  }
+  .persona-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .pd-panel {
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .pd-pains { background: var(--bg-2); border: 1px solid var(--rule); }
+  .pd-goals { background: var(--numa-soft); }
+  .pd-panel .pd-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .pd-pains .pd-tag { color: var(--ink-3); }
+  .pd-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .pd-panel li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .pd-pains li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    top: -0.05rem;
+    color: var(--ink-4);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .pd-goals li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    background: var(--numa);
+    border-radius: 50%;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .persona-detail { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .persona-card { grid-template-columns: 1fr; justify-items: start; gap: 1.25rem; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">03 — NUMA</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">October 2025</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Product design concept · self-directed</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, UX, UI, branding</span>
+    </div>
+  </div>
+  <h1 class="display a d2">A health app that tells you what to <em>do</em>, not just what you did.</h1>
+  <p class="hero-sub a d3">NUMA is a premium health and fitness concept built around one idea: turn a day of scattered metrics into a single clear answer to <em>what should I do next to feel better</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">UI Design</span>
+    <span class="tag">Information Architecture</span>
+    <span class="tag">Wireframing</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="numa-hero.jpg" alt="The numa app shown on two iPhones against a purple gradient: the NUMA splash screen and the Home screen with the day's metrics and Day Score" />
+</figure>
+
+<!-- 1. BRIEF + USER -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Brief + user</span>
+      <span class="note">not another app full of charts</span>
+    </div>
+    <div>
+      <h2 class="wide">Design a premium health app that feels <em>luxurious yet simple</em>.</h2>
+      <p class="lede">The brief: a health and fitness app that tracks key metrics, follows personalised plans, and surfaces clear insights through an elegant interface, combining advanced analytics, AI recommendations, and wearable integration to support a balanced lifestyle. The hard part is the contradiction inside it. Advanced analytics usually means more charts. A balanced lifestyle usually means fewer. The whole project lives in resolving that tension.</p>
+
+      <div class="pull">
+        <blockquote>"I don't need another app full of charts. I just want something that tells me what I should do next to feel better."</blockquote>
+        <cite>George Matthews · primary persona</cite>
+      </div>
+
+      <!-- Persona -->
+      <div class="persona">
+        <div class="persona-card">
+          <div class="persona-photo">
+            <img src="numa-persona.jpg" alt="George Matthews, the primary persona: a man in his mid-fifties in a light blue shirt" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="persona-photo-placeholder" style="display:none;">
+              <span>numa-persona.jpg</span>
+            </div>
+          </div>
+          <div class="persona-id">
+            <span class="pn">George Matthews</span>
+            <div class="persona-pills">
+              <span class="ppill">54</span>
+              <span class="ppill">Venture capitalist</span>
+              <span class="ppill">Married</span>
+              <span class="ppill">Runs regularly</span>
+            </div>
+            <p class="pd-summary">A busy professional balancing a high-stress job with family life. He runs, eats well, and wants to stay healthy, but has no time to analyse complex data.</p>
+          </div>
+        </div>
+
+        <div class="persona-detail">
+          <div class="pd-panel pd-pains">
+            <span class="pd-tag">What frustrates him</span>
+            <ul>
+              <li>Health apps that feel overwhelming and data-heavy.</li>
+              <li>Graphs and metrics he has to decode himself.</li>
+              <li>Anything that needs manual tracking he has no time for.</li>
+            </ul>
+          </div>
+          <div class="pd-panel pd-goals">
+            <span class="pd-tag">What he wants</span>
+            <ul>
+              <li>Quick, clear suggestions: rest, move, hydrate.</li>
+              <li>A dashboard around the metrics he actually cares about.</li>
+              <li>To feel in control, without anxiety over the numbers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THREE APPS STUDIED: Apple Health / Oura / Whoop -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+      <span class="note">where the gaps are</span>
+    </div>
+    <div>
+      <h2>Three apps that each get <em>one thing</em> right.</h2>
+      <p class="lede">To understand how leading health apps work and where they leave room, I studied three: Apple Health, Oura, and Whoop. Each is strong in a different way, and each leaves a gap that became a design opening for NUMA.</p>
+
+      <div class="apps-grid">
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="numa-icon-apple.png" alt="Apple Health app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="app-icon-ph" style="display:none;"><span>Apple</span></div>
+          </div>
+          <span class="app-role">The aggregator</span>
+          <span class="app-name">Apple Health</span>
+          <p class="app-take">Great for unified data. Needs more personalisation and a nudge toward what to actually do.</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> connects with everything, trusted, visualises trends over time.</p>
+            <p><strong>Gap:</strong> shows numbers but rarely suggests next steps.</p>
+          </div>
+        </div>
+
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="numa-icon-oura.png" alt="Oura app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="app-icon-ph" style="display:none;"><span>Oura</span></div>
+          </div>
+          <span class="app-role">The elegant tracker</span>
+          <span class="app-name">Oura</span>
+          <p class="app-take">Beautifully calm. The next step is direction: what should I do right now?</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> minimal UI, scores delivered cleanly, low-friction ring.</p>
+            <p><strong>Gap:</strong> AI summaries restate the charts rather than guiding.</p>
+          </div>
+        </div>
+
+        <div class="app-col">
+          <div class="app-icon">
+            <img src="numa-icon-whoop.png" alt="Whoop app icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="app-icon-ph" style="display:none;"><span>Whoop</span></div>
+          </div>
+          <span class="app-role">The performance coach</span>
+          <span class="app-name">Whoop</span>
+          <p class="app-take">Powerful for athletes. The opening is to widen appeal and soften the learning curve.</p>
+          <div class="app-detail">
+            <p><strong>Strong:</strong> strain and recovery framing turns data into context.</p>
+            <p><strong>Gap:</strong> steep for novices, and value-for-cost is debated.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synthesis line, full width -->
+      <div class="research-synth">
+        <span class="rs-tag">The opening</span>
+        <p>All three are built for people who already want the data. None is built for someone who just wants to be told, in plain language, what to do next. <em>That</em> is the space NUMA is designed for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Research: 3 icon-led columns + full-width synthesis */
+  .apps-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .app-col {
+    padding: 2.25rem 1.75rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .app-col:not(:first-child) { padding-left: 1.75rem; }
+  .app-col:last-child { border-right: none; padding-right: 0; }
+  .app-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .app-icon-ph {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: var(--numa-soft);
+    border: 1px dashed var(--rule);
+  }
+  .app-icon-ph span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--numa-deep);
+    opacity: 0.8;
+  }
+  .app-role {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .app-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .app-take {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .app-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    margin-top: auto;
+  }
+  .app-detail p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .app-detail strong {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+
+  .research-synth {
+    margin-top: 3rem;
+    padding: 2.25rem 2.5rem;
+    background: var(--numa-soft);
+    border: 1px solid var(--numa);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .rs-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .research-synth p {
+    font-family: var(--display);
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  .research-synth em { font-style: italic; color: var(--numa-deep); font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .apps-grid { grid-template-columns: 1fr; gap: 0; }
+    .app-col { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 0; }
+    .app-col:not(:first-child) { padding-left: 0; }
+    .app-col:first-child { padding-top: 2rem; }
+    .app-col:last-child { border-bottom: none; }
+    .app-detail { margin-top: 1rem; }
+    .research-synth { padding: 1.75rem 1.5rem; }
+  }
+</style>
+
+<!-- 3. SIX PROBLEMS, SIX MOVES: paired problem/solution rows -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Problems + moves</span>
+      <span class="note">every gap, a decision</span>
+    </div>
+    <div>
+      <h2>Six problems with health apps. Six <em>design moves</em>.</h2>
+      <p class="lede">Every common frustration in the category became a specific decision in NUMA. Tap any card to see the problem each move solves.</p>
+
+      <div class="moves-cards">
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Clarity and calm">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">01</span>
+              <h4>Clarity and calm</h4>
+              <p>One clear daily summary per category. Calm by default, detail on request.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Data overload</strong>
+              <p>Most apps bury users in graphs and stats that feel more like analysis than self-care.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Actionable guidance">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">02</span>
+              <h4>Actionable guidance</h4>
+              <p>Every screen ends in a small next step, so data always becomes a decision.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Data without direction</strong>
+              <p>Apps show plenty of metrics but rarely tell you what to actually do with them.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Customisable dashboard">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">03</span>
+              <h4>Customisable dashboard</h4>
+              <p>Users choose which categories matter and arrange them in their own order.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>One-size-fits-all tracking</strong>
+              <p>Most apps assume everyone cares about the same metrics, creating clutter and noise.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Effortless automation">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">04</span>
+              <h4>Effortless automation</h4>
+              <p>Connected devices sync automatically; a single Day Score reduces the effort.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Manual logging fatigue</strong>
+              <p>People tire of logging by hand, or of making sense of too many separate numbers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Focus on wellbeing">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">05</span>
+              <h4>Focus on wellbeing</h4>
+              <p>Calm feedback and gentle encouragement, supporting balance over perfection.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Performance pressure</strong>
+              <p>Framing health as competition can create pressure and guilt rather than care.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" tabindex="0" role="button" aria-label="Flip to see the problem behind Integrated daily support">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="mc-num">06</span>
+              <h4>Integrated daily support</h4>
+              <p>A Resources page turns insights into real actions: stretches, meals, mindfulness.</p>
+              <span class="flip-hint">Tap for the problem ↻</span>
+            </div>
+            <div class="flip-back">
+              <span class="fb-tag">The problem</span>
+              <strong>Disconnected insights</strong>
+              <p>Health data often feels separate from daily life and the real choices people make.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Six problems, six moves: flip cards */
+  .moves-cards {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1200px;
+    min-height: 160px;
+    cursor: pointer;
+    border-radius: 14px;
+    outline: none;
+  }
+  .flip-card:focus-visible .flip-inner {
+    box-shadow: 0 0 0 2px var(--numa);
+    border-radius: 14px;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    overflow: hidden;
+  }
+  .flip-front {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s;
+  }
+  .flip-card:hover .flip-front { border-color: var(--numa); }
+  .mc-num {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-family: var(--display);
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--numa-soft);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .flip-front h4 {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 0.3rem;
+    color: var(--ink);
+  }
+  .flip-front h4::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--numa);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  .flip-front p {
+    position: relative;
+    z-index: 1;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .flip-hint {
+    position: relative;
+    z-index: 1;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 1rem;
+    transition: color 0.2s;
+  }
+  .flip-card:hover .flip-hint { color: var(--numa-deep); }
+  .flip-back {
+    background: var(--numa);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .fb-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+  .flip-back strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0.15rem 0 0.4rem;
+  }
+  .flip-back p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.9);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .moves-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .moves-cards { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 4. THREE JOURNEYS: task flows -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Journeys</span>
+      <span class="note">designed around goals</span>
+    </div>
+    <div>
+      <h2>Three journeys, each ending in a <em>goal met</em>.</h2>
+      <p class="lede">Rather than map every screen, I mapped the three things a user actually comes to NUMA to do. Each flow starts with an intent and ends in a resolved state, with the decision points the design has to handle along the way.</p>
+
+      <!-- Three goal labels -->
+      <div class="journey-labels">
+        <div class="jl-cell">
+          <span class="jl-num">Journey 01</span>
+          <h4>"Tell me what to do tonight to feel better tomorrow."</h4>
+          <p>The core daily loop: open, read the Day Score, act on one suggestion. Ends in feeling in control.</p>
+        </div>
+        <div class="jl-cell">
+          <span class="jl-num">Journey 02</span>
+          <h4>"Log something the device didn't track."</h4>
+          <p>The manual-entry case, with a smart check for whether the wearable already caught it, so nothing gets logged twice.</p>
+        </div>
+        <div class="jl-cell">
+          <span class="jl-num">Journey 03</span>
+          <h4>"Get set up fast and see something useful."</h4>
+          <p>Onboarding: account, categories, optional device connect, straight to a first dashboard that already shows value.</p>
+        </div>
+      </div>
+
+      <!-- Task flow diagram -->
+      <figure class="journey-image">
+        <img src="numa-journeys.png" alt="Three task flow diagrams side by side. Each starts with a user goal and moves through app screens (purple), decision points (brown), and end states (grey and green). Journey one: open app, home screen, read day score, see suggestion, decide to act, start a wind-down routine. Journey two: on categories tab, tap plus, choose entry type, check if already tracked, fill in or edit, save. Journey three: open app first time, welcome, create account, pick categories, connect a device, sync or manual, first dashboard." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="journey-placeholder" style="display:none;">
+          <strong>Three task flows</strong>
+          <p>numa-journeys.png</p>
+        </div>
+      </figure>
+
+      <!-- The point of the flows -->
+      <div class="journey-note">
+        <span class="jn-tag">Why flows, not screens</span>
+        <p>Mapping by goal kept the design honest. If a path to a goal got long or branched too much, that was a problem to fix in the structure, not decorate in the UI. The "already tracked?" check in Journey 02 and the optional device step in Journey 03 both came directly from spotting friction in these flows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §04 Journeys: 3 goal labels + flow diagram + note */
+  .journey-labels {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+  }
+  .jl-cell {
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .jl-cell:not(:first-child) { padding-left: 1.5rem; }
+  .jl-cell:last-child { border-right: none; padding-right: 0; }
+  .jl-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .jl-cell h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0 0 0.35rem;
+    color: var(--ink);
+  }
+  .jl-cell p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .journey-image {
+    margin: 3rem 0;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .journey-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 1.5rem;
+    background: var(--bg);
+  }
+  .journey-placeholder {
+    aspect-ratio: 21 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .journey-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .journey-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .journey-note {
+    padding: 1.5rem 2rem;
+    background: var(--numa-soft);
+    border-left: 3px solid var(--numa);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .jn-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .journey-note p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .journey-labels { grid-template-columns: 1fr; gap: 1.5rem 0; padding-top: 1.5rem; }
+    .jl-cell { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+    .jl-cell:last-child { border-bottom: none; padding-bottom: 0; }
+    .journey-note { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.25rem 1.5rem; }
+    .journey-image img { padding: 0.75rem; }
+  }
+</style>
+
+<!-- 5. STRUCTURE + SCREENS: site map, wireframes, final UI -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Structure + screens</span>
+      <span class="note">boxes before polish</span>
+    </div>
+    <div>
+      <h2>The interface came from <em>structure</em>, not styling.</h2>
+      <p class="lede">A site map fixed the architecture, then wireframes resolved the layout decisions in greyscale, before any visual design went on top. The hard calls were made in boxes, where a weak structure has nowhere to hide.</p>
+
+      <!-- Site map -->
+      <div class="struct-block">
+        <span class="struct-tag">Information architecture</span>
+        <h3>Five tabs, one persistent <em>spine</em>.</h3>
+        <p class="struct-lede">Everything hangs off a five-tab bottom nav: Home, Categories, Resources, Assistant, Settings. Categories holds all eleven trackable areas; the rest stay shallow so nothing is more than a tap or two from the home screen.</p>
+        <figure class="struct-image">
+          <img src="numa-sitemap.png" alt="The NUMA site map: Sign In leads to Onboarding, then the Main App with a persistent bottom nav of Home, Categories, Resources, Assistant, and Settings. Each tab expands into its child screens, with Categories showing eleven trackable areas including Activity, Sleep, Vitals, and Nutrition." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="struct-placeholder" style="display:none;">
+            <strong>Site map</strong>
+            <p>numa-sitemap.png</p>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Wireframes -->
+      <div class="struct-block">
+        <span class="struct-tag">Wireframes · low to mid fidelity</span>
+        <h3>Four screens, resolved in <em>greyscale</em> first.</h3>
+        <p class="struct-lede">I worked the hardest layout decisions in grey first, where there is no colour or polish to lean on. Each screen went from a low-fidelity test to a mid-fidelity resolution.</p>
+        <figure class="struct-image">
+          <img src="numa-wireframes.png" alt="Two rows of wireframes for the Home, Sleep, Resources, and Assistant screens, shown from low-fidelity grey-box layouts to mid-fidelity resolved versions." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="struct-placeholder" style="display:none;">
+            <strong>Wireframes, lo-fi to mid-fi</strong>
+            <p>numa-wireframes.png</p>
+          </div>
+        </figure>
+
+        <div class="wf-reasons">
+          <div class="wf-reason">
+            <span class="wf-screen">Home</span>
+            <p>Tested three rings versus five. Five won, made horizontally scrollable and customisable, turning a layout decision into a personalisation feature.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Sleep</span>
+            <p>One clear number first. The big total leads, the stage graph waits below the fold, following a "not data overload" principle.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Resources</span>
+            <p>Lo-fi had choice paralysis from equal-weight lists. Mid-fi lifted one prioritised "For tonight" recommendation to the top.</p>
+          </div>
+          <div class="wf-reason">
+            <span class="wf-screen">Assistant</span>
+            <p>An empty chat read as intimidating, so suggested prompt chips were added to show what the assistant can do at a glance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. THE INTERFACE: final UI screens -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">The interface</span>
+      <span class="note">in full colour</span>
+    </div>
+    <div>
+      <h2>The product, <em>resolved</em>.</h2>
+      <p class="lede">The visual language combines minimal layouts, soft purple gradients, and plain-language summaries, so the app feels supportive rather than technical. Every screen stays quiet until you ask it for more.</p>
+
+      <!-- Annotated home screen -->
+      <figure class="ui-hero">
+        <img src="numa-ui-home.png" alt="The NUMA home screen with annotations: Day at a Glance shows the day's key metrics, Personalised Insight offers a contextual bedtime nudge, the Day Score of 72 summarises the day with a short reflection, and a Customisable Overview lets users arrange categories by priority." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="ui-placeholder" style="display:none;">
+          <strong>Home screen, annotated</strong>
+          <p>numa-ui-home.png</p>
+        </div>
+      </figure>
+
+      <!-- Curated screen gallery, Period-style labels -->
+      <div class="screen-strip">
+        <div class="scol">
+          <div class="slabel">01 · Vitals</div>
+          <figure class="screen">
+            <img src="numa-screen-vitals.png" alt="NUMA Vitals screen: heart rate, resting heart rate, blood pressure, body temperature, blood oxygen and HRV shown as one-number cards in a red palette." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Vitals<br><span>numa-screen-vitals.png</span></div>
+            <figcaption>Category overview. One number per card, colour-coded.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">02 · Metric info</div>
+          <figure class="screen">
+            <img src="numa-screen-vitals-info.png" alt="The Vitals screen with an information popup explaining what resting heart rate means and why it matters." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Metric info<br><span>numa-screen-vitals-info.png</span></div>
+            <figcaption>Tap any metric and it explains itself, so nothing feels opaque.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">03 · Total sleep</div>
+          <figure class="screen">
+            <img src="numa-screen-sleep.png" alt="NUMA Total Sleep detail screen: a large sleep duration, a stage graph, and a breakdown of REM, light and deep sleep." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Total sleep<br><span>numa-screen-sleep.png</span></div>
+            <figcaption>Detail when wanted. The summary sits up top, the full breakdown a scroll away.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">04 · Resources</div>
+          <figure class="screen">
+            <img src="numa-screen-resources.png" alt="NUMA Resources screen: evening exercises and dinner ideas suggested based on the day's data." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Resources<br><span>numa-screen-resources.png</span></div>
+            <figcaption>Actionable guidance. Insights become real next steps: stretches, meals.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">05 · Assistant</div>
+          <figure class="screen">
+            <img src="numa-screen-assistant.png" alt="NUMA Assistant screen: a conversational AI answering a question about heart rate." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Assistant<br><span>numa-screen-assistant.png</span></div>
+            <figcaption>AI assistant. Clear, conversational answers that read the user's own data.</figcaption>
+          </figure>
+        </div>
+        <div class="scol">
+          <div class="slabel">06 · Smart device</div>
+          <figure class="screen">
+            <img src="numa-screen-device.png" alt="NUMA Smart Device screen: a connected smart band showing status, last sync time, and a live sync visualisation." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="screen-placeholder" style="display:none;">Smart device<br><span>numa-screen-device.png</span></div>
+            <figcaption>Wearable integration. Devices sync automatically, status at a glance.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Prototype link -->
+      <a href="https://www.figma.com/proto/XBiR3DTMTOynn2PhudUgU8/Numa-Revolut?node-id=0-1" target="_blank" rel="noopener" class="proto-link">
+        <span class="proto-text">Try the interactive prototype</span>
+        <span class="proto-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Structure + screens */
+  .struct-block {
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .struct-block:first-of-type { margin-top: 3rem; }
+  .struct-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 0.65rem;
+  }
+  .struct-block h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+  .struct-block h3 em { font-style: italic; color: var(--numa-deep); font-weight: 700; }
+  .struct-lede {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 2rem;
+    max-width: 72ch;
+  }
+
+  .struct-image {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .struct-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 1.5rem;
+    background: var(--bg);
+  }
+  .struct-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .struct-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .struct-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  /* Wireframe reasoning: 4 compact cells */
+  .wf-reasons {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+  .wf-reason {
+    padding: 0 1.25rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .wf-reason:not(:first-child) { padding-left: 1.25rem; }
+  .wf-reason:last-child { border-right: none; padding-right: 0; }
+  .wf-screen {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .wf-reason p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .wf-reasons { grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
+    .wf-reason { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); }
+    .wf-reason:nth-child(2n) { padding-left: 1.25rem !important; border-right: none; }
+    .wf-reason:nth-last-child(-n+2) { border-bottom: none; padding-bottom: 0; }
+    .struct-image img { padding: 0.75rem; }
+  }
+
+  /* §06 Interface: hero + 3-up grid */
+  .ui-hero {
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .ui-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .ui-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .ui-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .ui-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  /* Screen gallery, Period-style: grey label on top, image, caption below */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.25rem 1.5rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.85rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+  }
+  .screen figcaption {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .screen-placeholder {
+    aspect-ratio: 9 / 19.5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+    border-radius: 14px;
+  }
+  .screen-placeholder span { opacity: 0.7; }
+
+  /* Minimal prototype link */
+  .proto-link {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--numa-deep);
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--numa);
+    transition: gap 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .proto-link:hover {
+    gap: 0.9rem;
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .proto-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  .proto-link:hover .proto-arrow { transform: translateX(2px); }
+
+  @media (max-width: 900px) {
+    .screen-strip { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: 1fr; max-width: 320px; }
+  }
+</style>
+
+<!-- 7. BRAND + CLOSE: name, palette, font, moodboard, links -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Brand</span>
+      <span class="note">find your flow</span>
+    </div>
+    <div>
+      <h2>A name that means <em>inner vitality</em>.</h2>
+      <p class="lede">NUMA comes from "numen", the inner life force, the spark of vitality. The brand reflects clarity, calm, and quiet sophistication: a deep purple that reads as both relaxing and rich, set in clean Helvetica, for a product about wellbeing rather than performance.</p>
+
+      <!-- Moodboard -->
+      <figure class="brand-moodboard">
+        <img src="numa-moodboard.png" alt="The NUMA brand moodboard: the app on a phone and a smart watch, a purple matchbox, and a purple tote bag with the NUMA logo, all in the brand's deep purple." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="brand-moodboard-ph" style="display:none;">
+          <strong>Brand moodboard</strong>
+          <p>numa-moodboard.png</p>
+        </div>
+      </figure>
+
+      <!-- Palette + font -->
+      <div class="brand-grid">
+        <div class="brand-block">
+          <span class="brand-tag">Colour palette</span>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="sw-chip" style="background: #1D009D;"></div>
+              <span class="sw-hex">#1D009D</span>
+              <span class="sw-name">Primary purple</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #F0F0F0; border: 1px solid var(--rule);"></div>
+              <span class="sw-hex">#F0F0F0</span>
+              <span class="sw-name">Soft grey</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #878787;"></div>
+              <span class="sw-hex">#878787</span>
+              <span class="sw-name">Mid grey</span>
+            </div>
+            <div class="swatch">
+              <div class="sw-chip" style="background: #454547;"></div>
+              <span class="sw-hex">#454547</span>
+              <span class="sw-name">Charcoal</span>
+            </div>
+          </div>
+        </div>
+        <div class="brand-block">
+          <span class="brand-tag">Product font</span>
+          <div class="font-spec">
+            <span class="font-aa">Aa</span>
+            <div class="font-detail">
+              <strong>Helvetica</strong>
+              <p>A clean, neutral sans-serif. Familiar and modern, it keeps the interface quiet so the data and suggestions lead.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Brand: moodboard + palette/font + links */
+  .brand-moodboard {
+    margin: 3rem 0;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .brand-moodboard img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .brand-moodboard-ph {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--numa-soft);
+    color: var(--numa-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .brand-moodboard-ph strong { font-size: 0.9rem; font-weight: 500; color: var(--ink-2); }
+  .brand-moodboard-ph p { font-family: var(--mono); font-size: 0.7rem; opacity: 0.7; margin: 0; }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2.5rem;
+  }
+  .brand-block {
+    padding-right: 2.5rem;
+    border-right: 1px solid var(--rule);
+  }
+  .brand-block:last-child { padding-right: 0; padding-left: 2.5rem; border-right: none; }
+  .brand-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .sw-chip {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+  }
+  .sw-hex {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .sw-name {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    line-height: 1.3;
+  }
+  .font-spec {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .font-aa {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .font-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .font-detail strong {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .font-detail p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .brand-grid { grid-template-columns: 1fr; gap: 2.5rem 0; }
+    .brand-block { padding-right: 0; border-right: none; }
+    .brand-block:last-child { padding-left: 0; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+    .swatches { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .swatches { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<!-- FOOTER: minimal prev/next + thin contact strip -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="proj-nav">
+      <a href="period.html" class="proj-link proj-prev">
+        <span class="pl-arrow">←</span>
+        <span class="pl-stack">
+          <span class="pl-meta">Previous project</span>
+          <span class="pl-name">Period.</span>
+        </span>
+      </a>
+      <a href="milo.html" class="proj-link proj-next">
+        <span class="pl-stack">
+          <span class="pl-meta">Next project</span>
+          <span class="pl-name">Milo</span>
+        </span>
+        <span class="pl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer-base">
+      <div class="fb-logo">Nefeli Lemessiou</div>
+      <div class="fb-contact">
+        <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+        <span class="fb-sep">·</span>
+        <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">@nephele_design</a>
+        <span class="fb-sep">·</span>
+        <a href="#">CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* FOOTER: minimal closing strip */
+  .site-footer {
+    background: var(--numa-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--numa-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--numa-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--numa-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--numa-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+<script>
+  // §03 flip cards: toggle on click, and on Enter/Space for keyboard users
+  document.querySelectorAll('.flip-card').forEach(function (card) {
+    function toggle() { card.classList.toggle('flipped'); }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>period. · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Period uses a warm copper accent system instead of Onaka's cool blue */
+    --copper: #C56A3A;
+    --copper-deep: #9A4A1F;
+    --copper-soft: #F8EDE3;
+    --copper-bright: #E58647;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF8;
+    --bg-warm: #FBF7F2;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--copper); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--copper); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID : section structure */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--copper-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--copper-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* CHAPTER DIVIDER : demoted: thin marker between device and app halves */
+  .chapter-break {
+    background: var(--copper-soft);
+    color: var(--ink);
+    padding: 1.5rem 2.5rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-break-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .chapter-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--copper-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .chapter-break p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .chapter-break p em { font-style: italic; color: var(--copper-deep); }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--copper); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--copper); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+
+  /* IMAGE BOX (placeholder) */
+  .ib {
+    background: var(--copper-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    gap: 0.5rem; position: relative; overflow: hidden;
+  }
+  .ib.n { background: #F5F2EC; }
+  .ib.d { background: #0A0A0A; border-color: rgba(255,255,255,0.08); }
+  .ib p {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--copper-deep); text-align: center; opacity: 0.7;
+    letter-spacing: 0.02em;
+  }
+  .ib.n p { color: var(--ink-3); }
+  .ib.d p { color: rgba(255,255,255,0.4); }
+  .ib strong {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-2);
+    text-align: center; letter-spacing: -0.01em;
+  }
+  .ib.d strong { color: rgba(255,255,255,0.7); }
+  .phi {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px dashed currentColor; opacity: 0.35;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--copper-deep);
+  }
+  .ib.n .phi { color: var(--ink-3); }
+  .ib.d .phi { color: rgba(255,255,255,0.4); }
+  .phi svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--copper);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* RESEARCH METHODS : 5 column condensed strip */
+  .methods-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-cell {
+    padding: 2rem 1.5rem 2rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .method-cell:not(:first-child) { padding-left: 1.5rem; }
+  .method-cell:last-child { border-right: none; padding-right: 0; }
+  .method-cell .method-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .method-cell h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .method-cell h4 em { font-style: italic; color: var(--copper); }
+  .method-cell p {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+
+  /* INSIGHTS : pill row */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pill-row .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase;
+    width: 100%; margin-bottom: 0.6rem;
+  }
+  .pill {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+    background: var(--bg);
+  }
+
+  /* COMPETITIVE LANDSCAPE : small horizontal row of apps with one-liner takeaway */
+  .competitive {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .comp-card {
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .comp-card .comp-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .comp-card .comp-issue {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  /* DEVICE : concept origin */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .concept-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--bg-warm);
+  }
+  .concept-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .concept-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* HOW IT WORKS : circle steps (reused pattern from Onaka) */
+  .interaction-system {
+    position: relative;
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .connectors path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .i-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .i-step-1 { padding-top: 4rem; }
+  .i-step-2 { padding-top: 1rem; }
+  .i-step-3 { padding-top: 0; }
+  .i-step-4 { padding-top: 3rem; }
+  .i-label {
+    color: var(--copper-deep);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 14ch;
+  }
+  .i-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-warm);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .i-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .i-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+
+  /* TECHNICAL : split into prototype-built + manufacturing */
+  .tech-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+  .tech-block h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .tech-block h3 em { font-style: italic; color: var(--copper); }
+  .tech-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .tech-list li {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .tech-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.65rem;
+    width: 14px; height: 1px;
+    background: var(--ink-3);
+  }
+
+  /* BOM : three rows + total, styled as a tiny spec table */
+  .bom {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .bom-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.6fr;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.85rem;
+    align-items: baseline;
+  }
+  .bom-row.total {
+    border-bottom: 1px solid var(--ink);
+    border-top: 1px solid var(--rule);
+    margin-top: 0.4rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .bom-name { color: var(--ink-2); }
+  .bom-spec {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+  .bom-cost {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--ink-2);
+  }
+  .bom-row.total .bom-cost { color: var(--ink); }
+  .bom-row.divider {
+    text-align: center;
+    color: var(--ink-4);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.4rem 0;
+    grid-column: 1 / -1;
+    display: block;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* DECISION FLOW : was/now layout for decision sections */
+  .decision-flow {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .dec-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+  }
+  .dec-stage.has-img {
+    grid-template-columns: 1.4fr 1fr;
+  }
+  .dec-stage.now.has-img {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .dec-stage.now {
+    margin-top: 3rem;
+  }
+  .dec-stage.now.has-img .dec-text { order: 2; }
+  .dec-stage.now.has-img .dec-img-wrap { order: 1; }
+  .dec-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .dec-tag.was { color: var(--ink-3); }
+  .dec-tag.now { color: var(--copper-deep); }
+  .dec-tag::before {
+    content: ''; display: block;
+    width: 18px; height: 1px;
+  }
+  .dec-tag.was::before { background: var(--ink-3); }
+  .dec-tag.now::before { background: var(--copper-deep); }
+  .dec-stage h3 {
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+    font-weight: 700;
+    max-width: 22ch;
+  }
+  .dec-stage h3 em { font-style: italic; color: var(--copper); }
+  .dec-text > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+    max-width: 56ch;
+  }
+  .dec-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    max-width: 52ch;
+  }
+  .dec-list li {
+    font-size: 0.92rem; color: var(--ink-2);
+    padding-left: 1.6rem; position: relative;
+    line-height: 1.55;
+  }
+  .dec-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.65rem;
+    width: 14px; height: 1px; background: var(--ink-3);
+  }
+  .dec-list li.x { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+  .dec-img-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+  }
+  .dec-img-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .dec-img-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .dec-img-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+  .dec-arrow {
+    position: relative;
+    height: 80px;
+    margin: 0;
+  }
+  .dec-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .dec-arrow path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  .dec-arrow .tip {
+    fill: var(--copper);
+    opacity: 0.7;
+  }
+
+  /* Horizontal variant : for image-less decisions, side-by-side layout */
+  .decision-flow.horizontal {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .decision-flow.horizontal .dec-stage {
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-self: start;
+  }
+  .decision-flow.horizontal .dec-stage.now {
+    margin-top: 0;
+  }
+  .dec-arrow.horizontal {
+    height: 220px;
+    width: 100%;
+    align-self: center;
+    padding-top: 0;
+    margin-top: 6rem;       /* push down so it aligns roughly with the lists, not the headlines */
+  }
+  .dec-arrow.horizontal svg {
+    height: 220px;
+    width: 100%;
+  }
+
+  /* THREADING ROW : 4 cards showing how device + app are co-designed */
+  .threading {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .threading-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .threading-lede {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 64ch;
+    margin-bottom: 2.5rem;
+  }
+  .threading-lede em { font-style: italic; color: var(--copper); }
+  .thread-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .thread-card {
+    padding: 1.5rem 1.25rem 1.5rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .thread-card:not(:first-child) { padding-left: 1.25rem; }
+  .thread-card:last-child { border-right: none; padding-right: 0; }
+  .thread-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .thread-pair {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .thread-side {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--copper);
+    border-radius: 3px;
+    background: var(--copper-soft);
+  }
+  .thread-card h4 {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 0.15rem 0 0;
+  }
+  .thread-card h4 em { font-style: italic; color: var(--copper); font-weight: 600; }
+  .thread-card p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-top: 0.25rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .methods-strip { grid-template-columns: 1fr; }
+    .method-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .method-cell:not(:first-child) { padding-left: 0; }
+    .competitive { grid-template-columns: 1fr 1fr; }
+    .concept-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .interaction-system { grid-template-columns: 1fr; gap: 3rem; }
+    .connectors { display: none; }
+    .i-step,
+    .i-step-1, .i-step-2, .i-step-3, .i-step-4 { padding-top: 0; }
+    .i-circle { width: 200px; height: 200px; }
+    .tech-split { grid-template-columns: 1fr; gap: 2.5rem; }
+    .chapter-break-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+    .dec-stage.has-img,
+    .dec-stage.now.has-img { grid-template-columns: 1fr; gap: 1.5rem; }
+    .dec-stage.now.has-img .dec-text { order: 1; }
+    .dec-stage.now.has-img .dec-img-wrap { order: 2; }
+    .dec-stage.now { margin-top: 2rem; }
+    .dec-arrow { height: 60px; }
+    .decision-flow.horizontal {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .dec-arrow.horizontal {
+      min-height: 60px;
+      height: 60px;
+      padding-top: 0;
+    }
+    .dec-arrow.horizontal svg {
+      min-height: 60px;
+      height: 60px;
+      transform: rotate(90deg);
+    }
+    .thread-grid { grid-template-columns: 1fr 1fr; }
+    .thread-card { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.25rem 0; }
+    .thread-card:not(:first-child) { padding-left: 0; }
+    .thread-card:nth-child(odd) { border-right: 1px solid var(--rule); padding-right: 1rem; }
+    .thread-card:nth-child(even) { padding-left: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .thread-grid { grid-template-columns: 1fr; }
+    .thread-card,
+    .thread-card:nth-child(odd),
+    .thread-card:nth-child(even) {
+      border-right: none;
+      padding: 1.25rem 0;
+    }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">02 — period.</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2023 — May 2024</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">BA Final Project · ECA, University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, hardware, app</span>
+    </div>
+  </div>
+  <h1 class="display a d2">Helping women understand their cycles, not just <em>record</em> them.</h1>
+  <p class="hero-sub a d3">A <em>connected experience</em> across physical and digital: a smart period calendar and companion app, designed together. Cycle tracking as a calmer, more <em>educational</em> daily ritual, anchored to a beautiful object, not a phone notification.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">Industrial Design</span>
+    <span class="tag">IoT</span>
+    <span class="tag">App UX/UI</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="period-hero.jpg" alt="The period. device, a copper fan-shaped calendar glowing red on a bedside table" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">where it began</span>
+    </div>
+    <div>
+      <h2 class="wide">Half the world menstruates. Almost no products are <em>designed</em> for it.</h2>
+      <p class="lede">Period tracking is dominated by apps that feel like data-entry chores: stereotyped pink interfaces, daily symptom checklists, and notifications that get ignored. They track the period, but they rarely help women <em>understand</em> what is happening to their bodies, and they are easy to forget.</p>
+      <div class="pull">
+        <blockquote>"I keep forgetting to input my period, and even when I do, I forget to check the app."</blockquote>
+        <cite>, Survey participant · Edinburgh, 2024</cite>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">~480<em>×</em></div><div class="lbl">Periods in a typical lifetime, ages 12 to 55</div></div>
+        <div class="stat"><div class="num">31<em> women</em></div><div class="lbl">surveyed about how and why they track their cycles</div></div>
+        <div class="stat"><div class="num">48<em>%</em></div><div class="lbl">don't <em>always</em> feel their tracking app helps them understand their cycle</div></div>
+        <div class="stat"><div class="num">100<em>%</em></div><div class="lbl">wanted a less stereotypically gendered design</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+    </div>
+    <div>
+      <h2>Eight months of <em>conversations</em> with patients, doctors, and apps.</h2>
+      <p class="lede">The research split across five methods, each chosen to answer a different question: <em>why</em> women track, <em>what</em> they want a tracker to do, and <em>how</em> a smart device could fit into their daily lives without feeling like another chore.</p>
+
+      <div class="methods-strip">
+        <div class="method-cell">
+          <div class="method-num">A · Lit review</div>
+          <h4>Three peer-<em>reviewed</em> papers</h4>
+          <p>HCI research on menstrual self-tracking, feminist design for the changing body, and the gap between user identity and existing app personas.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">B · Workshops</div>
+          <h4>Two co-design <em>sessions</em></h4>
+          <p>One on what "woman-centred design" actually means; one with plasticine to find forms that feel calm, trustworthy, and intuitive.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">C · Interviews</div>
+          <h4>Gynaecologist + <em>HCI PhD</em></h4>
+          <p>A medical perspective on what to track and what AI should never do. A research perspective on visualising bodily data.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">D · Survey</div>
+          <h4>31 women, <em>distributed</em> via QR</h4>
+          <p>Survey posters placed in campus toilets to ensure private completion. Three sections covering tracking habits, app feedback, and product wishes.</p>
+        </div>
+        <div class="method-cell">
+          <div class="method-num">E · Probe</div>
+          <h4>Public AI <em>opinion box</em></h4>
+          <p>An open box in the exhibition area asking what women would and would not want from an AI menstrual assistant.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 4rem; margin-bottom: 1.25rem; font-size: 1rem; font-family: var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); font-weight: 500;">Apps tested · 5 users · 1 month</h3>
+      <div class="competitive">
+        <div class="comp-card">
+          <div class="comp-name">Flo</div>
+          <div class="comp-issue">Best predictor; aggressive notifications create anxiety.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Period Calendar</div>
+          <div class="comp-issue">Pink-on-pink. Felt patronising to several testers.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">My Calendar</div>
+          <div class="comp-issue">Tracking only. No education or context.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">My Cycle</div>
+          <div class="comp-issue">Cluttered. Buries the cycle phase under symptom logs.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Apple Health</div>
+          <div class="comp-issue">Clinical. Reduces the body to a row in a spreadsheet.</div>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 3rem;">
+        <blockquote>"AI for understanding, not diagnosis. Doctors stay the doctors."</blockquote>
+        <cite>, Synthesised from gynaecologist interview &amp; AI probe (33 responses)</cite>
+      </div>
+
+      <div class="pill-row">
+        <span class="pl">What the research told us</span>
+        <span class="pill">Women forget to log; reminders fail</span>
+        <span class="pill">Users want to understand the cycle, not just track it</span>
+        <span class="pill">Pink stereotypes are actively disliked</span>
+        <span class="pill">Open to AI for Q&amp;A, wary of AI for diagnosis</span>
+        <span class="pill">A device on a bedside table is more memorable than an app icon</span>
+        <span class="pill">Aesthetic must blend into the home, not look "medical"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS : moved up, expanded to cross device + app -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">How it works</span>
+      <span class="note">one loop, two media</span>
+    </div>
+    <div>
+      <h2>One <em>daily loop</em>, across the bedside and the pocket.</h2>
+      <p class="lede">Six moments. Three on the device, three on the app. The <em>hand-off</em> between them is the design.</p>
+
+      <div class="loop-system">
+        <!-- Row 1: device side -->
+        <div class="loop-row">
+          <div class="loop-side-tag">Device<br>ambient + ritual</div>
+          <div class="loop-row-grid">
+            <!-- Connector overlay sitting over the circles strip in this row -->
+            <svg class="loop-connector-row" viewBox="0 0 1000 184" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 167 104 Q 333 50, 500 104" />
+              <path d="M 500 104 Q 667 158, 833 104" />
+            </svg>
+            <div class="loop-step">
+              <div class="loop-num">01</div>
+              <div class="loop-label">Glance</div>
+              <figure class="loop-figure">
+                <img src="period-step-01-glance.jpg" alt="The fan glowing red on a bedside table" />
+              </figure>
+              <p class="loop-copy">Colour shifts daily. Readable across the room.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">02</div>
+              <div class="loop-label">Fold</div>
+              <figure class="loop-figure">
+                <img src="period-step-02-spin.jpg" alt="Fingers folding away unused days on the copper fan" />
+              </figure>
+              <p class="loop-copy">Each fold is one day. Tucks to fit any 21–35 day cycle.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">03</div>
+              <div class="loop-label">Auto-turn</div>
+              <figure class="loop-figure">
+                <img src="period-device-detail.jpg" alt="Close-up of the copper fan showing day numbers and rotating pointer" />
+              </figure>
+              <p class="loop-copy">Turns one fold at midnight. Stays current even when forgotten.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bridge: dotted curve dropping from row 1 right down to row 2 left -->
+        <div class="loop-bridge-row">
+          <div class="loop-bridge-spacer"></div>
+          <div class="loop-bridge-svg-wrap">
+            <svg class="loop-bridge-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 833 0 Q 950 30, 700 50 T 167 80" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 2: app side -->
+        <div class="loop-row">
+          <div class="loop-side-tag app">App<br>depth + history</div>
+          <div class="loop-row-grid">
+            <svg class="loop-connector-row" viewBox="0 0 1000 184" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 167 104 Q 333 50, 500 104" />
+              <path d="M 500 104 Q 667 158, 833 104" />
+            </svg>
+            <div class="loop-step">
+              <div class="loop-num">04</div>
+              <div class="loop-label">Ask <span class="loop-bridge">device&nbsp;↔&nbsp;app</span></div>
+              <figure class="loop-figure">
+                <img src="period-step-03-luna.jpg" alt="Luna voice assistant active above the fan with red glow" />
+              </figure>
+              <p class="loop-copy">Luna answers cycle questions. Voice at the bedside, text in the app.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">05</div>
+              <div class="loop-label">Log &amp; learn</div>
+              <figure class="loop-figure">
+                <img src="period-screen-period-detail.png" alt="Phase detail screen with explanation and possible symptoms" />
+              </figure>
+              <p class="loop-copy">Log symptoms. Read what the phase means for the body.</p>
+            </div>
+            <div class="loop-step">
+              <div class="loop-num">06</div>
+              <div class="loop-label">Carry</div>
+              <figure class="loop-figure">
+                <img src="period-screen-home.png" alt="Home screen showing the current cycle phase" />
+              </figure>
+              <p class="loop-copy">Away from the bedside, the cycle goes with you. Same fan, same theme.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THREADING moved to §04 below -->
+    </div>
+  </div>
+</section>
+
+<!-- 4. THREADING : its own section, framed as the system overview -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">The threading</span>
+      <span class="note">where device + app meet</span>
+    </div>
+    <div>
+      <h2>Four places the device and the app are <em>co-designed</em>.</h2>
+      <p class="lede">Not two parallel deliverables. The hand-offs are the design.</p>
+      <div class="threading">
+        <div class="thread-grid">
+          <div class="thread-card">
+            <span class="thread-num">01</span>
+            <div class="thread-pair">
+              <span class="thread-side">Device → App</span>
+            </div>
+            <h4>Gradient <em>chosen</em> on the device.</h4>
+            <p>The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">02</span>
+            <div class="thread-pair">
+              <span class="thread-side">Shared form</span>
+            </div>
+            <h4>Fan as the <em>navigation centre</em>.</h4>
+            <p>The fan-shape becomes the central button on every app screen, the same anchor as the bedside object.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">03</span>
+            <div class="thread-pair">
+              <span class="thread-side">Shared type</span>
+            </div>
+            <h4>Italic numerals, <em>two materials</em>.</h4>
+            <p>The same italic display family is engraved into copper and rendered on glass.</p>
+          </div>
+          <div class="thread-card">
+            <span class="thread-num">04</span>
+            <div class="thread-pair">
+              <span class="thread-side">Shared agent</span>
+            </div>
+            <h4>Luna, <em>two voices</em>.</h4>
+            <p>The same AI assistant. Speaks at the bedside; types in the app for when speaking out loud is not an option.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 3 : Cross-touchpoint loop with continuous dotted connector */
+  .loop-system {
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+  .loop-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    line-height: 1.45;
+    padding-top: 0.4rem;
+  }
+  .loop-side-tag.app {
+    color: var(--copper-deep);
+  }
+  .loop-row-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+  }
+  /* SVG connector sits over the row of circles (not the captions below) */
+  .loop-connector-row {
+    position: absolute;
+    top: 0;                  /* aligned with the start of the step content */
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 184px;           /* circle area: 12px num + 12px gap + 160px circle = 184px */
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+  .loop-connector-row path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  /* Bridge: lives between the two rows, aligned with loop-row-grid horizontally */
+  .loop-bridge-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+  }
+  .loop-bridge-spacer {
+    width: 120px;
+  }
+  .loop-bridge-svg-wrap {
+    position: relative;
+    height: 60px;
+    margin: 0;
+  }
+  .loop-bridge-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .loop-bridge-svg path {
+    fill: none;
+    stroke: var(--copper);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .loop-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .loop-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .loop-bridge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    padding: 0.18rem 0.45rem;
+    background: var(--copper-soft);
+    border-radius: 3px;
+  }
+  .loop-figure {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-radius: 50%;
+    margin: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-copy {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+
+  @media (max-width: 900px) {
+    .loop-connector-row,
+    .loop-bridge-row { display: none; }
+    .loop-row { grid-template-columns: 1fr; gap: 1rem; }
+    .loop-row-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .loop-figure { width: 200px; height: 200px; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER A : THE DEVICE (demoted)                             -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter A · The device</div>
+    <p>A fan-shaped calendar that visualises the cycle through <em>colour, motion, and light</em>.</p>
+  </div>
+</section>
+
+<!-- 5. DECISION 01 : Object first, app second -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Decision 01</span>
+      <span class="note">where the form lives</span>
+    </div>
+    <div>
+      <h2>Why the app couldn't be the <em>main thing</em>.</h2>
+      <p class="lede">Every existing tracker is app-first. The research said <em>that's exactly why</em> women keep forgetting to log.</p>
+
+      <div class="decision-flow horizontal">
+        <div class="dec-stage was">
+          <div class="dec-text">
+            <span class="dec-tag was">The default move</span>
+            <h3>Build a better tracking app.</h3>
+            <p>The fastest, cheapest, most fundable answer. Better notifications, friendlier copy, fewer pink hearts.</p>
+            <ul class="dec-list">
+              <li class="x">Notifications get muted within a week</li>
+              <li class="x">App icons disappear into the third home screen</li>
+              <li class="x">Out of sight on the days that matter most</li>
+              <li class="x">Solves the symptom, not the cause</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dec-arrow horizontal" aria-hidden="true">
+          <svg viewBox="0 0 200 600">
+            <path d="M 100 60 Q 40 220, 120 360 T 80 540" />
+            <polygon class="tip" points="80,540 70,528 88,532 92,524" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">The choice</span>
+            <h3>Anchor the experience to a <em>physical object</em>.</h3>
+            <p>The device sits where forgetting is hardest, the bedside. The app exists for what an object can't carry: depth, history, portability.</p>
+            <ul class="dec-list">
+              <li>Device for ritual: glanceable, ambient, present</li>
+              <li>App for depth: phase explanations, history, doctor export</li>
+              <li>Each medium chosen for what it does best</li>
+              <li>Forgetting becomes architecturally harder</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CONCEPT & FORM : prototyping journey, accordion-as-decision extracted -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Concept &amp; form</span>
+      <span class="note">how the fan emerged</span>
+    </div>
+    <div>
+      <h2>From eighteen ideas to a <em>fan</em>.</h2>
+      <p class="lede">Eighteen concepts. Three prototype stages on the way to copper. One quiet rule running through all of them: it has to look at home on a bedside <em>or</em> on a wall.</p>
+
+      <!-- Stage 1: Ideation -->
+      <div class="proto-stage">
+        <div class="proto-stage-meta">
+          <span class="proto-num">1 · Ideation</span>
+          <h3>The calendar idea kept <em>returning</em>.</h3>
+          <p>Eighteen concepts in eighteen minutes: period underwear, a heating bra, a smart pill reminder, a comfort blanket. The calendar kept winning out: physical, household, hard to ignore.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="period-ideas.jpg" alt="Hand-sketched grid of 18 early product concepts" />
+          <figcaption>Eighteen concepts in eighteen minutes.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 2: Material refinement (was Stage 3) -->
+      <div class="proto-stage flip">
+        <div class="proto-stage-meta">
+          <span class="proto-num">2 · Material</span>
+          <h3>Paper to brass to <em>copper</em>.</h3>
+          <p>Paper handled the geometry but couldn't survive daily use. A brass-foil prototype was sturdier but creased after repeated folding. Thin copper sheet, engraved with day numbers, magnetised at the folds, gave the right balance of durability, finish, and a satisfying snap when folded away.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="period-form-purple.jpg" alt="Purple paper and gold foil accordion fan prototypes at scale" />
+          <figcaption>Scale tests in purple paper, then gold foil, before settling on copper.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Stage 3: Sit, or hang (was Stage 4) -->
+      <div class="proto-stage">
+        <div class="proto-stage-meta">
+          <span class="proto-num">3 · Sit, or hang</span>
+          <h3>One object, <em>two affordances</em>.</h3>
+          <p>Each early iteration solved one mode and broke the other. The answer merged both: <em>sand the base flat</em> for tabletop, <em>integrate a wooden handle</em> that slides out for sitting, and a hook on the back for hanging.</p>
+        </div>
+        <figure class="proto-stage-img">
+          <img src="period-device-detail.jpg" alt="Close-up of the final device showing the sanded flat base resting on a surface and the integrated copper handle wrapping the body" />
+          <figcaption>Final form, sanded base and slide-out wooden handle for sitting, hook on the back for hanging.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Concept & form : Prototype journey styles */
+  .proto-stage {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .proto-stage.flip { grid-template-columns: 1.1fr 1fr; }
+  .proto-stage.flip .proto-stage-meta { order: 2; }
+  .proto-stage.flip .proto-stage-img { order: 1; }
+  .proto-stage-meta .proto-num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .proto-stage-meta h3 {
+    font-size: 1.7rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+    font-weight: 700;
+  }
+  .proto-stage-meta h3 em { font-style: italic; color: var(--copper); }
+  .proto-stage-meta p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+  .proto-stage-img {
+    width: 100%;
+    overflow: hidden;
+  }
+  .proto-stage-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .proto-stage-img figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .proto-stage,
+    .proto-stage.flip { grid-template-columns: 1fr; gap: 1.5rem; }
+    .proto-stage.flip .proto-stage-meta,
+    .proto-stage.flip .proto-stage-img { order: initial; }
+    .proto-stage-img { margin-top: 1rem; }
+  }
+</style>
+
+<!-- 7. DECISION 02 : 28 folds, not 28 days -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Decision 02</span>
+      <span class="note">the form unlock</span>
+    </div>
+    <div>
+      <h2><em>28 folds</em>, not 28 days.</h2>
+      <p class="lede">Cycles run 21 to 35 days. Any rigid calendar erases someone.</p>
+
+      <div class="decision-flow">
+        <div class="dec-stage was has-img">
+          <div class="dec-text">
+            <span class="dec-tag was">The early prototypes</span>
+            <h3>A calendar of <em>fixed</em> days.</h3>
+            <p>Date strips, spinning discs, axis cards. Each broke the moment a cycle ran short or long.</p>
+            <ul class="dec-list">
+              <li class="x">Locked to a 28-day assumption</li>
+              <li class="x">Short cycles leave blank days; long ones run out of room</li>
+              <li class="x">Treats the average user as the only user</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="period-form-accordions.jpg" alt="Three paper accordion fan prototypes in blue, green and orange" />
+            </figure>
+            <div class="dec-img-caption">Paper accordion tests in three colours.</div>
+          </div>
+        </div>
+
+        <div class="dec-arrow" aria-hidden="true">
+          <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+            <path d="M 80 10 Q 240 90, 380 40 T 540 60" />
+            <polygon class="tip" points="540,60 528,52 532,62 524,70" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">The unlock</span>
+            <h3>Each fold is one day. <em>Unused folds tuck away.</em></h3>
+            <p>An accordion of 28 folds, magnetised. The form adapts to the body, not the other way round.</p>
+            <ul class="dec-list">
+              <li>Fits any cycle from 21 to 35 days</li>
+              <li>Magnets give a tactile snap when folded</li>
+              <li>The form itself is the date system</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. TECHNICAL : reframed as systems thinking -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Building it for real</span>
+      <span class="note">prototype + scale</span>
+    </div>
+    <div>
+      <h2>A system that <em>actually runs</em>, costed to scale.</h2>
+      <p class="lede">Two parallel tracks: a Raspberry Pi prototype that <em>genuinely works</em>, and a manufacturing plan with a costed bill of materials.</p>
+
+      <figure class="tech-flatlay">
+        <img src="period-tech-flatlay.jpg" alt="Flat lay of every component used to build the period. device, base, lid, copper fan, handle, electronics, screws, cable" />
+        <figcaption>Every part of period., laid out. Thirteen components total.</figcaption>
+      </figure>
+
+      <div class="tech-twin">
+        <div class="tech-card">
+          <span class="tech-eyebrow">A · The working system</span>
+          <h3>Raspberry Pi, <em>end-to-end</em>.</h3>
+          <p>Built in Python. Tracks the cycle day from a stored start date, drives a NeoPixel ring through gradient transitions, turns the metal fan on a servo, takes voice input through a microphone, replies through a speaker via OpenAI's GPT-3.5, scoped to menstrual health and forbidden from diagnoses.</p>
+          <div class="tech-spec-row">
+            <span>Raspberry Pi 4</span>
+            <span>NeoPixel 12-LED ring</span>
+            <span>SG90 servo</span>
+            <span>USB mic + speaker</span>
+          </div>
+          <figure class="tech-internals">
+            <img src="period-tech-internals.png" alt="The base of the device opened to show internal electronics: Raspberry Pi, speaker, servo motor, and a separate disc with a NeoPixel ring mounted underneath" />
+            <figcaption>Internals: Pi, speaker, servo on the base. NeoPixel ring on the underside of the lid.</figcaption>
+          </figure>
+        </div>
+
+        <div class="tech-card">
+          <span class="tech-eyebrow">B · The production system</span>
+          <h3>CNC, lamination, <em>custom PCB</em>.</h3>
+          <p>Birch plywood base (CNC-machined). Copper or brass fan (CNC-engraved with day numbers, folded on a press brake). Brass dowel for durability. Custom PCB and ARM Cortex-A35 controller specified for production, modelled on the Amazon Echo Dot teardown.</p>
+
+          <div class="bom">
+            <div class="bom-row">
+              <div class="bom-name">Birch plywood base</div>
+              <div class="bom-spec">200 × 200 × 30mm</div>
+              <div class="bom-cost">£3.00</div>
+            </div>
+            <div class="bom-row">
+              <div class="bom-name">Copper fan sheet</div>
+              <div class="bom-spec">1400 × 75 × 0.8mm</div>
+              <div class="bom-cost">£3.80</div>
+            </div>
+            <div class="bom-row">
+              <div class="bom-name">Custom PCB &amp; microcontroller</div>
+              <div class="bom-spec">incl. memory, audio SoC</div>
+              <div class="bom-cost">£8.00</div>
+            </div>
+            <div class="bom-row divider">+ 9 more components</div>
+            <div class="bom-row total">
+              <div class="bom-name">Total unit cost</div>
+              <div class="bom-spec">retail target £50</div>
+              <div class="bom-cost">£21.88</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §08 Building it for real : tech styles */
+  .tech-flatlay {
+    margin-top: 3rem;
+    overflow: hidden;
+  }
+  .tech-flatlay img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-flatlay figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .tech-twin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3.5rem;
+  }
+  .tech-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .tech-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+  .tech-card h3 {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .tech-card h3 em { font-style: italic; color: var(--copper); }
+  .tech-card > p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.25rem;
+  }
+  .tech-spec-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .tech-spec-row span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+  }
+  .tech-internals {
+    margin-top: auto;
+    background: #0A0A0A;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .tech-internals img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .tech-internals figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: #0A0A0A;
+  }
+
+  @media (max-width: 900px) {
+    .tech-twin { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+</style>
+
+<!-- ============================================================ -->
+<!-- CHAPTER B : THE APP (demoted)                                -->
+<!-- ============================================================ -->
+<section class="chapter-break">
+  <div class="chapter-break-inner">
+    <div class="chapter-meta">Chapter B · The app</div>
+    <p>What a bedside object can't carry: <em>depth, history, and portability</em>.</p>
+  </div>
+</section>
+
+<!-- 10. SKETCHES & ITERATION -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 09</span>
+      <span class="nm">Sketches &amp; iteration</span>
+      <span class="note">deciding by hand</span>
+    </div>
+    <div>
+      <h2>Pen on paper, before <em>pixels</em>.</h2>
+      <p class="lede">Two sheets of dense iteration. Right margins are <em>self-critique</em>: questions about whether descriptions are too busy, whether the home page needs a calendar, where Luna should live.</p>
+
+      <figure class="sketch-sheet">
+        <img src="period-sketches-2.jpg" alt="Sketch sheet of app screen iterations with handwritten self-critique annotations in the margins" />
+        <figcaption>Sketch sheet 01. Six screen states sketched, annotated, and critiqued in the margins.</figcaption>
+      </figure>
+
+      <div class="sketch-callouts">
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Might be too busy to have description"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">Phase descriptions move to a dedicated detail page, accessed via a "see details" link.</span>
+        </div>
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Need a home page choice"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">Home is the cycle status. The menu opens from the central fan button, not a tab.</span>
+        </div>
+        <div class="sk-call">
+          <span class="sk-label">Question raised</span>
+          <p>"Light up the same as the device"</p>
+          <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
+          <span class="sk-resolved">App background tints to the user's chosen NeoPixel gradient, syncing with the device.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §10 Sketches : sheet + critique callouts */
+  .sketch-sheet {
+    margin-top: 3rem;
+    overflow: hidden;
+  }
+  .sketch-sheet img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sketch-sheet figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .sketch-callouts {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  .sk-call {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .sk-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+  }
+  .sk-call > p {
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .sk-resolved {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 900px) {
+    .sketch-callouts {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+
+<!-- 9. DECISION 03 : The fan as centre (absorbs IA + visual system minus typography) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 10</span>
+      <span class="nm">Decision 03</span>
+      <span class="note">the fan, again</span>
+    </div>
+    <div>
+      <h2>The fan, <em>at the centre</em> of every screen.</h2>
+      <p class="lede">The deciding question wasn't which navigation was cleaner. It was which one was <em>honest</em> about what the product is, a device with a companion app, not an app with an accessory.</p>
+
+      <figure class="ia-hero">
+        <div class="ia-rotate-wrap">
+          <img src="period-sketches-1.jpg" alt="Sketch sheet showing two navigation concepts, a flat 5-tab bar versus a 4-tab bar with a raised central device button" />
+        </div>
+        <figcaption>Sketch sheet 02. Concept 1: five flat tabs. Concept 2: four tabs around a raised central fan button that opens device control and the written Luna chat.</figcaption>
+      </figure>
+
+      <div class="ia-decision">
+        <p>Concept 2 won because the geometry told the story. The fan-shaped central button anchors every screen the way the bedside object anchors the user's day. It also solved where the AI assistant should live: not buried in a settings menu, not floating as a chat bubble, but at the literal centre of the app, the same place it lives in the room.</p>
+      </div>
+
+      <!-- Visual system absorbed: gradients + icons (typography removed) -->
+      <div class="ds-absorbed">
+        <div class="ds-block ds-split">
+          <div class="ds-split-text">
+            <h3 class="ds-h">Three themes, <em>chosen on the device</em>.</h3>
+            <p class="ds-sub">The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match. Pink is one option, never the default.</p>
+            <div class="grad-row">
+              <div class="grad">
+                <div class="grad-disc grad-1"></div>
+                <span class="grad-label">Red&nbsp;→&nbsp;Orange</span>
+              </div>
+              <div class="grad">
+                <div class="grad-disc grad-2"></div>
+                <span class="grad-label">Green&nbsp;→&nbsp;Yellow</span>
+              </div>
+              <div class="grad">
+                <div class="grad-disc grad-3"></div>
+                <span class="grad-label">Pink&nbsp;→&nbsp;Purple</span>
+              </div>
+            </div>
+          </div>
+          <figure class="ds-split-img theme-variants">
+            <img src="period-color-variants.png" alt="Three iPhone screens showing the same Period view in white, pink, and peach background variants" />
+            <figcaption>Same screen, three palettes. The fan stays copper.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ds-block ds-split">
+          <div class="ds-split-text">
+            <h3 class="ds-h">A custom <em>icon library</em>.</h3>
+            <p class="ds-sub">Drawn line by line, not pulled from a stock pack. Forty-plus marks across symptoms, cycle states, input categories, and device controls, all at one consistent stroke weight.</p>
+          </div>
+          <figure class="ds-split-img icon-frame">
+            <img src="period-icons.png" alt="Custom icon library: symptoms, body states, cervical mucus types, gradient swatches, controls" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §09 : IA + visual system absorbed */
+  .ia-hero {
+    margin-top: 3rem;
+    overflow: hidden;
+  }
+  .ia-rotate-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    overflow: hidden;
+  }
+  .ia-rotate-wrap img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center center;
+    max-width: none;
+  }
+  .ia-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .ia-decision {
+    margin-top: 3rem;
+    padding-left: 2rem;
+    border-left: 2px solid var(--copper);
+    max-width: 64ch;
+  }
+  .ia-decision p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    font-weight: 400;
+  }
+
+  /* Absorbed visual system */
+  .ds-absorbed {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ink);
+  }
+  .ds-block { margin-top: 4rem; }
+  .ds-block:first-of-type { margin-top: 0; }
+  .ds-h {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+  .ds-h em { font-style: italic; color: var(--copper); }
+  .ds-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin-bottom: 2rem;
+  }
+  .ds-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .ds-split-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .ds-split-text .ds-sub { margin-bottom: 1.75rem; }
+  .ds-split-img { margin: 0; }
+  .grad-row {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 1.75rem;
+    justify-content: start;
+    align-items: center;
+  }
+  .grad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .grad-disc {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.20);
+  }
+  .grad-1 {
+    background: conic-gradient(from 220deg, #FF8534, #FF5722, #E63946, #C5251A, #FF6B35, #FF8534);
+  }
+  .grad-2 {
+    background: conic-gradient(from 220deg, #D4E157, #AED581, #7CB342, #2E8B3D, #689F38, #D4E157);
+  }
+  .grad-3 {
+    background: conic-gradient(from 220deg, #FF66B2, #E91E63, #C2185B, #7B1FA2, #4A1AC5, #FF66B2);
+  }
+  .grad-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  .theme-variants { overflow: hidden; margin: 0; }
+  .theme-variants img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .theme-variants figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .icon-frame {
+    background: var(--bg);
+    padding: 2rem;
+    overflow: hidden;
+    margin: 0;
+  }
+  .icon-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .ds-split { grid-template-columns: 1fr; gap: 2rem; }
+    .grad-row { grid-template-columns: repeat(3, auto); gap: 1.5rem; }
+  }
+</style>
+
+<!-- 10. FINAL SCREENS : video as chapter hero -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 11</span>
+      <span class="nm">Final screens</span>
+      <span class="note">the app, in motion</span>
+    </div>
+    <div>
+      <h2>Built in Figma. Tested with <em>real cycles</em>.</h2>
+      <p class="lede">Forty-plus screens across the home, calendar, input, device control, and settings flows. Below, the working prototype walking through a full cycle, then four key states pulled from the deck.</p>
+
+      <div class="final-row">
+        <figure class="video-hero">
+          <video controls poster="period-app-demo-poster.jpg" preload="metadata">
+            <source src="period-app-demo.mp4" type="video/mp4" />
+          </video>
+          <figcaption>App walkthrough. Home → phase detail → input → calendar → settings.</figcaption>
+        </figure>
+
+        <div class="screen-strip">
+          <div class="scol">
+            <div class="slabel">01 · Home</div>
+            <figure class="screen">
+              <img src="period-screen-home.png" alt="Home screen showing the Follicular Phase with 5 days until ovulation" />
+              <figcaption>Phase named first. Countdown second. Logging is one tap on the central fan.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">02 · Phase detail</div>
+            <figure class="screen">
+              <img src="period-screen-period-detail.png" alt="Period phase detail screen with explanation and possible symptoms" />
+              <figcaption>Plain-language explanation, symptom list, self-care guidance.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">03 · Input</div>
+            <figure class="screen">
+              <img src="period-screen-input.png" alt="Input screen for logging symptoms, intercourse, contraception" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Input screen<br><span>period-screen-input.png</span></div>
+              <figcaption>Log symptoms, intercourse, contraception. One tap from the home screen.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">04 · Luna, written</div>
+            <figure class="screen">
+              <img src="period-screen-luna.png" alt="Luna AI assistant introducing herself in the app with options to access device settings or chat" />
+              <figcaption>The voice assistant, available as text. For when speaking out loud is not an option.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">05 · Calendar</div>
+            <figure class="screen">
+              <img src="period-step-04-track.jpg" alt="Tracker / calendar view showing logged days across the cycle" />
+              <figcaption>Cycle history at a glance. Exportable to share with a doctor.</figcaption>
+            </figure>
+          </div>
+          <div class="scol">
+            <div class="slabel">06 · Device settings</div>
+            <figure class="screen">
+              <img src="period-screen-device.png" alt="Device control screen showing volume, microphone, brightness, and gradient colour selection" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="screen-placeholder" style="display:none;">Device settings<br><span>period-screen-device.png</span></div>
+              <figcaption>Volume, microphone, brightness, and the gradient that the NeoPixel ring uses.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 10 : Final screens: video left, 2x2 screens right */
+  .final-row {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .video-hero {
+    margin: 0;
+    width: 100%;
+    background: var(--ink);
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .video-hero video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--ink);
+  }
+  .video-hero figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 0.25rem 0;
+    line-height: 1.5;
+    background: var(--bg);
+  }
+
+  /* Screen strip : 3 columns × 2 rows in the right column */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem 1rem;
+  }
+  .scol {
+    display: flex;
+    flex-direction: column;
+  }
+  .slabel {
+    padding: 0.6rem 0;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+  }
+  .screen {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .screen figcaption {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  /* Placeholder for screens not yet uploaded */
+  .screen-placeholder {
+    aspect-ratio: 9 / 19;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--bg-warm);
+    color: var(--ink-3);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--rule);
+  }
+  .screen-placeholder span {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .final-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .video-hero { max-width: 280px; margin: 0 auto; }
+    .screen-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .screen-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- 12. FINAL PRODUCT : brass + copper, in context, in motion -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 12</span>
+      <span class="nm">Final product</span>
+      <span class="note">two finishes, one object</span>
+    </div>
+    <div>
+      <h2>Two finishes. <em>Same object</em>.</h2>
+      <p class="lede">Copper and brass: chosen so the device looks at home in any bedroom palette, and so the user's first decision (before they even open the app) is theirs to make.</p>
+
+      <div class="finish-grid">
+        <figure class="finish">
+          <img src="period-device-studio.jpg" alt="Final period. device in copper finish, photographed in studio" />
+          <figcaption>
+            <span class="finish-label">Copper</span>
+            <span class="finish-note">Warm. Defaults to the red-orange NeoPixel gradient.</span>
+          </figcaption>
+        </figure>
+        <figure class="finish">
+          <img src="period-device-brass.jpg" alt="Final period. device in brass finish, photographed in studio" />
+          <figcaption>
+            <span class="finish-label">Brass</span>
+            <span class="finish-note">Cooler-yellow. Pairs naturally with the green-yellow gradient.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- In context: how it lives in the room -->
+      <div class="context-block">
+        <h3 class="ds-h">In the room.</h3>
+        <p class="ds-sub">Designed for the bedside. Quiet enough to belong, present enough to remember.</p>
+        <div class="context-grid">
+          <figure class="ctx ctx-large">
+            <img src="period-device-bedroom.jpg" alt="The device on a bedside table next to a lamp, glowing softly red" />
+          </figure>
+          <figure class="ctx">
+            <img src="period-device-context.jpg" alt="Hands holding the fan with the red NeoPixel halo visible" />
+          </figure>
+          <figure class="ctx">
+            <img src="period-device-alone.jpg" alt="The device alone on a bedside surface" />
+          </figure>
+        </div>
+      </div>
+
+      <!-- In motion: video walkthrough -->
+      <div class="context-block">
+        <h3 class="ds-h">In motion.</h3>
+        <p class="ds-sub">A two-minute walkthrough of the device, folding, glowing, turning, talking.</p>
+        <div class="yt-embed">
+          <iframe
+            src="https://www.youtube.com/embed/euJWdGEKTdw"
+            title="period. device demo video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 4rem;">
+        <blockquote>"Aesthetic that doesn't compromise functionality, and functionality that respects the user."</blockquote>
+        <cite>, Workshop synthesis on what woman-centred design means in practice</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 11 : Final product, two finishes */
+  .finish-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .finish {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .finish img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .finish figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.4rem;
+  }
+  .finish-label {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .finish-note {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  /* In-room contextual gallery */
+  .context-block {
+    margin-top: 5rem;
+  }
+  .context-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+  }
+  .ctx {
+    margin: 0;
+    overflow: hidden;
+  }
+  .ctx img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ctx-large {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* YouTube embed : responsive 16:9 */
+  .yt-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+  }
+  .yt-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .finish-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .context-grid { grid-template-columns: 1fr; }
+    .ctx-large { grid-column: 1; }
+  }
+</style>
+
+<!-- FOOTER : next project -->
+<footer class="case-footer">
+  <div class="case-footer-inner">
+    <div class="case-footer-meta">
+      <span class="case-footer-label">End of case study</span>
+      <span class="case-footer-title">period.</span>
+      <span class="case-footer-detail">BA Hons Product Design · University of Edinburgh · 2023–2024</span>
+    </div>
+
+    <a class="next-card" href="onaka.html">
+      <span class="next-eyebrow">Next project →</span>
+      <h2 class="next-title">Onaka</h2>
+      <p class="next-sub">A pregnancy companion designed at the Royal College of Art. Self-monitoring, reframed as a calmer experience.</p>
+      <span class="next-meta">RCA MA · 2024–2025 · 9 months</span>
+    </a>
+
+    <div class="case-footer-credits">
+      <span>Designed by Nefeli Lemessiou</span>
+      <span>·</span>
+      <a href="mailto:nefeli.lemessiou@gmail.com">nefeli.lemessiou@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .case-footer {
+    background: var(--copper-soft);
+    color: var(--ink);
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    border-top: 1px solid var(--rule);
+  }
+  .case-footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .case-footer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .case-footer-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .case-footer-title {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .case-footer-detail {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 26ch;
+  }
+
+  .next-card {
+    display: block;
+    padding: 2.5rem 2.5rem;
+    border: 1px solid var(--rule);
+    background: var(--bg);
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .next-card:hover {
+    background: var(--bg);
+    border-color: var(--copper);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(154, 74, 31, 0.08);
+  }
+  .next-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--copper-deep);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+  .next-title {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .next-sub {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 0 1.25rem;
+  }
+  .next-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  .case-footer-credits {
+    grid-column: 1 / -1;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .case-footer-credits a {
+    color: var(--ink-2);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.2s ease;
+  }
+  .case-footer-credits a:hover {
+    color: var(--copper-deep);
+    border-color: var(--copper-deep);
+  }
+
+  @media (max-width: 900px) {
+    .case-footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .next-card { padding: 2rem 1.5rem; }
+  }
+</style>
+
+<!--
+  ============================================================
+  TODO, ASSETS TO SWAP / UPLOAD BEFORE PUBLISHING
+  ============================================================
+
+  § 03 (Concept &amp; form), Stage 4 "Sit, or hang" currently uses
+    period-device-detail.jpg as the visual proof of the resolved form.
+    If you have process photos of the six desk-vs-hang prototype
+    iterations (separate stand, picture-frame wire, rod-and-frame,
+    cable-as-hook, wraparound handle, sanded base + handle merged),
+    they could replace the single shot with a small prototype strip.
+
+  § 04 (How it works), Currently using the existing step-0X images.
+    Original screenshot reference used these four bubble images:
+      [1] Voice Assistant : woman with red Luna glow on bedside (silhouette)
+      [2] Foldable Days   : gold fan with green NeoPixel + fingers folding
+      [3] Cycle Day Indicator : copper close-up showing the day pointer
+      [4] Indicative Light : two hands cupping fan with red halo glow
+    → If those source files are recovered, replace:
+        period-step-03-luna.jpg   → [1] Voice Assistant
+        period-step-02-spin.jpg   → [2] Foldable Days
+        period-device-detail.jpg  → [3] Cycle Day Indicator
+        period-step-01-glance.jpg → [4] Indicative Light
+
+  § 05 (Technical), Using period-tech-flatlay.jpg and period-tech-internals.png.
+    No further swaps needed unless higher-res becomes available.
+
+  § 10 (Final screens), Calendar tile uses period-step-04-track.jpg as a
+    stand-in. Replace with a clean Calendar screen export from Figma when
+    available. Other three (home, period detail, luna) use the dedicated
+    period-screen-*.png exports.
+
+  § 11 (Final product), Using period-device-studio.jpg (copper) and
+    period-device-brass.jpg (brass). Original brief mentioned IMG_3076 +
+    IMG_3085; if those are different/better shots, swap them in.
+
+  Footer, links to onaka.html. Make sure that file is published in the
+    same directory at the root of the portfolio.
+
+  ============================================================
+-->
+
+</body>
+</html>

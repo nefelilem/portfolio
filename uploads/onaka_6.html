@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onaka — Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #6B7DF2;
+    --blue-deep: #3B6FBF;
+    --blue-soft: #EAF1FB;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF8;
+    --rule: #E5E2DD;
+    --rule-strong: #1A1A1A;
+    --display: 'Inter Tight', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--blue); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID — section structure */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    color: var(--blue-deep);
+    letter-spacing: 0;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.03em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--blue); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-meta {
+    display: flex; gap: 1rem; align-items: center;
+    font-family: var(--mono); font-size: 0.75rem;
+    letter-spacing: 0.02em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 3.5rem;
+  }
+  .hero-meta .sep { color: var(--ink-4); }
+  .hero-meta .live {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(107, 125, 242, 0.18);
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 38ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 3rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--blue); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+
+  /* IMAGE BOX (placeholder) */
+  .ib {
+    background: var(--blue-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    gap: 0.5rem; position: relative; overflow: hidden;
+  }
+  .ib.n { background: #F5F2EC; }
+  .ib.d { background: #0A0A0A; border-color: rgba(255,255,255,0.08); }
+  .ib p {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--blue-deep); text-align: center; opacity: 0.7;
+    letter-spacing: 0.02em;
+  }
+  .ib.n p { color: var(--ink-3); }
+  .ib.d p { color: rgba(255,255,255,0.4); }
+  .ib strong {
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-2);
+    text-align: center; letter-spacing: -0.01em;
+  }
+  .ib.d strong { color: rgba(255,255,255,0.7); }
+  .phi {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px dashed currentColor; opacity: 0.35;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-deep);
+  }
+  .ib.n .phi { color: var(--ink-3); }
+  .ib.d .phi { color: rgba(255,255,255,0.4); }
+  .phi svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 25% center;
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .hero-image { height: 60vh; min-height: 380px; }
+    .hero-image img { object-position: 30% center; }
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat {
+    padding-right: 0;
+    border-right: none;
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* BLOCKQUOTE pull */
+  .pull {
+    border-left: 2px solid var(--blue);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* RESEARCH 3-COL */
+  .res-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .res-cell {
+    padding: 2rem 2rem 2rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .res-cell:not(:first-child) { padding-left: 2rem; }
+  .res-cell:last-child { border-right: none; padding-right: 0; }
+  .res-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .res-cell h3 { margin-bottom: 0.85rem; }
+  .res-cell h3 em { font-style: italic; color: var(--blue); }
+  .res-cell p { font-size: 0.88rem; }
+
+  /* INSIGHT pills */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 0.55rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pill-row .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase;
+    width: 100%; margin-bottom: 0.6rem;
+  }
+  .pill {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+    background: var(--bg);
+  }
+
+  /* DECISION — flowing story */
+  .decision-flow {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .dec-stage {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    position: relative;
+  }
+  .dec-stage.now {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .dec-stage.was {
+    margin-left: 0;
+  }
+  .dec-stage.now {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+  /* "was" puts text left, image right; "now" flips it for visual rhythm */
+  .dec-stage.now .dec-text { order: 2; }
+  .dec-stage.now .dec-img-wrap { order: 1; }
+  .dec-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .dec-tag.was { color: #8A2A2A; }
+  .dec-tag.now { color: var(--blue-deep); }
+  .dec-tag::before {
+    content: ''; display: block;
+    width: 18px; height: 1px;
+  }
+  .dec-tag.was::before { background: #8A2A2A; }
+  .dec-tag.now::before { background: var(--blue-deep); }
+  .dec-stage h3 {
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .dec-stage h3 em { font-style: italic; color: var(--blue); }
+  .dec-text > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 1.5rem;
+  }
+  .dec-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .dec-list li {
+    font-size: 0.92rem; color: var(--ink-2);
+    padding-left: 1.6rem; position: relative;
+    line-height: 1.55;
+  }
+  .dec-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.65rem;
+    width: 14px; height: 1px; background: var(--ink-3);
+  }
+  .dec-list li.x { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+  .dec-img-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+  }
+  .dec-img-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+  }
+  .dec-img-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .dec-img-caption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+  .dec-arrow {
+    position: relative;
+    height: 80px;
+    margin: 0;
+  }
+  .dec-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .dec-arrow path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  .dec-arrow .tip {
+    fill: var(--blue);
+    opacity: 0.7;
+  }
+  @media (max-width: 900px) {
+    .dec-stage {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .dec-stage.now .dec-text { order: 1; }
+    .dec-stage.now .dec-img-wrap { order: 2; }
+    .dec-stage.now { margin-top: 2rem; }
+    .dec-arrow { height: 60px; }
+  }
+
+  /* THREE SYMPTOMS */
+  .sym-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .principle {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 2rem;
+    margin-top: 2rem;
+    position: relative;
+  }
+  .principle .pl {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--blue);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+  .principle p {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    line-height: 1.35;
+    color: var(--bg);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .sym-stack { display: flex; flex-direction: column; gap: 0.6rem; }
+  .sym-card {
+    display: flex; align-items: flex-start; gap: 1.25rem;
+    padding: 1.4rem;
+    border: 1px solid var(--rule);
+  }
+  .sym-icon {
+    width: 56px; height: 56px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.7rem;
+    font-weight: 500; letter-spacing: 0.02em;
+    border: 1px solid var(--rule);
+  }
+  .sym-icon.p { background: #F8E8E5; color: #8B3A2E; border-color: #E8C9C2; }
+  .sym-icon.a { background: var(--blue-soft); color: var(--blue-deep); border-color: #C8DAF0; }
+  .sym-icon.b { background: #E6F0E5; color: #2F5F3F; border-color: #C7DDC2; }
+  .sym-card h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .sym-card p { font-size: 0.84rem; color: var(--ink-3); }
+
+  /* INPUT METHOD */
+  .input-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .bar-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar-row:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+  .bar-label {
+    font-size: 0.92rem; font-weight: 500;
+    min-width: 88px; color: var(--ink);
+  }
+  .bar-track {
+    flex: 1; height: 6px; background: var(--bg-2);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; background: var(--ink-4);
+  }
+  .bar-fill.w { background: var(--blue); }
+  .bar-value {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--ink-3); min-width: 110px; text-align: right;
+    letter-spacing: 0.01em;
+  }
+  .bar-value.w { color: var(--blue-deep); font-weight: 500; }
+  .meta-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    margin-top: 1rem;
+  }
+  .meta-card .ml {
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .meta-card p { font-size: 0.88rem; line-height: 1.55; }
+
+  /* FORM DEVELOPMENT */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .form-grid .ib {
+    border: 1px solid var(--rule);
+    height: 280px;
+  }
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .form-grid-2 .ib {
+    border: 1px solid var(--rule);
+    height: 220px;
+  }
+
+  /* APP — screen strip */
+  .screen-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .scol {
+    display: flex; flex-direction: column;
+  }
+  .slabel {
+    padding: 0.85rem 0;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.5rem;
+  }
+  .scol .ib { border: 1px solid var(--rule); height: 340px; }
+
+  /* PRINCIPLES — flowing */
+  .princ-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem 5rem;
+    margin-top: 4rem;
+  }
+  .princ {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .princ-num {
+    font-family: var(--display);
+    font-size: 3.5rem;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--blue);
+    font-style: italic;
+  }
+  .princ h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .princ p {
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    line-height: 1.55;
+  }
+  @media (max-width: 700px) {
+    .princ-row { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* DETAIL ROW */
+  .detail-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .detail-row .ib {
+    border: 1px solid var(--rule);
+    height: 320px;
+  }
+
+  /* BRANDING — flowing */
+  .brand-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .brand h4 {
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .brand p { font-size: 0.92rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .brand-strip { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  .cdots { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .cdot { width: 28px; height: 28px; border-radius: 50%; }
+  .tsamp { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1rem; }
+  .tr {
+    display: flex; align-items: baseline; gap: 0.85rem;
+    padding-bottom: 0.55rem; border-bottom: 1px solid var(--rule);
+  }
+  .tr:last-child { border-bottom: none; }
+  .tlbl {
+    font-family: var(--mono); font-size: 0.65rem; color: var(--ink-3);
+    min-width: 64px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  /* HOW IT WORKS — circular interaction system */
+  .interaction-system {
+    position: relative;
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .connectors path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .i-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .i-step-1 { padding-top: 4rem; }
+  .i-step-2 { padding-top: 1rem; }
+  .i-step-3 { padding-top: 0; }
+  .i-step-4 { padding-top: 3rem; }
+  .i-label {
+    color: var(--blue-deep);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 14ch;
+  }
+  .i-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--bg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .i-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* per-step crop tuning so the subject sits centred in each circle */
+  .i-step-1 .i-circle img { object-position: 55% 45%; transform: scale(1.4); }
+  .i-step-2 .i-circle img { object-position: 50% 50%; transform: scale(1.1); }
+  .i-step-3 .i-circle img { object-position: 50% 38%; transform: scale(1.6); }
+  .i-step-4 .i-circle img { object-position: 50% 28%; transform: scale(1.5); }
+  .i-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 22ch;
+  }
+  @media (max-width: 900px) {
+    .interaction-system {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .connectors { display: none; }
+    .i-step,
+    .i-step-1, .i-step-2, .i-step-3, .i-step-4 { padding-top: 0; }
+    .i-circle { width: 200px; height: 200px; }
+  }
+
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule-strong);
+    margin-top: 3rem;
+  }
+  .flow-step {
+    padding: 2rem 1.75rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.5rem; top: 2rem;
+    color: var(--ink-4);
+    font-size: 1rem;
+    background: var(--bg);
+    padding: 0 0.25rem;
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-num {
+    font-family: var(--display);
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--blue-soft);
+    margin-bottom: 1.2rem;
+  }
+  .flow-step h4 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .flow-step p { font-size: 0.85rem; color: var(--ink-3); }
+  .flow-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 0.65rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+    margin-top: 1rem;
+  }
+  .flow-tag.dev { background: var(--blue-soft); color: var(--blue-deep); }
+  .flow-tag.iot { background: #F0EFEA; color: var(--ink-3); }
+  .flow-tag.app { background: #E6F0E5; color: #2F5F3F; }
+
+  /* FINAL */
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .final-grid .ib {
+    border: 1px solid var(--rule);
+  }
+  .final-hero {
+    height: 440px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: #FAFAF8;
+  }
+  .final-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 28% center;
+    display: block;
+  }
+  .out-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .out {
+    padding: 0;
+  }
+  .out .ol {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--blue-deep); letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .out p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .out-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 4rem 2.5rem;
+    color: var(--bg);
+  }
+  .foot-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+  .foot-marker {
+    font-family: var(--mono); font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.02em;
+  }
+  .foot-name {
+    font-family: var(--hand);
+    font-size: 2.2rem;
+    color: var(--bg);
+    margin-bottom: 0.5rem;
+  }
+  .foot-meta {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.02em;
+  }
+  .foot-next {
+    text-align: right;
+  }
+  .nl {
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.4rem;
+  }
+  .nt {
+    font-family: var(--display); font-size: 2rem;
+    color: var(--bg); text-decoration: none;
+    font-weight: 600; letter-spacing: -0.03em;
+    transition: color 0.2s;
+  }
+  .nt:hover { color: var(--blue); }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .stat { border-right: none; padding-right: 0; }
+    .res-grid, .form-grid, .form-grid-2, .screen-strip, .princ-row, .detail-row, .brand-strip, .flow-grid, .final-grid, .out-grid { grid-template-columns: 1fr; }
+    .res-cell, .form-grid .ib, .form-grid-2 .ib, .scol, .detail-row .ib, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .sym-grid, .input-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .foot-next { text-align: left; }
+    .flow-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-meta a d1">
+    <span class="live"></span>
+    <span>Onaka</span>
+    <span class="sep">·</span>
+    <span>Product Design · MA Project</span>
+    <span class="sep">·</span>
+    <span>Royal College of Art · 2024–2025</span>
+  </div>
+  <h1 class="display a d2">Tracking gut health <em>without</em> the anxiety it causes.</h1>
+  <p class="hero-sub a d3">A pocketable IoT device and companion app that lets people with chronic GI conditions log symptoms in <em>seconds</em> — without screens, overwhelm, or medicalised interfaces.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">UX Research</span>
+    <span class="tag">Interaction Design</span>
+    <span class="tag">IoT</span>
+    <span class="tag">UI Design</span>
+    <span class="tag">Data Design</span>
+    <span class="tag">Branding</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="onaka-hero.png" alt="Hand holding the blue Onaka device against a white wall" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">where it all began</span>
+    </div>
+    <div>
+      <h2 class="wide"><em>1 in 5</em> people in the UK have a GI condition. The tools meant to help make things <em>worse</em>.</h2>
+      <p class="lede">Existing apps demand frequent logging, display overwhelming graphs, and create hyper-awareness that worsens anxiety. The gut–brain axis means stress and GI symptoms feed each other — a tool that adds cognitive load actively harms the people it's meant to help.</p>
+      <div class="pull">
+        <blockquote>"Existing solutions need too much effort — they cause more stress than relief."</blockquote>
+        <cite>— Patient interview · 2024</cite>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">1<em>/5</em></div><div class="lbl">UK people with chronic GI conditions</div></div>
+        <div class="stat"><div class="num">10–20<em>%</em></div><div class="lbl">of UK population has IBS</div></div>
+        <div class="stat"><div class="num">3<em> apps</em></div><div class="lbl">tested by 5 users over 5 days — all overwhelming</div></div>
+        <div class="stat"><div class="num">100<em>%</em></div><div class="lbl">wanted something faster and less effortful</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+    </div>
+    <div>
+      <h2>Talking to <em>doctors and patients</em> before touching a sketch.</h2>
+      <div class="res-grid">
+        <div class="res-cell">
+          <div class="res-label">A · Clinicians</div>
+          <h3>Gastroenterologist <em>interviews</em></h3>
+          <p>Two sessions — project start and mid-development. Key finding: patients can't accurately describe symptoms to doctors without a tracking tool.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">B · Patients</div>
+          <h3>Journey <em>mapping</em></h3>
+          <p>Guided conversations and a day-mapping exercise. Identified the anxiety–symptom cycle and the emotional cost of existing tools.</p>
+        </div>
+        <div class="res-cell">
+          <div class="res-label">C · Competitors</div>
+          <h3>App <em>case study</em></h3>
+          <p>5 users, 5 days. Participants used three leading GI apps and kept diaries. All created hyper-awareness and data overwhelm rather than genuine understanding.</p>
+        </div>
+      </div>
+
+      <div class="pull" style="margin-top: 3rem;">
+        <blockquote>"People need a fast, low-stress way to capture lived experience — and return only the most helpful insights."</blockquote>
+        <cite>— Design insight · synthesised from research</cite>
+      </div>
+
+      <div class="pill-row">
+        <span class="pl">Key insights</span>
+        <span class="pill">Anxiety worsens GI symptoms — and vice versa</span>
+        <span class="pill">Patients can't recall symptoms without logging</span>
+        <span class="pill">Data overload causes hyper-awareness</span>
+        <span class="pill">Existing apps feel like another chore</span>
+        <span class="pill">Should feel like a companion, not a medical tool</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">How it works</span>
+    </div>
+    <div>
+      <h2>The full <em>loop</em> — in four steps.</h2>
+      <p class="lede">Before the decisions that shaped each piece — here's the system at a glance. A pocketable silicone device with three concentric ring buttons, paired with a companion app that surfaces meaning at the end of each day.</p>
+
+      <div class="interaction-system">
+        <!-- dashed connectors (desktop only) -->
+        <svg class="connectors" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 145 180 Q 230 240, 320 165" />
+          <path d="M 395 145 Q 480 80, 570 130" />
+          <path d="M 645 165 Q 730 240, 820 175" />
+        </svg>
+
+        <div class="i-step i-step-1">
+          <div class="i-label">Log symptoms instantly</div>
+          <figure class="i-circle">
+            <img src="step-01-log.png" alt="Hand pressing the blue Onaka device" />
+          </figure>
+          <p class="i-copy">Simple button presses capture pain, anxiety, and bowel movements in real time — without interrupting the moment.</p>
+        </div>
+
+        <div class="i-step i-step-2">
+          <div class="i-label">Respond, not just record</div>
+          <figure class="i-circle">
+            <img src="step-02-respond.png" alt="Onaka device emitting a blue NeoPixel breathing pulse" />
+          </figure>
+          <p class="i-copy">When anxiety is logged, the device provides immediate breathing feedback — helping users regulate, not just observe.</p>
+        </div>
+
+        <div class="i-step i-step-3">
+          <div class="i-label">Reflect, not overthink</div>
+          <figure class="i-circle">
+            <img src="step-03-reflect.png" alt="Companion app asking 'You felt anxious 2 times today. Main trigger?'" />
+          </figure>
+          <p class="i-copy">At the end of the day, a single gentle question encourages reflection — without constant tracking or pressure.</p>
+        </div>
+
+        <div class="i-step i-step-4">
+          <div class="i-label">Insights, not data overload</div>
+          <figure class="i-circle">
+            <img src="step-04-insights.png" alt="Priority Insights screen showing Anxiety-Gut Connection card" />
+          </figure>
+          <p class="i-copy">Patterns are translated into clear, digestible insights — avoiding complex graphs and medical jargon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. DECISION 1 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Decision 01</span>
+      <span class="note">the hardest pivot</span>
+    </div>
+    <div>
+      <h2>Why I <em>abandoned</em> gesture input.</h2>
+      <p class="lede">Users loved the tactile quality of squeezing fabric — but they couldn't trust their inputs were registering. The data corrupted itself.</p>
+      <div class="decision-flow">
+        <div class="dec-stage was">
+          <div class="dec-text">
+            <span class="dec-tag was">Original concept</span>
+            <h3>Squeeze, twist, pinch.</h3>
+            <p>Three gestures to log three symptoms. Tactile and playful — but unreadable to the device.</p>
+            <ul class="dec-list">
+              <li class="x">No confirmation that a gesture had registered</li>
+              <li class="x">Squeezing felt satisfying as a fidget — corrupting data</li>
+              <li class="x">FSR sensor couldn't reliably distinguish patterns</li>
+              <li class="x">Robotics expert confirmed: unreliable in advanced systems</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="decision-1-squeeze.png" alt="Nine-up grid of fabric squeeze prototypes in green, pink, and striped patterns being held and squeezed" />
+            </figure>
+            <div class="dec-img-caption">Fabric squeeze prototypes — green, pink, and striped variants tested for grip and gesture recognition.</div>
+          </div>
+        </div>
+
+        <div class="dec-arrow" aria-hidden="true">
+          <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+            <path d="M 80 10 Q 240 90, 380 40 T 540 60" />
+            <polygon class="tip" points="540,60 528,52 532,62 524,70" />
+          </svg>
+        </div>
+
+        <div class="dec-stage now">
+          <div class="dec-text">
+            <span class="dec-tag now">Final solution</span>
+            <h3>Three buttons, integrated into the <em>form</em>.</h3>
+            <p>Buttons give immediate, unambiguous confirmation. Concentric ring layout means each is distinguishable by touch — usable from a pocket without looking.</p>
+            <ul class="dec-list">
+              <li>Short / long press differentiates severity</li>
+              <li>Raised ring edges guide fingers without looking</li>
+              <li>NeoPixel confirms input — blue breathing pulse for anxiety</li>
+              <li>No accidental logging during ordinary handling</li>
+            </ul>
+          </div>
+          <div class="dec-img-wrap">
+            <figure class="dec-img-photo">
+              <img src="decision-1-buttons.png" alt="MDF prototypes of the button-based device showing edge profile and raised tactile button shapes" />
+            </figure>
+            <div class="dec-img-caption">MDF prototypes — testing edge profiles and raised, distinguishable button shapes for blind operation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. DECISION 2 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Decision 02</span>
+    </div>
+    <div>
+      <h2><em>Three symptoms</em> — no more.</h2>
+      <div class="sym-grid">
+        <div>
+          <p class="lede">A second gastroenterologist interview shaped the entire device architecture — asking which daily GI factors matter most to capture.</p>
+          <div class="principle">
+            <div class="pl">Design principle</div>
+            <p>"Capture the minimum data that allows meaningful questions to be asked at end of day."</p>
+          </div>
+          <p style="margin-top: 1.5rem; font-size: 0.92rem; line-height: 1.6;">Pain, anxiety, and bowel movements were chosen because they are spontaneous, identifiable in the moment, and the visible surface of deeper patterns — allowing the app to generate targeted reflective questions rather than asking users to fill in a form.</p>
+        </div>
+        <div class="sym-stack">
+          <div class="sym-card">
+            <div class="sym-icon p">Pain</div>
+            <div>
+              <h4>Pain — centre button</h4>
+              <p>The most urgent symptom. Short press = mild, long press = severe.</p>
+            </div>
+          </div>
+          <div class="sym-card">
+            <div class="sym-icon a">Anx</div>
+            <div>
+              <h4>Anxiety — middle ring</h4>
+              <p>Triggers a blue NeoPixel breathing pulse — 5s inhale / 5s exhale — as immediate calming feedback.</p>
+            </div>
+          </div>
+          <div class="sym-card">
+            <div class="sym-icon b">Bowel</div>
+            <div>
+              <h4>Bowel movement — outer ring</h4>
+              <p>Three press durations differentiate between normal, loose, and hard movements.</p>
+            </div>
+          </div>
+          <div class="ib" style="height: 160px; margin-top: 0.5rem;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Annotated button layout</strong>
+            <p>Portfolio p.5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DECISION 3 -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Decision 03</span>
+    </div>
+    <div>
+      <h2 class="wide">Testing <em>four input methods</em> before writing a line of app code.</h2>
+      <div class="input-grid">
+        <div>
+          <p class="lede">Four Figma prototypes — dropdown lists, icon-based input, free text, and voice commands — were tested with users over several days before any development began. The winner defined the app's entire interaction model.</p>
+          <div class="ib" style="height: 320px; margin-top: 2rem;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Reflective questions + correlation screen</strong>
+            <p>Journal p.102 — Step 5</p>
+          </div>
+        </div>
+        <div>
+          <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1.25rem;">Input method preference — 5 participants</p>
+          <div class="bar-row">
+            <span class="bar-label">Lists</span>
+            <div class="bar-track"><div class="bar-fill w" style="width: 60%;"></div></div>
+            <span class="bar-value w">Preferred — 3/5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Icons</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 40%;"></div></div>
+            <span class="bar-value">2/5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Free text</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 10%;"></div></div>
+            <span class="bar-value">Not preferred</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Voice</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 5%;"></div></div>
+            <span class="bar-value">Output only</span>
+          </div>
+          <div class="meta-card">
+            <div class="ml">What this meant</div>
+            <p>Structured multiple-choice prompts only — no blank fields. The app never asks for free-form input, keeping cognitive load lowest at the user's most tired moment.</p>
+          </div>
+          <div class="meta-card">
+            <div class="ml">App principle</div>
+            <p>The app is for reflection — the device handles all input. Voice was used for AI-generated question phrasing, never for user input.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FORM DEVELOPMENT -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Form development</span>
+    </div>
+    <div>
+      <h2>From <em>7 forms</em> to one.</h2>
+      <p class="lede">Multiple forms were sketched and MDF-prototyped before testing revealed the concentric ring as the strongest — most discreet, most ergonomic, and navigable without looking.</p>
+      <div class="form-grid">
+        <div class="ib n">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Ideation sketches</strong>
+          <p>Journal p.88</p>
+        </div>
+        <div class="ib n">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>MDF prototypes — 7 forms</strong>
+          <p>Journal p.89</p>
+        </div>
+        <div class="ib n">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Ring prototypes — NeoPixel lit</strong>
+          <p>Journal p.96</p>
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="ib n">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Alternative concept renders — Pebble + Leaf Pod</strong>
+          <p>Journal p.94</p>
+        </div>
+        <div class="ib n">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Silicone casting process</strong>
+          <p>Journal p.110</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. APP DESIGN -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">App design</span>
+    </div>
+    <div>
+      <h2 class="wide">A companion app designed around <em>calm</em> — not data.</h2>
+      <p class="lede">Built in Figma and Lovable. Five focused screens — each with a single purpose. The app never asks for input the device can handle; it exists to surface meaning from what was already logged.</p>
+
+      <div class="screen-strip">
+        <div class="scol">
+          <div class="slabel">01 · Home</div>
+          <div class="ib"><div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><p>Journal p.101<br>Daily overview + symptom counts</p></div>
+        </div>
+        <div class="scol">
+          <div class="slabel">02 · Logs</div>
+          <div class="ib"><div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><p>Journal p.102<br>Sortable log entries per symptom</p></div>
+        </div>
+        <div class="scol">
+          <div class="slabel">03 · Reflection</div>
+          <div class="ib"><div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><p>Journal p.102<br>One daily question, structured choices</p></div>
+        </div>
+        <div class="scol">
+          <div class="slabel">04 · Insights</div>
+          <div class="ib"><div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><p>Journal p.103<br>Colour-coded text insights, prioritised</p></div>
+        </div>
+        <div class="scol">
+          <div class="slabel">05 · Resources</div>
+          <div class="ib"><div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><p>Journal p.104<br>Articles, exercises, recipes by condition</p></div>
+        </div>
+      </div>
+
+      <div class="princ-row">
+        <div class="princ">
+          <div class="princ-num">01</div>
+          <div>
+            <h4>No daily input required</h4>
+            <p>The device logs through the day. The app opens once — for a single end-of-day reflection.</p>
+          </div>
+        </div>
+        <div class="princ">
+          <div class="princ-num">02</div>
+          <div>
+            <h4>Text insights, not graphs</h4>
+            <p>Colour-coded plain English, prioritised by urgency. No charts or raw numbers that overwhelm.</p>
+          </div>
+        </div>
+        <div class="princ">
+          <div class="princ-num">03</div>
+          <div>
+            <h4>Doctor sharing built in</h4>
+            <p>Symptom logs and insights compile into a shareable report — giving doctors data patients rarely arrive with.</p>
+          </div>
+        </div>
+        <div class="princ">
+          <div class="princ-num">04</div>
+          <div>
+            <h4>Tailored resources</h4>
+            <p>Articles, exercises, and recipes filtered to the user's specific GI condition and goals from onboarding.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="ib">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Home screen — daily overview, symptom counts, daily tips</strong>
+          <p>Portfolio p.10 (large left-hand phone)</p>
+        </div>
+        <div class="ib">
+          <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <strong>Insights — 3 screens, priority + pattern + advice</strong>
+          <p>Journal p.103</p>
+        </div>
+      </div>
+
+      <div class="brand-strip">
+        <div class="brand">
+          <h4>Colour palette</h4>
+          <p>Soft blues for calm and trust. Red, yellow, and green as symptom identifiers — warm and intuitive, not clinical.</p>
+          <div class="cdots">
+            <div class="cdot" style="background: #3B6FBF;"></div>
+            <div class="cdot" style="background: #EAF1FB; border: 1px solid var(--rule);"></div>
+            <div class="cdot" style="background: #B8D0F0;"></div>
+            <div class="cdot" style="background: #E05A5A;"></div>
+            <div class="cdot" style="background: #F5C842;"></div>
+            <div class="cdot" style="background: #4CAF7D;"></div>
+          </div>
+        </div>
+        <div class="brand">
+          <h4>Logo origin</h4>
+          <p>The mark grew from the device form — three concentric rings. The name <em>onaka</em> (お腹) means "tummy" in Japanese — found by searching for words with an "o" that the ring logo could replace.</p>
+          <div class="ib n" style="height: 80px; margin-top: 1rem;">
+            <p>Logo iteration grid — Journal p.98</p>
+          </div>
+        </div>
+        <div class="brand">
+          <h4>Typography &amp; tone</h4>
+          <p>Rounded UI typeface to match the device's organic form. Copy is first-person, non-clinical — the app speaks like a calm friend.</p>
+          <div class="tsamp">
+            <div class="tr"><span class="tlbl">Heading</span><span style="font-size: 1.05rem; font-weight: 500; letter-spacing: -0.02em;">Good evening.</span></div>
+            <div class="tr"><span class="tlbl">Body</span><span style="font-size: 0.88rem; color: var(--ink-2);">How are you feeling today?</span></div>
+            <div class="tr"><span class="tlbl">Insight</span><span style="font-size: 0.82rem; color: var(--blue-deep); font-style: italic;">Anxiety–gut connection detected.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FINAL -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 09</span>
+      <span class="nm">Final product</span>
+      <span class="note">all together now</span>
+    </div>
+    <div>
+      <h2><em>Onaka</em> — a system designed around calm.</h2>
+      <div class="final-grid">
+        <figure class="final-hero">
+          <img src="onaka-hero.png" alt="Final blue Onaka device held in hand" />
+        </figure>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="ib" style="height: 220px;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>Companion app — 4 key screens</strong>
+            <p>Portfolio p.10</p>
+          </div>
+          <div class="ib n" style="height: 220px;">
+            <div class="phi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <strong>5 colour variant renders</strong>
+            <p>Journal p.114</p>
+          </div>
+        </div>
+      </div>
+      <div class="out-grid">
+        <div class="out">
+          <div class="ol">Device</div>
+          <p>60mm silicone disc. Three concentric ring buttons. NeoPixel breathing light. USB-C charge. Keychain attachment.</p>
+        </div>
+        <div class="out">
+          <div class="ol">Electronics</div>
+          <p>SparkFun Qwiic Pocket. NeoPixel ring. 1200mAh LiPo. Blynk IoT cloud for wireless sync to app.</p>
+        </div>
+        <div class="out">
+          <div class="ol">App</div>
+          <p>Built in Lovable + Figma. AI-generated reflective questions. Colour-coded text insights. Doctor export. Dark mode.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-marker">§ END</div>
+    <div>
+      <div class="foot-name">Nefeli Lemessiou</div>
+      <div class="foot-meta">MA Design Products · Royal College of Art · 2025</div>
+    </div>
+    <div class="foot-next">
+      <div class="nl">Next project</div>
+      <a class="nt" href="#">period. →</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

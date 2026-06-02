@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — Nefeli Lemessiou</title>
+<meta name="description" content="Selected projects by Nefeli Lemessiou — UX, interaction and product design across digital and physical." />
+<style id="site-css">
+/* ============================================
+   Nefeli Lemessiou — Portfolio
+   Warm minimalist · editorial
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Nefs';
+  src: url('assets/nefs.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* warm cream + cobalt palette */
+  --paper: #FFFFFF;
+  --paper-soft: #F7F5F2;
+  --paper-warm: #EFEAE3;
+  --ink: #0E0E0C;
+  --ink-soft: #2A2A28;
+  --ink-mute: #8E8E8E;
+  --rule: #D6D6D6;
+  --cobalt: #0E0E0C;          /* primary ink for body & headings */
+  --cobalt-soft: #2A2A28;
+  --purple: #7C5BD6;          /* brand accent */
+  --purple-soft: #EBE5FA;
+  --grey: #8E8E8E;            /* muted text */
+  --grey-line: #D6D6D6;       /* borders/rules */
+  --clay: #7C5BD6;
+  --butter: #EBE5FA;
+  --sage: #8E8E8E;
+
+  /* type */
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --hand: 'Nefs', 'Instrument Serif', cursive;
+
+  /* layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1440px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+/* selection */
+::selection { background: var(--purple); color: #FFFFFF; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: none; background: none; border: none; color: inherit; }
+
+/* ============================================
+   Custom cursor
+   ============================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  background: rgba(14, 14, 12, 0.18);
+  border-color: rgba(14, 14, 12, 0.35);
+  opacity: 1;
+}
+.cursor-ring.text { opacity: 0; }
+.cursor-dot.text { opacity: 0; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================
+   Layout primitives
+   ============================================ */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.italic { font-style: italic; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.display em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); letter-spacing: -0.02em; }
+
+.h-xl {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.h-lg {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+.body-lg {
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 400;
+}
+.body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); font-size: 1em; }
+
+.body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); font-weight: 400; }
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Top nav
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--grey-line);
+}
+.nav a, .nav button { color: var(--ink); }
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  transform: translateY(4px);
+  transition: color 0.2s;
+  padding-right: 4px;
+}
+.nav-logo:hover { color: var(--purple); }
+.nav-links {
+  display: flex;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.nav-links a {
+  position: relative;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-links a.active {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.nav-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .nav-time { display: none; }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 140px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-meta-row { display: flex; gap: 32px; }
+.hero-meta-row span:first-child { color: var(--grey); }
+.hero-meta-row span:last-child { color: var(--ink); }
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-title .line { display: block; }
+.hero-title em {
+  font-family: var(--hand);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--purple);
+  letter-spacing: 0;
+  display: inline-block;
+  font-size: 1.05em;
+  transform: translateY(0.06em);
+}
+.hero-title .indent { padding-left: 0; }
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+.hero-foot p {
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 50ch;
+  font-weight: 400;
+}
+.hero-foot p em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.hero-foot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+}
+.hero-foot-meta .caption { color: var(--grey); }
+.hero-foot-meta .val { color: var(--ink); font-family: var(--sans); font-weight: 500; font-size: 14px; }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.scroll-cue .arr {
+  width: 24px; height: 1px; background: currentColor;
+  position: relative;
+  animation: arrow 2s ease-in-out infinite;
+}
+.scroll-cue .arr::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(45deg);
+  transform-origin: right;
+}
+.scroll-cue .arr::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 3px;
+  width: 8px; height: 1px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  transform-origin: right;
+}
+@keyframes arrow {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(8px); opacity: 0.5; }
+}
+
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot-meta { text-align: left; }
+}
+
+/* ============================================
+   Section: featured strip
+   ============================================ */
+.section {
+  padding: 120px var(--gutter);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 64px;
+  border-top: 1px solid var(--ink);
+  padding-top: 24px;
+}
+.section-head .eyebrow { color: var(--grey); }
+
+/* ============================================
+   Filter bar
+   ============================================ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border: 1.5px solid var(--grey-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--purple); color: var(--purple); }
+.filter-chip.active {
+  background: var(--purple);
+  color: #FFFFFF;
+  border-color: var(--purple);
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-left: auto;
+  align-self: center;
+}
+
+/* ============================================
+   Project grid
+   ============================================ */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 32px;
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+  position: relative;
+}
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translate(8px, -8px);
+}
+.project-card:hover::after { opacity: 1; transform: translate(0, 0); }
+.project-grid.dimmed .project-card:not(:hover) { opacity: 0.45; }
+
+.project-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+}
+.project-card:hover .project-thumb { transform: translateY(-6px); border-color: var(--purple); }
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-bottom: 8px;
+}
+.project-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.project-title em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.02em; color: var(--purple); }
+.project-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.project-tag::before { content: '· '; }
+.project-tag:first-child::before { content: ''; }
+
+.project-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  max-width: 50ch;
+}
+.project-desc em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+.project-card.size-tall .project-thumb { aspect-ratio: 3 / 4; }
+.project-card.size-wide .project-thumb { aspect-ratio: 16 / 10; }
+.project-card.size-sq .project-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 720px) {
+  .project-grid { grid-template-columns: 1fr; gap: 48px 0; }
+}
+
+/* ============================================
+   Placeholder (intentional, monospace-tagged)
+   ============================================ */
+.ph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgba(14, 14, 12, 0.04) 14px 15px
+    );
+  overflow: hidden;
+}
+.ph-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 5px 10px;
+  border: 1px solid var(--grey-line);
+  border-radius: 999px;
+  z-index: 2;
+}
+.ph-tag::before { content: '◇ '; color: var(--purple); }
+
+/* device-shaped placeholders */
+.ph-device {
+  position: absolute;
+  background: var(--paper-soft);
+  border: 1px solid var(--grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-device.phone {
+  width: 35%;
+  aspect-ratio: 9 / 19;
+  border-radius: 24px;
+}
+.ph-device.disc {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.ph-device.fan {
+  width: 60%;
+  aspect-ratio: 5 / 3;
+  border-radius: 0 0 999px 999px;
+  transform: translateY(-15%);
+}
+
+/* ============================================
+   Hero artwork (right column)
+   ============================================ */
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%);
+  width: 28vw;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1100px) {
+  .hero-art { display: block; }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 80px var(--gutter) 40px;
+  border-top: 1px solid var(--ink);
+}
+.footer-display {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(48px, 8vw, 120px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+}
+.footer-display em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.025em; color: var(--purple); }
+.footer-display a {
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+  line-height: 0.9;
+  transition: color 0.3s, border-color 0.3s;
+}
+.footer-display a:hover { color: var(--purple); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grey-line);
+}
+.footer-col .caption { display: block; margin-bottom: 12px; color: var(--grey); }
+.footer-col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink); font-weight: 500; }
+.footer-col a:hover { color: var(--purple); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================
+   About strip
+   ============================================ */
+.about-strip {
+  padding: 120px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  border-top: 1px solid var(--ink);
+}
+.about-strip .label { color: var(--grey); margin-bottom: 24px; }
+.about-strip .body-lg { font-family: var(--sans); font-weight: 500; font-size: clamp(22px, 2.4vw, 36px); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); max-width: none; }
+.about-strip .body-lg em { font-family: var(--sans); font-style: italic; font-weight: 500; letter-spacing: -0.015em; color: var(--purple); }
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grey-line);
+}
+.about-list dt { font-family: var(--mono); font-size: 11px; color: var(--grey); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.about-list dd { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* "View all work" link under the homepage 3-project grid */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+.work-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+}
+.work-more > span:first-child {
+  position: relative;
+}
+.work-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.work-more:hover > span:first-child::after { transform: scaleX(1); }
+.work-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.work-more:hover .arr { transform: translateX(4px); }
+
+.about-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 64px;
+  margin-left: auto;
+  align-self: flex-end;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.25s;
+}
+.about-more > span:first-child {
+  position: relative;
+}
+.about-more > span:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.about-more:hover > span:first-child::after {
+  transform: scaleX(1);
+}
+.about-more .arr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #FFFFFF;
+  font-size: 14px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.about-more:hover .arr { transform: translateX(4px); background: var(--purple); color: #FFFFFF; }
+
+/* Make the about-strip column a flex column so the link can push to the right edge */
+.about-strip > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .about-strip { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   Reveal animation
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: 0.1s; }
+.reveal.delay-2 { transition-delay: 0.2s; }
+.reveal.delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   Marquee (running line)
+   ============================================ */
+.marquee {
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 22px 0;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.marquee em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 40s linear infinite;
+  padding-left: 0;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Stickers & circular annotations
+   ============================================ */
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  padding: 14px 18px;
+  border-radius: 50%;
+  z-index: 5;
+  pointer-events: none;
+}
+.sticker.butter { background: var(--butter); color: var(--ink); transform: rotate(-12deg); }
+.sticker.clay { background: var(--clay); color: var(--paper); transform: rotate(8deg); }
+.sticker.cobalt { background: var(--cobalt); color: var(--paper); transform: rotate(-6deg); }
+.sticker.burst {
+  border-radius: 0;
+  width: 110px; height: 110px;
+  background: var(--butter);
+  color: var(--ink);
+  clip-path: polygon(50% 0%, 60% 18%, 80% 10%, 78% 32%, 100% 35%, 85% 50%, 100% 65%, 78% 68%, 80% 90%, 60% 82%, 50% 100%, 40% 82%, 20% 90%, 22% 68%, 0% 65%, 15% 50%, 0% 35%, 22% 32%, 20% 10%, 40% 18%);
+  padding: 0;
+}
+
+.circular-text {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  animation: spin 22s linear infinite;
+}
+.circular-text svg { width: 100%; height: 100%; }
+.circular-text text {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--purple);
+}
+.circular-text .center-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hand-arrow {
+  font-family: var(--hand);
+  color: var(--purple);
+  font-size: 60px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* hand-drawn squiggle underline using the handwriting font feel */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -0.18em;
+  height: 0.18em;
+  background-image: radial-gradient(ellipse at center, var(--purple) 0 60%, transparent 60%);
+  background-size: 8px 100%;
+  background-repeat: repeat-x;
+}
+
+/* skills column under hero */
+.hero-skills {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.hero-skills .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.hero-skills .skills-text em { font-family: var(--sans); font-style: italic; font-weight: 500; color: var(--purple); }
+
+/* hero: refit because of new title size */
+.hero { min-height: 100vh; }
+.hero-title { margin-top: 24px; }
+
+/* override hero-art display so we can use it on this layout */
+.hero-art {
+  position: static;
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.hero-art .skills-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--purple);
+  max-width: 40ch;
+  text-align: left;
+}
+.hero-art .circular-text { flex: 0 0 auto; }
+@media (max-width: 1100px) {
+  .hero-art { display: flex; }
+}
+@media (max-width: 720px) {
+  .hero-art { flex-direction: column; align-items: flex-start; }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-top: 80px;
+}
+@media (max-width: 1100px) {
+  .hero-foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-foot { grid-template-columns: 1fr; }
+}
+
+</style>
+<style>
+  /* ============================================
+     Work page — focus gallery
+     Reuses site tokens & .reveal/.in system.
+     New overlay class is .pj-reveal (NOT .reveal,
+     which the scroll-JS controls site-wide).
+     ============================================ */
+  .work-hero {
+    padding: 140px var(--gutter) 64px;
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: end;
+  }
+  @media (max-width: 900px) { .work-hero { grid-template-columns: 1fr; gap: 32px; } }
+  .work-hero h1 {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(56px, 8vw, 110px); line-height: 1.0;
+    letter-spacing: -0.035em; color: var(--ink);
+  }
+  .work-hero h1 em {
+    font-family: var(--hand); font-style: normal; font-weight: 400;
+    color: var(--purple); letter-spacing: 0; font-size: 1.05em;
+  }
+  .work-hero .lede {
+    font-family: var(--sans); font-weight: 400;
+    font-size: clamp(16px, 1.3vw, 18px); line-height: 1.55;
+    color: var(--ink-soft); max-width: 42ch;
+  }
+
+  .work-section { padding: 80px var(--gutter) 120px; max-width: var(--max); margin: 0 auto; }
+  .work-section .filter-bar {
+    padding: 32px 0 56px; border-bottom: 1px solid var(--grey-line); margin-bottom: 56px;
+  }
+
+  /* ---- 6-col composed grid ----
+     Columns 5-6 are nudged slightly wider so the tall
+     period. card on the right reads a touch larger. */
+  .focus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1.18fr 1.18fr;
+    gap: 48px 32px;
+    grid-auto-flow: dense;
+  }
+  /* spans — onaka hero + period tall on row 1; NUMA + Ilia square;
+     Milo / Vattenkanna / AirFlux as a 3-up square row */
+  .col-4 { grid-column: span 4; }
+  .col-3 { grid-column: span 3; }
+  .col-2 { grid-column: span 2; }
+  .row-2 { grid-row: span 2; }
+
+  @media (max-width: 900px) {
+    .focus-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .col-4,.col-3,.col-2 { grid-column: span 1; }
+    .row-2 { grid-row: auto; }
+  }
+  @media (max-width: 560px) {
+    .focus-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* the card itself reuses .project-card from styles.css.
+     We suppress the global ↗ badge here (we have our own overlay),
+     and let the thumb fill the whole card height. */
+  .focus-grid .project-card { height: 100%; display: flex; flex-direction: column; }
+  .focus-grid .project-card::after { display: none; }
+  .focus-grid .project-thumb {
+    flex: 1 1 auto;
+    aspect-ratio: auto;            /* height comes from grid row, not ratio */
+    min-height: 260px;
+    border-radius: 2px;            /* sharp print edges, not card UI */
+    transition: transform .55s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, filter .45s ease;
+  }
+  .focus-grid .col-4 .project-thumb { min-height: 340px; }
+  .focus-grid .row-2 .project-thumb { min-height: 540px; }
+  .focus-grid .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
+
+  /* hide the under-image meta block (name/desc now live in the overlay) */
+  .focus-grid .project-meta,
+  .focus-grid .project-tags,
+  .focus-grid .project-desc { display: none; }
+
+  /* resting label on the image: number + name */
+  .pj-scrim {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,.52), rgba(0,0,0,.06) 46%, transparent 72%);
+    transition: opacity .4s ease;
+  }
+  .pj-rest {
+    position: absolute; left: 20px; right: 20px; bottom: 16px; z-index: 2;
+    display: flex; align-items: baseline; gap: 11px; color: #fff;
+    transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .pj-rest .n { font-family: var(--mono); font-size: 12px; opacity: .85; letter-spacing: .06em; }
+  .pj-rest .nm { font-family: var(--sans); font-weight: 600; font-size: 26px; letter-spacing: -0.03em; }
+  .pj-rest .nm em { font-style: normal; }
+
+  /* per-project colour wash */
+  .pj-wash {
+    position: absolute; inset: 0; z-index: 1;
+    background: var(--accent); opacity: 0; mix-blend-mode: multiply;
+    transition: opacity .45s ease;
+  }
+
+  /* hover overlay: full detail */
+  .pj-reveal {
+    position: absolute; inset: 0; z-index: 3;
+    padding: 26px; display: flex; flex-direction: column; justify-content: flex-end;
+    color: #fff; opacity: 0; transition: opacity .4s ease; pointer-events: none;
+  }
+  .pj-reveal .topn { position: absolute; top: 20px; left: 22px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: rgba(255,255,255,.8); }
+  .pj-reveal .disc { position: absolute; top: 17px; right: 20px; font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: #fff; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: 4px 10px; }
+  .pj-reveal .nm { font-family: var(--hand); font-weight: 400; font-size: 44px; letter-spacing: 0; line-height: .95; transform: translateY(10px); transition: transform .45s cubic-bezier(.2,.7,.2,1) .04s; }
+  .pj-reveal .nm em { font-style: normal; }
+  .pj-reveal .d { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; color: rgba(255,255,255,.92); margin-top: 11px; max-width: 44ch; transform: translateY(10px); transition: transform .45s cubic-bezier(.2,.7,.2,1) .09s; }
+  .pj-reveal .d em { font-style: italic; color: #fff; }
+  .pj-reveal .t { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; transform: translateY(10px); transition: transform .45s cubic-bezier(.2,.7,.2,1) .14s; }
+  .pj-reveal .t span { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; padding: 3px 10px; border: 1px solid rgba(255,255,255,.34); border-radius: 999px; color: #fff; }
+  .pj-reveal .go { position: absolute; right: 22px; bottom: 22px; width: 56px; height: 28px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+  .pj-reveal .go svg { width: 100%; height: 100%; overflow: visible; }
+
+  /* THE FOCUS MOVE — dim every card on grid hover, spotlight the hovered one.
+     Now combined with per-card rotation: tilted at rest, straighten on focus. */
+  .focus-grid .project-card { transform: rotate(var(--rot, 0deg)); transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease; }
+  .focus-grid:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
+  .focus-grid:hover .project-card img { filter: saturate(.55); }
+  .focus-grid:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
+  .focus-grid:hover .project-card:hover .project-thumb { box-shadow: 0 26px 60px rgba(0,0,0,.22); border-color: var(--accent); }
+  .focus-grid:hover .project-card:hover img { transform: scale(1.06); filter: none; }
+  .project-card:hover .pj-scrim { opacity: 0; }
+  .project-card:hover .pj-rest { opacity: 0; transform: translateY(8px); }
+  .project-card:hover .pj-wash { opacity: .42; }
+  .project-card:hover .pj-reveal { opacity: 1; }
+  .project-card:hover .pj-reveal .nm,
+  .project-card:hover .pj-reveal .d,
+  .project-card:hover .pj-reveal .t { transform: none; }
+
+  /* Taped print effect — every card gets a soft-grey paper-tape strip */
+  .focus-grid .project-card::before {
+    content: '';
+    position: absolute;
+    width: 96px; height: 24px;
+    background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
+    z-index: 4; pointer-events: none;
+    top: -10px; left: 50%;
+    transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
+    transition: opacity .35s ease;
+  }
+  .focus-grid .project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
+  .focus-grid .project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
+  .focus-grid .project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
+  .focus-grid .project-card:hover::before { opacity: .55; }
+
+  /* per-card rotation — tiny and FIXED */
+  .focus-grid .c-onaka   { --rot: -1.2deg; }
+  .focus-grid .c-period  { --rot:  1.6deg; }
+  .focus-grid .c-numa    { --rot: -2.0deg; }
+  .focus-grid .c-airflux { --rot:  1.2deg; }
+  .focus-grid .c-milo    { --rot:  2.0deg; }
+  .focus-grid .c-vatten  { --rot: -1.4deg; }
+  .focus-grid .c-ilia    { --rot:  1.0deg; }
+
+  /* warm the page background slightly so it reads as paper, with subtle grain */
+  body {
+    background-color: #FAFAF7;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.075 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat: repeat;
+  }
+
+  /* Carry the same grain into the fixed top nav so it doesn't break the paper feel.
+     Warm the nav tint to match paper, layer the noise on top. */
+  .nav {
+    background-color: rgba(250, 250, 247, 0.88) !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.075 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============================================
+     Marginalia — small Nefs notes in the gutters
+     ============================================ */
+  .marginalia {
+    position: absolute;
+    font-family: var(--hand);
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--purple);
+    line-height: 1.05;
+    letter-spacing: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 6;
+  }
+  .marginalia .arrow {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px; height: 12px;
+    margin-left: 2px;
+  }
+  .marginalia .arrow svg { width: 100%; height: 100%; overflow: visible; }
+  .marg-count {
+    top: -34px; right: -10px;
+    transform: rotate(-3deg);
+    font-size: 22px;
+  }
+  .marg-hint {            /* by the lede, hints at the hover interaction */
+    bottom: -34px; left: 0;
+    transform: rotate(-2deg);
+    font-size: 20px; white-space: nowrap;
+  }
+  @media (max-width: 900px) { .marg-hint { display: none; } }
+
+  /* placeholder for onaka (no image file yet) */
+  .pj-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--hand); font-size: 24px; color: var(--accent);
+    background: repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(0,0,0,.015) 14px, rgba(0,0,0,.015) 28px), var(--soft); }
+
+  @media (hover: none) {
+    /* touch: no dim, keep names readable, hide hover-only detail */
+    .focus-grid:hover .project-card { filter: none; transform: none; }
+    .pj-reveal { display: none; }
+  }
+
+  /* ============================================
+     Sketchbook accents — hand-drawn marks
+     ============================================ */
+  /* 1) Active nav link: replace the pill border with a Nefs-style oval scribble */
+  .nav-links a.active {
+    border-color: transparent !important;
+    background: transparent !important;
+    color: var(--purple) !important;
+  }
+  .nav-links a { position: relative; }
+  .nav-links a .scribble-oval {
+    position: absolute; inset: -4px -6px;
+    pointer-events: none; opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .nav-links a.active .scribble-oval { opacity: 1; }
+
+  /* 2) View-all-work: replace the circular → button with a hand-drawn arrow */
+  .work-more .arr-hand {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 28px;
+    background: transparent;       /* override the purple disc */
+    color: var(--purple);
+  }
+  .work-more .arr-hand svg { width: 100%; height: 100%; overflow: visible; }
+  .work-more:hover .arr-hand { transform: translateX(2px); transition: transform .25s ease; }
+
+  /* 3) Hand-drawn underline — wrap any phrase in <span class="ink"> to mark it.
+        Uses a wobbly SVG as a background-image so it follows the text baseline
+        even when the phrase wraps across lines. */
+  .ink {
+    color: var(--purple);
+    font-style: normal;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 10' preserveAspectRatio='none'><path d='M 4,6 C 36,3 76,8 116,4 C 156,1 196,7 216,4' fill='none' stroke='%237C5BD6' stroke-width='1.7' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 0 calc(100% - 0.04em);
+    background-size: 100% 0.18em;
+    padding-bottom: 0.2em;
+  }
+  em.ink, .ink em { font-style: normal; }
+</style>
+</head>
+<body>
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo" style="font-weight: 400; letter-spacing: -3px">Nefeli Lemessiou</a>
+  <div class="nav-links">
+    <a href="index.html#top">Home</a>
+    <a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="assets/Nefeli_Lemessiou_CV.pdf" download="">CV ↓</a>
+  </div>
+  <div class="nav-time" id="navTime">London · —</div>
+</nav>
+
+<!-- ========== Hero ========== -->
+<section class="work-hero">
+  <div>
+    <span class="eyebrow" style="display: block; margin-bottom: 24px;">§ Work</span>
+    <h1 style="font-size: 65px">Selected <em class="ink" style="letter-spacing: -3px; font-family: var(--hand); font-weight: 400; font-size: 1.05em;">projects</em> — across screens and objects.</h1>
+  </div>
+  <p class="lede" style="position: relative;">Projects that sit on the edge of physical and digital — UX-led where the screen does the work, industrial where the object does. Hover to bring one into focus, or filter to narrow.<span class="marginalia marg-hint">try hovering <span class="arrow"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></p>
+</section>
+
+<!-- ========== Work grid ========== -->
+<section class="work-section">
+  <div class="filter-bar">
+    <button class="filter-chip active" data-filter="all">All work</button>
+    <button class="filter-chip" data-filter="ux">UX / UI</button>
+    <button class="filter-chip" data-filter="interaction">Interaction</button>
+    <button class="filter-chip" data-filter="industrial">Industrial</button>
+    <button class="filter-chip" data-filter="research">Research</button>
+    <span class="filter-count" id="filterCount" style="position: relative;">7 projects<span class="marginalia marg-count">still growing<span class="arrow"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></span>
+  </div>
+
+  <div class="project-grid focus-grid" id="projectGrid">
+
+    <!-- Onaka — hero (4 cols) -->
+    <a class="project-card reveal in col-4 c-onaka tape-tl" href="onaka.html" data-tags="ux interaction research"
+       style="--accent:#6B7DF2; --soft:#EAF1FB;">
+      <div class="project-thumb">
+        <div class="pj-ph">onaka — device + app</div>
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">01</span><span class="nm">onaka</span></div>
+        <div class="pj-reveal"><span class="topn">01 / 07</span><span class="disc">Screen + Object</span>
+          <div class="nm">onaka</div>
+          <p class="d">A pocketable tracker and companion app for chronic GI conditions, turning anxious logging into a calm tactile ritual. <em>MA Project, RCA.</em></p>
+          <div class="t"><span>UX/UI</span><span>IoT</span><span>Health</span><span>Research</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">onaka</h3><span class="project-num">01 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">UX/UI</span><span class="project-tag">IoT</span><span class="project-tag">Health</span><span class="project-tag">Research</span></div>
+      <p class="project-desc">A pocketable tracker and companion app for chronic GI conditions, turning anxious logging into a calm tactile ritual. <em>MA Project, RCA.</em></p>
+    </a>
+
+    <!-- period. — tall (2 cols × 2 rows, on the slightly-wider right columns) -->
+    <a class="project-card reveal delay-1 in col-2 row-2 c-period tape-tc" href="period.html" data-tags="ux interaction research"
+       style="--accent:#C56A3A; --soft:#F8EDE3;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/period.png" alt="The period. device on a wooden surface, copper fan-shaped calendar glowing red" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">02</span><span class="nm">period<em>.</em></span></div>
+        <div class="pj-reveal"><span class="topn">02 / 07</span><span class="disc">Screen + Object</span>
+          <div class="nm">period<em>.</em></div>
+          <p class="d">A tangible menstrual cycle tracker with a voice assistant, making invisible cycles visible at a glance. <em>BA Honours Project, Edinburgh.</em></p>
+          <div class="t"><span>UX/UI</span><span>Voice UI</span><span>Research</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">period<em>.</em></h3><span class="project-num">02 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">UX/UI</span><span class="project-tag">Voice UI</span><span class="project-tag">Research</span></div>
+      <p class="project-desc">A tangible menstrual cycle tracker with a voice assistant, making invisible cycles visible at a glance. <em>BA Honours Project, Edinburgh.</em></p>
+    </a>
+
+    <!-- NUMA — square (2 cols) -->
+    <a class="project-card reveal in col-2 c-numa tape-tr" href="numa.html" data-tags="ux research"
+       style="--accent:#378ADD; --soft:#E6F1FB;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/ground.png" alt="Two phone mockups of the NUMA app: log-in screen with the NUMA wordmark and a dashboard showing daily wellness scores" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">03</span><span class="nm">NUMA</span></div>
+        <div class="pj-reveal"><span class="topn">03 / 07</span><span class="disc">Screen</span>
+          <div class="nm">NUMA</div>
+          <p class="d">A health tracking app that turns wearable data into one clear daily suggestion, not just numbers. <em>Self-initiated, 2025.</em></p>
+          <div class="t"><span>UX/UI</span><span>Mobile</span><span>IA</span><span>Branding</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">NUMA</h3><span class="project-num">03 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">UX/UI</span><span class="project-tag">Mobile</span><span class="project-tag">IA</span><span class="project-tag">Branding</span></div>
+      <p class="project-desc">A health tracking app that turns wearable data into one clear daily suggestion, not just numbers. <em>Self-initiated, 2025.</em></p>
+    </a>
+
+    <!-- AirFlux — square (2 cols), swapped up from bottom row -->
+    <a class="project-card reveal delay-1 in col-2 c-airflux tape-tl" href="airflux.html" data-tags="industrial"
+       style="--accent:#888780; --soft:#F1EFE8;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/airflux.png" alt="The AirFlux hair dryer held in hand: black tactile body with no traditional handle, grey nozzle" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">07</span><span class="nm">AirFlux</span></div>
+        <div class="pj-reveal"><span class="topn">07 / 07</span><span class="disc">Object</span>
+          <div class="nm">AirFlux</div>
+          <p class="d">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
+          <div class="t"><span>Industrial</span><span>Repairability</span><span>DFM</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">AirFlux</h3><span class="project-num">07 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">Industrial</span><span class="project-tag">Repairability</span><span class="project-tag">DFM</span></div>
+      <p class="project-desc">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
+    </a>
+
+    <!-- ===== one line: Milo / Vattenkanna / AirFlux — three squares (2 cols each) ===== -->
+
+    <!-- Milo -->
+    <a class="project-card reveal in col-2 size-sq c-milo tape-tr" href="milo.html" data-tags="interaction industrial"
+       style="--accent:#C99A2E; --soft:#FAF0D7;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/milo.png" alt="The Milo pair photographed front-on: two small wooden boxes with frosted glass tops and four pastel buttons each" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">04</span><span class="nm">Milo</span></div>
+        <div class="pj-reveal"><span class="topn">04 / 07</span><span class="disc">Object</span>
+          <div class="nm">Milo</div>
+          <p class="d">A pair of screen-free devices for long-distance friends, playing memory through light, sound, and rhythm. <em>With Quentin Bachelot, 2023.</em></p>
+          <div class="t"><span>Interaction</span><span>Connected play</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">Milo</h3><span class="project-num">04 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">Interaction</span><span class="project-tag">Connected play</span></div>
+      <p class="project-desc">A pair of screen-free devices for long-distance friends, playing memory through light, sound, and rhythm. <em>With Quentin Bachelot, 2023.</em></p>
+    </a>
+
+    <!-- Vattenkanna -->
+    <a class="project-card reveal delay-1 in col-2 size-sq c-vatten tape-tc" href="vattenkanna.html" data-tags="industrial"
+       style="--accent:#7A9B6E; --soft:#E8EDE3;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/vattenkanna.png" alt="The Vattenkanna vessel in dark brown with its translucent mesh strainer beside it" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">05</span><span class="nm">Vattenkanna</span></div>
+        <div class="pj-reveal"><span class="topn">05 / 07</span><span class="disc">Object</span>
+          <div class="nm">Vattenkanna</div>
+          <p class="d">A greywater watering can that fits beside an IKEA sink, reusing the water lost while hand washing dishes. <em>IKEA brief, Edinburgh.</em></p>
+          <div class="t"><span>Industrial</span><span>Sustainability</span><span>CAD</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">Vattenkanna</h3><span class="project-num">05 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">Industrial</span><span class="project-tag">Sustainability</span><span class="project-tag">CAD</span></div>
+      <p class="project-desc">A greywater watering can that fits beside an IKEA sink, reusing the water lost while hand washing dishes. <em>IKEA brief, Edinburgh.</em></p>
+    </a>
+
+    <!-- Ilia — square (2 cols), swapped down into the 3-up row -->
+    <a class="project-card reveal delay-2 in col-2 size-sq c-ilia tape-tl" href="ilia.html" data-tags="interaction industrial"
+       style="--accent:#6B7DF2; --soft:#EAF1FB;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/ilia.png" alt="The Ilia breathing lamp: blue glowing organic glass diffuser on a turned wooden base" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">06</span><span class="nm">Ilia</span></div>
+        <div class="pj-reveal"><span class="topn">06 / 07</span><span class="disc">Object</span>
+          <div class="nm">Ilia</div>
+          <p class="d">A breathing lamp that designs stillness into the study routine, without screens or apps. <em>With Quentin Bachelot, 2022.</em></p>
+          <div class="t"><span>Tangible UX</span><span>Mental health</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">Ilia</h3><span class="project-num">06 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">Tangible UX</span><span class="project-tag">Mental health</span></div>
+      <p class="project-desc">A breathing lamp that designs stillness into the study routine, without screens or apps. <em>With Quentin Bachelot, 2022.</em></p>
+    </a>
+
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <span class="caption">Email</span>
+      <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+    </div>
+    <div class="footer-col">
+      <span class="caption">Phone</span>
+      <a href="tel:+447766964868">+44 (0)7766 964 868</a>
+    </div>
+    <div class="footer-col">
+      <span class="caption">Elsewhere</span>
+      <a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+    <div class="footer-col">
+      <span class="caption">Documents</span>
+      <a href="assets/Nefeli_Lemessiou_CV.pdf" download="">Curriculum Vitae ↓</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Nefeli Lemessiou</span>
+    <span>London · <span id="footTime">—</span></span>
+  </div>
+</footer>
+
+<script>
+/* ============================================
+   Site behaviour
+   ============================================ */
+
+// Custom cursor
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  const interactive = 'a, button, [data-cursor]';
+  document.addEventListener('mouseover', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    const t = e.target.closest(interactive);
+    if (t) ring.classList.remove('hover');
+  });
+})();
+
+// Local time in nav
+(function () {
+  const el = document.getElementById('navTime');
+  const elFoot = document.getElementById('footTime');
+  function tick() {
+    try {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      if (el) el.textContent = `London · ${t} GMT`;
+      if (elFoot) elFoot.textContent = `${t} GMT`;
+    } catch (_) {}
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// Scroll reveal
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid = document.getElementById('projectGrid');
+  const count = document.getElementById('filterCount');
+  if (!chips.length || !grid) return;
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    const f = c.dataset.filter;
+    let visible = 0;
+    grid.querySelectorAll('.project-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }));
+})();
+
+</script>
+</body>
+</html>

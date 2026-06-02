@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vattenkanna · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Vattenkanna uses a sage green accent ,
+       pulled from the IKEA product family colourway shown in the renders,
+       distinct from period copper, onaka blue, milo mustard. */
+    --sage: #7A9B6E;
+    --sage-deep: #5A7551;
+    --sage-soft: #E8EDE3;
+    --sage-bright: #9CB892;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAF8;
+    --bg-warm: #F7F8F4;
+    --rule: #E2E5DE;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--sage-deep); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sage-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID : section structure (identical to period / onaka / milo) */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--sage-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--sage-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--sage-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--sage-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--sage);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* §01 FUNNEL : visual narrowing from Ian's brief to handwashing dishes */
+  .funnel {
+    margin-top: 3.5rem;
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .funnel-step {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .funnel-step:last-child { border-right: none; }
+  .funnel-step .fn-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    font-weight: 500;
+  }
+  .funnel-step h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--ink-3);
+  }
+  .funnel-step.active h4 {
+    color: var(--ink);
+  }
+  .funnel-step.active .fn-num { color: var(--sage-deep); }
+  .funnel-step::after {
+    content: '→';
+    position: absolute;
+    right: -0.55em;
+    top: 1.55rem;
+    font-size: 0.9rem;
+    color: var(--ink-4);
+    background: var(--bg);
+    padding: 0 0.2rem;
+    z-index: 1;
+  }
+  .funnel-step:last-child::after { display: none; }
+  .funnel-step .fn-note {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+    margin-top: 0.15rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .funnel { grid-template-columns: 1fr 1fr; }
+    .funnel-step::after { display: none; }
+    .funnel-step { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .funnel-step:nth-child(2n) { border-right: none; }
+    .funnel-step:nth-child(n+3) { border-bottom: none; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .funnel { grid-template-columns: 1fr; }
+    .funnel-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .funnel-step:last-child { border-bottom: none; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">05 — vattenkanna</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2022 — Dec 2022</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Product Design · University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · research, CAD, CMF</span>
+    </div>
+  </div>
+  <h1 class="display a d2">A vessel that turns dishwater into <em>water for the plants</em>.</h1>
+  <p class="hero-sub a d3">Designed to a brief from IKEA, Vattenkanna sits in the sink, collects the water you'd otherwise pour away while handwashing, strains it, and pours it back out, as easily as a <em>watering can</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Sustainable Design</span>
+    <span class="tag">Circularity</span>
+    <span class="tag">IKEA Brief</span>
+    <span class="tag">Design for Manufacture</span>
+    <span class="tag">CAD</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="vattenkanna-hero.jpg" alt="The Vattenkanna vessel, a sage green and matte brown sink-fitting basin with a curved nozzle and integrated mesh strainer, rendered in a kitchen context" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">narrowing the brief</span>
+    </div>
+    <div>
+      <h2 class="wide">A broad brief on sustainability, narrowed down to the <em>kitchen sink</em>.</h2>
+      <p class="lede">The brief was open: design a product that helps with food waste or energy conservation. The funnel from there to the kitchen sink came from the data.</p>
+
+      <!-- Funnel: brief → water → kitchen → handwashing -->
+      <div class="funnel">
+        <div class="funnel-step">
+          <span class="fn-num">Brief 00</span>
+          <h4>Food waste or <em>energy</em>?</h4>
+          <p class="fn-note">Open prompt from Ian: pick a sustainability angle.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 01</span>
+          <h4>Water saving</h4>
+          <p class="fn-note">89% of UK water-related CO₂ comes from heating water, not pumping it.</p>
+        </div>
+        <div class="funnel-step">
+          <span class="fn-num">Step 02</span>
+          <h4>The kitchen</h4>
+          <p class="fn-note">Kitchen and bathroom dominate household water use; kitchen is where it's most addressable.</p>
+        </div>
+        <div class="funnel-step active">
+          <span class="fn-num">Step 03</span>
+          <h4>Handwashing dishes</h4>
+          <p class="fn-note">51% of UK households never use a dishwasher; handwashing wastes the most water per session.</p>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num">6<em>%</em></div><div class="lbl">of UK CO₂ emissions come from water use, almost all of it from heating</div></div>
+        <div class="stat"><div class="num">5<em>%</em></div><div class="lbl">of domestic water use in the UK comes from washing dishes alone</div></div>
+        <div class="stat"><div class="num">30<em>L</em></div><div class="lbl">per handwash session with the tap running, vs 10L for a dishwasher in eco mode</div></div>
+        <div class="stat"><div class="num">51<em>%</em></div><div class="lbl">of UK households never use a dishwasher, handwashing is the default</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. RESEARCH : sink photos + interview cards + method comparison -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Research</span>
+      <span class="note">how people actually wash</span>
+    </div>
+    <div>
+      <h2>Different sinks, different countries, the same <em>habit</em>.</h2>
+      <p class="lede">Photographs of sinks from different countries, interviews with dishwashers across ages and households, and observation of how people actually wash.</p>
+
+      <!-- Sinks composite image -->
+      <div class="sink-block">
+        <span class="research-tag">Sinks · Six countries</span>
+        <figure class="sink-composite">
+          <img src="vattenkanna-sinks.jpg" alt="A composite grid of twelve kitchen sink photographs taken by participants in different countries, showing the range of sink types, sizes, and dishwashing setups" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="sink-composite-placeholder" style="display:none;">
+            <strong>Crowdsourced sink photos</strong>
+            <p>vattenkanna-sinks.jpg</p>
+          </div>
+        </figure>
+        <p class="sink-note">Most sat within a standard 34 × 40 × 20 cm range. One vessel could fit most of them.</p>
+      </div>
+
+      <!-- Interview cards: two, picked for the strongest contrast -->
+      <div class="research-block">
+        <span class="research-tag">Interviews · Different countries, same answer</span>
+        <div class="interviews-grid">
+          <div class="interview-card">
+            <div class="ic-head">
+              <span class="ic-name">Stefanos</span>
+              <span class="ic-meta">27 · Student · Amsterdam</span>
+            </div>
+            <p class="ic-quote">"I'd want an easier alternative for dishes, I hate doing them."</p>
+          </div>
+          <div class="interview-card">
+            <div class="ic-head">
+              <span class="ic-name">Andrea</span>
+              <span class="ic-meta">21 · Student · Sheffield, UK</span>
+            </div>
+            <p class="ic-quote">"We'd be willing to change habits, as long as it doesn't take more effort."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Methods comparison: stripped to headline + litres -->
+      <div class="methods-block">
+        <span class="research-tag">Observation · Two methods, twice the water gap</span>
+        <div class="methods-compare">
+          <div class="method-side method-1">
+            <div class="ms-tag">Method 01 · UK · Running tap</div>
+            <h4>Wash <em>under</em> a flowing tap.</h4>
+            <div class="ms-litres"><strong>~30 L</strong> per session</div>
+          </div>
+          <div class="method-side method-2">
+            <div class="ms-tag">Method 02 · Europe · Filled bowl</div>
+            <h4>Wash <em>in</em> a filled basin.</h4>
+            <div class="ms-litres"><strong>~8 L</strong> per session</div>
+          </div>
+        </div>
+        <div class="methods-note">
+          Either way, scraping and rinsing spend more water than they need to, and that water is the cleanest part of the session, the most worth catching.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Research : three threads: sinks (composite image), interviews, methods */
+
+  /* Shared research tag style */
+  .research-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  /* Sinks composite */
+  .sink-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .sink-composite {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .sink-composite img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .sink-composite-placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .sink-composite-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .sink-composite-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .sink-composite figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .sink-note {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin: 0.85rem 0 0;
+  }
+
+  /* Interview cards */
+  .research-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .interviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .interview-card {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .ic-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ic-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .ic-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .ic-quote {
+    font-family: var(--display);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Methods comparison */
+  .methods-block {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .methods-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .method-side {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .method-side:last-child {
+    border-right: none;
+    padding-left: 1.5rem;
+    padding-right: 0;
+    background: var(--sage-soft);
+  }
+  .ms-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .method-side h4 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+  .method-side h4 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .ms-litres {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  .ms-litres strong {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-right: 0.3rem;
+  }
+  .methods-note {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-warm);
+    border-left: 3px solid var(--sage);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: none;
+  }
+
+  @media (max-width: 900px) {
+    .interviews-grid { grid-template-columns: 1fr; }
+    .methods-compare { grid-template-columns: 1fr; }
+    .method-side { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.5rem 0; }
+    .method-side:last-child { padding: 1.5rem; }
+  }
+</style>
+
+<!-- 3. INSIGHT : the design judgement moment -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Insight</span>
+      <span class="note">a different question</span>
+    </div>
+    <div>
+      <h2 class="wide">Most water-saving products ask you to <em>use less</em>. This one accepts the waste, then catches it.</h2>
+      <p class="lede">Interviews kept landing on the same point: people are willing to change habits, but only if the change doesn't add effort. So the design moved from <em>reduce</em> to <em>reuse</em>.</p>
+
+      <div class="insight-flip">
+        <div class="flip-side flip-before">
+          <span class="flip-tag">The usual question</span>
+          <h3>How do we use <em>less</em> water?</h3>
+          <p>Asks the user to change a habit.</p>
+        </div>
+        <div class="flip-arrow">→</div>
+        <div class="flip-side flip-after">
+          <span class="flip-tag">The shift</span>
+          <h3>What if the wasted water didn't <em>have</em> to be wasted?</h3>
+          <p>Asks the product to do the work.</p>
+        </div>
+      </div>
+
+      <div class="pull">
+        <blockquote>"The water is going to be wasted anyway. The design move is to let it be wasted into something useful, not down a drain."</blockquote>
+        <cite>, Design journal · Mid-project reflection</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. HOW IT WORKS : 3-step circle loop with dashed connector arcs (Onaka pattern) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">How it works</span>
+      <span class="note">three moves</span>
+    </div>
+    <div>
+      <h2>Three steps, no extra <em>effort</em>.</h2>
+      <p class="lede">Vattenkanna doesn't change how you wash. It sits in the sink, catches the water that would have gone down the drain, and lets you carry that water somewhere it's useful.</p>
+
+      <div class="loop-system">
+        <!-- Dashed connector arcs sitting over the three circles -->
+        <svg class="loop-connector" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 200 180 Q 333 240, 466 165" />
+          <path d="M 533 165 Q 666 80, 800 180" />
+        </svg>
+
+        <div class="loop-step loop-step-1">
+          <span class="loop-side-tag">Collect</span>
+          <div class="loop-label">In the sink, while you wash</div>
+          <figure class="loop-figure">
+            <img src="vattenkanna-how-01.png" alt="Illustration of a person handwashing dishes over the Vattenkanna vessel sitting in the sink" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="loop-placeholder" style="display:none;"><span>Step 01</span></div>
+          </figure>
+          <p class="loop-copy">Greywater from rinsing and scraping falls into the vessel rather than down the drain.</p>
+        </div>
+
+        <div class="loop-step loop-step-2">
+          <span class="loop-side-tag">Strain</span>
+          <div class="loop-label">Lift the mesh, dump the debris</div>
+          <figure class="loop-figure">
+            <img src="vattenkanna-how-02.png" alt="Illustration of a hand lifting the mesh filter out of the vessel to dispose of food debris" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="loop-placeholder" style="display:none;"><span>Step 02</span></div>
+          </figure>
+          <p class="loop-copy">Tip the food bits into the bin. The water left in the vessel is now clean enough to reuse.</p>
+        </div>
+
+        <div class="loop-step loop-step-3">
+          <span class="loop-side-tag">Pour</span>
+          <div class="loop-label">Carry like a watering can</div>
+          <figure class="loop-figure">
+            <img src="vattenkanna-how-03.png" alt="Illustration of a person carrying the Vattenkanna by its handle and pouring water onto a houseplant" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="loop-placeholder" style="display:none;"><span>Step 03</span></div>
+          </figure>
+          <p class="loop-copy">Water plants, wash the car, or fill a bucket. Whatever the household needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Insight : before/after framing of the design judgement */
+  .insight-flip {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .flip-side {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border: 1px solid var(--rule);
+  }
+  .flip-before {
+    background: var(--bg-2);
+  }
+  .flip-after {
+    background: var(--sage-soft);
+    border-color: var(--sage);
+  }
+  .flip-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .flip-before .flip-tag { color: var(--ink-3); }
+  .flip-side h3 {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    max-width: 22ch;
+  }
+  .flip-side h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .flip-before h3 em { color: var(--ink); }
+  .flip-side p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .flip-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  @media (max-width: 900px) {
+    .insight-flip { grid-template-columns: 1fr; }
+    .flip-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+  }
+
+  /* §04 How it works : 3-step circle loop with dashed SVG arc connectors */
+  .loop-system {
+    margin-top: 4rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .loop-connector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 280px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+  .loop-connector path {
+    fill: none;
+    stroke: var(--sage);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+  .loop-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Vertical stagger for visual rhythm, matching Onaka */
+  .loop-step-1 { padding-top: 3rem; }
+  .loop-step-2 { padding-top: 0; }
+  .loop-step-3 { padding-top: 3rem; }
+  .loop-side-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    background: var(--bg);
+    margin-bottom: 0.85rem;
+    display: inline-block;
+  }
+  .loop-label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  .loop-figure {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: var(--sage-soft);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loop-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .loop-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--sage-deep);
+  }
+  .loop-copy {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 24ch;
+  }
+
+  @media (max-width: 900px) {
+    .loop-system { grid-template-columns: 1fr; gap: 3rem; margin-top: 3rem; }
+    .loop-connector { display: none; }
+    .loop-step,
+    .loop-step-1, .loop-step-2, .loop-step-3 { padding-top: 0; }
+    .loop-figure { width: 200px; height: 200px; }
+  }
+</style>
+
+<!-- 5. THE VESSEL : sketches at the top, four tight decision callouts below -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">The vessel</span>
+      <span class="note">four jobs at once</span>
+    </div>
+    <div>
+      <h2>The form had to do <em>four jobs</em> at once.</h2>
+      <p class="lede">Fit any standard sink, stay stable while filling, pour cleanly, and nest for flatpack shipping. Each constraint has its answer in the form.</p>
+
+      <!-- Sketches at the top -->
+      <div class="vessel-sketches">
+        <figure class="vsketch vsketch-wide">
+          <img src="vattenkanna-sketches.jpg" alt="A page of design sketches exploring the Vattenkanna form: nozzle profiles, rim geometry, handle cutout options, and views of the vessel sitting in the sink" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="vsketch-placeholder" style="display:none;">
+            <strong>Design sketches</strong>
+            <p>vattenkanna-sketches.jpg</p>
+          </div>
+        </figure>
+        <figure class="vsketch">
+          <img src="vattenkanna-render-overview.jpg" alt="A CAD render of the resolved Vattenkanna vessel showing the nozzle, extended rim, handle cutout, and integrated mesh strainer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="vsketch-placeholder" style="display:none;">
+            <strong>Resolved form</strong>
+            <p>vattenkanna-render-overview.jpg</p>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Four tight decision callouts -->
+      <div class="vessel-decisions">
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 01 · Nozzle</span>
+          <h3>Curved for <em>pouring</em>, flat for <em>fitting</em>.</h3>
+          <p>Curved enough to pour without spilling, flat enough to sit against the sink edge.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 02 · Rim</span>
+          <h3>Sits on the sink, doesn't <em>tip</em>.</h3>
+          <p>The rim extrudes past the body to hook over the sink edge and grip when wet.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 03 · Handle</span>
+          <h3>A handle that <em>nests</em>.</h3>
+          <p>A U-shaped cutout lets units nest inside each other for IKEA's flatpack shipping.</p>
+        </div>
+        <div class="vd-cell">
+          <span class="vd-tag">Decision 04 · Strainer</span>
+          <h3>Catches the food, <em>keeps the water</em>.</h3>
+          <p>A removable mesh strainer traps debris during washing so the water stays reusable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MAKING FOR IKEA : materials, process, CMF, alignment with IKEA's commitments -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Making</span>
+      <span class="note">for IKEA's shelf</span>
+    </div>
+    <div>
+      <h2>One recycled material, three colourways, one moulding <em>tool</em>.</h2>
+      <p class="lede">The brief came from IKEA, so the production logic had to match: a material their supply chain already runs, a process suited to mass output, and a CMF that fits the existing kitchenware family.</p>
+
+      <!-- Three columns: PET, injection moulding, CMF -->
+      <div class="making-cols">
+        <div class="making-col">
+          <span class="making-tag">Material</span>
+          <h3>Recycled <em>PET</em>.</h3>
+          <p>Waterproof, durable, and the most recycled plastic in the world. Fits IKEA's commitment to only renewable or recycled-based plastic by 2030.</p>
+        </div>
+        <div class="making-col">
+          <span class="making-tag">Process</span>
+          <h3>Injection <em>moulded</em>.</h3>
+          <p>One tool, one part per cycle. Consistent walls and smooth curves. The handle cutout that lets units nest also simplifies the mould.</p>
+        </div>
+        <div class="making-col">
+          <span class="making-tag">CMF · Three colourways</span>
+          <h3>IKEA's kitchen <em>palette</em>.</h3>
+          <div class="cmf-swatches-row">
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: #3D332E;"></div>
+              <span>Dark brown</span>
+            </div>
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: var(--sage);"></div>
+              <span>Sage green</span>
+            </div>
+            <div class="cmf-swatch-row">
+              <div class="cmf-chip" style="background: #BFC2BD;"></div>
+              <span>Light grey</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colourways image full-width below -->
+      <figure class="making-image">
+        <img src="vattenkanna-colourways.jpg" alt="The three Vattenkanna colourways rendered side by side: dark brown, sage green, and light grey, all in matte recycled PET" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="making-image-placeholder" style="display:none;">
+          <strong>Three colourways · rendered</strong>
+          <p>vattenkanna-colourways.jpg</p>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 The vessel : sketches strip on top + 4 text-only decision callouts */
+  .vessel-sketches {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .vsketch {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .vsketch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 16 / 10;
+  }
+  .vsketch-wide img {
+    aspect-ratio: 16 / 10;
+  }
+  .vsketch-placeholder {
+    aspect-ratio: 16 / 10;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .vsketch-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .vsketch-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .vessel-decisions {
+    padding-top: 2rem;
+    border-top: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .vd-cell {
+    padding: 0 1.25rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .vd-cell:not(:first-child) { padding-left: 1.25rem; }
+  .vd-cell:last-child { border-right: none; padding-right: 0; }
+  .vd-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .vd-cell h3 {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    max-width: 22ch;
+  }
+  .vd-cell h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .vd-cell p {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §06 Making : 3 columns (material · process · cmf) + full-width image below */
+  .making-cols {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .making-col {
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .making-col:not(:first-child) { padding-left: 1.5rem; }
+  .making-col:last-child { border-right: none; padding-right: 0; }
+  .making-tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .making-col h3 {
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .making-col h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .making-col p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Swatches as a small horizontal/stacked group inside the CMF column */
+  .cmf-swatches-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.35rem;
+  }
+  .cmf-swatch-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .cmf-chip {
+    width: 22px;
+    height: 22px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+  .cmf-swatch-row span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* Full-width colourways image below the three columns */
+  .making-image {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .making-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+  }
+  .making-image-placeholder {
+    aspect-ratio: 21 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .making-image-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .making-image-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .vessel-sketches { grid-template-columns: 1fr; }
+    .vessel-decisions { grid-template-columns: 1fr 1fr; gap: 1.5rem 0; }
+    .vd-cell:nth-child(2) { border-right: none; padding-right: 0; }
+    .vd-cell:nth-child(3) { padding-left: 0; border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .vd-cell:nth-child(4) { border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .making-cols { grid-template-columns: 1fr; gap: 1.5rem 0; }
+    .making-col { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); }
+    .making-col:last-child { border-bottom: none; padding-bottom: 0; }
+    .making-image img, .making-image-placeholder { aspect-ratio: 16 / 9; }
+  }
+  @media (max-width: 560px) {
+    .vessel-decisions { grid-template-columns: 1fr; }
+    .vd-cell { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); padding-top: 0 !important; border-top: none !important; }
+    .vd-cell:last-child { border-bottom: none; padding-bottom: 0; }
+  }
+</style>
+
+<!-- 7. VALUES CREATED : three stakeholder columns (User · IKEA · Planet) -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 07</span>
+      <span class="nm">Values</span>
+      <span class="note">who this is for</span>
+    </div>
+    <div>
+      <h2>Three <em>stakeholders</em>, three sets of value.</h2>
+      <p class="lede">Designed not just for the person handwashing dishes, but also for the company that ships it and the planet that carries the cost.</p>
+
+      <div class="values-grid">
+        <div class="value-col">
+          <span class="value-tag">User</span>
+          <h3>An <em>easier</em> water habit.</h3>
+          <ul class="value-list">
+            <li><strong>Reused water</strong> · greywater goes to plants instead of the drain.</li>
+            <li><strong>Lower bills</strong> · less water heated, less water paid for.</li>
+            <li><strong>No new effort</strong> · sits in the sink the user already uses.</li>
+          </ul>
+        </div>
+        <div class="value-col">
+          <span class="value-tag">IKEA</span>
+          <h3>Fits the <em>line</em>, fits the truck.</h3>
+          <ul class="value-list">
+            <li><strong>Flatpack-ready</strong> · stacks for efficient shipping.</li>
+            <li><strong>Single-tool moulding</strong> · low production cost, high output.</li>
+            <li><strong>2030-aligned</strong> · already on the recycled-plastic path.</li>
+          </ul>
+        </div>
+        <div class="value-col">
+          <span class="value-tag">Planet</span>
+          <h3>Less water, less CO<sub>2</sub>.</h3>
+          <ul class="value-list">
+            <li><strong>Less hot water</strong> · directly reduces heating-related CO₂.</li>
+            <li><strong>Fewer shipments</strong> · stacking density means fewer trucks per pallet.</li>
+            <li><strong>Recycled feedstock</strong> · diverts PET from landfill back into product.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FINAL OUTCOME : renders in context + closing tagline + further developments -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 08</span>
+      <span class="nm">Final outcome</span>
+      <span class="note">water is precious</span>
+    </div>
+    <div>
+      <h2>Vattenkanna, <em>resolved</em>.</h2>
+
+      <!-- Hero render in-context -->
+      <figure class="outcome-hero">
+        <img src="vattenkanna-final-hero.jpg" alt="The resolved Vattenkanna sitting in a kitchen sink, with the integrated strainer visible inside, in the dark brown colourway" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="outcome-placeholder" style="display:none;">
+          <strong>Final hero · in context</strong>
+          <p>vattenkanna-final-hero.jpg</p>
+        </div>
+      </figure>
+
+      <!-- 3-up grid of additional context shots -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="vattenkanna-final-01.jpg" alt="Vattenkanna in a single-basin sink with the strainer inside, in the sage green colourway" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>In a single sink</strong>
+            <p>vattenkanna-final-01.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="vattenkanna-final-02.jpg" alt="Vattenkanna in a double-basin sink, in the light grey colourway, paired with a drying rack" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>With a drying rack</strong>
+            <p>vattenkanna-final-02.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="vattenkanna-final-03.jpg" alt="Vattenkanna being carried by its handle, water tipped out to water houseplants" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Carried, poured</strong>
+            <p>vattenkanna-final-03.jpg</p>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Further developments -->
+      <div class="further-dev">
+        <div class="fd-label">Further developments</div>
+        <ul class="fd-list">
+          <li><strong>Range of sizes</strong> · one size fits most, but the smallest and largest sinks need their own.</li>
+          <li><strong>Custom drying rack</strong> · a paired rack that channels rinse water back into the vessel.</li>
+          <li><strong>Waterproof prototype</strong> · 3D-print size limits prevented a final at-scale test build.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §07 Values created : 3-column stakeholder grid */
+  .values-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    padding-top: 2rem;
+  }
+  .value-col {
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .value-col:not(:first-child) { padding-left: 1.5rem; }
+  .value-col:last-child { border-right: none; padding-right: 0; }
+  .value-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--sage);
+    border-radius: 100px;
+    background: var(--sage-soft);
+    align-self: start;
+    margin-bottom: 0.65rem;
+  }
+  .value-col h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    max-width: 22ch;
+  }
+  .value-col h3 em { font-style: italic; color: var(--sage-deep); font-weight: 700; }
+  .value-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .value-list li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .value-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 4px;
+    height: 4px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+  .value-list li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* §08 Final outcome : hero + 3-up + tagline + further dev */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+
+  .further-dev {
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--ink);
+  }
+  .fd-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+  .fd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem 2rem;
+  }
+  .fd-list li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding-left: 0.9rem;
+    position: relative;
+  }
+  .fd-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 4px;
+    height: 4px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+  .fd-list li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .values-grid { grid-template-columns: 1fr; gap: 1.5rem 0; padding-top: 1.5rem; }
+    .value-col { border-right: none; padding-left: 0 !important; padding-right: 0; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+    .value-col:last-child { border-bottom: none; padding-bottom: 0; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+    .fd-list { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- FOOTER : minimal prev/next nav + thin contact strip -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="proj-nav">
+      <a href="milo.html" class="proj-link proj-prev">
+        <span class="pl-arrow">←</span>
+        <span class="pl-stack">
+          <span class="pl-meta">Previous project</span>
+          <span class="pl-name">Milo</span>
+        </span>
+      </a>
+      <a href="onaka_3.html" class="proj-link proj-next">
+        <span class="pl-stack">
+          <span class="pl-meta">Next project</span>
+          <span class="pl-name">Onaka</span>
+        </span>
+        <span class="pl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer-base">
+      <div class="fb-logo">Nefeli Lemessiou</div>
+      <div class="fb-contact">
+        <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+        <span class="fb-sep">·</span>
+        <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">@nephele_design</a>
+        <span class="fb-sep">·</span>
+        <a href="#">CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* FOOTER : minimal closing strip */
+  .site-footer {
+    background: var(--sage-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--sage-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--sage-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--sage-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+</body>
+</html>

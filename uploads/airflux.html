@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirFlux · Nefeli Lemessiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Self-host Nefs for the handwritten margin notes */
+  @font-face {
+    font-family: 'Nefs';
+    src: url('nefs.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* AirFlux uses cool teal, clean engineering register, distinct from onaka's
+       brighter blue-purple. Sits in the "industrial calm" side of the palette set. */
+    --teal: #4F7079;
+    --teal-deep: #33525A;
+    --teal-soft: #E4ECEE;
+    --teal-bright: #6E8E97;
+    --ink: #0A0A0A;
+    --ink-2: #2B2B2B;
+    --ink-3: #6B6B6B;
+    --ink-4: #A8A8A8;
+    --bg: #FFFFFF;
+    --bg-2: #FAFAFA;
+    --bg-warm: #F4F6F7;
+    --rule: #E3E6E8;
+    --rule-strong: #1A1A1A;
+    --display: 'Geist', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --hand: 'Nefs', 'Caveat', cursive;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  em { font-style: italic; color: var(--teal-deep); font-weight: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 1rem; font-weight: 500; color: var(--ink); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal-deep); }
+  .nav-meta {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--ink-4);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* GRID: section structure, identical to the other case studies */
+  .section {
+    padding: 6.5rem 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    position: sticky;
+    top: 6rem;
+  }
+  .section-marker .num { display: block; margin-bottom: 0.4rem; }
+  .section-marker .nm { color: var(--ink-2); }
+  .section-marker .note {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    line-height: 1.15;
+    color: var(--teal-deep);
+    letter-spacing: -0.03em;
+    text-transform: none;
+    max-width: 14ch;
+    transform: rotate(-2deg);
+    opacity: 0.85;
+  }
+  .section-marker .note::before {
+    content: '↓';
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--teal-deep);
+    margin-bottom: 0.3rem;
+    transform: rotate(2deg);
+    opacity: 0.7;
+  }
+  .section-dot {
+    position: absolute;
+    top: 6.5rem;
+    right: 2.5rem;
+    width: 18px; height: 18px;
+    border: 1px solid var(--ink-3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-dot::after {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ink);
+  }
+
+  /* HEADLINES */
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+  }
+  h2.wide { max-width: none; }
+  h2 em { font-weight: 700; letter-spacing: -0.025em; }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+  }
+  .lede {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 72ch;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .lede em { font-style: italic; color: var(--teal-deep); }
+  p { font-size: 0.95rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+  .hero-table .ht-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-table .ht-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-table .ht-value {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 760px) {
+    .hero-table { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-table { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+  .hero-sub {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 60ch;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 2rem;
+  }
+  .hero-sub em { font-style: italic; color: var(--teal-deep); font-weight: 500; }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    color: var(--ink-2);
+  }
+  .hero-image {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 2px solid var(--teal);
+    padding: 0.5rem 0 0.5rem 2rem;
+    margin: 3rem 0;
+    max-width: 100%;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .pull cite {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* STATS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 2rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    position: relative;
+  }
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: var(--ink);
+  }
+  .stat .num {
+    font-family: var(--display);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .stat .num em { font-weight: 700; }
+  .stat .lbl {
+    font-size: 0.88rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    max-width: 22ch;
+  }
+
+  /* §01 BAKELITE COMPARISON: side by side image strip */
+  .bakelite-compare {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  .bc-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .bc-img {
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .bc-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .bc-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .bc-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .bc-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .bc-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-top: 0.85rem;
+  }
+  .bc-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .bc-cell strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+  .bc-note {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+    margin-top: 0.2rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .section-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .section-marker { position: static; }
+    .stat-row { grid-template-columns: 1fr 1fr; gap: 2rem 0; }
+    .bakelite-compare { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: 1fr; }
+  }
+
+  /* ANIM */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .a { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.18s; }
+  .d3 { animation-delay: 0.32s; }
+  .d4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Nefeli Lemessiou</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+  <div class="nav-meta">London · 19:20 GMT</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-table a d1">
+    <div class="ht-cell">
+      <span class="ht-label">Project</span>
+      <span class="ht-value">07 — airflux</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Year</span>
+      <span class="ht-value">Sept 2021 — Dec 2021</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Context</span>
+      <span class="ht-value">Object Autopsy · University of Edinburgh</span>
+    </div>
+    <div class="ht-cell">
+      <span class="ht-label">Role</span>
+      <span class="ht-value">Sole designer · teardown, redesign, CAD</span>
+    </div>
+  </div>
+  <h1 class="display a d2">A hair dryer with <em>no handle</em>.</h1>
+  <p class="hero-sub a d3">A redesign of the Remington dryer that removes the bulky handle, lets the user grip the air tube directly, and reopens for <em>repair</em>.</p>
+  <div class="hero-tags a d4">
+    <span class="tag">Redesign</span>
+    <span class="tag">Object Teardown</span>
+    <span class="tag">Circularity</span>
+    <span class="tag">Design for Manufacture</span>
+    <span class="tag">Design for Repair</span>
+  </div>
+</section>
+
+<figure class="hero-image a d4">
+  <img src="airflux-hero.jpg" alt="AirFlux, a compact handle-free hair dryer in matte grey polypropylene with a black silicone grip sleeve around the air outlet tube" />
+</figure>
+
+<!-- 1. PROBLEM -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 01</span>
+      <span class="nm">Problem</span>
+      <span class="note">eighty years, no change</span>
+    </div>
+    <div>
+      <h2 class="wide">The hair dryer has barely changed in <em>eighty years</em>. It has also barely gotten better.</h2>
+      <p class="lede">A 1939 Bakelite Princess dryer and a 2021 Remington sit on the same arc. Same handle, same heater, same form, same shortcomings. A teardown of the modern one made it clear how much of that form was inherited rather than designed.</p>
+
+      <!-- Bakelite 1939 vs Remington 2021 -->
+      <div class="bakelite-compare">
+        <figure class="bc-cell">
+          <div class="bc-img">
+            <img src="airflux-bakelite-1939.jpg" alt="Princess hand-held Bakelite hair dryer made in England c. 1939, mottled brown moulded bakelite" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="bc-placeholder" style="display:none;">
+              <strong>Bakelite Princess, c. 1939</strong>
+              <p>airflux-bakelite-1939.jpg</p>
+            </div>
+          </div>
+          <div class="bc-caption">
+            <span class="bc-year">1939 · Princess, Bakelite</span>
+            <strong>Mottled brown moulded plastic. England.</strong>
+            <p class="bc-note">Held in the National Museums Scotland collection.</p>
+          </div>
+        </figure>
+        <figure class="bc-cell">
+          <div class="bc-img">
+            <img src="airflux-remington-2021.jpg" alt="A modern Remington hair dryer, white plastic, with a bulky handle and rounded body, photographed for the teardown project" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="bc-placeholder" style="display:none;">
+              <strong>Remington, 2021</strong>
+              <p>airflux-remington-2021.jpg</p>
+            </div>
+          </div>
+          <div class="bc-caption">
+            <span class="bc-year">2021 · Remington, Polypropylene</span>
+            <strong>Same handle, same form. Bigger and glued shut.</strong>
+            <p class="bc-note">The teardown subject for this project.</p>
+          </div>
+        </figure>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="num">62<em>%</em></div><div class="lbl">of surveyed users wished their hair dryer was lighter and smaller</div></div>
+        <div class="stat"><div class="num">30<em>%</em></div><div class="lbl">wished they could change the way it's held</div></div>
+        <div class="stat"><div class="num">69<em>%</em></div><div class="lbl">said the dryer was difficult to open and fix when broken</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TEARDOWN: autopsy method + 5 findings + insight folded at the end -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 02</span>
+      <span class="nm">Teardown</span>
+      <span class="note">what's actually inside</span>
+    </div>
+    <div>
+      <h2>Opening it up to see what was being <em>defended</em>.</h2>
+      <p class="lede">Object Autopsy as a method: take the object apart, label every component, identify every material and process, and let the findings drive the redesign brief.</p>
+
+      <!-- Teardown image + 5 findings side-by-side, Onaka-components pattern -->
+      <div class="teardown-twin">
+        <figure class="teardown-image">
+          <img src="airflux-teardown.jpg" alt="A photograph of the Remington hair dryer fully disassembled, with each component laid out: motor, fan, heating coil, plastic case halves, wiring, screws and grills" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="teardown-placeholder" style="display:none;">
+            <strong>Teardown · all parts</strong>
+            <p>airflux-teardown.jpg</p>
+          </div>
+          <figcaption>
+            <span>Every component pulled, photographed, and identified by material and process.</span>
+            <a href="https://media.ed.ac.uk/media/Object+Autopsy+2A+Hair+Dryer/1_urchdrjh" target="_blank" rel="noopener" class="td-link">Watch the teardown ↗</a>
+          </figcaption>
+        </figure>
+
+        <ol class="findings-list">
+          <li class="finding-item">
+            <span class="fi-num">01</span>
+            <div>
+              <h4>Glued shut.</h4>
+              <p>The case is held together with adhesive, not screws. Once it breaks, you replace it.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">02</span>
+            <div>
+              <h4>A handle bigger than its job.</h4>
+              <p>The handle dominates the form and accounts for most of the bulk and weight.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">03</span>
+            <div>
+              <h4>Heavier than it needs to be.</h4>
+              <p>Walls thicker than function demands. The total weight tires the wrist in minutes.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">04</span>
+            <div>
+              <h4>Complex inside, basic outside.</h4>
+              <p>Motor, fan, heater, wiring, insulation, grills, all packed into a casing that hides them.</p>
+            </div>
+          </li>
+          <li class="finding-item">
+            <span class="fi-num">05</span>
+            <div>
+              <h4>Inherited, not designed.</h4>
+              <p>The silhouette is unchanged since 1939. Nobody asked whether it still earns its place.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- The argument: two moves, full-width -->
+      <div class="insight-fold">
+        <span class="if-tag">The argument</span>
+        <h3 class="if-title">Two moves come out of the teardown. <em>Cut the handle.</em> Open the case.</h3>
+        <p class="if-body">The handle is what makes the dryer heavy, bulky, and locked into a single grip. Cut it, and four findings collapse into one move. The fifth finding sits on its own. The case is glued shut, so even when something does break, the user can't reach it. Swap the glue for screws, and the dryer becomes repairable again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §02 Teardown: image left + 5 findings right (Onaka components pattern), then full-width argument */
+
+  .teardown-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .teardown-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .teardown-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .teardown-placeholder {
+    aspect-ratio: 4 / 3;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .teardown-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .teardown-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .teardown-image figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: baseline;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .td-link {
+    color: var(--teal-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--teal);
+    padding-bottom: 1px;
+    transition: color 0.15s;
+    font-weight: 500;
+  }
+  .td-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* Findings list: 5 numbered items stacked, with rules between */
+  .findings-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .finding-item {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .finding-item:first-child { padding-top: 0; }
+  .finding-item:last-child { border-bottom: none; }
+  .fi-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+  .finding-item h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .finding-item p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* The argument: full-width teal-soft panel, punchier title */
+  .insight-fold {
+    margin-top: 4rem;
+    padding: 2.25rem 2.5rem;
+    background: var(--teal-soft);
+    border: 1px solid var(--teal);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .if-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .if-title {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  .if-title em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .if-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+  }
+
+  @media (max-width: 900px) {
+    .teardown-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .teardown-image { position: static; }
+    .teardown-image figcaption { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+    .insight-fold { padding: 1.75rem 1.5rem; }
+  }
+</style>
+
+<!-- 3. THE HANDLE-FREE REDESIGN: sketches + form, brief and image-led -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 03</span>
+      <span class="nm">Redesign</span>
+      <span class="note">grip the tube</span>
+    </div>
+    <div>
+      <h2>The hair dryer, <em>handle</em> removed.</h2>
+      <p class="lede">Three concept directions went to user testing through semantic differentials. The handle-free version won decisively, judged the most comfortable and the most inviting to use. The form that came out of that round is what AirFlux is.</p>
+
+      <div class="redesign-twin">
+        <figure class="redesign-image">
+          <img src="airflux-sketches.jpg" alt="A page of design sketches exploring different hair dryer forms, with the handle-free concept circled as the chosen direction" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="redesign-placeholder" style="display:none;">
+            <strong>Form sketches</strong>
+            <p>airflux-sketches.jpg</p>
+          </div>
+        </figure>
+
+        <div class="redesign-moves">
+          <div class="rm-cell">
+            <span class="rm-tag">Move 01</span>
+            <h3>No <em>handle</em>.</h3>
+            <p>Everything below the air outlet tube has been removed. The motor, fan, and heater sit directly in line, no detour through a grip.</p>
+          </div>
+          <div class="rm-cell">
+            <span class="rm-tag">Move 02</span>
+            <h3>Grip the <em>tube</em>.</h3>
+            <p>The user holds the dryer by the air outlet itself. Smaller footprint, lighter in the hand, and the grip rotates freely around the head.</p>
+          </div>
+          <div class="rm-cell">
+            <span class="rm-tag">User testing</span>
+            <h3>Picked from <em>three</em>.</h3>
+            <p>Ten users compared three concepts on semantic differentials. The handle-free version scored highest on comfort, on intuitiveness, and on whether they would actually use it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SLEEVE + REPAIRABILITY: two design decisions side-by-side -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 04</span>
+      <span class="nm">Two fixes</span>
+      <span class="note">heat and access</span>
+    </div>
+    <div>
+      <h2>Removing the handle created <em>two</em> new problems. Both got solved.</h2>
+      <p class="lede">The air outlet tube is the part that gets hot, so you can't just grip it bare. And once the form changed, the casing had to change with it. That was the chance to fix what the original got wrong: a casing the user could actually open.</p>
+
+      <div class="fixes-grid">
+        <!-- Fix 01: Thermal sleeve -->
+        <figure class="fix-cell">
+          <div class="fix-img">
+            <img src="airflux-sleeve.jpg" alt="Multiple silicone sleeve prototypes tested for ergonomic grip on the air outlet tube, with different shapes and grip patterns" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="fix-placeholder" style="display:none;">
+              <strong>Sleeve prototypes</strong>
+              <p>airflux-sleeve.jpg</p>
+            </div>
+          </div>
+          <figcaption>
+            <span class="fix-tag">Fix 01 · Thermal sleeve</span>
+            <h3>A silicone <em>sleeve</em> over the hot part.</h3>
+            <p>Thermal-insulating silicone wraps the part the user grips. Multiple prototypes were tested to find a profile that's safe, comfortable, and rests naturally in the hand.</p>
+          </figcaption>
+        </figure>
+
+        <!-- Fix 02: Repairability -->
+        <figure class="fix-cell">
+          <div class="fix-img">
+            <img src="airflux-case-details.jpg" alt="Exploded diagram of the AirFlux casing with circular callouts showing the silicone sleeve, the screws joining the two case halves, the air outlet, and the mesh detail of the sleeve" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="fix-placeholder" style="display:none;">
+              <strong>Case detail callouts</strong>
+              <p>airflux-case-details.jpg</p>
+            </div>
+          </div>
+          <figcaption>
+            <span class="fix-tag">Fix 02 · Repairability</span>
+            <h3>Screws, not <em>glue</em>.</h3>
+            <p>The AirFlux case holds together with standard screws, so the user can open it, replace a heater or a fan, and close it back up. Repair becomes part of the product's life, not the end of it.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §03 Redesign: image left, 3 short moves right */
+  .redesign-twin {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .redesign-image {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .redesign-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .redesign-placeholder {
+    aspect-ratio: 4 / 5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed var(--rule);
+  }
+  .redesign-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .redesign-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .redesign-moves {
+    display: flex;
+    flex-direction: column;
+  }
+  .rm-cell {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .rm-cell:first-child { padding-top: 0; }
+  .rm-cell:last-child { border-bottom: none; }
+  .rm-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .rm-cell h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 0.45rem;
+  }
+  .rm-cell h3 em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .rm-cell p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §04 Two fixes: side by side, each with image + caption */
+  .fixes-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .fix-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .fix-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .fix-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .fix-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .fix-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .fix-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .fix-cell figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .fix-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+  }
+  .fix-cell h3 {
+    font-size: 1.3rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    max-width: 22ch;
+  }
+  .fix-cell h3 em { font-style: italic; color: var(--teal-deep); font-weight: 700; }
+  .fix-cell p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .redesign-twin { grid-template-columns: 1fr; gap: 2rem; }
+    .redesign-image { position: static; }
+    .fixes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- 5. MATERIALS + MANUFACTURING: annotated render + 6-component grid -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 05</span>
+      <span class="nm">Materials</span>
+      <span class="note">six parts, six choices</span>
+    </div>
+    <div>
+      <h2>Six materials, two case halves, one existing <em>mechanism</em>.</h2>
+      <p class="lede">AirFlux is designed for mass production. The materials follow function, the case is built for injection moulding in two halves, and the Remington's working mechanism slots in unchanged.</p>
+
+      <!-- Annotated render -->
+      <figure class="materials-image">
+        <img src="airflux-materials.jpg" alt="A render of the AirFlux hair dryer with annotation lines pointing to each component and labelling its material: polypropylene case, silicone sleeve, aluminium mesh inlet, polycarbonate buttons, stainless steel grill cover, silicone cord rubber" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="materials-placeholder" style="display:none;">
+          <strong>AirFlux · materials map</strong>
+          <p>airflux-materials.jpg</p>
+        </div>
+        <figcaption>Six labelled components, each chosen for the job it has to do.</figcaption>
+      </figure>
+
+      <!-- Manufacturing diagrams: moulded case details + mechanism fit -->
+      <div class="mfg-strip">
+        <figure class="mfg-cell">
+          <div class="mfg-img">
+            <img src="airflux-case-mould.jpg" alt="Technical drawing of the AirFlux case in two moulded halves, showing the joining seams and surface details required for injection moulding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="mfg-placeholder" style="display:none;">
+              <strong>Moulded case details</strong>
+              <p>airflux-case-mould.jpg</p>
+            </div>
+          </div>
+          <figcaption>
+            <span class="mfg-tag">Moulded case details</span>
+            <p>The case is designed in two halves to suit injection moulding, the standard process for hair-dryer housings.</p>
+          </figcaption>
+        </figure>
+        <figure class="mfg-cell">
+          <div class="mfg-img">
+            <img src="airflux-mechanism-fit.jpg" alt="Cross-section diagram of the AirFlux casing showing the Remington motor, fan, heating coil, and wiring fitted inside the redesigned housing" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="mfg-placeholder" style="display:none;">
+              <strong>Mechanism fit</strong>
+              <p>airflux-mechanism-fit.jpg</p>
+            </div>
+          </div>
+          <figcaption>
+            <span class="mfg-tag">Mechanism fit</span>
+            <p>The existing Remington motor, fan, heater, and wiring tuck into the new housing with no modification. The redesign sits on top of a working mechanism, not in place of one.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FINAL OUTCOME: orthographic + renders + brief honest closing -->
+<section class="section">
+  <div class="section-dot"></div>
+  <div class="section-grid">
+    <div class="section-marker">
+      <span class="num">§ 06</span>
+      <span class="nm">Final outcome</span>
+      <span class="note">handle gone</span>
+    </div>
+    <div>
+      <h2>AirFlux, <em>resolved</em>.</h2>
+
+      <!-- Hero render -->
+      <figure class="outcome-hero">
+        <img src="airflux-final-hero.jpg" alt="The resolved AirFlux hair dryer rendered against a clean grey backdrop, the handle-free form clearly visible with the silicone sleeve around the air outlet tube" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="outcome-placeholder" style="display:none;">
+          <strong>Final hero render</strong>
+          <p>airflux-final-hero.jpg</p>
+        </div>
+      </figure>
+
+      <!-- 3-up grid -->
+      <div class="outcome-grid">
+        <figure class="outcome-tile">
+          <img src="airflux-final-01.jpg" alt="Orthographic drawing of AirFlux showing front, side, and top views with dimensions" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Orthographic</strong>
+            <p>airflux-final-01.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="airflux-final-02.jpg" alt="AirFlux being held by a hand, gripping the air outlet tube directly with the silicone sleeve" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>In the hand</strong>
+            <p>airflux-final-02.jpg</p>
+          </div>
+        </figure>
+        <figure class="outcome-tile">
+          <img src="airflux-final-03.jpg" alt="A close-up render showing the screws on the AirFlux casing, indicating user-repairable assembly" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="outcome-placeholder" style="display:none;">
+            <strong>Repairable detail</strong>
+            <p>airflux-final-03.jpg</p>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* §05 Materials: annotated render + 2-image manufacturing strip */
+  .materials-image {
+    margin: 3rem 0 3rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .materials-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .materials-placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .materials-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .materials-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .materials-image figcaption {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  /* Manufacturing diagrams: 2-cell strip */
+  .mfg-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .mfg-cell {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .mfg-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+  }
+  .mfg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 1rem;
+    background: var(--bg);
+  }
+  .mfg-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .mfg-placeholder strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .mfg-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .mfg-cell figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .mfg-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .mfg-cell p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* §06 Final outcome: hero + 3-up + honest note */
+  .outcome-hero {
+    margin: 0 0 1.25rem;
+    overflow: hidden;
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+  }
+  .outcome-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .outcome-placeholder {
+    aspect-ratio: 3 / 2;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--teal-soft);
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed var(--rule);
+  }
+  .outcome-placeholder strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .outcome-placeholder p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .outcome-tile {
+    margin: 0;
+    overflow: hidden;
+  }
+  .outcome-tile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .outcome-tile .outcome-placeholder {
+    aspect-ratio: 1 / 1;
+  }
+
+  @media (max-width: 900px) {
+    .mfg-strip { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .outcome-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- FOOTER: minimal prev/next + thin contact strip -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="proj-nav">
+      <a href="ilia.html" class="proj-link proj-prev">
+        <span class="pl-arrow">←</span>
+        <span class="pl-stack">
+          <span class="pl-meta">Previous project</span>
+          <span class="pl-name">Ilia</span>
+        </span>
+      </a>
+      <a href="period_5.html" class="proj-link proj-next">
+        <span class="pl-stack">
+          <span class="pl-meta">Next project</span>
+          <span class="pl-name">Period</span>
+        </span>
+        <span class="pl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer-base">
+      <div class="fb-logo">Nefeli Lemessiou</div>
+      <div class="fb-contact">
+        <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
+        <span class="fb-sep">·</span>
+        <a href="https://www.instagram.com/nephele_design" target="_blank" rel="noopener">@nephele_design</a>
+        <span class="fb-sep">·</span>
+        <a href="#">CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* FOOTER: minimal closing strip, teal soft background */
+  .site-footer {
+    background: var(--teal-soft);
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .proj-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .proj-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s, transform 0.25s;
+  }
+  .proj-link:hover { color: var(--teal-deep); }
+  .proj-prev:hover { transform: translateX(-3px); }
+  .proj-next:hover { transform: translateX(3px); }
+  .pl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .proj-next .pl-stack { text-align: right; }
+  .pl-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+  .pl-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pl-arrow {
+    font-size: 1.2rem;
+    color: var(--teal-deep);
+    line-height: 1;
+  }
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fb-logo {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .fb-contact {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .fb-contact a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .fb-contact a:hover { color: var(--teal-deep); }
+  .fb-sep { color: var(--ink-4); }
+
+  @media (max-width: 560px) {
+    .pl-meta { display: none; }
+  }
+</style>
+
+</body>
+</html>
