@@ -111,6 +111,12 @@ button { font: inherit; cursor: none; background: none; border: none; color: inh
   button, a { cursor: pointer; }
   .cursor-dot, .cursor-ring { display: none; }
 }
+/* touch / pen devices (incl. iPad): no custom cursor, restore native */
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto !important; }
+  button, a { cursor: pointer !important; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
 
 /* ============================================
    Layout primitives
@@ -1036,7 +1042,7 @@ body {
   color: #7C5BD6 !important;
 }
 .nav-links a .scribble-oval {
-  position: absolute; inset: -4px -6px;
+  position: absolute; top: -4px; left: -6px; width: calc(100% + 12px); height: calc(100% + 8px);
   pointer-events: none; opacity: 0;
   transition: opacity .35s ease;
 }

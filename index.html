@@ -996,6 +996,20 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   .hero-foot { grid-template-columns: 1fr; }
 }
 
+/* Portrait tablets (e.g. iPad portrait): don't stretch the hero to full height —
+   cluster the content with natural spacing instead of giant gaps */
+@media (orientation: portrait) and (min-width: 721px) {
+  .hero {
+    min-height: auto;
+    justify-content: flex-start;
+    padding-top: 130px;
+    padding-bottom: 72px;
+  }
+  .hero-title { margin-top: 3vh; }
+  .hero-foot { margin-top: 7vh; }
+  .scroll-cue { display: none; }
+}
+
 </style>
 <style>
   /* ============================================
@@ -1566,12 +1580,12 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
 <!-- ========== Footer / Contact ========== -->
 <footer class="footer" id="contact">
   <h2 class="footer-display" style="font-size: 60px">Let's design something together —
-<a class="hello-line" href="/cdn-cgi/l/email-protection#39575c5f5c5550555c54090b7951564d54585055175a5654"><span class="say-hello">say hello.</span></a></h2>
+<a class="hello-line" href="mailto:nefelilem02@hotmail.com"><span class="say-hello">say hello.</span></a></h2>
 
   <div class="footer-grid">
     <div class="footer-col">
       <span class="caption">Email</span>
-      <a href="/cdn-cgi/l/email-protection#e08e8586858c898c858dd0d2a0888f948d81898cce838f8d"><span class="__cf_email__" data-cfemail="6d03080b0801040108005d5f2d050219000c0401430e0200">[email&#160;protected]</span></a>
+      <a href="mailto:nefelilem02@hotmail.com">nefelilem02@hotmail.com</a>
     </div>
     <div class="footer-col">
       <span class="caption">Phone</span>
@@ -1595,7 +1609,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ============================================
    Site behaviour
    ============================================ */
