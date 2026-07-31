@@ -1146,7 +1146,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
 
   /* THE FOCUS MOVE — dim every card on grid hover, spotlight the hovered one.
      Now combined with per-card rotation: tilted at rest, straighten on focus. */
-  .focus-grid .project-card { transform: rotate(var(--rot, 0deg)); transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease; }
+  .focus-grid .project-card { transform: rotate(var(--rot, 0deg)); transition: transform .55s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .5s ease; will-change: transform, filter; }
   .focus-grid:hover .project-card { filter: brightness(.58) saturate(.62); transform: rotate(var(--rot, 0deg)) scale(.992); }
   .focus-grid:hover .project-card img { filter: saturate(.55); }
   .focus-grid:hover .project-card:hover { filter: none; transform: rotate(0deg) translateY(-6px) scale(1.01); z-index: 5; }
@@ -1466,7 +1466,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal in col-4 c-onaka tape-tl" href="onaka.html" data-tags="ux interaction research"
        style="--accent:#6B7DF2; --soft:#EAF1FB;">
       <div class="project-thumb">
-        <img src="assets/work-cards/onaka.jpg" alt="A hand holding the blue Onaka device beside a phone showing the onaka app splash screen" />
+        <img src="assets/work-cards/onaka.jpg" alt="A hand holding the blue Onaka device beside a phone showing the onaka app splash screen" loading="lazy" decoding="async" width="1200" height="900" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">01</span><span class="nm">onaka</span></div>
         <div class="pj-reveal"><span class="topn">01 / 07</span><span class="disc">Interface + Object</span>
@@ -1484,7 +1484,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal delay-1 in col-2 row-2 c-period tape-tc" href="period.html" data-tags="ux interaction research"
        style="--accent:#C56A3A; --soft:#F8EDE3;">
       <div class="project-thumb">
-        <img src="assets/work-cards/period.png" alt="The period. device on a wooden surface, copper fan-shaped calendar glowing red" />
+        <img src="assets/work-cards/period.jpg" alt="The period. device on a wooden surface, copper fan-shaped calendar glowing red" loading="lazy" decoding="async" width="1200" height="900" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">02</span><span class="nm">period<em>.</em></span></div>
         <div class="pj-reveal"><span class="topn">02 / 07</span><span class="disc">Interface + Object</span>
@@ -1502,7 +1502,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal in col-2 c-numa tape-tr" href="numa.html" data-tags="ux research"
        style="--accent:#1D009D; --soft:#EDEAF7;">
       <div class="project-thumb">
-        <img src="assets/work-cards/ground.png" alt="Two phone mockups of the NUMA app: log-in screen with the NUMA wordmark and a dashboard showing daily wellness scores" />
+        <img src="assets/work-cards/numa.jpg" alt="Two phone mockups of the NUMA app: log-in screen with the NUMA wordmark and a dashboard showing daily wellness scores" loading="lazy" decoding="async" width="1200" height="635" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">03</span><span class="nm">NUMA</span></div>
         <div class="pj-reveal"><span class="topn">03 / 07</span><span class="disc">Interface</span>
@@ -1520,7 +1520,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal delay-1 in col-2 c-airflux tape-tl" href="airflux.html" data-tags="industrial"
        style="--accent:#4F7079; --soft:#E4ECEE;">
       <div class="project-thumb">
-        <img src="assets/work-cards/airflux.png" alt="The AirFlux hair dryer held in hand: black tactile body with no traditional handle, grey nozzle" />
+        <img src="assets/work-cards/airflux.jpg" alt="A hand holding the AirFlux hair dryer, matte grey body with a black grip sleeve and no traditional handle" loading="lazy" decoding="async" width="1200" height="800" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">07</span><span class="nm">AirFlux</span></div>
         <div class="pj-reveal"><span class="topn">07 / 07</span><span class="disc">Object</span>
@@ -1540,7 +1540,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal in col-2 size-sq c-milo tape-tr" href="milo.html" data-tags="interaction industrial"
        style="--accent:#C99A2E; --soft:#FAF0D7;">
       <div class="project-thumb">
-        <img src="assets/work-cards/milo.png" alt="The Milo pair photographed front-on: two small wooden boxes with frosted glass tops and four pastel buttons each" />
+        <img src="assets/work-cards/milo.jpg" alt="The Milo pair photographed front-on: two small wooden boxes with frosted glass tops and four pastel buttons each" loading="lazy" decoding="async" width="1200" height="827" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">04</span><span class="nm">Milo</span></div>
         <div class="pj-reveal"><span class="topn">04 / 07</span><span class="disc">Object</span>
@@ -1558,7 +1558,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal delay-1 in col-2 size-sq c-vatten tape-tc" href="vattenkanna.html" data-tags="industrial"
        style="--accent:#7A9B6E; --soft:#E8EDE3;">
       <div class="project-thumb">
-        <img src="assets/work-cards/vattenkanna.png" alt="The Vattenkanna vessel in dark brown with its translucent mesh strainer beside it" />
+        <img src="assets/work-cards/vattenkanna.jpg" alt="The Vattenkanna vessel in dark brown with its translucent mesh strainer beside it" loading="lazy" decoding="async" width="1200" height="720" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">05</span><span class="nm">Vattenkanna</span></div>
         <div class="pj-reveal"><span class="topn">05 / 07</span><span class="disc">Object</span>
@@ -1576,7 +1576,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     <a class="project-card reveal delay-2 in col-2 size-sq c-ilia tape-tl" href="ilia.html" data-tags="interaction industrial"
        style="--accent:#8B6B47; --soft:#F0E8DE;">
       <div class="project-thumb">
-        <img src="assets/work-cards/ilia.png" alt="The Ilia breathing lamp: blue glowing organic glass diffuser on a turned wooden base" />
+        <img src="assets/work-cards/ilia.jpg" alt="The Ilia breathing lamp: blue glowing organic glass diffuser on a turned wooden base" loading="lazy" decoding="async" width="1200" height="1200" />
         <div class="pj-wash"></div><div class="pj-scrim"></div>
         <div class="pj-rest"><span class="n">06</span><span class="nm">Ilia</span></div>
         <div class="pj-reveal"><span class="topn">06 / 07</span><span class="disc">Object</span>

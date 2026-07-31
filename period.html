@@ -2643,12 +2643,12 @@ em.ink, .ink em { font-style: normal; }
   /* Foldable chapter affordance */
   .chapter-break.chapter-toggle { cursor: pointer; }
   .chapter-break.chapter-toggle .chapter-meta::after {
-    content: ' — click to open ↓';
+    content: ' · click to open ↓';
     font-size: 0.8rem;
     opacity: 0.6;
   }
   .chapter-break.chapter-toggle.open .chapter-meta::after {
-    content: ' — click to close ↑';
+    content: ' · click to close ↑';
   }
 </style>
 
@@ -2800,11 +2800,11 @@ em.ink, .ink em { font-style: normal; }
   <div class="hero-table a d1">
     <div class="ht-cell">
       <span class="ht-label">Project</span>
-      <span class="ht-value">02 — period.</span>
+      <span class="ht-value">02 · period.</span>
     </div>
     <div class="ht-cell">
       <span class="ht-label">Year</span>
-      <span class="ht-value">Sept 2023 — May 2024</span>
+      <span class="ht-value">Sept 2023 to May 2024</span>
     </div>
     <div class="ht-cell">
       <span class="ht-label">Context</span>
@@ -2816,7 +2816,7 @@ em.ink, .ink em { font-style: normal; }
     </div>
   </div>
   <h1 class="display a d2" style="font-size: 49px">Helping women understand their cycles, not just <em style="color: rgb(197, 106, 58)">record</em> them.</h1>
-  <p class="hero-sub a d3">A <em>connected experience</em> across physical and digital: a smart period calendar and companion app, designed together. Cycle tracking as a calmer, more <em>educational</em> daily ritual, anchored to a beautiful object, not a phone notification.</p>
+  <p class="hero-sub a d3">A smart period calendar and companion app, designed together. Cycle tracking as a calmer, more <em>educational</em> ritual, anchored to a beautiful object, not a notification.</p>
   <div class="hero-tags a d4">
     <span class="tag">UX Research</span>
     <span class="tag">Industrial Design</span>
@@ -2836,103 +2836,65 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-grid">
     <div class="section-marker">
       <span class="num">§ 01</span>
-      <span class="nm">Problem</span>
+      <span class="nm">The problem</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where it began</span>
     </div>
     <div>
       <h2 class="wide">Half the world menstruates. Almost no products are <em>designed</em> for it.</h2>
-      <p class="lede">Period tracking is dominated by apps that feel like data-entry chores: stereotyped pink interfaces, daily symptom checklists, and notifications that get ignored. They track the period, but they rarely help women <em>understand</em> what is happening to their bodies, and they are easy to forget.</p>
+      <p class="lede">Period tracking feels like data entry: pink interfaces, symptom checklists, ignored notifications. It rarely helps women <em>understand</em> their bodies, and it's easy to forget.</p>
       <div class="pull">
-        <blockquote>"I keep forgetting to input my period, and even when I do, I forget to check the app."</blockquote>
-        <cite>— Survey participant · Edinburgh, 2024</cite>
+        <blockquote>"I keep forgetting to input my period, and to check the app."</blockquote>
+        <cite>Survey participant · Edinburgh, 2024</cite>
       </div>
       <div class="stat-row">
         <div class="stat"><div class="num" style="font-size: 48px">~480<em>×</em></div><div class="lbl">Periods in a typical lifetime, ages 12 to 55</div></div>
-        <div class="stat"><div class="num" style="font-size: 48px">31 <em>women</em></div><div class="lbl">surveyed about how and why they track their cycles</div></div>
-        <div class="stat"><div class="num" style="font-size: 48px">48<em>%</em></div><div class="lbl">don't <em>always</em> feel their tracking app helps them understand their cycle</div></div>
+        <div class="stat"><div class="num" style="font-size: 48px">48<em>%</em></div><div class="lbl">don't <em>always</em> feel their app helps them understand their cycle</div></div>
         <div class="stat"><div class="num" style="font-size: 48px">100<em>%</em></div><div class="lbl">wanted a less stereotypically gendered design</div></div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- 2. RESEARCH -->
-<section class="section">
-  <div class="section-dot"></div>
-  <div class="section-grid">
-    <div class="section-marker">
-      <span class="num">§ 02</span>
-      <span class="nm">Research</span>
-    </div>
-    <div>
-      <h2>Eight months of <em>conversations</em> with patients, doctors, and apps.</h2>
-      <p class="lede">The research split across five methods, each chosen to answer a different question: <em>why</em> women track, <em>what</em> they want a tracker to do, and <em>how</em> a smart device could fit into their daily lives without feeling like another chore.</p>
+      <div class="merge-sub" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--ink);">
+        <span style="display: block; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--copper-deep); margin-bottom: 0.55rem;">Before designing</span>
+        <h3 style="font-size: 1.6rem; line-height: 1.15; letter-spacing: -0.025em; font-weight: 700; max-width: 34ch; margin: 0 0 2rem;">Eight months of <em style="font-style: italic; color: var(--copper);">conversations</em> with patients, doctors, and apps.</h3>
+      </div>
 
       <div class="methods-strip">
         <div class="method-cell">
           <div class="method-num">A · Lit review</div>
           <h4>Three peer-<em>reviewed</em> papers</h4>
-          <p>HCI research on menstrual self-tracking, feminist design for the changing body, and the gap between user identity and existing app personas.</p>
+          <p>HCI research on self-tracking, feminist design, and the identity gap in existing apps.</p>
         </div>
         <div class="method-cell">
           <div class="method-num">B · Workshops</div>
           <h4>Two co-design <em>sessions</em></h4>
-          <p>One on what "woman-centred design" actually means; one with plasticine to find forms that feel calm, trustworthy, and intuitive.</p>
+          <p>Defining "woman-centred design"; plasticine forms that feel calm and trustworthy.</p>
         </div>
         <div class="method-cell">
           <div class="method-num">C · Interviews</div>
           <h4>Gynaecologist + <em>HCI PhD</em></h4>
-          <p>A medical perspective on what to track and what AI should never do. A research perspective on visualising bodily data.</p>
+          <p>Medical view on what to track; research view on visualising bodily data.</p>
         </div>
         <div class="method-cell">
           <div class="method-num">D · Survey</div>
           <h4>31 women, <em>distributed</em> via QR</h4>
-          <p>Survey posters placed in campus toilets to ensure private completion. Three sections covering tracking habits, app feedback, and product wishes.</p>
+          <p>QR posters in campus toilets for private completion, tracking habits and wishes.</p>
         </div>
         <div class="method-cell">
           <div class="method-num">E · Probe</div>
           <h4>Public AI <em>opinion box</em></h4>
-          <p>An open box in the exhibition area asking what women would and would not want from an AI menstrual assistant.</p>
-        </div>
-      </div>
-
-      <h3 style="margin-top: 4rem; margin-bottom: 1.25rem; font-size: 1rem; font-family: var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; display: none;">Apps tested · 5 users · 1 month</h3>
-      <div class="competitive" style="display: none;">
-        <div class="comp-card">
-          <div class="comp-name">Flo</div>
-          <div class="comp-issue">Best predictor; aggressive notifications create anxiety.</div>
-        </div>
-        <div class="comp-card">
-          <div class="comp-name">Period Calendar</div>
-          <div class="comp-issue">Pink-on-pink. Felt patronising to several testers.</div>
-        </div>
-        <div class="comp-card">
-          <div class="comp-name">My Calendar</div>
-          <div class="comp-issue">Tracking only. No education or context.</div>
-        </div>
-        <div class="comp-card">
-          <div class="comp-name">My Cycle</div>
-          <div class="comp-issue">Cluttered. Buries the cycle phase under symptom logs.</div>
-        </div>
-        <div class="comp-card">
-          <div class="comp-name">Apple Health</div>
-          <div class="comp-issue">Clinical. Reduces the body to a row in a spreadsheet.</div>
+          <p>What women would and wouldn't want from an AI assistant.</p>
         </div>
       </div>
 
       <div class="pull" style="margin-top: 3rem;">
         <blockquote>"AI for understanding, not diagnosis. Doctors stay the doctors."</blockquote>
-        <cite>— Synthesised from gynaecologist interview &amp; AI probe (33 responses)</cite>
+        <cite>Synthesised from gynaecologist interview &amp; AI probe (33 responses)</cite>
       </div>
 
       <div class="pill-row">
         <span class="pl">What the research told us</span>
-        <span class="pill">Women forget to log; reminders fail</span>
         <span class="pill">Users want to understand the cycle, not just track it</span>
+        <span class="pill">A bedside device is more memorable than an app icon</span>
         <span class="pill">Pink stereotypes are actively disliked</span>
-        <span class="pill">Open to AI for Q&amp;A, wary of AI for diagnosis</span>
-        <span class="pill">A device on a bedside table is more memorable than an app icon</span>
-        <span class="pill">Aesthetic must blend into the home, not look "medical"</span>
       </div>
     </div>
   </div>
@@ -2943,13 +2905,13 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 03</span>
+      <span class="num">§ 02</span>
       <span class="nm">How it works</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>one loop, two media</span>
     </div>
     <div>
       <h2>One <em>daily loop</em>, across the bedside and the pocket.</h2>
-      <p class="lede">Six moments. Three on the device, three on the app. The <em>hand-off</em> between them is the design.</p>
+      <p class="lede">Six moments, three on the device, three on the app. The <em>hand-off</em> between them is the design.</p>
 
       <div class="loop-system">
         <!-- Row 1: device side -->
@@ -2967,7 +2929,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-01-glance.jpg" data-placeholder-for="period-step-01-glance.jpg" alt="The fan glowing red on a bedside table" />
               </figure>
-              <p class="loop-copy">Colour shifts daily. Readable across the room.</p>
+              <p class="loop-copy">Colour shifts daily, readable across the room.</p>
             </div>
             <div class="loop-step">
               <div class="loop-num">02</div>
@@ -2975,7 +2937,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-02-fold.jpg" data-placeholder-for="period-step-02-spin.jpg" alt="Fingers folding away unused days on the copper fan" />
               </figure>
-              <p class="loop-copy">Each fold is one day. Tucks to fit any 21–35 day cycle.</p>
+              <p class="loop-copy">Each fold is one day, tucks to fit any 21–35 day cycle.</p>
             </div>
             <div class="loop-step">
               <div class="loop-num">03</div>
@@ -2983,7 +2945,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-03-autoturn.jpg" data-placeholder-for="period-device-detail.jpg" alt="Close-up of the copper fan showing day numbers and rotating pointer" />
               </figure>
-              <p class="loop-copy">Turns one fold at midnight. Stays current even when forgotten.</p>
+              <p class="loop-copy">Turns one fold at midnight, stays current even when forgotten.</p>
             </div>
           </div>
         </div>
@@ -3012,7 +2974,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-04-ask.png" data-placeholder-for="period-step-03-luna.jpg" alt="Typing a question to Luna in the app, with the copper device on the desk behind" />
               </figure>
-              <p class="loop-copy">Luna answers cycle questions. Voice at the bedside, text in the app.</p>
+              <p class="loop-copy">Luna answers cycle questions: voice at the bedside, text in the app.</p>
             </div>
             <div class="loop-step">
               <div class="loop-num">05</div>
@@ -3020,7 +2982,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-05-loglearn.png" data-placeholder-for="period-screen-period-detail.png" alt="Logging symptoms on the phone while reaching for the copper device beside" />
               </figure>
-              <p class="loop-copy">Log symptoms. Read what the phase means for the body.</p>
+              <p class="loop-copy">Log symptoms, read what the phase means.</p>
             </div>
             <div class="loop-step">
               <div class="loop-num">06</div>
@@ -3028,7 +2990,7 @@ em.ink, .ink em { font-style: normal; }
               <figure class="loop-figure">
                 <img src="assets/period/howitworks-06-carry.png" data-placeholder-for="period-screen-home.png" alt="Two hands holding the phone away from the bedside, home screen open" />
               </figure>
-              <p class="loop-copy">Away from the bedside, the cycle goes with you. Same fan, same theme.</p>
+              <p class="loop-copy">Away from the bedside, the cycle goes with you.</p>
             </div>
           </div>
         </div>
@@ -3044,13 +3006,13 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 04</span>
+      <span class="num">§ 03</span>
       <span class="nm">The threading</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where device + app meet</span>
     </div>
     <div>
       <h2>Four places the device and the app are <em>co-designed</em>.</h2>
-      <p class="lede">Not two parallel deliverables. The hand-offs are the design.</p>
+      <p class="lede">Not two parallel deliverables: the hand-offs are the design.</p>
       <div class="threading">
         <div class="thread-grid">
           <div class="thread-flip" tabindex="0" role="button" aria-label="Reveal how the gradient threads device and app">
@@ -3062,7 +3024,7 @@ em.ink, .ink em { font-style: normal; }
                 <span class="tf-hint">Tap to see how ↻</span>
               </div>
               <div class="tf-back">
-                <p>The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match.</p>
+                <p>The NeoPixel ring offers three gradients; the app tints every screen to match.</p>
               </div>
             </div>
           </div>
@@ -3075,7 +3037,7 @@ em.ink, .ink em { font-style: normal; }
                 <span class="tf-hint">Tap to see how ↻</span>
               </div>
               <div class="tf-back">
-                <p>The fan-shape becomes the central button on every app screen, the same anchor as the bedside object.</p>
+                <p>The fan-shape is the central button on every app screen, the same anchor as the bedside object.</p>
               </div>
             </div>
           </div>
@@ -3088,7 +3050,7 @@ em.ink, .ink em { font-style: normal; }
                 <span class="tf-hint">Tap to see how ↻</span>
               </div>
               <div class="tf-back">
-                <p>The same italic display family is engraved into copper and rendered on glass.</p>
+                <p>The same italic display family, engraved into copper and rendered on glass.</p>
               </div>
             </div>
           </div>
@@ -3101,7 +3063,7 @@ em.ink, .ink em { font-style: normal; }
                 <span class="tf-hint">Tap to see how ↻</span>
               </div>
               <div class="tf-back">
-                <p>The same AI assistant. Speaks at the bedside; types in the app for when speaking out loud is not an option.</p>
+                <p>The same AI assistant: speaks at the bedside, types in the app.</p>
               </div>
             </div>
           </div>
@@ -3285,24 +3247,23 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 05</span>
+      <span class="num">§ 04</span>
       <span class="nm">Decision 01</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>where the form lives</span>
     </div>
     <div>
       <h2>Why the app couldn't be the <em>main thing</em>.</h2>
-      <p class="lede">Every existing tracker is app-first. The research said <em>that's exactly why</em> women keep forgetting to log.</p>
+      <p class="lede">Every existing tracker is app-first. The research said that's <em>exactly why</em> women forget to log.</p>
 
       <div class="decision-flow horizontal">
         <div class="dec-stage was">
           <div class="dec-text">
             <span class="dec-tag was">The default move</span>
             <h3>Build a better tracking app.</h3>
-            <p>The fastest, cheapest, most fundable answer. Better notifications, friendlier copy, fewer pink hearts.</p>
+            <p>The fastest, cheapest, most fundable answer: better notifications, friendlier copy, fewer pink hearts.</p>
             <ul class="dec-list">
               <li class="x">Notifications get muted within a week</li>
               <li class="x">App icons disappear into the third home screen</li>
-              <li class="x">Out of sight on the days that matter most</li>
               <li class="x">Solves the symptom, not the cause</li>
             </ul>
           </div>
@@ -3319,12 +3280,10 @@ em.ink, .ink em { font-style: normal; }
           <div class="dec-text">
             <span class="dec-tag now">The choice</span>
             <h3>Anchor the experience to a <em>physical object</em>.</h3>
-            <p>The device sits where forgetting is hardest, the bedside. The app exists for what an object can't carry: depth, history, portability.</p>
+            <p>The device sits where forgetting is hardest: the bedside. The app carries what an object can't: depth, history, portability.</p>
             <ul class="dec-list">
               <li>Device for ritual: glanceable, ambient, present</li>
               <li>App for depth: phase explanations, history, doctor export</li>
-              <li>Each medium chosen for what it does best</li>
-              <li>Forgetting becomes architecturally harder</li>
             </ul>
           </div>
         </div>
@@ -3338,20 +3297,20 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 06</span>
+      <span class="num">§ 05</span>
       <span class="nm">Concept &amp; form</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>how the fan emerged</span>
     </div>
     <div>
       <h2>From fourteen ideas to a <em>fan</em>.</h2>
-      <p class="lede">Fourteen concepts. Three prototype stages on the way to copper. One quiet rule running through all of them: it has to look at home on a bedside <em>or</em> on a wall.</p>
+      <p class="lede">Fourteen concepts, three prototype stages to copper. One rule: it has to look at home on a bedside <em>or</em> a wall.</p>
 
       <!-- Stage 1: Ideation -->
       <div class="proto-stage wide-img">
         <div class="proto-stage-meta">
           <span class="proto-num">1 · Ideation</span>
           <h3>The calendar idea kept <em>returning</em>.</h3>
-          <p>Fourteen concepts in fifteen minutes: period underwear, a heating bra, a smart pill reminder, a comfort blanket. The calendar kept winning out: physical, household, hard to ignore.</p>
+          <p>Period underwear, a heating bra, a pill reminder, a comfort blanket: the calendar won, physical and hard to ignore.</p>
         </div>
         <figure class="proto-stage-img">
           <img src="assets/period/ideation-sketches.png" data-placeholder-for="period-ideas.jpg" alt="Hand-sketched grid of 14 early product concepts" />
@@ -3364,7 +3323,7 @@ em.ink, .ink em { font-style: normal; }
         <div class="proto-stage-meta">
           <span class="proto-num">2 · Material</span>
           <h3>Paper to brass to <em>copper</em>.</h3>
-          <p>Paper handled the geometry but couldn't survive daily use. A brass-foil prototype was sturdier but creased after repeated folding. Thin copper sheet, engraved with day numbers, magnetised at the folds, gave the right balance of durability, finish, and a satisfying snap when folded away.</p>
+          <p>Paper handled the geometry but didn't survive use. Copper, engraved and magnetised, gave durability and a satisfying snap.</p>
         </div>
         <figure class="proto-stage-img proto-taped">
           <img src="assets/period/material-grid.png" data-placeholder-for="period-form-purple.jpg" alt="Purple paper and gold foil accordion fan prototypes at scale" />
@@ -3377,7 +3336,7 @@ em.ink, .ink em { font-style: normal; }
         <div class="proto-stage-meta">
           <span class="proto-num">3 · Sit, or hang</span>
           <h3>One object, <em>two affordances</em>.</h3>
-          <p>Each early iteration solved one mode and broke the other. The answer merged both: <em>sand the base flat</em> for tabletop, <em>integrate a wooden handle</em> that slides out for sitting, and a hook on the back for hanging.</p>
+          <p>Each iteration solved one mode, broke the other. The answer merged both: a sanded flat base, a slide-out handle, a wall hook.</p>
         </div>
         <figure class="proto-stage-img proto-taped">
           <img src="assets/period/sit-or-hang-sketches.png" data-placeholder-for="period-device-detail.jpg" alt="Close-up of the final device showing the sanded flat base resting on a surface and the integrated copper handle wrapping the body" />
@@ -3469,31 +3428,30 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 07</span>
+      <span class="num">§ 06</span>
       <span class="nm">Decision 02</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the form unlock</span>
     </div>
     <div>
       <h2><em>28 folds</em>, not 28 days.</h2>
-      <p class="lede">Cycles run 21 to 35 days. Any rigid calendar erases someone.</p>
+      <p class="lede">Cycles run 21 to 35 days; any rigid calendar erases someone.</p>
 
       <div class="decision-flow">
         <div class="dec-stage was has-img">
           <div class="dec-text">
             <span class="dec-tag was">The early prototypes</span>
             <h3>A calendar of <em>fixed</em> days.</h3>
-            <p>Date strips, spinning discs, axis cards. Each broke the moment a cycle ran short or long.</p>
+            <p>Date strips, spinning discs, axis cards, each broke the moment a cycle ran short or long.</p>
             <ul class="dec-list">
               <li class="x">Locked to a 28-day assumption</li>
               <li class="x">Short cycles leave blank days; long ones run out of room</li>
-              <li class="x">Treats the average user as the only user</li>
             </ul>
           </div>
           <div class="dec-img-wrap">
             <figure class="dec-img-photo">
               <img src="assets/period/decision02-early-sketches.png" data-placeholder-for="period-form-accordions.jpg" alt="Sketch grid of early fixed-day calendar concepts: clock-style dial with day arrow, spinning inner circles for tracking, light-circle indicator, and a spiral day layout" />
             </figure>
-            <div class="dec-img-caption">Early sketches: clock-face dials, spinning inner discs, light-circles, spirals — each fixed-day idea before the fan.</div>
+            <div class="dec-img-caption">Early sketches: clock-face dials, discs, light-circles, spirals, before the fan.</div>
           </div>
         </div>
 
@@ -3508,11 +3466,10 @@ em.ink, .ink em { font-style: normal; }
           <div class="dec-text">
             <span class="dec-tag now">The unlock</span>
             <h3>Each fold is one day. <em>Unused folds tuck away.</em></h3>
-            <p>An accordion of 35 folds, magnetised. The form adapts to the body, not the other way round.</p>
+            <p>An accordion of 35 magnetised folds. The form adapts to the body, not the other way round.</p>
             <ul class="dec-list">
               <li>Fits any cycle from 21 to 35 days</li>
               <li>Magnets give a tactile snap when folded</li>
-              <li>The form itself is the date system</li>
             </ul>
           </div>
           <div class="dec-img-wrap">
@@ -3520,7 +3477,7 @@ em.ink, .ink em { font-style: normal; }
               <span class="marginalia" style="top:-26px; right:4%; transform:rotate(-3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the unlock</span>
               <img src="assets/period/decision02-unlock-sketches.png" alt="Sketch grid exploring fan-fold mechanics — turning inside vs outside, drag-to-open more, hiding past days, and flexible fan designs" />
             </figure>
-            <div class="dec-img-caption">Fan-fold explorations: turn inside or outside, drag to open more, hide the days already passed, customise to cycle length.</div>
+            <div class="dec-img-caption">Fan-fold explorations: inside or outside, drag to open, hide past days, customise to cycle length.</div>
           </div>
         </div>
       </div>
@@ -3533,24 +3490,24 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 08</span>
+      <span class="num">§ 07</span>
       <span class="nm">Building it for real</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>prototype + scale</span>
     </div>
     <div>
       <h2>A system that <em>actually runs</em>, costed to scale.</h2>
-      <p class="lede">Two parallel tracks: a Raspberry Pi prototype that <em>genuinely works</em>, and a manufacturing plan with a costed bill of materials.</p>
+      <p class="lede">Two tracks: a Raspberry Pi prototype that <em>genuinely works</em>, and a manufacturing plan with a costed bill of materials.</p>
 
       <figure class="tech-flatlay">
-        <img src="assets/period/tech-flatlay.jpg" data-placeholder-for="period-tech-flatlay.jpg" alt="Flat lay of every component used to build the period. device, base, lid, copper fan, handle, electronics, screws, cable" />
-        <figcaption>Every part of period., thirteen components total.</figcaption>
+        <img src="assets/period/tech-flatlay-v2.jpg" alt="Flat lay of every component used to build the period. device: base, lid, copper fan, handle, Raspberry Pi, NeoPixel ring, servo, speaker, power adapter, and screws" />
+        <figcaption>Every part, thirteen components.</figcaption>
       </figure>
 
       <div class="tech-twin">
         <div class="tech-card">
           <span class="tech-eyebrow">A · The working system</span>
           <h3>Raspberry Pi, <em>end-to-end</em>.</h3>
-          <p>Built in Python. Tracks the cycle day from a stored start date, drives a NeoPixel ring through gradient transitions, turns the metal fan on a servo, takes voice input through a microphone, replies through a speaker via OpenAI's GPT-3.5, scoped to menstrual health and forbidden from diagnoses.</p>
+          <p>Built in Python. Tracks cycle day, drives a NeoPixel gradient, turns the fan via servo, takes voice input, replies via GPT-3.5, scoped to health, never diagnosis.</p>
           <div class="tech-spec-row">
             <span>Raspberry Pi 4</span>
             <span>NeoPixel 12-LED ring</span>
@@ -3559,14 +3516,14 @@ em.ink, .ink em { font-style: normal; }
           </div>
           <figure class="tech-internals">
             <img src="assets/period/tech-internals.png" data-placeholder-for="period-tech-internals.png" alt="The five core electronic components laid out left to right: Raspberry Pi, NeoPixel LED ring, SG90 servo motor, USB microphone, and speaker" />
-            <figcaption>Internals: Pi, NeoPixel ring, servo, mic, speaker.</figcaption>
+            <figcaption>Pi, NeoPixel ring, servo, mic, speaker.</figcaption>
           </figure>
         </div>
 
         <div class="tech-card">
           <span class="tech-eyebrow">B · The production system</span>
           <h3>CNC, lamination, <em>custom PCB</em>.</h3>
-          <p>Birch plywood base (CNC-machined). Copper or brass fan (CNC-engraved with day numbers, folded on a press brake). Brass dowel for durability. Custom PCB and ARM Cortex-A35 controller specified for production, modelled on the Amazon Echo Dot teardown.</p>
+          <p>Birch plywood base (CNC-machined). Copper or brass fan, engraved and press-folded. Custom PCB, modelled on the Echo Dot teardown.</p>
 
           <div class="bom">
             <div class="bom-row">
@@ -3707,37 +3664,37 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 09</span>
+      <span class="num">§ 08</span>
       <span class="nm">Sketches &amp; iteration</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>deciding by hand</span>
     </div>
     <div>
       <h2>Pen on paper, before <em>pixels</em>.</h2>
-      <p class="lede">One sheet of dense iteration. Right margins are <em>self-critique</em>: questions about whether descriptions are too busy, whether the home page needs a calendar, where Luna should live.</p>
+      <p class="lede">One sheet of dense iteration. Margins hold <em>self-critique</em>: is it too busy, does home need a calendar, where should Luna live.</p>
 
       <figure class="sketch-sheet">
         <img src="assets/period/sketches-01.jpg" data-placeholder-for="period-sketches-2.jpg" alt="Sketch sheet of eight app-screen mockups in two rows — luteal phase home, calendar, alt home with bottom-tab nav, device settings, symptom input, side menu, daily input, and profile — with handwritten self-critique in the margins" />
-        <figcaption>Sketch sheet 01. Eight screen states, critiqued in the margins.</figcaption>
+        <figcaption>Eight screen states, critiqued in the margins.</figcaption>
       </figure>
 
       <div class="sketch-callouts">
         <div class="sk-call">
-          <span class="sk-label">Question raised</span>
+          <span class="sk-label">Raised</span>
           <p>"Might be too busy to have description"</p>
           <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
-          <span class="sk-resolved">Phase descriptions move to a dedicated detail page, accessed via a "see details" link.</span>
+          <span class="sk-resolved">Phase descriptions move to a detail page, via a "see details" link.</span>
         </div>
         <div class="sk-call">
-          <span class="sk-label">Question raised</span>
+          <span class="sk-label">Raised</span>
           <p>"Need a home page choice"</p>
           <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
-          <span class="sk-resolved">Home is the cycle status. The menu opens from the central fan button, not a tab.</span>
+          <span class="sk-resolved">Home is cycle status; the menu opens from the central fan button.</span>
         </div>
         <div class="sk-call">
-          <span class="sk-label">Question raised</span>
+          <span class="sk-label">Raised</span>
           <p>"Light up the same as the device"</p>
           <span class="sk-label" style="color: var(--ink-3);">Resolved</span>
-          <span class="sk-resolved">App background tints to the user's chosen NeoPixel gradient, syncing with the device.</span>
+          <span class="sk-resolved">App background tints to the user's gradient, syncing with the device.</span>
         </div>
       </div>
     </div>
@@ -3814,23 +3771,23 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 10</span>
+      <span class="num">§ 09</span>
       <span class="nm">Decision 03</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the fan, again</span>
     </div>
     <div>
       <h2>The fan, <em>at the centre</em> of every screen.</h2>
-      <p class="lede">The deciding question wasn't which navigation was cleaner. It was which one was <em>honest</em> about what the product is, a device with a companion app, not an app with an accessory.</p>
+      <p class="lede">The question wasn't which navigation was cleaner. It was which was <em>honest</em>: a device with a companion app, not an app with an accessory.</p>
 
       <figure class="ia-hero">
         <div class="ia-rotate-wrap">
           <img src="assets/period/sketches-02.jpg" data-placeholder-for="period-sketches-1.jpg" alt="Sketch sheet exploring app navigation on the left — Concept 1 five-tab variations and Concept 2 with a raised central fan button — alongside six annotated phone-screen mockups on the right: luteal phase, device settings, calendar, input log, and device controls" />
         </div>
-        <figcaption>Sketch sheet 02. Navigation concepts, left; annotated screen mockups, right.</figcaption>
+        <figcaption>Navigation concepts, left; screen mockups, right.</figcaption>
       </figure>
 
       <div class="ia-decision">
-        <p>This concept won because the geometry told the story. The fan-shaped central button anchors every screen the way the device anchors the user's day, placing the AI assistant at the literal centre of the app, where it lives in the room.</p>
+        <p>This concept won because the geometry told the story: the fan-shaped button anchors every screen, placing the AI assistant at the literal centre of the app.</p>
       </div>
 
       <!-- Visual system absorbed: gradients + icons (typography removed) -->
@@ -3838,7 +3795,7 @@ em.ink, .ink em { font-style: normal; }
         <div class="ds-block ds-split">
           <div class="ds-split-text">
             <h3 class="ds-h">Three themes, <em>chosen on the device</em>.</h3>
-            <p class="ds-sub">The NeoPixel ring offers three gradients. The app reads that choice and tints every screen to match. Pink is one option, never the default.</p>
+            <p class="ds-sub">The NeoPixel ring offers three gradients that tint every screen to match. Pink is one option, never the default.</p>
             <div class="grad-row">
               <div class="grad">
                 <div class="grad-disc grad-1"></div>
@@ -3856,18 +3813,18 @@ em.ink, .ink em { font-style: normal; }
           </div>
           <figure class="ds-split-img theme-variants">
             <img src="assets/period/themes-three.png" data-placeholder-for="period-color-variants.png" alt="Three iPhone screens showing the same Period view in white, pink, and peach background variants" />
-            <figcaption>Same screen, three palettes. The fan stays copper.</figcaption>
+            <figcaption>Same screen, three palettes.</figcaption>
           </figure>
         </div>
 
         <div class="ds-block ds-split ds-split-rev">
           <figure class="ds-split-img icon-frame">
             <img src="assets/period/icons-library.png" data-placeholder-for="period-icons.png" alt="Custom icon library: symptoms, body states, cervical mucus types, gradient swatches, controls" />
-            <figcaption>Custom icon library, organised by category.</figcaption>
+            <figcaption>Custom icons, by category.</figcaption>
           </figure>
           <div class="ds-split-text">
             <h3 class="ds-h">A custom <em>icon library</em>.</h3>
-            <p class="ds-sub">Drawn line by line, not pulled from a stock pack. Forty-plus marks across symptoms, cycle states, input categories, and device controls, all at one consistent stroke weight.</p>
+            <p class="ds-sub">Drawn line by line, not from a stock pack: forty-plus marks across symptoms, cycle states, and controls, one consistent stroke weight.</p>
           </div>
         </div>
       </div>
@@ -4037,13 +3994,13 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 11</span>
+      <span class="num">§ 10</span>
       <span class="nm">Final screens</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>the app, in motion</span>
     </div>
     <div>
       <h2>Built in Figma. Tested with <em>real cycles</em>.</h2>
-      <p class="lede">Forty-plus screens across the home, calendar, input, device control, and settings flows. Below, the working prototype walking through a full cycle, then four key states pulled from the deck.</p>
+      <p class="lede">Forty-plus screens across home, calendar, input, device, and settings. The prototype walking a full cycle, then four key states.</p>
 
       <div class="final-row">
         <figure class="video-hero">
@@ -4058,42 +4015,42 @@ em.ink, .ink em { font-style: normal; }
             <div class="slabel">01 · Home</div>
             <figure class="screen">
               <img src="assets/period/screen-home.png" data-placeholder-for="period-screen-home.png" alt="Home screen showing the Follicular Phase with 5 days until ovulation" />
-              <figcaption>Phase named first. Countdown second. Logging is one tap on the central fan.</figcaption>
+              <figcaption>Phase named first, countdown second. Logging is one tap.</figcaption>
             </figure>
           </div>
           <div class="scol">
             <div class="slabel">02 · Phase detail</div>
             <figure class="screen">
               <img src="assets/period/screen-phase.png" data-placeholder-for="period-screen-period-detail.png" alt="Period phase detail screen with explanation and possible symptoms" />
-              <figcaption>Plain-language explanation, symptom list, self-care guidance.</figcaption>
+              <figcaption>Plain-language explanation, symptoms, self-care.</figcaption>
             </figure>
           </div>
           <div class="scol">
             <div class="slabel">03 · Input</div>
             <figure class="screen">
               <img src="assets/period/screen-input.png" data-placeholder-for="period-screen-input.png" alt="Input screen for logging symptoms, intercourse, contraception" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Log symptoms, intercourse, contraception. One tap from the home screen.</figcaption>
+              <figcaption>Log symptoms, intercourse, contraception.</figcaption>
             </figure>
           </div>
           <div class="scol">
             <div class="slabel">04 · Luna, written</div>
             <figure class="screen">
               <img src="assets/period/screen-luna.png" data-placeholder-for="period-screen-luna.png" alt="Luna AI assistant introducing herself in the app with options to access device settings or chat" />
-              <figcaption>The voice assistant, available as text. For when speaking out loud is not an option.</figcaption>
+              <figcaption>The voice assistant, available as text.</figcaption>
             </figure>
           </div>
           <div class="scol">
             <div class="slabel">05 · Calendar</div>
             <figure class="screen">
               <img src="assets/period/screen-calendar.png" data-placeholder-for="period-step-04-track.jpg" alt="Tracker / calendar view showing logged days across the cycle" />
-              <figcaption>Cycle history at a glance. Exportable to share with a doctor.</figcaption>
+              <figcaption>Cycle history at a glance, exportable.</figcaption>
             </figure>
           </div>
           <div class="scol">
             <div class="slabel">06 · Device settings</div>
             <figure class="screen">
               <img src="assets/period/screen-device.png" data-placeholder-for="period-screen-device.png" alt="Device control screen showing volume, microphone, brightness, and gradient colour selection" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Volume, microphone, brightness, and the gradient that the NeoPixel ring uses.</figcaption>
+              <figcaption>Volume, mic, brightness, gradient.</figcaption>
             </figure>
           </div>
         </div>
@@ -4215,23 +4172,23 @@ em.ink, .ink em { font-style: normal; }
   <div class="section-dot"></div>
   <div class="section-grid">
     <div class="section-marker">
-      <span class="num">§ 12</span>
+      <span class="num">§ 11</span>
       <span class="nm">Final product</span>
       <span class="note"><span class="hand-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>two finishes, one object</span>
     </div>
     <div>
       <h2>Two finishes. <em>Same object</em>.</h2>
-      <p class="lede">Copper and brass: chosen so the device looks at home in any bedroom palette, and so the user's first decision (before they even open the app) is theirs to make.</p>
+      <p class="lede">Copper and brass, so the device fits any bedroom palette, and the first decision is the user's.</p>
 
       <div class="finish-grid">
         <figure class="finish">
           <span class="marginalia" style="top:-36px; left:0; transform:rotate(3deg);"><span class="m-arr"><svg viewBox="0 0 32 20" xmlns="http://www.w3.org/2000/svg"><path d="M 16,3 C 15,8 17,13 16,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 10,12 C 13,15 15,16 16,17 C 18,16 20,14 22,12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>two finishes</span>
           <img src="assets/period/final-copper-studio.jpg" data-placeholder-for="period-device-studio.jpg" alt="Final period. device in copper finish, photographed in studio" />
-          <figcaption>Copper finish, defaults to the red-orange gradient.</figcaption>
+          <figcaption>Copper, red-orange gradient.</figcaption>
         </figure>
         <figure class="finish">
           <img src="assets/period/final-brass-studio.jpg" data-placeholder-for="period-device-brass.jpg" alt="Final period. device in brass finish, photographed in studio" />
-          <figcaption>Brass finish, pairs with the green-yellow gradient.</figcaption>
+          <figcaption>Brass, green-yellow gradient.</figcaption>
         </figure>
       </div>
 
@@ -4252,7 +4209,7 @@ em.ink, .ink em { font-style: normal; }
           </figure>
           <figure class="ctx">
             <img src="assets/period/final-app-follicular.png" data-placeholder-for="period-device-bedroom.jpg" alt="Two phones showing the period. companion app on the Follicular Phase screen — the home view with days until ovulation, and the detail view explaining the phase and cervical mucus" />
-            <figcaption>The companion app — Follicular Phase, home and detail.</figcaption>
+            <figcaption>The companion app: Follicular Phase.</figcaption>
           </figure>
         </div>
       </div>
@@ -4271,8 +4228,8 @@ em.ink, .ink em { font-style: normal; }
       </div>
 
       <div class="pull" style="margin-top: 4rem;">
-        <blockquote>"Aesthetic that doesn't compromise functionality, and functionality that respects the user."</blockquote>
-        <cite>— Workshop synthesis on what woman-centred design means in practice</cite>
+        <blockquote>"Aesthetic that doesn't compromise functionality."</blockquote>
+        <cite>Workshop synthesis on woman-centred design</cite>
       </div>
     </div>
   </div>
@@ -4606,7 +4563,7 @@ em.ink, .ink em { font-style: normal; }
     <div class="footer-col"><span class="caption">Elsewhere</span><a href="https://linkedin.com/in/nefelilemessiou" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://www.instagram.com/nefelilemessioudesign" target="_blank" rel="noopener">Instagram ↗</a></div>
     <div class="footer-col"><span class="caption">Documents</span><a href="assets/Nefeli_Lemessiou_CV.pdf" download>Curriculum Vitae ↓</a><a href="assets/Nefeli_Lemessiou_Portfolio.pdf" download>Selected work ↓</a></div>
   </div>
-  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou — All work shown is my own unless noted.</span><span>LDN · <span id="footTime">—</span></span></div>
+  <div class="footer-bottom"><span>© 2026 Nefeli Lemessiou. All work shown is my own unless noted.</span><span>LDN · <span id="footTime">—</span></span></div>
 </footer>
 
 <script id="inlined-script">
@@ -4728,7 +4685,7 @@ em.ink, .ink em { font-style: normal; }
         var num = node.querySelector('.section-marker .num');
         if (num) {
           var t = num.textContent.replace(/\s/g, '');
-          if (t === '§11' || t === '§12') break;
+          if (t === '§10' || t === '§11') break;
         }
       }
       collected.push(node);
