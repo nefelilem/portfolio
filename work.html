@@ -1047,37 +1047,27 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     color: var(--ink-soft); max-width: 42ch;
   }
 
-  .work-section { padding: 0 var(--gutter) 56px; max-width: none; margin: 0; border-top: 1px solid var(--grey-line); }
+  .work-section { margin-top: 96px; padding: 0 var(--gutter) 56px; max-width: none; margin-left: 0; margin-right: 0; }
   .work-section .filter-bar {
-    padding: 48px 0 32px;
+    padding: 24px 0 32px;
     border-top: none;
-    border-bottom: 1px solid var(--grey-line);
-    margin-bottom: 56px;
+    border-bottom: none;
+    margin-bottom: 40px;
   }
 
-  /* ---- 6-col composed grid ----
-     Columns 5-6 are nudged slightly wider so the tall
-     period. card on the right reads a touch larger. */
+  /* ---- uniform geometric grid ----
+     Every card occupies one equal-sized cell, same aspect ratio. */
   .focus-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1.18fr 1.18fr;
-    gap: 48px 32px;
-    grid-auto-flow: dense;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
   }
-  /* spans — onaka hero + period tall on row 1; NUMA + Ilia square;
-     Milo / Vattenkanna / AirFlux as a 3-up square row */
-  .col-4 { grid-column: span 4; }
-  .col-3 { grid-column: span 3; }
-  .col-2 { grid-column: span 2; }
-  .row-2 { grid-row: span 2; }
 
   @media (max-width: 900px) {
-    .focus-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .col-4,.col-3,.col-2 { grid-column: span 1; }
-    .row-2 { grid-row: auto; }
+    .focus-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   }
   @media (max-width: 560px) {
-    .focus-grid { grid-template-columns: 1fr; gap: 40px; }
+    .focus-grid { grid-template-columns: 1fr; gap: 32px; }
   }
 
   /* the card itself reuses .project-card from styles.css.
@@ -1086,17 +1076,11 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   .focus-grid .project-card { height: 100%; display: flex; flex-direction: column; }
   .focus-grid .project-card::after { display: none; }
   .focus-grid .project-thumb {
-    flex: 1 1 auto;
-    aspect-ratio: auto;            /* height comes from grid row, not ratio */
-    min-height: 260px;
+    aspect-ratio: 4 / 3;
+    display: block;
     border-radius: 2px;            /* sharp print edges, not card UI */
     transition: transform .55s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, filter .45s ease;
   }
-  .focus-grid .col-4 .project-thumb { min-height: 256px; }
-  /* onaka shouldn't stretch to match the tall period card beside it */
-  .focus-grid .c-onaka { height: auto; align-self: start; }
-  .focus-grid .c-onaka .project-thumb { flex: 0 0 auto; min-height: 0; height: 340px; }
-  .focus-grid .row-2 .project-thumb { min-height: 540px; }
   .focus-grid .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block;
     transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
 
@@ -1160,32 +1144,30 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   .project-card:hover .pj-reveal .d,
   .project-card:hover .pj-reveal .t { transform: none; }
 
-  /* Taped print effect — every card gets a soft-grey paper-tape strip */
+  /* very slight per-card rotation */
+  .focus-grid .c-onaka   { --rot: -0.4deg; }
+  .focus-grid .c-period  { --rot:  0.4deg; }
+  .focus-grid .c-numa    { --rot: -0.3deg; }
+  .focus-grid .c-airflux { --rot:  0.3deg; }
+  .focus-grid .c-milo    { --rot:  0.4deg; }
+  .focus-grid .c-vatten  { --rot: -0.3deg; }
+  .focus-grid .c-ilia    { --rot:  0.3deg; }
+
+  /* taped print effect — small paper-tape strip on each card */
   .focus-grid .project-card::before {
     content: '';
     position: absolute;
-    width: 96px; height: 24px;
+    width: 52px; height: 14px;
     background: linear-gradient(180deg, rgba(220,218,210,.78) 0%, rgba(200,198,190,.72) 100%);
     box-shadow: 0 1px 2px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.025);
     z-index: 4; pointer-events: none;
-    top: -10px; left: 50%;
+    top: -6px; left: 50%;
     transform: translateX(-50%) rotate(var(--tape-rot, -2deg));
     transition: opacity .35s ease;
+    opacity: .8;
   }
-  .focus-grid .project-card.tape-tl::before { top:-10px; left:18px; transform: rotate(var(--tape-rot, -8deg)); }
-  .focus-grid .project-card.tape-tr::before { top:-10px; left:auto; right:18px; transform: rotate(var(--tape-rot, 6deg)); }
-  .focus-grid .project-card.tape-tc::before { top:-12px; left:50%; transform: translateX(-50%) rotate(var(--tape-rot, -2deg)); }
-  .focus-grid .project-card:hover::before { opacity: .55; }
-
-  /* per-card rotation — tiny and FIXED */
-  .focus-grid .size-sq .project-thumb { aspect-ratio: 4 / 3; min-height: 0; }
-  .focus-grid .c-onaka   { --rot: -0.6deg; }
-  .focus-grid .c-period  { --rot:  0.8deg; }
-  .focus-grid .c-numa    { --rot: -1.0deg; }
-  .focus-grid .c-airflux { --rot:  0.6deg; }
-  .focus-grid .c-milo    { --rot:  1.0deg; }
-  .focus-grid .c-vatten  { --rot: -0.7deg; }
-  .focus-grid .c-ilia    { --rot:  0.5deg; }
+  .focus-grid .project-card.tape-tl::before { left: 14px; transform: rotate(var(--tape-rot, -4deg)); }
+  .focus-grid .project-card.tape-tr::before { left: auto; right: 14px; transform: rotate(var(--tape-rot, 3deg)); }
 
   /* warm the page background slightly so it reads as paper, with subtle grain */
   body {
@@ -1421,15 +1403,12 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   <div class="nav-links">
     <a href="index.html#top">Home</a>
     <div class="nav-item-dropdown"><a href="work.html" class="active">Work<svg class="scribble-oval" viewBox="0 0 80 38" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M 14,22 C 4,18 4,6 22,5 C 44,4 70,8 74,18 C 76,28 60,33 38,33 C 18,33 8,28 12,20" fill="none" stroke="#7C5BD6" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-    <div class="nav-dropdown" aria-label="Projects">
+    <div class="nav-dropdown" aria-label="Categories">
       <a href="work.html" class="nav-dd-all">All work</a>
-      <a href="onaka.html">onaka</a>
-      <a href="period.html">period.</a>
-      <a href="numa.html">NUMA</a>
-      <a href="milo.html">Milo</a>
-      <a href="vattenkanna.html">Vattenkanna</a>
-      <a href="ilia.html">Ilia</a>
-      <a href="airflux.html">AirFlux</a>
+      <a href="work.html?filter=ux">UX / UI</a>
+      <a href="work.html?filter=interaction">Interaction</a>
+      <a href="work.html?filter=industrial">Industrial</a>
+      <a href="work.html?filter=research">Research</a>
     </div>
     </div>
     <a href="about.html">About</a>
@@ -1439,15 +1418,6 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   <button class="nav-burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-time" id="navTime">LDN · —</div>
 </nav>
-
-<!-- ========== Hero ========== -->
-<section class="work-hero">
-  <div>
-    <span class="eyebrow" style="display: block; margin-bottom: 24px;">§ Work</span>
-    <h1 style="font-size: 65px">Selected <em class="ink" style="letter-spacing: -3px; font-family: var(--hand); font-weight: 400; font-size: 1.05em;">projects</em>, from objects to interfaces.</h1>
-  </div>
-  <p class="lede" style="position: relative;">Industrial design, interaction design, and the work that sits between them. Filter by skill, or read any one in full.<span class="marginalia marg-hint">try hovering <span class="arrow"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></p>
-</section>
 
 <!-- ========== Work grid ========== -->
 <section class="work-section">
@@ -1463,7 +1433,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   <div class="project-grid focus-grid" id="projectGrid">
 
     <!-- Onaka — hero (4 cols) -->
-    <a class="project-card reveal in col-4 c-onaka tape-tl" href="onaka.html" data-tags="ux interaction research"
+    <a class="project-card reveal in c-onaka tape-tl" href="onaka.html" data-tags="ux interaction research"
        style="--accent:#6B7DF2; --soft:#EAF1FB;">
       <div class="project-thumb">
         <img src="assets/work-cards/onaka.jpg" alt="A hand holding the blue Onaka device beside a phone showing the onaka app splash screen" loading="lazy" decoding="async" width="1200" height="900" />
@@ -1481,7 +1451,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     </a>
 
     <!-- period. — tall (2 cols × 2 rows, on the slightly-wider right columns) -->
-    <a class="project-card reveal delay-1 in col-2 row-2 c-period tape-tc" href="period.html" data-tags="ux interaction research"
+    <a class="project-card reveal delay-1 in c-period tape-tr" href="period.html" data-tags="ux interaction research"
        style="--accent:#C56A3A; --soft:#F8EDE3;">
       <div class="project-thumb">
         <img src="assets/work-cards/period.jpg" alt="The period. device on a wooden surface, copper fan-shaped calendar glowing red" loading="lazy" decoding="async" width="1200" height="900" />
@@ -1499,7 +1469,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     </a>
 
     <!-- NUMA — square (2 cols) -->
-    <a class="project-card reveal in col-2 c-numa tape-tr" href="numa.html" data-tags="ux research"
+    <a class="project-card reveal in c-numa tape-tl" href="numa.html" data-tags="ux research"
        style="--accent:#1D009D; --soft:#EDEAF7;">
       <div class="project-thumb">
         <img src="assets/work-cards/numa.jpg" alt="Two phone mockups of the NUMA app: log-in screen with the NUMA wordmark and a dashboard showing daily wellness scores" loading="lazy" decoding="async" width="1200" height="635" />
@@ -1516,28 +1486,10 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
       <p class="project-desc">A health tracking app that turns wearable data into one clear daily suggestion, not just numbers. <em>Self-initiated, 2025.</em></p>
     </a>
 
-    <!-- AirFlux — square (2 cols), swapped up from bottom row -->
-    <a class="project-card reveal delay-1 in col-2 c-airflux tape-tl" href="airflux.html" data-tags="industrial"
-       style="--accent:#4F7079; --soft:#E4ECEE;">
-      <div class="project-thumb">
-        <img src="assets/work-cards/airflux.jpg" alt="A hand holding the AirFlux hair dryer, matte grey body with a black grip sleeve and no traditional handle" loading="lazy" decoding="async" width="1200" height="800" />
-        <div class="pj-wash"></div><div class="pj-scrim"></div>
-        <div class="pj-rest"><span class="n">07</span><span class="nm">AirFlux</span></div>
-        <div class="pj-reveal"><span class="topn">07 / 07</span><span class="disc">Object</span>
-          <div class="nm">AirFlux</div>
-          <p class="d">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
-          <div class="t"><span>Industrial</span><span>Repairability</span><span>DFM</span></div>
-          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-      </div>
-      <div class="project-meta"><h3 class="project-title">AirFlux</h3><span class="project-num">07 / 07</span></div>
-      <div class="project-tags"><span class="project-tag">Industrial</span><span class="project-tag">Repairability</span><span class="project-tag">DFM</span></div>
-      <p class="project-desc">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
-    </a>
-
     <!-- ===== one line: Milo / Vattenkanna / AirFlux — three squares (2 cols each) ===== -->
 
     <!-- Milo -->
-    <a class="project-card reveal in col-2 size-sq c-milo tape-tr" href="milo.html" data-tags="interaction industrial"
+    <a class="project-card reveal in c-milo tape-tl" href="milo.html" data-tags="interaction industrial"
        style="--accent:#C99A2E; --soft:#FAF0D7;">
       <div class="project-thumb">
         <img src="assets/work-cards/milo.jpg" alt="The Milo pair photographed front-on: two small wooden boxes with frosted glass tops and four pastel buttons each" loading="lazy" decoding="async" width="1200" height="827" />
@@ -1555,7 +1507,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     </a>
 
     <!-- Vattenkanna -->
-    <a class="project-card reveal delay-1 in col-2 size-sq c-vatten tape-tc" href="vattenkanna.html" data-tags="industrial"
+    <a class="project-card reveal delay-1 in c-vatten tape-tr" href="vattenkanna.html" data-tags="industrial"
        style="--accent:#7A9B6E; --soft:#E8EDE3;">
       <div class="project-thumb">
         <img src="assets/work-cards/vattenkanna.jpg" alt="The Vattenkanna vessel in dark brown with its translucent mesh strainer beside it" loading="lazy" decoding="async" width="1200" height="720" />
@@ -1573,7 +1525,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
     </a>
 
     <!-- Ilia — square (2 cols), swapped down into the 3-up row -->
-    <a class="project-card reveal delay-2 in col-2 size-sq c-ilia tape-tl" href="ilia.html" data-tags="interaction industrial"
+    <a class="project-card reveal delay-2 in c-ilia tape-tl" href="ilia.html" data-tags="interaction industrial"
        style="--accent:#8B6B47; --soft:#F0E8DE;">
       <div class="project-thumb">
         <img src="assets/work-cards/ilia.jpg" alt="The Ilia breathing lamp: blue glowing organic glass diffuser on a turned wooden base" loading="lazy" decoding="async" width="1200" height="1200" />
@@ -1590,6 +1542,24 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
       <p class="project-desc">A breathing lamp that designs stillness into the study routine, without screens or apps. <em>With Quentin Bachelot, 2022.</em></p>
     </a>
 
+
+    <!-- AirFlux — last project -->
+    <a class="project-card reveal delay-1 in c-airflux tape-tr" href="airflux.html" data-tags="industrial"
+       style="--accent:#4F7079; --soft:#E4ECEE;">
+      <div class="project-thumb">
+        <img src="assets/work-cards/airflux.jpg" alt="A hand holding the AirFlux hair dryer, matte grey body with a black grip sleeve and no traditional handle" loading="lazy" decoding="async" width="1200" height="800" />
+        <div class="pj-wash"></div><div class="pj-scrim"></div>
+        <div class="pj-rest"><span class="n">07</span><span class="nm">AirFlux</span></div>
+        <div class="pj-reveal"><span class="topn">07 / 07</span><span class="disc">Object</span>
+          <div class="nm">AirFlux</div>
+          <p class="d">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
+          <div class="t"><span>Industrial</span><span>Repairability</span><span>DFM</span></div>
+          <span class="go"><svg viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg"><path d="M 4,17 C 14,15 24,19 36,16 C 44,14 50,17 54,17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M 46,11 C 50,14 53,16 54,17 C 53,19 51,21 48,24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+      <div class="project-meta"><h3 class="project-title">AirFlux</h3><span class="project-num">07 / 07</span></div>
+      <div class="project-tags"><span class="project-tag">Industrial</span><span class="project-tag">Repairability</span><span class="project-tag">DFM</span></div>
+      <p class="project-desc">A compact handle-free hair dryer that swaps glued assembly for screws, designed for repair and a smaller form. <em>Object teardown + redesign, Edinburgh.</em></p>
+    </a>
   </div>
 </section>
 
@@ -1700,10 +1670,8 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
   const count = document.getElementById('filterCount');
   if (!chips.length || !grid) return;
 
-  chips.forEach(c => c.addEventListener('click', () => {
-    chips.forEach(x => x.classList.remove('active'));
-    c.classList.add('active');
-    const f = c.dataset.filter;
+  function applyFilter(f) {
+    chips.forEach(x => x.classList.toggle('active', x.dataset.filter === f));
     let visible = 0;
     grid.querySelectorAll('.project-card').forEach(card => {
       const tags = (card.dataset.tags || '').split(' ');
@@ -1712,7 +1680,12 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.05; }
       if (show) visible++;
     });
     if (count) count.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
-  }));
+  }
+
+  chips.forEach(c => c.addEventListener('click', () => applyFilter(c.dataset.filter)));
+
+  const urlFilter = new URLSearchParams(window.location.search).get('filter');
+  if (urlFilter && [...chips].some(c => c.dataset.filter === urlFilter)) applyFilter(urlFilter);
 })();
 
 </script>
