@@ -4670,65 +4670,62 @@ em.ink, .ink em { font-style: normal; }
     <div>
       <h2>Built in Lovable. Connected via <em>Blynk</em>.</h2>
 
-      <div class="final-row">
-        <figure class="video-hero">
-          <video controls preload="metadata" playsinline style="background: #1a1a1a;">
-            <source src="assets/onaka/app-demo.mp4" type="video/mp4" />
-          </video>
-          <figcaption>App walkthrough.</figcaption>
-        </figure>
+      <figure class="final-overview">
+        <img src="assets/onaka/final-screens-overview.png" alt="Four Onaka screens: Home Screen with day overview and symptom logs; Insights with plain-language, colour-categorised insights; Resources with articles and therapeutic exercises; Reflection with structured-choice end-of-day questions" />
+      </figure>
 
-        <div class="screen-strip">
-          <div class="scol">
-            <div class="slabel">01 · Home</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-01-home.png" alt="Home screen showing today's symptom counts, daily tips, and a button to compile data for a doctor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Counts and tips.</figcaption>
-            </figure>
-          </div>
-          <div class="scol">
-            <div class="slabel">02 · Symptom logs</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-02-logs.png" alt="Symptom log view showing pain, anxiety, and bowel entries with timestamp and severity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Time and severity.</figcaption>
-            </figure>
-          </div>
-          <div class="scol">
-            <div class="slabel">03 · Reflection</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-03-reflection.png" alt="Reflection screen, full-screen, no menu visible, showing a question with multiple-choice answers" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Structured-choice questions.</figcaption>
-            </figure>
-          </div>
-          <div class="scol">
-            <div class="slabel">04 · Insights</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-04-insights.png" alt="Insights screen showing plain-language insights organised into priority, patterns, food, and advice" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Plain-language, prioritised.</figcaption>
-            </figure>
-          </div>
-          <div class="scol">
-            <div class="slabel">05 · Resources</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-05-resources.png" alt="Resources screen with articles, exercises, and recipes filtered by the user's GI condition" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Articles, exercises, recipes.</figcaption>
-            </figure>
-          </div>
-          <div class="scol">
-            <div class="slabel">06 · Doctor report</div>
-            <figure class="screen">
-              <img src="assets/onaka/screen-06-doctor.png" alt="Compiled doctor report screen showing symptom history and reflection summary ready to share" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <figcaption>Medical report, downloadable.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
+      <a href="https://lovable.dev/projects/07d80e09-ea11-45ef-b9db-5e81247492e5?magic_link=mc_a4d3b15e-92b2-4e4e-8e45-118a6734aaf1" target="_blank" rel="noopener" class="proto-link">
+        <span class="proto-text">Try the interactive prototype</span>
+        <span class="proto-arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
-  /* §12 — Final screens: video left, 3x2 screens right (mirrors period) */
+  /* §12 — Final screens: single overview image + prototype link */
+  .final-overview {
+    margin: 3rem 0 0;
+  }
+  @media (min-width: 901px) {
+    .final-overview { width: calc(100% + var(--gutter)); }
+  }
+  .final-overview::before { display: none !important; }
+  .final-overview > img {
+    transform: none !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+  }
+  .final-overview img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .proto-link {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--blue-deep);
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--blue);
+    transition: gap 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .proto-link:hover {
+    gap: 0.9rem;
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .proto-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+  .proto-link:hover .proto-arrow { transform: translateX(2px); }
+
   .final-row {
     margin-top: 3rem;
     display: grid;
